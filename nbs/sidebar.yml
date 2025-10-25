@@ -1,0 +1,7 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 00_utils.ipynb
+      - 10_sveltejs-svelte.ipynb
+      - 20_web-generator.ipynb

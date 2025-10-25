@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Lovely Docs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="{{ js_path }}"></script>
+    <style>
+        /* Custom styles for code blocks */
+        pre {
+            @apply rounded-lg my-4 overflow-x-auto;
+        }
+        pre code {
+            @apply block p-4 text-sm;
+        }
+        code {
+            @apply bg-gray-800 text-gray-100 px-1.5 py-0.5 rounded text-sm font-mono;
+        }
+        pre code {
+            @apply bg-transparent p-0;
+        }
+        /* Ensure highlight.js styles work */
+        .hljs {
+            @apply bg-gray-900 rounded-lg;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden bg-gray-50">
+    <div class="flex h-full">
+        <!-- Library Sidebar -->
+        <div class="w-64 bg-white border-r border-gray-200 overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Libraries</h3>
+                <div class="space-y-1">
+                    {{ library_list|safe }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Sidebar -->
+        <div class="w-80 bg-gray-50 border-r border-gray-200 overflow-y-auto">
+            <div class="p-6">
+                {{ nav_tree|safe }}
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <div class="max-w-4xl mx-auto p-8">
+                {{ content|safe }}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

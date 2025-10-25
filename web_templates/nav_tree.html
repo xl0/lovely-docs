@@ -1,0 +1,8 @@
+<h3 class="text-xl font-bold text-gray-900 mb-2">{{ tree.better_name or tree.name }}</h3>
+{% if tree.one_line_summary %}
+<p class="text-sm text-gray-600 mb-6">{{ tree.one_line_summary }}</p>
+{% endif %}
+
+<div class="space-y-1">
+    {{ nav_content|safe }}
+</div>

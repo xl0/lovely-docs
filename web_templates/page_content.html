@@ -1,0 +1,31 @@
+<h1 class="text-4xl font-bold text-gray-900 mb-4">{{ title }}</h1>
+<p class="text-lg text-gray-600 mb-8">{{ one_line_summary }}</p>
+
+<div class="border-b border-gray-200 mb-8">
+    <nav class="flex space-x-8">
+        <button class="view-tab pb-4 px-1 border-b-2 font-medium text-sm transition-colors" 
+                data-view="summary" onclick="switchView('summary')">
+            Summary
+        </button>
+        <button class="view-tab pb-4 px-1 border-b-2 font-medium text-sm transition-colors" 
+                data-view="summary-short" onclick="switchView('summary-short')">
+            Short Summary
+        </button>
+        <button class="view-tab pb-4 px-1 border-b-2 font-medium text-sm transition-colors" 
+                data-view="original" onclick="switchView('original')">
+            Original
+        </button>
+    </nav>
+</div>
+
+<div id="summary" class="view-content prose prose-slate max-w-none">
+    {{ summary_html|safe }}
+</div>
+
+<div id="summary-short" class="view-content prose prose-slate max-w-none">
+    {{ summary_short_html|safe }}
+</div>
+
+<div id="original" class="view-content prose prose-slate max-w-none">
+    {{ original_html|safe }}
+</div>

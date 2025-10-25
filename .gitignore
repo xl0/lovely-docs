@@ -1,4 +1,8 @@
 _proc/
+web/
+processed_documents/
+git_dir
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

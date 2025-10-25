@@ -1,0 +1,32 @@
+You are summarizing a directory of documentation for a library.
+
+Directory name: {{ dir_name }}
+
+{% if subdirs %}
+## Subdirectories in this directory:
+
+{% for subdir in subdirs %}
+### {{ subdir.better_name or subdir.name }}
+{{ subdir.short_summary }}
+
+{% endfor %}
+{% endif %}
+
+{% if pages %}
+## Pages in this directory:
+
+{% for page in pages %}
+### {{ page.better_filename }}
+{{ page.short_summary_markdown }}
+
+{% endfor %}
+{% endif %}
+
+Based on the subdirectories and pages above, create:
+1. A better name for this directory that captures its content (short, 2-4 words, lowercase with hyphens)
+2. A short summary (2-4 sentences) that captures the main topics covered in this directory section.
+    Write in a declarative style stating what things ARE or DO, not "guide to" or "documentation for".
+    Provide up to 1 comprehensive example when appropriate.
+3. A one-line summary of what this directory section covers. Use the same declarative style.
+
+Be concise and focus on what's most important for a programmer.
