@@ -148,3 +148,4 @@ def clone_repo(source: GitSource):
         repo = Repo.clone_from(source.repo, clone_dir, progress=git_progress)
 
     repo.git.reset('--hard', source.commit)
+    return repo.head.commit.hexsha
