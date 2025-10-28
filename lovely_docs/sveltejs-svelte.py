@@ -106,6 +106,8 @@ async def llm_process_page(page: DocPage, libname: str, fake=True) -> DocPage:
 
         with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as trace:
             reply = PageReplySchema.model_validate_json(await res.text())
+            # Normalize better_name: lowercase, replace spaces with hyphens, remove .md extension
+            reply.better_name = reply.better_name.lower().replace(' ', '-').removesuffix('.md')
             trace.end(outputs=reply)
         usage = await res.usage()
 
