@@ -1,15 +1,5 @@
-## Setup
+**Setup:** `npx sv create myapp` or use Vite. Vite recommended.
 
-```bash
-npx sv create myapp
-npm install
-npm run dev
-```
+**Components:** `.svelte` files with `<script>`, `<style>`, and markup. `<script module>` runs once, `<script>` runs per instance. Styles auto-scoped.
 
-## Component Files
-
-`.svelte` files contain `<script>`, `<style>`, and markup sections. `<script module>` runs once at load; `<script>` runs per instance. Styles auto-scope.
-
-## Reactive Logic
-
-`.svelte.js/.ts` files support runes for reusable reactive logic and shared state.
+**Reactive Logic:** `.svelte.js`/`.svelte.ts` files support runes for reusable reactive state.

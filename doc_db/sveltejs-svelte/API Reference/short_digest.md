@@ -1,11 +1,25 @@
-## API Modules
-Core framework modules: **svelte**, **svelte/action**, **svelte/animate**, **svelte/transition**, **svelte/store**, **svelte/compiler**, **svelte/server**, **svelte/reactivity**, **svelte/motion**, **svelte/easing**, **svelte/events**, **svelte/legacy**
+## Core Modules
 
-Example: `<div transition:fade={{ duration: 300 }}>Content</div>`
+**svelte**: Main framework entry point.
 
-## Common Errors & Warnings
-- Use `$props()` and `$bindable()` for prop handling; use `$derived()` and `$effect()` for state
-- Use array index `array[i] = 4` in each blocks with runes
-- Ensure server/client hydration matches; use `{@render snippet()}` syntax
-- Accessibility: interactive elements need keyboard handlers, labels need controls, media needs captions
-- `transition:slide` requires `display: block/flex/grid`
+**svelte/action, svelte/animate, svelte/motion**: DOM behavior, animations, and transitions.
+
+**svelte/compiler**: Programmatic compilation for build tools.
+
+**svelte/easing**: Timing curves (linear, quadratic, cubic, sine, exponential, elastic, bounce). Example: `import { quintOut } from 'svelte/easing'; transition:fade={{ easing: quintOut }}`
+
+**svelte/reactivity**: Reactive Map, Set, URL, and window properties. Example: `import { innerWidth } from 'svelte/reactivity/window'; {innerWidth.current}`
+
+**svelte/server**: Server-side rendering.
+
+**svelte/store**: Reactive state management.
+
+**svelte/transition**: Directives (fade, fly, slide, scale, draw, crossfade). Example: `<div transition:fade={{ duration: 300 }}>Content</div>`
+
+## Errors & Warnings
+
+Compile errors: animation, attributes, bindings, blocks, CSS, runes, slots, snippets, state, parsing.
+
+Runtime errors: binding, state mutations, effects, hydration, component API.
+
+Suppress with `<!-- svelte-ignore <code> -->`.

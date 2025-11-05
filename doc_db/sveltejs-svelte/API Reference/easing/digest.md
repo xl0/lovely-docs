@@ -2,13 +2,14 @@ The `svelte/easing` module provides a collection of easing functions for animati
 
 Common easing functions include:
 - Linear: constant speed
-- Quadratic, cubic, quartic, quintic: polynomial easing with varying intensity
-- Sine, exponential, circular: smooth curves with different characteristics
-- Elastic, back, bounce: specialized effects for springy or bouncy animations
+- Quadratic, Cubic, Quartic, Quintic: polynomial easing with varying intensity
+- Sine, Exponential, Circular: smooth curves with different characteristics
+- Elastic, Back, Bounce: specialized effects for springy or bouncy animations
 
-Example usage in a Svelte transition:
+Each easing function typically has `In`, `Out`, and `InOut` variants that control whether the easing is applied at the start, end, or both ends of the animation.
+
+Example usage in a transition:
 ```javascript
 import { quintOut } from 'svelte/easing';
-
-transition:fade={{ duration: 300, easing: quintOut }}
+transition:fade={{ duration: 400, easing: quintOut }}
 ```

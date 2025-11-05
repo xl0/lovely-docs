@@ -1,0 +1,18 @@
+{% if subdirs %}
+## Directories
+{% for subdir in subdirs %}
+### {{ subdir.name or subdir.path }}
+{{ subdir.essence }}
+
+{{ subdir.digest }}
+{% endfor %}
+{% endif %}
+{% if pages %}
+## Pages
+{% for page in pages %}
+### {{ page.name or page.path }}
+{{ page.essence }}
+
+{{ page.short_digest }}
+{% endfor %}
+{% endif %}

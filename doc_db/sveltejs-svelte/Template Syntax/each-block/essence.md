@@ -1,1 +1,1 @@
-The each block iterates over arrays and iterables, with optional indexing, keying for efficient updates, destructuring, and else fallback.
+The each block iterates over arrays and iterables, with optional keying for efficient updates, destructuring support, and else fallback.

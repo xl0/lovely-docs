@@ -1,1 +1,1 @@
-Complete API reference for Svelte modules and comprehensive error/warning documentation for debugging and best practices.
+Complete API reference for Svelte modules, compiler, and comprehensive error/warning documentation with solutions.

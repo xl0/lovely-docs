@@ -29,23 +29,23 @@ For readonly bindings, set `get` to `null`:
 
 ### Select Bindings
 
-`bind:value` on `<select>` binds to selected option's value property (any type, not just strings). `<select multiple>` binds to array of selected values. Omit value attribute if it matches text content.
+`bind:value` on `<select>` binds to selected option's value (any type, not just strings). `<select multiple>` binds to array of selected values. Omit value attribute if it matches text content.
 
 ### Media Bindings
 
-`<audio>` and `<video>` support two-way bindings: `currentTime`, `playbackRate`, `paused`, `volume`, `muted`. Readonly bindings: `duration`, `buffered`, `seekable`, `seeking`, `ended`, `readyState`, `played`. `<video>` adds readonly `videoWidth` and `videoHeight`.
+`<audio>` and `<video>` support two-way bindings: `currentTime`, `playbackRate`, `paused`, `volume`, `muted`. Readonly: `duration`, `buffered`, `seekable`, `seeking`, `ended`, `readyState`, `played`. `<video>` adds readonly `videoWidth` and `videoHeight`.
 
 ### Other Element Bindings
 
 - `<img>` - readonly `naturalWidth`, `naturalHeight`
 - `<details>` - `bind:open`
 - Contenteditable elements - `innerHTML`, `innerText`, `textContent`
-- Dimensions (readonly, measured with ResizeObserver) - `clientWidth`, `clientHeight`, `offsetWidth`, `offsetHeight`, `contentRect`, `contentBoxSize`, `borderBoxSize`, `devicePixelContentBoxSize`
+- All visible elements - readonly dimension bindings: `clientWidth`, `clientHeight`, `offsetWidth`, `offsetHeight`, `contentRect`, `contentBoxSize`, `borderBoxSize`, `devicePixelContentBoxSize`
 - `bind:this` - reference to DOM node (available after mount)
 
 ### Component Bindings
 
-Bind to component props using `bind:property={variable}`. Mark props as bindable with `$bindable()` rune. Bindable props can have fallback values that only apply when not bound.
+Bind to component props with `bind:property={variable}`. Mark props as bindable using `$bindable()` rune. Bindable props can have fallback values that only apply when not bound.
 
 ```svelte
 <script>

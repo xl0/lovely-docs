@@ -20,7 +20,7 @@ Access the index with a second variable:
 
 ## Keyed Each Blocks
 
-Provide a key expression to intelligently update lists when data changes (insert, move, delete) rather than just appending/removing:
+Provide a unique key expression to intelligently update lists when data changes (insert, move, delete) rather than just appending/removing:
 
 ```svelte
 {#each items as item (item.id)}
@@ -50,14 +50,14 @@ Use destructuring and rest patterns:
 {/each}
 ```
 
-## Rendering N Times
+## Rendering Without Items
 
-Omit the `as` clause to render something n times:
+Omit the `as` clause to render n times:
 
 ```svelte
 {#each { length: 8 }, rank}
   {#each { length: 8 }, file}
-    <div class:black={(rank + file) % 2 === 1}></div>
+    <div></div>
   {/each}
 {/each}
 ```

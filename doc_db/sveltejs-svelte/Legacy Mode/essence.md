@@ -1,1 +1,1 @@
-Svelte 3/4 reactive patterns and APIs using assignments, reactive statements, props, event dispatching, and imperative component instantiation.
+Svelte 3/4 features deprecated in Svelte 5, including reactive variables, $: statements, export let props, event dispatching, slots, and imperative component APIs.

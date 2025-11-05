@@ -1,29 +1,50 @@
 ## Stores
-Reactive state accessed with `$` prefix. Svelte 5 runes reduce need for stores, but they remain useful for async data streams and manual control.
 
-**Built-in store types:**
+Reactive values accessed via `$` prefix. Svelte 5 runes reduce necessity, but stores remain useful for async data and manual control.
+
 - `writable(initial, startFn?)` - Mutable store with `.set()` and `.update()`
 - `readable(initial, startFn)` - Immutable store
-- `derived(stores, callback, initial?)` - Computed store
+- `derived(store(s), callback, initial?)` - Computed store
 - `readonly(store)` - Read-only wrapper
-- `get(store)` - Get current value without subscribing
+- `get(store)` - Get value without subscribing
 
-Any object with `.subscribe(fn)` implementing the store contract can be a store.
+Store contract: `.subscribe(fn)` returning unsubscribe function, optionally `.set()` for writable stores.
+
+```js
+const count = writable(0);
+count.subscribe(v => console.log(v));
+count.set(1);
+```
 
 ## Context API
-Pass values from parent to child components without prop-drilling using `setContext(key, value)` and `getContext(key)`.
 
-Store reactive state by mutating objects rather than reassigning. Wrap context helpers for type safety. Context is request-isolated, safe for SSR.
+Pass values parent-to-child without prop-drilling using `setContext(key, value)` and `getContext(key)`. Store reactive state by mutating objects. Wrap in helpers for type safety. Context is request-isolated (safe for SSR).
+
+```svelte
+// Parent
+setContext('my-context', 'value');
+// Child
+const value = getContext('my-context');
+```
 
 ## Lifecycle Hooks
-- `onMount()` - Runs when component mounts to DOM. Can return synchronous cleanup function. Doesn't run on server.
-- `onDestroy()` - Runs before component unmounts. Only lifecycle hook that runs on server.
-- `tick()` - Returns promise resolving after pending state changes apply.
 
-Use `$effect` and `$effect.pre` runes instead of deprecated `beforeUpdate`/`afterUpdate` for granular state-change reactions.
+- `onMount` - Runs when component mounts to DOM, can return cleanup function, doesn't run on server
+- `onDestroy` - Runs before unmount, only hook that runs on server
+- `tick()` - Returns promise resolving after pending state changes apply
+- Use `$effect.pre` and `$effect` runes instead of deprecated `beforeUpdate`/`afterUpdate`
 
-## Component APIs
-- `mount(Component, options)` - Instantiate and mount component to DOM
-- `unmount(component)` - Remove component, returns promise resolving after transitions
-- `render(Component, props)` - Server-only, returns `{ body, head }` for SSR
+```svelte
+$effect.pre(() => {
+	messages;
+	const autoscroll = viewport?.offsetHeight + viewport?.scrollTop > viewport?.scrollHeight - 50;
+	if (autoscroll) tick().then(() => viewport.scrollTo(0, viewport.scrollHeight));
+});
+```
+
+## Imperative Component API
+
+- `mount(Component, options)` - Instantiate and mount component to DOM element
+- `unmount(component)` - Remove mounted component, returns Promise if `outro: true`
+- `render(Component, options)` - Server-only, returns `{ body, head }`
 - `hydrate(Component, options)` - Like mount but reuses server-rendered HTML

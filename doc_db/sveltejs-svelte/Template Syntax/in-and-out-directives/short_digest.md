@@ -1,4 +1,4 @@
-`in:` and `out:` directives apply non-bidirectional transitions. Unlike `transition:`, the `in` transition continues playing alongside `out` rather than reversing if the block is outroed mid-transition.
+`in:` and `out:` directives apply non-bidirectional transitions. The `in` transition plays alongside `out` rather than reversing if the block is outroed during the transition. Aborted `out` transitions restart from scratch.
 
 ```svelte
 {#if visible}

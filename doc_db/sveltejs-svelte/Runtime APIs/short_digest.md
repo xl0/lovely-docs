@@ -1,7 +1,11 @@
-**Stores:** `writable()`, `readable()`, `derived()`, `readonly()`, `get()` for reactive state. Any object with `.subscribe(fn)` works as a store.
+## Stores
+Reactive values with `writable()`, `readable()`, `derived()`, `readonly()`, and `get()`. Contract: `.subscribe(fn)` returning unsubscribe.
 
-**Context:** `setContext(key, value)` and `getContext(key)` for parent-child value passing without prop-drilling.
+## Context API
+`setContext(key, value)` and `getContext(key)` for parent-to-child value passing without prop-drilling. Request-isolated for SSR.
 
-**Lifecycle:** `onMount()`, `onDestroy()`, `tick()`. Use `$effect` runes instead of deprecated beforeUpdate/afterUpdate.
+## Lifecycle
+`onMount`, `onDestroy`, `tick()`. Use `$effect.pre`/`$effect` instead of deprecated `beforeUpdate`/`afterUpdate`.
 
-**Component APIs:** `mount()`, `unmount()`, `render()` (SSR), `hydrate()` for imperative component control.
+## Imperative API
+`mount()`, `unmount()`, `render()` (server), `hydrate()` for component instantiation and rendering.

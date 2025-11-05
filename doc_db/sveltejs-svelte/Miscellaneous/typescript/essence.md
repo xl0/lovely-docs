@@ -1,0 +1,1 @@
+Using TypeScript in Svelte components with type annotations, preprocessor setup, prop/state typing, generics, and DOM type augmentation.

@@ -1,1 +1,1 @@
-The `bind:` directive enables two-way data binding between parent and child components and between components and DOM elements, with support for various input types, media controls, and custom validation through function bindings.
+The `bind:` directive enables two-way data binding between parent and child components or between components and DOM elements, with support for various input types, media controls, dimensions, and custom validation through function bindings.

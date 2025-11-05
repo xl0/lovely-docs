@@ -45,11 +45,11 @@ class DocItem(BaseModel):
     relevant: bool = True
     usage: Usage|None = Field(default_factory=Usage)
     type: Literal["page", "dir"]
+    token_counts: TokenCounts = Field(default_factory=TokenCounts)
 
 
 class DocPage(DocItem):
     """Represents a single documentation page"""
-    token_counts: TokenCounts = Field(default_factory=TokenCounts)
     fulltext: str
     type: str = "page"
 
@@ -58,8 +58,8 @@ class DocDirectory(DocItem):
     """Represents a directory in the documentation structure"""
     pages: list[DocPage] = Field(default_factory=list)
     subdirs: list['DocDirectory'] = Field(default_factory=list)
+    fulltext: str = ""
     type: str = "dir"
-
 
 # %% ../nbs/02_docs.ipynb 7
 def build_markdown_doc_tree(root:Path, path:Path = Path()) -> DocDirectory:
@@ -187,6 +187,10 @@ async def llm_process_directory(settings: Settings, directory: DocDirectory,  li
 
     model = llm.get_async_model(settings.model)
     model.key = settings.api_key
+
+    # We need to use anthropic client directly to count tokens.
+    anthropic_client = anthropic.AsyncAnthropic(api_key=settings.api_key)
+
     template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("process_directory.j2")
 
     input = {
@@ -200,11 +204,15 @@ async def llm_process_directory(settings: Settings, directory: DocDirectory,  li
         prompt = template.render(**input)
         trace.end(outputs=prompt)
 
+    # Generate fulltext using the fulltext template
+    fulltext_template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("directory_fulltext.j2")
+    fulltext = fulltext_template.render(**input)
+
     with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as trace:
         async for attempt in AsyncRetrying(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)):
             with attempt:
                 try:
-                    res = await model.prompt(prompt=prompt, schema=DirReplySchema, max_tokens=32768)
+                    res = await model.prompt(prompt=prompt, schema=DirReplySchema, max_tokens=32768, temperature=0)
                     trace.end(outputs=await res.text())
                     usage = await res.usage()
                 except Exception as e:
@@ -214,12 +222,26 @@ async def llm_process_directory(settings: Settings, directory: DocDirectory,  li
         reply = DirReplySchema.model_validate_json(await res.text())
         trace.end(outputs=reply)
 
+    # Count tokens for fulltext, digest, and short_digest in parallel
+    fulltext_tokens, digest_tokens, short_digest_tokens = await asyncio.gather(
+        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", fulltext),
+        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.digest),
+        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.short_digest)
+    )
+    token_counts = TokenCounts(
+        fulltext=fulltext_tokens,
+        digest=digest_tokens,
+        short_digest=short_digest_tokens
+    )
+
     res = directory.model_copy(deep=True)
     res.name = reply.better_name
     res.digest = reply.digest
     res.short_digest = reply.short_digest
     res.essence = reply.essence
     res.relevant = reply.relevant
+    res.fulltext = fulltext
+    res.token_counts = token_counts
     res.usage = usage
     return res
 
@@ -307,6 +329,9 @@ def save_doc_files(path: Path, doc: DocDirectory):
     (path/"digest.md").write_text(doc.digest)
     (path/"short_digest.md").write_text(doc.short_digest)
     (path/"essence.md").write_text(doc.essence)
+    (path/"fulltext.md").write_text(doc.fulltext)
+
+
     for page in doc.pages:
         (path/page.name).mkdir(exist_ok=True)
         (path/page.name/"essence.md").write_text(page.essence)
@@ -333,7 +358,7 @@ def file_map(doc: DocDirectory, prefix: Path):
     logger.debug(f"Added {path.as_posix()} -> {doc.name} ({doc.path.as_posix()})")
 
     for subdir in doc.subdirs:
-        filemap[(path/subdir.name).as_posix()] =  subdir.model_dump(mode="json", include=["path", "relevant", "usage"]) | {"type": "directory" }
+        filemap[(path/subdir.name).as_posix()] =  subdir.model_dump(mode="json", include=["path", "relevant", "usage", "token_counts"]) | {"type": "directory" }
         filemap |= file_map(subdir, path)
 
     for page in doc.pages:
@@ -370,6 +395,7 @@ def build_metadata(source: Source, doc: DocDirectory):
 
 # %% ../nbs/02_docs.ipynb 40
 def save_processed_documents(source: Source, path: Path, tree: DocDirectory):
-    processed_tree.name = "" # The top-level directry does not need a name.
+    tree = tree.model_copy(deep=True)
+    tree.name = "" # The top-level directry does not need a name.
     save_doc_files(path, tree)
     (path/"index.json").write_text(json.dumps(build_metadata(source, tree), indent=2))

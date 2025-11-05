@@ -1,1 +1,1 @@
-The key block destroys and recreates its contents when an expression value changes, enabling component reinitialization and transition replaying.
+The key block destroys and recreates its contents when an expression value changes, enabling component reinitialization and transition replay.

@@ -5,8 +5,13 @@
       "relevant": true,
       "usage": {
         "input": 1479,
-        "output": 470,
+        "output": 474,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 405,
+        "digest": 264,
+        "short_digest": 107
       },
       "type": "directory"
     },
@@ -90,8 +95,13 @@
       "relevant": true,
       "usage": {
         "input": 2531,
-        "output": 996,
+        "output": 854,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 1384,
+        "digest": 594,
+        "short_digest": 142
       },
       "type": "directory"
     },
@@ -234,9 +244,14 @@
       "path": "03-template-syntax",
       "relevant": true,
       "usage": {
-        "input": 4429,
-        "output": 2793,
+        "input": 4485,
+        "output": 1519,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 3217,
+        "digest": 983,
+        "short_digest": 415
       },
       "type": "directory"
     },
@@ -275,12 +290,12 @@
       "relevant": true,
       "usage": {
         "input": 2322,
-        "output": 733,
+        "output": 715,
         "details": null
       },
       "token_counts": {
         "fulltext": 1283,
-        "digest": 488,
+        "digest": 472,
         "short_digest": 128
       },
       "type": "page"
@@ -290,7 +305,7 @@
       "relevant": true,
       "usage": {
         "input": 1188,
-        "output": 317,
+        "output": 316,
         "details": null
       },
       "token_counts": {
@@ -320,7 +335,7 @@
       "relevant": true,
       "usage": {
         "input": 6554,
-        "output": 1050,
+        "output": 1052,
         "details": null
       },
       "token_counts": {
@@ -410,13 +425,13 @@
       "relevant": true,
       "usage": {
         "input": 6185,
-        "output": 1159,
+        "output": 1146,
         "details": null
       },
       "token_counts": {
         "fulltext": 5147,
-        "digest": 680,
-        "short_digest": 350
+        "digest": 673,
+        "short_digest": 342
       },
       "type": "page"
     },
@@ -455,13 +470,13 @@
       "relevant": true,
       "usage": {
         "input": 1251,
-        "output": 427,
+        "output": 443,
         "details": null
       },
       "token_counts": {
         "fulltext": 208,
         "digest": 214,
-        "short_digest": 101
+        "short_digest": 106
       },
       "type": "page"
     },
@@ -500,13 +515,13 @@
       "relevant": true,
       "usage": {
         "input": 1960,
-        "output": 666,
+        "output": 695,
         "details": null
       },
       "token_counts": {
         "fulltext": 921,
-        "digest": 420,
-        "short_digest": 131
+        "digest": 404,
+        "short_digest": 172
       },
       "type": "page"
     },
@@ -530,8 +545,13 @@
       "relevant": true,
       "usage": {
         "input": 1532,
-        "output": 590,
+        "output": 553,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 446,
+        "digest": 305,
+        "short_digest": 140
       },
       "type": "directory"
     },
@@ -615,8 +635,13 @@
       "relevant": true,
       "usage": {
         "input": 2166,
-        "output": 908,
+        "output": 902,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 1030,
+        "digest": 633,
+        "short_digest": 164
       },
       "type": "directory"
     },
@@ -745,8 +770,13 @@
       "relevant": true,
       "usage": {
         "input": 1863,
-        "output": 687,
+        "output": 830,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 777,
+        "digest": 550,
+        "short_digest": 170
       },
       "type": "directory"
     },
@@ -825,17 +855,22 @@
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics": {
+    "Miscellaneous": {
       "path": "07-misc",
       "relevant": true,
       "usage": {
-        "input": 2806,
-        "output": 1520,
+        "input": 2816,
+        "output": 1571,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 1706,
+        "digest": 1135,
+        "short_digest": 319
       },
       "type": "directory"
     },
-    "Miscellaneous & Advanced Topics/testing": {
+    "Miscellaneous/testing": {
       "path": "07-misc/02-testing.md",
       "relevant": true,
       "usage": {
@@ -850,22 +885,22 @@
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics/typescript": {
+    "Miscellaneous/typescript": {
       "path": "07-misc/03-typescript.md",
       "relevant": true,
       "usage": {
         "input": 3991,
-        "output": 1214,
+        "output": 1221,
         "details": null
       },
       "token_counts": {
         "fulltext": 2954,
         "digest": 805,
-        "short_digest": 292
+        "short_digest": 299
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics/custom-elements": {
+    "Miscellaneous/custom-elements": {
       "path": "07-misc/04-custom-elements.md",
       "relevant": true,
       "usage": {
@@ -880,7 +915,7 @@
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics/svelte-4-migration-guide": {
+    "Miscellaneous/svelte-4-migration-guide": {
       "path": "07-misc/06-v4-migration-guide.md",
       "relevant": true,
       "usage": {
@@ -895,22 +930,22 @@
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics/svelte-5-migration-guide": {
+    "Miscellaneous/svelte-5-migration-guide": {
       "path": "07-misc/07-v5-migration-guide.md",
       "relevant": true,
       "usage": {
         "input": 12817,
-        "output": 1481,
+        "output": 1432,
         "details": null
       },
       "token_counts": {
         "fulltext": 11775,
-        "digest": 1124,
-        "short_digest": 212
+        "digest": 1071,
+        "short_digest": 208
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics/frequently-asked-questions": {
+    "Miscellaneous/frequently-asked-questions": {
       "path": "07-misc/99-faq.md",
       "relevant": true,
       "usage": {
@@ -925,7 +960,7 @@
       },
       "type": "page"
     },
-    "Miscellaneous & Advanced Topics/misc": {
+    "Miscellaneous/misc": {
       "path": "07-misc/index.md",
       "relevant": false,
       "usage": {
@@ -944,23 +979,33 @@
       "path": "98-reference",
       "relevant": true,
       "usage": {
-        "input": 3149,
-        "output": 1115,
+        "input": 3840,
+        "output": 998,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 2566,
+        "digest": 593,
+        "short_digest": 298
       },
       "type": "directory"
     },
-    "API Reference/Error and Warning Reference": {
+    "API Reference/Error & Warning Reference": {
       "path": "98-reference/.generated",
       "relevant": true,
       "usage": {
         "input": 3004,
-        "output": 1183,
+        "output": 1965,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 1851,
+        "digest": 1562,
+        "short_digest": 294
       },
       "type": "directory"
     },
-    "API Reference/Error and Warning Reference/client-errors": {
+    "API Reference/Error & Warning Reference/client-errors": {
       "path": "98-reference/.generated/client-errors.md",
       "relevant": true,
       "usage": {
@@ -975,7 +1020,7 @@
       },
       "type": "page"
     },
-    "API Reference/Error and Warning Reference/client-warnings": {
+    "API Reference/Error & Warning Reference/client-warnings": {
       "path": "98-reference/.generated/client-warnings.md",
       "relevant": true,
       "usage": {
@@ -990,7 +1035,7 @@
       },
       "type": "page"
     },
-    "API Reference/Error and Warning Reference/compile-errors": {
+    "API Reference/Error & Warning Reference/compile-errors": {
       "path": "98-reference/.generated/compile-errors.md",
       "relevant": true,
       "usage": {
@@ -1005,7 +1050,7 @@
       },
       "type": "page"
     },
-    "API Reference/Error and Warning Reference/compile-warnings": {
+    "API Reference/Error & Warning Reference/compile-warnings": {
       "path": "98-reference/.generated/compile-warnings.md",
       "relevant": true,
       "usage": {
@@ -1020,7 +1065,7 @@
       },
       "type": "page"
     },
-    "API Reference/Error and Warning Reference/server-errors": {
+    "API Reference/Error & Warning Reference/server-errors": {
       "path": "98-reference/.generated/server-errors.md",
       "relevant": true,
       "usage": {
@@ -1035,7 +1080,7 @@
       },
       "type": "page"
     },
-    "API Reference/Error and Warning Reference/shared-errors": {
+    "API Reference/Error & Warning Reference/shared-errors": {
       "path": "98-reference/.generated/shared-errors.md",
       "relevant": true,
       "usage": {
@@ -1050,7 +1095,7 @@
       },
       "type": "page"
     },
-    "API Reference/Error and Warning Reference/shared-warnings": {
+    "API Reference/Error & Warning Reference/shared-warnings": {
       "path": "98-reference/.generated/shared-warnings.md",
       "relevant": true,
       "usage": {
@@ -1145,13 +1190,13 @@
       "relevant": true,
       "usage": {
         "input": 1068,
-        "output": 352,
+        "output": 411,
         "details": null
       },
       "token_counts": {
         "fulltext": 27,
-        "digest": 179,
-        "short_digest": 72
+        "digest": 222,
+        "short_digest": 87
       },
       "type": "page"
     },
@@ -1355,8 +1400,13 @@
       "relevant": true,
       "usage": {
         "input": 2830,
-        "output": 846,
+        "output": 1107,
         "details": null
+      },
+      "token_counts": {
+        "fulltext": 1650,
+        "digest": 729,
+        "short_digest": 249
       },
       "type": "directory"
     },
@@ -1578,7 +1628,7 @@
     "repo": "https://github.com/sveltejs/svelte",
     "commit": "facf528cb8a7289c8b3eaf036949a515f5ad2108"
   },
-  "date": "2025-11-03T22:28:00.000000+00:00",
+  "date": "2025-11-05T01:27:02.197927+00:00",
   "model": "claude-haiku-4.5",
-  "commit": "23c332ed3d309257c5ce78546d55a4b43a26fdf5-dirty"
+  "commit": "828260586f5f62f93f2e5f2d4b2c2bc3793cd345-dirty"
 }

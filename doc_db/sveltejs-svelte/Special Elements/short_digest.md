@@ -1,11 +1,11 @@
 ## Special Elements
 
-Built-in components for browser APIs and document manipulation.
+Built-in components for browser APIs and rendering control.
 
-- **`<svelte:boundary>`** — Error boundary catching rendering/effect errors with `failed` snippet or `onerror` callback
-- **`<svelte:window>`** — Window event listeners and bindable properties (innerWidth, scrollY, etc.)
-- **`<svelte:document>`** — Document event listeners and readonly bindings (activeElement, visibilityState)
-- **`<svelte:body>`** — Body event listeners for mouseenter/mouseleave
-- **`<svelte:head>`** — Insert elements into document head
-- **`<svelte:element>`** — Render elements with runtime-determined tag names
-- **`<svelte:options>`** — Per-component compiler configuration (runes mode, namespace, customElement)
+**Error handling:** `<svelte:boundary>` catches rendering/effect errors with optional `failed` snippet or `onerror` callback.
+
+**Window/Document/Body:** `<svelte:window>`, `<svelte:document>`, `<svelte:body>` attach event listeners and bind to properties. Must be top-level.
+
+**Head/Element:** `<svelte:head>` inserts into document head. `<svelte:element this={tag}>` renders dynamic tag names.
+
+**Options:** `<svelte:options>` sets compiler options (runes mode, namespace, custom elements, CSS injection).

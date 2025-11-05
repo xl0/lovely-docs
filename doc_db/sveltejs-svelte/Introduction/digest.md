@@ -1,28 +1,27 @@
 ## Project Setup
 
-Start a new Svelte project with SvelteKit (recommended):
+Create a new project with SvelteKit:
 ```bash
 npx sv create myapp
 npm install
 npm run dev
 ```
 
-Alternatively, use Vite:
+Alternative with Vite:
 ```bash
 npm create vite@latest  # select svelte
 npm run build
 ```
 
-VS Code extension available. Resources: Discord, Stack Overflow.
+Vite is recommended over Rollup/Webpack. VS Code extension available.
 
-## Component Structure
+## Component Files
 
-Svelte components use `.svelte` files with three optional sections:
-- `<script>` — runs per component instance
-- `<script module>` — runs once at module load
-- `<style>` — automatically scoped to the component
+Svelte components use `.svelte` files with optional `<script>`, `<style>`, and markup sections:
+- `<script>` runs per component instance
+- `<script module>` runs once at module load
+- `<style>` CSS is automatically scoped to the component
 
-Example:
 ```svelte
 <script module>
 	let total = 0;
@@ -39,4 +38,4 @@ Example:
 
 ## Reactive Logic Files
 
-`.svelte.js` and `.svelte.ts` files allow using Svelte runes outside components for reusable reactive logic and shared state across the app (reassigned state cannot be exported).
+`.svelte.js` and `.svelte.ts` files are regular JS/TS modules that support Svelte runes for creating reusable reactive logic and sharing reactive state across your app.

@@ -1,73 +1,90 @@
-## Reactive Variables & Statements
+## Reactive Variables
 
-Top-level variables are automatically reactive via assignment-based reactivity. Mutations require reassignment to trigger updates:
+Top-level variables are automatically reactive. Mutations require reassignment to trigger updates:
 ```svelte
 let numbers = [1, 2, 3];
 numbers.push(4); // no update
 numbers = numbers; // triggers update
 ```
 
-`$:` prefix makes statements reactive—they re-run when dependencies change and are topologically ordered:
+## Reactive Statements
+
+Prefix statements with `$:` to make them reactive—they re-run when dependencies change and are topologically ordered:
 ```svelte
 let a = 1, b = 2;
 $: sum = a + b;
-$: console.log(`sum: ${sum}`);
+$: console.log(`${a} + ${b} = ${sum}`);
 ```
 
-## Props & Exports
+Dependencies are determined at compile time. Wrap browser-only code: `$: if (browser) { ... }`
+
+## Props
 
 Declare props with `export let`:
 ```svelte
 export let foo;
 export let bar = 'default value';
-export { className as class };
 ```
 
-Access all props via `$$props` and undeclared props via `$$restProps`.
+Rename props: `export { className as class };`
 
-## Event Handling
-
-Attach handlers with `on:` directive and chain modifiers:
+Access all props with `$$props` or undeclared props with `$$restProps`:
 ```svelte
-<button on:click={handleClick}>click</button>
+<button {...$$restProps} class="variant-{$$props.class ?? ''}">click me</button>
+```
+
+## Event Handlers
+
+Attach handlers with `on:` directive and chain modifiers with `|`:
+```svelte
+<button on:click={handleClick}>click me</button>
 <form on:submit|preventDefault|once={handle}></form>
 ```
 
 Available modifiers: `preventDefault`, `stopPropagation`, `stopImmediatePropagation`, `passive`, `nonpassive`, `capture`, `once`, `self`, `trusted`
 
-Dispatch component events with `createEventDispatcher()`:
+Forward events: `<button on:click>forward event</button>`
+
+Dispatch component events:
 ```svelte
 import { createEventDispatcher } from 'svelte';
 const dispatch = createEventDispatcher();
 dispatch('increment');
 ```
 
+Only `once` modifier works on component events.
+
 ## Slots
 
-Render slotted content with `<slot>` and named slots with `slot="name"` attribute. Pass data to slots via props and expose to parent using `let:` directive. Check for named slots with `$$slots` object:
+Render slotted content with `<slot>`. Named slots use `slot="name"` attribute. Provide fallback content inside `<slot>` tags. Pass data to slots with props and expose to parent using `let:` directive.
+
+Check if a named slot was provided with `$$slots`:
 ```svelte
 {#if $$slots.description}
-  <slot name="description" />
+	<slot name="description" />
 {/if}
 ```
 
-Use `<svelte:fragment slot="name">` to fill named slots without wrapping DOM elements.
+Use `<svelte:fragment slot="name">` to place content in named slots without a wrapping DOM element.
 
 ## Dynamic Components
 
-Use `<svelte:component this={MyComponent} />` to re-render when component value changes.
+Use `<svelte:component this={MyComponent} />` to dynamically render components that change at runtime.
 
 ## Imperative API
 
-Create components imperatively:
+Create components with:
 ```ts
 const app = new App({
-  target: document.body,
-  props: { answer: 42 }
+	target: document.body,
+	props: { answer: 42 },
+	hydrate: false,
+	intro: false
 });
-app.$set(props);
-app.$on(event, callback);
-app.$destroy();
 ```
 
-Render on server with `App.render({ answer: 42 })`.
+Instance methods: `$set(props)`, `$on(event, callback)`, `$destroy()`
+
+With `accessors: true`, props are synchronously settable: `component.count += 1;`
+
+Server-side rendering: `const { head, html, css } = App.render({ answer: 42 });`

@@ -1,32 +1,21 @@
-# Complete Documentation
+# Svelte Documentation
 
-## Core Concepts
-- **Runes**: `$state`, `$derived`, `$effect`, `$props()`, `$bindable()` for reactivity
-- **Components**: `.svelte` files with optional `<script>`, `<script module>`, `<style>`
-- **Template**: HTML/components with `{expr}` interpolation, `on:event`, `bind:property` directives
+**Setup**: SvelteKit (`npx sv create myapp`) or Vite recommended.
 
-## Key Syntax
-- **State & Effects**: `let count = $state(0)`, `let doubled = $derived(count * 2)`, `$effect(() => { cleanup })`
-- **Props & Binding**: `let { value = $bindable() } = $props()`, parent: `bind:value={msg}`
-- **Conditionals/Iteration**: `{#if} {:else if} {:else} {/if}`, `{#each items as item (id)} {/each}`
-- **Snippets**: `{#snippet name(data)} content {/snippet}`, render: `{@render name()}`
-- **Styling**: Scoped by default; `:global(selector)` for global; `style:prop={val}`
-- **Directives**: `use:action`, `transition:fade|fly|slide`, `in:/out:`, `animate:flip`
+**Runes**: `$state` (reactive), `$derived` (computed), `$effect` (side-effects), `$props()` (inputs), `$bindable()` (two-way), `$inspect()` (logging), `$host()` (custom elements).
 
-## Special Elements
-- `<svelte:boundary>` - Error boundaries
-- `<svelte:window|document|body|head>` - Document access
-- `<svelte:element this={tag}>` - Dynamic tags
-- `<svelte:options>` - Compiler settings
+**Template**: Expressions `{expr}`, conditionals `{#if}...{/if}`, loops `{#each items as item}...{/each}`, snippets `{#snippet name()}...{/snippet}`, directives: `bind:`, `use:`, `style:`, `class:`, `transition:`, `animate:`.
 
-## Runtime APIs
-- **Stores**: `writable`, `readable`, `derived` with `.subscribe()`
-- **Context**: `setContext`/`getContext` for parent-child data
-- **Lifecycle**: `onMount`, `onDestroy`, `tick()`
-- **Components**: `mount`, `unmount`, `render`, `hydrate`
+**Styling**: Auto-scoped, use `:global()` for global styles, CSS custom properties inherited.
 
-## Migration (4→5)
-- `let` → `$state`, `$:` → `$derived`/`$effect`, `export let` → `$props()`
-- `on:click` → `onclick`, `createEventDispatcher` → callbacks
-- `<slot />` → `children` prop, named slots → props
-- `new App({target})` → `mount(App, {target})`
+**Special Elements**: `<svelte:boundary>` (error handling), `<svelte:window>` (window listeners), `<svelte:head>` (document head), `<svelte:element this={tag} />` (dynamic tags), `<svelte:options>` (compiler config).
+
+**State**: Stores (`writable`, `readable`, `derived`), Context API (`setContext`/`getContext`).
+
+**Lifecycle**: `onMount`, `onDestroy`, `tick()`, `mount()`, `unmount()`.
+
+**TypeScript**: Add `lang="ts"`, configure `vitePreprocess`, use generics.
+
+**Custom Elements**: `<svelte:options customElement="tag-name" />`.
+
+**Svelte 5**: `let` → `$state`, `$:` → `$derived`/`$effect`, `export let` → `$props()`, `on:click` → `onclick`, `<slot />` → `children` prop.

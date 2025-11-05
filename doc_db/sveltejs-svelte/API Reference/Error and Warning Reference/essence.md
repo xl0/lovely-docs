@@ -1,1 +1,0 @@
-Comprehensive reference of Svelte errors, warnings, and constraints covering client runtime, compilation, and accessibility requirements.

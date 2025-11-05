@@ -1,1 +1,1 @@
-How Svelte scopes component styles and provides mechanisms for global styles, custom properties, and style element behavior.
+Component styling with automatic scoping, global style overrides, CSS custom properties, and nested style behavior.

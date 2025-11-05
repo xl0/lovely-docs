@@ -31,10 +31,8 @@ Arrays and objects can be nested and flattened, useful for combining local class
 
 Use the `ClassValue` type for type-safe class props:
 ```svelte
-<script lang="ts">
-	import type { ClassValue } from 'svelte/elements';
-	const props: { class: ClassValue } = $props();
-</script>
+import type { ClassValue } from 'svelte/elements';
+const props: { class: ClassValue } = $props();
 ```
 
 ### Class Directive
@@ -49,4 +47,4 @@ Shorthand when name matches value:
 <div class:cool class:lame={!cool}>...</div>
 ```
 
-**Note:** The `class` attribute is more powerful and composable; prefer it over `class:` in Svelte 5.16+.
+The `class` attribute is more powerful and composable; prefer it over `class:` in Svelte 5.16+.

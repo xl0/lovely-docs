@@ -3,12 +3,14 @@
 Iterate over arrays and iterables:
 
 ```svelte
-{#each items as item, i}
-  <li>{i + 1}: {item.name}</li>
+{#each items as item}
+  <li>{item.name}</li>
 {/each}
 ```
 
-Use keyed blocks for intelligent list updates:
+With index: `{#each items as item, i}`
+
+**Keyed blocks** for intelligent list updates:
 
 ```svelte
 {#each items as item (item.id)}
@@ -16,4 +18,4 @@ Use keyed blocks for intelligent list updates:
 {/each}
 ```
 
-Supports destructuring, rendering n times with `{#each { length: n }}`, and else blocks for empty lists.
+Supports destructuring, rendering n times without items, and else blocks for empty lists.

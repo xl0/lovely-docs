@@ -1,1 +1,1 @@
-Svelte runes are $-prefixed compiler keywords for managing reactive state, derived values, side effects, and component communication.
+Runes are $-prefixed compiler keywords that manage reactive state, derived values, side effects, and component communication in Svelte.

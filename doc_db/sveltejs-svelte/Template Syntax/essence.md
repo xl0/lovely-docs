@@ -1,1 +1,1 @@
-Comprehensive guide to Svelte's template syntax including markup, conditional rendering, iteration, data binding, transitions, and directives.
+Svelte's template syntax for markup, expressions, conditionals, loops, snippets, and reactive directives for binding, styling, transitions, and animations.

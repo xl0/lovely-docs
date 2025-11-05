@@ -1,1 +1,1 @@
-Built-in special components for error handling, document access, and dynamic element rendering.
+Built-in components for accessing browser APIs, error handling, and controlling component compilation.

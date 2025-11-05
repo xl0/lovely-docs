@@ -1,1 +1,1 @@
-Runtime utilities for state management, component lifecycle, context propagation, and imperative component operations.
+Core runtime APIs for state management, component lifecycle, context passing, and imperative component control in Svelte.

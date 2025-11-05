@@ -129,16 +129,19 @@
 	/* font-size: 100%; */
 }
 
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+
   }
 
   /* Thin scrollbar styling */
   * {
+    scrollbar-gutter: stable;
     scrollbar-width: thin;
     scrollbar-color: oklch(0.554 0.046 257.417 / 0.3) transparent;
   }

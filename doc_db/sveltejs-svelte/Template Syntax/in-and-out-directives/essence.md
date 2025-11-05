@@ -1,1 +1,1 @@
-in: and out: directives apply separate, non-bidirectional transitions for element entry and exit.
+in: and out: directives apply separate, non-bidirectional transitions to elements, with in transitions continuing to play alongside out transitions rather than reversing.

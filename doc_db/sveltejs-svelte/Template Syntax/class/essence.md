@@ -1,1 +1,1 @@
-Two ways to set classes: the class attribute (supporting objects/arrays since 5.16) and the class: directive (legacy).
+Two ways to set classes: the class attribute (supporting strings, objects, and arrays) and the class: directive, with the attribute being more powerful and composable.
