@@ -1,0 +1,1 @@
+How to use TypeScript in Svelte components, configure preprocessors, type props and state, and work with component types.

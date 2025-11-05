@@ -1,1 +1,0 @@
-The `svelte/attachments` module provides utilities for managing attachments in Svelte applications.

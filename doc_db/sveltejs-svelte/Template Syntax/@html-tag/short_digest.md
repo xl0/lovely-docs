@@ -1,1 +1,0 @@
-The `{@html ...}` tag injects raw HTML. Always sanitize input to prevent XSS. The expression must be valid standalone HTML and won't receive scoped styles—use `:global` modifier for styling injected content.

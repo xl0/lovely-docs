@@ -1,1 +1,1 @@
-Read-only state objects available via $app/state module: page, navigating, and updated (SvelteKit 2.12+)
+Read-only state objects for navigation, page data, and app updates in SvelteKit.

@@ -1,1 +1,0 @@
-The `svelte/legacy` module provides functions to assist with migrating code from older Svelte versions. All exports from this module are deprecated and should be replaced with modern equivalents over time. This module exists as a bridge during the transition period when one-to-one replacements for legacy features aren't available.

@@ -1,1 +1,0 @@
-The `svelte/server` module provides server-side rendering utilities for Svelte components in Node.js environments.

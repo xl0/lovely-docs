@@ -1,1 +1,0 @@
-Svelte warns at compile time about potential mistakes. Suppress warnings with `<!-- svelte-ignore <code> -->` comments, supporting multiple comma-separated codes and explanatory notes.

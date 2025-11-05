@@ -1,1 +1,1 @@
-Overview page introducing fundamental SvelteKit concepts and architectural patterns.
+Documentation index page for core concepts.

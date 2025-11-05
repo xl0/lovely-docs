@@ -1,1 +1,1 @@
-Index page for advanced SvelteKit topics.
+Documentation index page for advanced SvelteKit topics.

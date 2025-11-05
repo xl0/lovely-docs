@@ -1,1 +1,0 @@
-Set breakpoints to debug SvelteKit projects using VSCode debug terminal, launch.json configuration, or browser DevTools with Node.js inspection.

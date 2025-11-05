@@ -1,0 +1,1 @@
+The `bind:` directive creates two-way data bindings between parent and child components or between JavaScript state and DOM elements.

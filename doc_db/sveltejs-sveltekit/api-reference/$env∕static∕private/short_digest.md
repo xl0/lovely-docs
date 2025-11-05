@@ -1,1 +1,1 @@
-Server-only module for accessing private environment variables at build time. Statically replaced during build, never exposed to client. Use for sensitive secrets like API keys and credentials.
+Static private environment variables injected at build time from `.env` files. Cannot be used in client code. Import with `import { API_KEY } from '$env/static/private'`. Declare all referenced variables in `.env` and override via command line: `MY_FEATURE_FLAG="enabled" npm run dev`.

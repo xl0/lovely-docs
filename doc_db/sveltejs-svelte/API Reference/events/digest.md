@@ -1,1 +1,0 @@
-The `svelte/events` module provides utilities for working with DOM events in Svelte applications. This module is part of Svelte's core API and offers helper functions and types for managing event handling, event delegation, and event-related functionality within components.

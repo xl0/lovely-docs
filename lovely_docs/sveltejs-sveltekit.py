@@ -33,6 +33,5 @@ logger.setLevel(logging.DEBUG)
 source = settings.sources["sveltejs/sveltekit"]
 assert isinstance(source, GitSource)
 
-commit = clone_repo(source)
+commit, clone_dir = clone_repo(source)
 source.commit = commit # Replace the literal commit (master) with the hash
-clone_dir = settings.git_dir / source.name

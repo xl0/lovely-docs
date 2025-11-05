@@ -1,1 +1,0 @@
-The $state rune creates reactive variables; arrays and objects become deeply reactive proxies, with variants for raw non-reactive state and snapshots.

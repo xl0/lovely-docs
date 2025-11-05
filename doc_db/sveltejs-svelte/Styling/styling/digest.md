@@ -1,1 +1,0 @@
-This page appears to be an index/overview page for styling documentation in Svelte. The page itself contains only frontmatter with a title but no actual content. It likely serves as a landing page or table of contents for styling-related topics in the Svelte documentation.

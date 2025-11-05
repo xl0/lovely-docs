@@ -1,9 +1,9 @@
-## Directory structure
+## Directory Structure
 
 ```
 src/
-├ lib/              # Library code ($lib alias)
-│ └ server/         # Server-only code ($lib/server alias)
+├ lib/              # Reusable code ($lib alias)
+│ └ server/         # Server-only code ($lib/server)
 ├ params/           # Param matchers
 ├ routes/           # Routes
 ├ app.html          # Page template
@@ -13,11 +13,11 @@ src/
 ├ service-worker.js # Service worker
 └ tracing.server.js # Observability
 static/             # Static assets
-tests/              # Playwright tests
+tests/              # Tests
 ```
 
-**app.html** placeholders: `%sveltekit.head%`, `%sveltekit.body%`, `%sveltekit.assets%`, `%sveltekit.nonce%`, `%sveltekit.env.[NAME]%`, `%sveltekit.version%`
+**app.html placeholders**: `%sveltekit.head%`, `%sveltekit.body%`, `%sveltekit.assets%`, `%sveltekit.nonce%`, `%sveltekit.env.[NAME]%`, `%sveltekit.version%`
 
-**error.html** placeholders: `%sveltekit.status%`, `%sveltekit.error.message%`
+**error.html placeholders**: `%sveltekit.status%`, `%sveltekit.error.message%`
 
 **package.json** requires `@sveltejs/kit`, `svelte`, `vite` as devDependencies with `"type": "module"`

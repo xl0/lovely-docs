@@ -1,1 +1,1 @@
-SvelteKit uses Vite CLI via npm scripts (`vite dev`, `vite build`, `vite preview`). The `svelte-kit sync` command generates `tsconfig.json` and `./$types` definitions, running automatically as the `prepare` script.
+SvelteKit uses Vite CLI via npm scripts (`vite dev`, `vite build`, `vite preview`). The `svelte-kit sync` command generates `tsconfig.json` and type definitions (`./$types`) and runs automatically as the `prepare` script.

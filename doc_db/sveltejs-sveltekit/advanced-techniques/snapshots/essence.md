@@ -1,1 +1,1 @@
-Preserve ephemeral DOM state across navigation using snapshot capture and restore methods.
+Use snapshot objects to preserve and restore ephemeral DOM state when navigating between pages.

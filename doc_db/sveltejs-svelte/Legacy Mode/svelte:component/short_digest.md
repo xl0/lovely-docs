@@ -1,1 +1,0 @@
-In legacy mode, use `<svelte:component this={MyComponent} />` to re-render when the component value changes. If `this` is falsy, nothing renders.

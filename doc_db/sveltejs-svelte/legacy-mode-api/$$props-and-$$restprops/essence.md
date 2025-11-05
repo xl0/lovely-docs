@@ -1,0 +1,1 @@
+Legacy mode utilities for accessing all component props or filtering out declared ones.

@@ -1,0 +1,1 @@
+Inject raw HTML with {@html ...} tag, sanitize input to prevent XSS, and use :global modifier for styling injected content.

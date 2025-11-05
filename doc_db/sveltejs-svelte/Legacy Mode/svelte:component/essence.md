@@ -1,1 +1,0 @@
-Legacy mode requires <svelte:component> to dynamically render components that change at runtime.

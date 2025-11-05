@@ -1,1 +1,1 @@
-Landing page for best practices guidelines in SvelteKit development.
+Landing page for best practices section with no actual content.

@@ -1,0 +1,1 @@
+Core runtime APIs for state management (stores, context), component lifecycle, and imperative component creation/rendering.

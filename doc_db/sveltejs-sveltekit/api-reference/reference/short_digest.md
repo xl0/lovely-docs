@@ -1,1 +1,1 @@
-Reference documentation index for SvelteKit APIs and technical specifications.
+Documentation index page for the reference section.

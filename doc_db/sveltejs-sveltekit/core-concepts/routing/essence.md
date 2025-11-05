@@ -1,1 +1,1 @@
-Filesystem-based routing with special `+` prefixed files for pages, layouts, API endpoints, and error handling.
+SvelteKit uses filesystem-based routing with special `+` prefixed files for pages, layouts, error handling, and API endpoints, with automatic type generation for type safety.

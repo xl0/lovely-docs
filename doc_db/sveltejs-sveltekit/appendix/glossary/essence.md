@@ -1,0 +1,1 @@
+Glossary of rendering modes, static generation strategies, and related concepts in SvelteKit.

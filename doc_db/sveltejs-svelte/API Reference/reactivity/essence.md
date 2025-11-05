@@ -1,1 +1,0 @@
-Reactive wrappers for JavaScript built-ins that integrate with Svelte's reactivity system.

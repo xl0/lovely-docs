@@ -1,13 +1,13 @@
 ## Build Process
 
-SvelteKit builds happen in two stages via `vite build` (or `npm run build`):
+SvelteKit builds in two stages via `vite build`:
 
-1. **Vite optimization**: Creates optimized production builds of server code, browser code, and service worker. Prerendering executes at this stage if configured.
-2. **Adapter tuning**: An adapter takes the production build and optimizes it for your target environment.
+1. **Vite optimization**: Creates optimized production builds of server code, browser code, and service worker. Prerendering happens here if configured.
+2. **Adapter tuning**: An adapter optimizes the build for your target environment.
 
-## Avoiding Code Execution During Build
+## Preventing Code Execution During Build
 
-SvelteKit loads `+page/layout(.server).js` files and their imports during the build for analysis. Code that shouldn't execute at build time must check the `building` flag from `$app/environment`:
+Code in `+page/layout(.server).js` files is loaded during build for analysis. Use the `building` flag from `$app/environment` to prevent code execution at build time:
 
 ```js
 import { building } from '$app/environment';
@@ -24,4 +24,4 @@ export function load() {
 
 ## Preview Your Build
 
-After building, preview the production build locally with `vite preview` (or `npm run preview`). This runs in Node and doesn't perfectly reproduce your deployed app — adapter-specific features like the `platform` object don't apply to previews.
+Run `vite preview` to test the production build locally in Node. Note that this doesn't perfectly reproduce your deployed app since adapter-specific adjustments like the `platform` object don't apply to previews.

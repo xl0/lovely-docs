@@ -1,1 +1,1 @@
-$app/stores is a deprecated module for accessing application state via stores; use $app/state in SvelteKit 2.12+.
+Deprecated store-based API for accessing page, navigation, and update state; replaced by $app/state in SvelteKit 2.12+.

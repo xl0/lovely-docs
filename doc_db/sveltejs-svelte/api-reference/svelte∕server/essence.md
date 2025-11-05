@@ -1,0 +1,1 @@
+Server-side rendering function that converts Svelte components to HTML strings with body and head output.

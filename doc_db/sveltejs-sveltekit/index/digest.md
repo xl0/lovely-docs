@@ -1,1 +1,1 @@
-This is the main entry point for SvelteKit documentation. It serves as the homepage and starting point for developers learning about or working with SvelteKit.
+This is the main entry point for SvelteKit documentation. The page appears to be a generated index file that serves as the starting point for the documentation structure. It contains a note indicating this file is auto-generated from a build script and should not be edited directly.

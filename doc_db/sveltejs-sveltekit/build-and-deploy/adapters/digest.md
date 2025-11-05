@@ -7,11 +7,10 @@ Adapters are plugins that transform a built SvelteKit app for deployment to spec
 - `@sveltejs/adapter-static` — Static site generation
 - `@sveltejs/adapter-vercel` — Vercel
 
-Community adapters are available for other platforms.
+Community adapters are available for additional platforms.
 
 **Configuration:**
-Specify your adapter in `svelte.config.js`:
-
+Specify the adapter in `svelte.config.js`:
 ```js
 import adapter from 'svelte-adapter-foo';
 
@@ -25,4 +24,4 @@ export default config;
 ```
 
 **Platform context:**
-Some adapters provide platform-specific data (e.g., Cloudflare's `env` object with KV namespaces) accessible via the `platform` property in `RequestEvent` within hooks and server routes.
+Some adapters provide platform-specific data (e.g., Cloudflare's `env` object) accessible via the `platform` property in `RequestEvent` within hooks and server routes.

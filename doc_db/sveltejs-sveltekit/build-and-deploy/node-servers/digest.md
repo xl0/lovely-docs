@@ -20,25 +20,41 @@ Build with `npm run build` (outputs to `build` directory by default). Deploy the
 
 Development dependencies are bundled via Rollup. Control bundling by placing packages in `devDependencies` (bundled) or `dependencies` (external).
 
+## Compression
+
+Use `@polka/compression` for streaming support instead of the popular `compression` package which doesn't support streaming.
+
 ## Environment Variables
 
-**In production**, `.env` files aren't auto-loaded. Load with:
+### Loading .env files
+In production, `.env` files aren't auto-loaded. Install dotenv and run:
 ```sh
 node -r dotenv/config build
-# or Node.js v20.6+:
+```
+
+Or with Node.js v20.6+:
+```sh
 node --env-file=.env build
 ```
 
-**Server configuration:**
-- `PORT` (default 3000) and `HOST` (default 0.0.0.0)
-- `SOCKET_PATH` - use Unix socket instead of HOST/PORT
-- `ORIGIN` - set the deployment URL (e.g., `https://my.site`)
-- `PROTOCOL_HEADER`, `HOST_HEADER`, `PORT_HEADER` - read from reverse proxy headers (e.g., `x-forwarded-proto`)
-- `ADDRESS_HEADER` - read client IP from header (e.g., `True-Client-IP`)
-- `XFF_DEPTH` - number of trusted proxies for `X-Forwarded-For` parsing
-- `BODY_SIZE_LIMIT` - max request body (default 512kb, supports K/M/G suffixes)
-- `SHUTDOWN_TIMEOUT` - seconds to wait before force-closing connections (default 30)
-- `IDLE_TIMEOUT` - seconds before auto-sleep with systemd socket activation
+### Server Configuration
+- `PORT` (default 3000) and `HOST` (default 0.0.0.0): `HOST=127.0.0.1 PORT=4000 node build`
+- `SOCKET_PATH`: `SOCKET_PATH=/tmp/socket node build` (overrides HOST/PORT)
+- `ORIGIN`: `ORIGIN=https://my.site node build` - tells SvelteKit the deployment URL
+- `PROTOCOL_HEADER` and `HOST_HEADER`: For reverse proxies, e.g., `PROTOCOL_HEADER=x-forwarded-proto HOST_HEADER=x-forwarded-host node build`
+- `ADDRESS_HEADER`: Read client IP from header (e.g., `ADDRESS_HEADER=True-Client-IP`) when behind proxies
+- `XFF_DEPTH`: For `X-Forwarded-For` headers, specify number of trusted proxies to read from the right
+- `BODY_SIZE_LIMIT`: Max request body size (default 512kb), supports K/M/G suffixes or `Infinity`
+- `SHUTDOWN_TIMEOUT`: Seconds to wait before forcefully closing connections (default 30)
+- `IDLE_TIMEOUT`: Seconds before auto-sleep with systemd socket activation
+
+### Custom Prefix
+Change environment variable prefix:
+```js
+adapter({ envPrefix: 'MY_CUSTOM_' })
+```
+
+Then use: `MY_CUSTOM_HOST=127.0.0.1 MY_CUSTOM_PORT=4000 node build`
 
 ## Adapter Options
 
@@ -46,32 +62,33 @@ node --env-file=.env build
 adapter({
 	out: 'build',           // output directory
 	precompress: true,      // gzip/brotli compression
-	envPrefix: ''           // prefix for env vars (e.g., 'MY_CUSTOM_')
+	envPrefix: ''           // environment variable prefix
 })
 ```
 
-## Compression
-
-For custom servers, use `@polka/compression` instead of the popular `compression` package, as SvelteKit streams responses and `compression` doesn't support streaming.
-
 ## Graceful Shutdown
 
-On `SIGTERM`/`SIGINT`, the server rejects new requests, waits for in-flight requests to complete, then closes remaining connections after `SHUTDOWN_TIMEOUT`. Listen to `sveltekit:shutdown` event for cleanup:
+On `SIGTERM`/`SIGINT`, the server:
+1. Rejects new requests
+2. Waits for in-flight requests to complete
+3. Closes remaining connections after `SHUTDOWN_TIMEOUT`
 
+Listen to `sveltekit:shutdown` event for cleanup:
 ```js
 process.on('sveltekit:shutdown', async (reason) => {
-  // reason: 'SIGINT', 'SIGTERM', or 'IDLE'
-  await db.close();
+	await db.close();
 });
 ```
 
+Reason is `SIGINT`, `SIGTERM`, or `IDLE`.
+
 ## Socket Activation (systemd)
 
-Configure systemd socket activation for on-demand app scaling. Create service and socket units, then systemd passes `LISTEN_PID` and `LISTEN_FDS` environment variables. The adapter listens on file descriptor 3.
+Configure systemd socket activation for on-demand app scaling. Create service and socket units, then systemd passes `LISTEN_PID` and `LISTEN_FDS` environment variables.
 
 ## Custom Server
 
-The build outputs `index.js` (standalone server) and `handler.js` (middleware). Import `handler.js` for Express/Connect/Polka:
+Import `handler.js` from build directory to use with Express, Connect, Polka, or Node's `http.createServer`:
 
 ```js
 import { handler } from './build/handler.js';

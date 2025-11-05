@@ -1,1 +1,0 @@
-Configure and deploy SvelteKit apps to Vercel with adapter-vercel, supporting serverless/edge functions, ISR, image optimization, and environment variables.

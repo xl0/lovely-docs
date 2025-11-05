@@ -1,27 +1,44 @@
 ## Building
 
-SvelteKit builds in two stages: Vite optimizes code, then an adapter tunes it for the target environment. Prevent code execution during build by checking `building` from `$app/environment`. Preview builds with `vite preview`.
+SvelteKit builds in two stages: Vite optimizes code, then an adapter tunes it for the target environment. Prevent build-time code execution using the `building` flag from `$app/environment`. Preview with `vite preview`.
 
 ## Adapters
 
-Adapters are deployment plugins configured in `svelte.config.js` that transform built apps for specific platforms. Official adapters exist for Cloudflare, Netlify, Node, static sites, and Vercel. Access platform-specific context via `RequestEvent.platform`.
+Adapters are deployment plugins configured in `svelte.config.js` that transform built apps for specific platforms. Official adapters: Cloudflare, Netlify, Node, static sites, and Vercel. Access platform-specific context via `RequestEvent.platform`.
 
 ## Deployment Options
 
-**adapter-auto** automatically detects and uses the correct adapter (Cloudflare Pages, Netlify, Vercel, Azure Static Web Apps, AWS SST, Google Cloud Run). Install the specific adapter to devDependencies for environment-specific configuration.
+**adapter-auto** automatically detects and uses the correct adapter for Cloudflare Pages, Netlify, Vercel, Azure Static Web Apps, AWS (via SST), or Google Cloud Run.
 
-**Node servers** (`adapter-node`): Build with `npm run build`, deploy `build/`, `package.json`, `node_modules/`. Start with `node build`. Configure via environment variables: `PORT` (3000), `HOST` (0.0.0.0), `ORIGIN`, reverse proxy headers (`PROTOCOL_HEADER`, `HOST_HEADER`, `PORT_HEADER`), client IP detection (`ADDRESS_HEADER`, `XFF_DEPTH`), `BODY_SIZE_LIMIT` (512kb), `SHUTDOWN_TIMEOUT` (30s). Supports graceful shutdown via `sveltekit:shutdown` event and systemd socket activation.
+**Node.js**: Install `@sveltejs/adapter-node`. Configure via environment variables: `PORT` (3000), `HOST` (0.0.0.0), `ORIGIN`, `PROTOCOL_HEADER`, `HOST_HEADER`, `ADDRESS_HEADER`, `XFF_DEPTH`, `BODY_SIZE_LIMIT` (512kb), `SHUTDOWN_TIMEOUT` (30s). Listen to `sitelkit:shutdown` event for graceful cleanup. Custom server example:
+```js
+import { handler } from './build/handler.js';
+import express from 'express';
+const app = express();
+app.use(handler);
+app.listen(3000);
+```
 
-**Static sites** (`adapter-static`): Set `prerender = true` in root layout. Configure `pages`, `assets`, `fallback` (for SPA), `precompress`, `strict`. For GitHub Pages, set `paths.base` to repo name and generate `404.html` fallback.
+**Static Site Generation**: Use `adapter-static` with `export const prerender = true;` in root layout. Options: `pages` (output dir), `fallback` (for SPA), `precompress`, `strict`, `trailingSlash`.
 
-**Single-page apps** (`adapter-static`): Disable SSR globally with `export const ssr = false` in root layout, use fallback page. Prerender specific pages by enabling SSR and `export const prerender = true` for those routes. Add `.htaccess` for Apache routing. Warning: SPAs have poor performance, SEO, and accessibility.
+**Single-Page Apps**: Use `adapter-static` with `fallback` option and `export const ssr = false;` in root layout. Optionally prerender specific pages with `export const prerender = true;`. Note: poor performance, SEO penalties, requires JavaScript.
 
-**Cloudflare** (`adapter-cloudflare`): Configure fallback (`'plaintext'` or `'spa'`), customize `_routes.json` with `include`/`exclude` (max 100 rules). Access runtime APIs via `platform?.env`. Test locally with `wrangler dev .svelte-kit/cloudflare` (Workers) or `wrangler pages dev .svelte-kit/cloudflare` (Pages).
+**Cloudflare**: Use `adapter-cloudflare`. Options: `fallback` (plaintext or spa), `routes` (customize `_routes.json`). Access bindings via `platform.env`. Use `read()` from `$app/server` instead of `fs`. Enable `nodejs_compat` flag if needed.
 
-**Netlify** (`adapter-netlify`): Use `edge: true` for Deno-based edge functions, `split: true` for function splitting. Access Netlify context via `event.platform?.context`. Use `_redirects` file for redirects. Use `read()` from `$app/server` instead of `fs` for file access.
+**Netlify**: Use `adapter-netlify` with `edge` and `split` options. Requires `netlify.toml`. Access context via `event.platform?.context`. Supports `_headers`, `_redirects`, Forms, and custom Functions.
 
-**Vercel** (`adapter-vercel`): Set options via `export const config` in route files: `runtime` (`'edge'` or `'nodejs20.x'`/`'nodejs22.x'`), `regions`, `split`, `memory` (128-3008 MB), `maxDuration`. ISR configuration: `expiration`, `bypassToken`, `allowQuery`. Bypass cache with `__prerender_bypass=<token>` cookie or `x-prerender-revalidate` header. Configure image optimization with `sizes`, `formats`, `minimumCacheTTL`, `domains`. Use `read()` from `$app/server` instead of `fs`.
+**Vercel**: Use `adapter-vercel`. Route configuration:
+```js
+export const config = {
+	split: true,
+	runtime: 'edge',  // or 'nodejs20.x'
+	regions: ['iad1'],
+	memory: 1024,
+	isr: { expiration: 60, bypassToken: TOKEN, allowQuery: ['search'] }
+};
+```
+Image optimization: `adapter({ images: { sizes: [640, 1920], formats: ['image/webp'] } })`. Use `$env/static/private` for environment variables.
 
 ## Custom Adapters
 
-Implement the Adapter API by exporting a function returning an object with `name` and `adapt(builder)` methods. The `adapt` method must clear the build directory, write output via `builder.writeClient/Server/Prerendered()`, generate code that imports `Server`, instantiate with `builder.generateManifest()`, listen for requests, convert to `Request`, call `server.respond(request, { getClientAddress })`, expose platform via `platform` option, shim `fetch` if needed, bundle output, and place files correctly.
+Export a function returning an `Adapter` object with required `name` and `adapt(builder)` properties. The `adapt` method must clear build directory, write output via `builder.writeClient/Server/Prerendered()`, generate code that imports `Server`, creates app with `builder.generateManifest()`, converts platform requests to `Request`, calls `server.respond()`, and returns `Response`. Expose platform info via `platform` option and shim `fetch` globally if needed.

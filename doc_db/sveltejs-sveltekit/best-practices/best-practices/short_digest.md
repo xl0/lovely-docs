@@ -1,1 +1,1 @@
-Index page for SvelteKit best practices documentation.
+Index page for best practices documentation. Auto-generated content with no specific guidance included.

@@ -1,1 +1,1 @@
-Build and deploy SvelteKit apps using adapters for various platforms (Node, static, Cloudflare, Netlify, Vercel) with platform-specific configuration and runtime APIs.
+Adapters deploy SvelteKit apps to various platforms with platform-specific configuration and runtime APIs.

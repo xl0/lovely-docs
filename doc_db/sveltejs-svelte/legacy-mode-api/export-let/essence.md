@@ -1,0 +1,1 @@
+Legacy mode component props are declared with the export keyword, with optional defaults and the ability to rename them.

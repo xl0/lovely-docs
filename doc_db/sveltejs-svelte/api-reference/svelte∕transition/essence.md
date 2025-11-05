@@ -1,0 +1,1 @@
+Built-in transition functions for animating element entry and exit with customizable timing, easing, and animation parameters.

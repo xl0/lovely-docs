@@ -1,32 +1,62 @@
-## Server-side Hooks
-`@sveltejs/kit/hooks` module provides `handle`, `handleError`, `handleFetch` hooks defined in `hooks.server.js` for intercepting and customizing request/response lifecycle.
+## Core Response & Error Handling
+- `json(data)`, `text(body)` - Create responses
+- `error(status, body)`, `redirect(status, location)`, `fail(status, data)` - Throw errors/redirects
+- `isHttpError()`, `isRedirect()`, `isActionFailure()` - Type guards
 
-## Runtime Modules
-- `$app/environment` - Access environment variables and runtime information (build modes, config)
-- `$app/navigation` - `goto()` for programmatic navigation, `invalidateAll()` and `invalidate(url)` to re-run load functions
-- `$app/paths` - `base` and `assets` paths configured in `svelte.config.js`
-- `$app/forms` - Utilities for handling form submissions and form data
-- `$app/state` - Read-only state objects: `page`, `navigating`, `updated` (SvelteKit 2.12+)
-- `$app/stores` - Legacy store-based state (use `$app/state` instead)
-- `$app/server` - Server-only utilities for hooks, routes, and server load functions
-- `$service-worker` - Service worker functionality access
+## Request & Page Types
+- **RequestEvent**: `cookies`, `fetch`, `locals`, `params`, `url`, `setHeaders()`, `getClientAddress()`
+- **LoadEvent**: Extends RequestEvent, adds `data`, `parent()`, `depends()`, `untrack()`
+- **Page**: `url`, `params`, `route.id`, `status`, `error`, `data`, `state`, `form`
+- **ActionResult**: `{type: 'success'|'failure'|'redirect'|'error', ...}`
 
-## Environment Variables
-- `$env/static/public` - Public variables (prefixed `PUBLIC_`) injected at build time, safe for client
-- `$env/static/private` - Private variables statically replaced at build time, server-only
-- `$env/dynamic/public` - Runtime access to public variables in server and client code
-- `$env/dynamic/private` - Runtime access to private variables on server side
+## Hooks
+- **handle**: `(input: {event, resolve}) => Response`
+- **handleError**: `(input: {error, event, status, message}) => App.Error`
+- **handleFetch**: `(input: {event, request, fetch}) => Response`
+- **reroute**: `(event: {url, fetch}) => void | string`
+- **sequence**: Chain multiple handle middleware with specific ordering
 
-## Type Safety
-`$app/types` exports auto-generated TypeScript utilities: `Asset`, `RouteId`, `Pathname`, `ResolvedPathname`, `RouteParams<'/blog/[slug]'>` → `{ slug: string }`, `LayoutParams`. Generated `.d.ts` files export typed `RequestHandler`, `Load`, `PageData`, `LayoutData`, `ActionData`. Helper types `PageProps` and `LayoutProps` (v2.16.0+) combine data with form/children.
+## Forms & Navigation
+- **enhance**: Intercept form submissions, prevent default, update form state
+- **applyAction**: Update `form` property and `page.status`
+- **deserialize**: Deserialize form submission responses
+- **goto(url, opts)**: Programmatic navigation with `replaceState`, `noScroll`, `keepFocus`, `invalidateAll`
+- **invalidate(resource)**: Re-run load functions for resource
+- **beforeNavigate/afterNavigate**: Navigation lifecycle hooks
+- **preloadData(href)**: Preload page code and load functions
 
-## Configuration & Build
-- `svelte.config.js` - Project configuration with `kit` property for adapter selection and options
-- `svelte-kit sync` - Generates `tsconfig.json` and `./$types` definitions (runs as `prepare` script)
-- Vite CLI - `vite dev`, `vite build`, `vite preview` for development and building
-- `$lib` - Automatic import alias for `src/lib` directory (customizable in config)
+## Environment & Configuration
+- **$app/environment**: `browser`, `building`, `dev`, `version` constants
+- **$env/static/private**: Build-time private variables
+- **$env/static/public**: Build-time public variables (PUBLIC_ prefix)
+- **$env/dynamic/private**: Runtime private variables (server-only)
+- **$env/dynamic/public**: Runtime public variables (PUBLIC_ prefix)
+- **$app/state**: `navigating`, `page`, `updated` read-only state objects
+- **$app/paths**: `asset(file)`, `resolve(pathname, params?)` - Path resolution with base path handling
 
-## Adapters & Polyfills
-- Node.js adapter - Runtime for server-side rendering and backend deployment
-- Node.js polyfills - Browser APIs available in server-side contexts
-- Vite integration - Build system plugin and configuration utilities
+## Cookies & Server
+- `get(name)`, `getAll()`, `set(name, value, opts)`, `delete(name, opts)` - `path` required, `httpOnly`/`secure` default true
+- **$app/server**: `command`, `form`, `query`, `query.batch`, `prerender`, `read` - Remote functions and asset reading
+- **getRequestEvent**: Access current RequestEvent in server context
+
+## Adapter & Build
+- **Builder**: `log`, `rimraf`, `mkdirp`, `config`, `routes`, `writeClient()`, `writeServer()`, `generateManifest()`, `compress()`
+- **Node utilities**: `createReadableStream(file)`, `getRequest({request, base, bodySizeLimit})`, `setResponse(res, response)`
+- **installPolyfills()**: Install web API polyfills for Node.js
+
+## Configuration (svelte.config.js)
+- **adapter** - Platform output converter (required)
+- **csp** - Content Security Policy with mode ('hash'|'nonce'|'auto')
+- **csrf** - CSRF protection: checkOrigin, trustedOrigins
+- **paths** - URL config: assets (CDN), base, relative
+- **prerender** - concurrency, crawl, entries, origin
+- **router.type** - 'pathname' (default) or 'hash'
+- **version** - name, pollInterval
+
+## Types
+- **$types**: Auto-generated typed `RequestHandler`, `Load` functions, `PageData`, `LayoutData`, `ActionData`
+- **$app/types**: `RouteId`, `Pathname`, `RouteParams<'/blog/[slug]'>`, `LayoutParams`
+- **app.d.ts**: Ambient types for `Error`, `Locals`, `PageData`, `PageState`, `Platform`
+
+## Service Worker
+- **$service-worker**: `base`, `build`, `files`, `prerendered`, `version` constants for cache management

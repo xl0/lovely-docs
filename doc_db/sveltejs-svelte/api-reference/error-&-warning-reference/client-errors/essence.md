@@ -1,0 +1,1 @@
+Reference documentation for all client-side runtime errors in Svelte with explanations and solutions.

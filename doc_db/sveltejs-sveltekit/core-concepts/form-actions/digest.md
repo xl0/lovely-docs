@@ -1,6 +1,6 @@
 ## Default Actions
 
-Export an `actions` object with a `default` action from `+page.server.js` to handle form submissions:
+Export an `actions` object with a `default` action from `+page.server.js`:
 
 ```js
 export const actions = {
@@ -10,11 +10,11 @@ export const actions = {
 };
 ```
 
-Use a `<form method="POST">` to invoke it. The action receives a `RequestEvent` and can read form data via `request.formData()`.
+Use a `<form method="POST">` to invoke it. Invoke from other pages with `<form method="POST" action="/path">`.
 
 ## Named Actions
 
-Define multiple named actions instead of a default:
+Export multiple named actions instead of default:
 
 ```js
 export const actions = {
@@ -23,34 +23,31 @@ export const actions = {
 };
 ```
 
-Invoke with query parameters: `<form method="POST" action="?/login">` or use `formaction` on buttons: `<button formaction="?/register">`.
+Invoke with query parameters: `<form method="POST" action="?/register">` or use `formaction` on buttons: `<button formaction="?/register">`.
 
 Cannot mix default and named actions on the same page.
 
-## Returning Data
+## Processing Form Data
 
-Actions return data available as the `form` prop on the page:
+Actions receive a `RequestEvent`. Read form data with `request.formData()`:
 
 ```js
 export const actions = {
 	login: async ({ cookies, request }) => {
 		const data = await request.formData();
 		const email = data.get('email');
-		cookies.set('sessionid', await db.createSession(user), { path: '/' });
+		const password = data.get('password');
+		// process and return data
 		return { success: true };
 	}
 };
 ```
 
-```svelte
-{#if form?.success}
-	<p>Successfully logged in!</p>
-{/if}
-```
+Return data is available as `form` prop on the page and `page.form` app-wide.
 
 ## Validation Errors
 
-Use the `fail` function to return HTTP status codes with validation errors:
+Use `fail()` to return HTTP status codes with error data:
 
 ```js
 import { fail } from '@sveltejs/kit';
@@ -58,40 +55,34 @@ import { fail } from '@sveltejs/kit';
 export const actions = {
 	login: async ({ request }) => {
 		const data = await request.formData();
-		const email = data.get('email');
-		if (!email) {
-			return fail(400, { email, missing: true });
+		if (!data.get('email')) {
+			return fail(400, { email: data.get('email'), missing: true });
 		}
 	}
 };
 ```
 
-```svelte
-{#if form?.missing}<p class="error">Email required</p>{/if}
-<input value={form?.email ?? ''}>
-```
+Status is available via `page.status`, data via `form` prop.
 
 ## Redirects
 
-Use the `redirect` function to redirect after successful action:
+Use `redirect()` to redirect after action completes:
 
 ```js
 import { redirect } from '@sveltejs/kit';
 
 export const actions = {
-	login: async ({ cookies, request, url }) => {
-		// ... login logic
+	login: async ({ url }) => {
 		if (url.searchParams.has('redirectTo')) {
 			redirect(303, url.searchParams.get('redirectTo'));
 		}
-		return { success: true };
 	}
 };
 ```
 
 ## Progressive Enhancement
 
-Add `use:enhance` to progressively enhance forms without full-page reloads:
+Add `use:enhance` directive to progressively enhance forms without full-page reload:
 
 ```svelte
 <script>
@@ -106,21 +97,38 @@ Customize behavior with a `SubmitFunction`:
 ```svelte
 <form method="POST" use:enhance={({ formData, cancel }) => {
 	return async ({ result }) => {
-		if (result.type === 'redirect') {
-			goto(result.location);
-		} else {
-			await applyAction(result);
-		}
+		// handle result
 	};
-}>
+}}>
 ```
 
-Use `applyAction` to manually handle results. Use `deserialize` when implementing custom event listeners with `fetch`.
+Use `applyAction()` to apply result changes manually. Use `deserialize()` when implementing custom fetch handlers.
 
-## Loading Data
+## Custom Form Submission
 
-Page `load` functions run after actions complete. If using `handle` to populate `event.locals` from cookies, manually update `event.locals` when setting/deleting cookies in actions.
+Implement progressive enhancement manually with event listeners:
+
+```svelte
+<script>
+	import { applyAction, deserialize } from '$app/forms';
+	
+	async function handleSubmit(event) {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget);
+		const response = await fetch(event.currentTarget.action, {
+			method: 'POST',
+			body: data
+		});
+		const result = deserialize(await response.text());
+		applyAction(result);
+	}
+</script>
+
+<form onsubmit={handleSubmit}>
+```
+
+To POST to `+page.server.js` actions from custom fetch, add header: `'x-sveltekit-action': 'true'`.
 
 ## GET vs POST
 
-Use `method="POST"` for actions. Use `method="GET"` for search/filter forms—these invoke `load` functions but not actions, and use client-side routing.
+Use `method="POST"` for actions. Use `method="GET"` (or no method) for forms that don't modify state (like search). GET forms navigate using the client-side router and invoke `load` functions but not actions.

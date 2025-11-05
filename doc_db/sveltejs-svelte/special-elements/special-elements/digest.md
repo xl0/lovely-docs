@@ -1,0 +1,1 @@
+This page serves as an index/overview for Svelte's special elements documentation. Special elements in Svelte are built-in components and directives that provide core functionality like conditional rendering, loops, animations, and component lifecycle management. They are fundamental building blocks for creating dynamic Svelte applications.

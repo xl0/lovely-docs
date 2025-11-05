@@ -1,1 +1,1 @@
-Overview of building and deploying SvelteKit applications to production.
+Index page for build and deployment documentation topics.

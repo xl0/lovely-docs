@@ -1,1 +1,0 @@
-Reference documentation for common Svelte error messages with explanations and code examples.

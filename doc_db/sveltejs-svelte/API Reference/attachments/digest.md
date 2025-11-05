@@ -1,1 +1,0 @@
-The `svelte/attachments` module provides functionality for managing attachments in Svelte applications. This module is part of the Svelte framework's core utilities and allows developers to work with file attachments and related data within their components.

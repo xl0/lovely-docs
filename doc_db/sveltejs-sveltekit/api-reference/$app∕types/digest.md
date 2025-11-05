@@ -9,7 +9,7 @@ type Asset = '/favicon.png' | '/robots.txt' | (string & {});
 ```
 
 ### RouteId
-Union of all route IDs in your app, used in `page.route.id` and `event.route.id`:
+Union of all route IDs in your app, used with `page.route.id` and `event.route.id`:
 ```ts
 type RouteId = '/' | '/my-route' | '/my-other-route/[param]';
 ```
@@ -21,7 +21,7 @@ type Pathname = '/' | '/my-route' | `/my-other-route/${string}` & {};
 ```
 
 ### ResolvedPathname
-Like `Pathname` but includes base path prefix, used in `page.url.pathname`:
+Like `Pathname` but includes base path prefix, used with `page.url.pathname`:
 ```ts
 type ResolvedPathname = `${'' | `/${string}`}/` | `${'' | `/${string}`}/my-route` | `${'' | `/${string}`}/my-other-route/${string}` | {};
 ```

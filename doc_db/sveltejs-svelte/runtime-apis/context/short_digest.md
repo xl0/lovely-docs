@@ -1,0 +1,1 @@
+Context allows child components to access parent values without prop-drilling. Use `setContext(key, value)` in parent and `getContext(key)` in child. For reactive state, mutate objects rather than reassigning. Use `createContext<T>()` for type safety. Context is isolated per request, unlike global module state.

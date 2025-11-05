@@ -1,1 +1,0 @@
-Svelte's template syntax for markup, expressions, conditionals, loops, snippets, and reactive directives for binding, styling, transitions, and animations.

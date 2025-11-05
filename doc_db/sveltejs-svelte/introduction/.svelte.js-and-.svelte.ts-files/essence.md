@@ -1,0 +1,1 @@
+Svelte modules (.svelte.js/.svelte.ts) enable reactive logic reuse through runes while maintaining module semantics.

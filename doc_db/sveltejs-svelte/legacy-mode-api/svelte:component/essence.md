@@ -1,0 +1,1 @@
+Legacy mode syntax for dynamically rendering components with instance recreation on value changes.

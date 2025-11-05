@@ -1,0 +1,1 @@
+Event handler attachment utility that maintains correct execution order with declarative handlers.

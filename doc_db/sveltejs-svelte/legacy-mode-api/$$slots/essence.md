@@ -1,0 +1,1 @@
+$$slots is a legacy mode object that indicates which named slots were provided to a component, enabling conditional rendering.

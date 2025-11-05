@@ -1,1 +1,1 @@
-Module for accessing and configuring service worker functionality in SvelteKit.
+API reference for the $service-worker module that provides build-time constants to service workers.

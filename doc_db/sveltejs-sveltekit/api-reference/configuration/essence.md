@@ -1,1 +1,1 @@
-SvelteKit projects are configured via svelte.config.js file with a kit property that accepts various configuration options.
+SvelteKit configuration options in svelte.config.js for adapters, routing, CSP, CSRF, prerendering, bundling, and version management.

@@ -1,1 +1,0 @@
-API reference for Svelte's built-in transition effects and custom transition creation.

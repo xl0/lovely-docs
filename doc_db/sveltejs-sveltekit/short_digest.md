@@ -1,19 +1,86 @@
 ## Getting Started
-Create projects with `npx sv create my-app`. Routes in `src/routes/`, shared code in `src/lib/`, templates in `src/app.html`, hooks in `src/hooks.server.js`/`src/hooks.client.js`. Deploy via adapters: `adapter-node`, `adapter-static`, `adapter-vercel`/`adapter-netlify`/`adapter-cloudflare`. Uses standard Web APIs: Fetch, Request/Response, Headers, FormData, Streams, URL, Web Crypto.
+Create projects with `npx sv create my-app`. Pages in `src/routes` with SSR + CSR by default. Supports static generation, SPAs, serverless, custom servers, mobile/desktop/browser extension deployment.
 
 ## Core Concepts
-Routes: `+page.svelte` (pages), `+page.js`/`+page.server.js` (load), `+layout.svelte` (layouts), `+server.js` (API), `+error.svelte` (errors). Load functions access `params`, `url`, `route`, `cookies`, set headers, stream promises. Form actions handle POST, return results/errors with `fail()`, redirect with `redirect()`. Use `use:enhance` for client-side handling. Page options: `prerender`, `ssr`, `csr`, `trailingSlash`, `config`. Remote functions: `query` (read), `form` (write), `command` (write anywhere), `prerender` (build-time).
+**Routing**: Filesystem-based. `+page.svelte` (component), `+page.js`/`+page.server.js` (load), `+layout.svelte` (wrapper), `+server.js` (API), `+error.svelte` (errors).
+
+**Loading Data**: Define load functions in `+page.js` (universal) or `+page.server.js` (server-only). Use provided `fetch` (inherits cookies, relative URLs on server). Return unresolved promises for streaming. Reruns on `params`/`url` changes; trigger with `invalidate(url)` or `invalidateAll()`.
+
+**Form Actions**: Export `actions` from `+page.server.js`. Invoke default with `<form method="POST">`, named with `<form method="POST" action="?/register">`. Return `fail(400, data)` for validation. Use `use:enhance` for progressive enhancement.
+
+**Page Options**: `prerender = true/'auto'` (static), `ssr = false` (client-only), `csr = false` (static HTML), `trailingSlash`.
+
+**State Management**: Avoid shared server state. Load functions must be pure. Use context API. Store persistent state in URL. Use snapshots for ephemeral state.
+
+**Remote Functions**: Type-safe client-server via `.remote.js`. Types: `query` (read, cached), `form` (write, validated), `command` (write, callable), `prerender` (build-time).
 
 ## Build & Deploy
-**adapter-auto** detects correct adapter. **Node** (`adapter-node`): Build with `npm run build`, deploy `build/`, `package.json`, `node_modules/`. Start with `node build`. Configure via `PORT`, `HOST`, `ORIGIN`, reverse proxy headers, `BODY_SIZE_LIMIT`, `SHUTDOWN_TIMEOUT`. **Static** (`adapter-static`): Set `prerender = true` in root layout. **SPA** (`adapter-static`): Disable SSR globally with `export const ssr = false`. **Cloudflare**: Configure fallback, customize `_routes.json`. **Netlify**: Use `edge: true` for edge functions, `split: true` for splitting. **Vercel**: Set `runtime`, `regions`, `split`, `memory`, `maxDuration` via `export const config`. ISR: `expiration`, `bypassToken`, `allowQuery`.
+**Adapters**: Deployment plugins in `svelte.config.js`. Official: Cloudflare, Netlify, Node, static, Vercel. `adapter-auto` auto-detects.
 
-## Advanced Techniques
-**Routing**: Rest `[...file]`, optional `[[lang]]`, matchers in `src/params/`, layout groups `(app)`. **Hooks**: `handle`, `handleFetch`, `handleValidationError` (server); `handleError` (shared); `reroute`, `transport` (universal). **Error Handling**: `error(404, 'Not found')` for expected errors. **Link Navigation**: `data-sveltekit-preload-data`, `data-sveltekit-preload-code`, `data-sveltekit-reload`, `data-sveltekit-replacestate`, `data-sveltekit-keepfocus`, `data-sveltekit-noscroll`. **Service Workers**: Auto-registered `src/service-worker.js`, access `$service-worker`. **Server-Only**: `.server` suffix or `$lib/server/` directory. **Snapshots**: `capture()`/`restore()` for DOM state. **Shallow Routing**: `pushState()`/`replaceState()` from `$app/navigation`. **Observability**: Enable OpenTelemetry in `svelte.config.js`, create `src/instrumentation.server.ts`. **Libraries**: Use `@sveltejs/package`, configure `package.json` exports.
+**Node.js**: `@sveltejs/adapter-node`. Env: `PORT`, `HOST`, `ORIGIN`, `PROTOCOL_HEADER`, `HOST_HEADER`, `ADDRESS_HEADER`, `XFF_DEPTH`, `BODY_SIZE_LIMIT`, `SHUTDOWN_TIMEOUT`.
+
+**Static**: `adapter-static` with `prerender = true` in root layout.
+
+**SPAs**: `adapter-static` with `fallback` and `ssr = false`. Poor SEO.
+
+**Cloudflare**: `adapter-cloudflare`. Access bindings via `platform.env`. Use `read()` from `$app/server` instead of `fs`.
+
+**Netlify**: `adapter-netlify` with `edge`/`split` options. Requires `netlify.toml`.
+
+**Vercel**: `adapter-vercel`. Config: `split`, `runtime`, `regions`, `memory`, `isr`. Image optimization: `adapter({ images: { sizes: [640, 1920], formats: ['image/webp'] } })`.
+
+## Advanced
+**Routing**: Rest `[...file]`, optional `[[lang]]/home`, matchers in `src/params/fruit.js`, layout groups `(group)`, `+page@segment` breaks hierarchy.
+
+**Hooks**: `handle` (modify request/response), `locals` (custom data), `handleFetch`, `handleValidationError`, `handleError`, `init`, `reroute`, `transport`.
+
+**Error Handling**: `error(404, 'Not found')` renders nearest `+error.svelte`. Unexpected errors logged; handle in `handleError` hook.
+
+**Link Navigation**: `data-sveltekit-preload-data`, `preload-code`, `reload`, `replacestate`, `keepfocus`, `noscroll`.
+
+**Service Workers**: Auto-bundled `src/service-worker.js`. Access `$service-worker` for assets, build, version, base.
+
+**Server-only Modules**: `.server` suffix or `$lib/server/` directory blocks imports from public code.
+
+**Snapshots**: Export `snapshot` with `capture`/`restore` from `+page.svelte` or `+layout.svelte` to preserve DOM state.
+
+**Shallow Routing**: `pushState(url, state)`, `replaceState(url, state)`. Access via `page.state`.
+
+**Component Libraries**: `@sveltejs/package` generates `dist`. Define entry points in `package.json` `exports`. All relative imports need full paths with extensions.
 
 ## Best Practices
-**Auth**: Check cookies in server hooks, store user in `locals`. **Performance**: Code-splitting, asset preloading, file hashing, request coalescing, parallel loading, data inlining, prerendering, link preloading. Optimize images with `@sveltejs/enhanced-img`, compress videos, preload fonts, find large packages with `rollup-plugin-visualizer`. **Icons**: Use Iconify. **Images**: Vite auto-processes, `@sveltejs/enhanced-img` generates formats/sizes. **Accessibility**: Unique `<title>` in `<svelte:head>`, SvelteKit focuses `<body>` after navigation. **SEO**: SSR default, add `<title>` and `<meta name="description">`, create sitemaps via `src/routes/sitemap.xml/+server.js`.
+**Auth**: Sessions revocable but require DB queries; JWTs faster but not revocable. Check cookies in server hooks, store user in `locals`. Lucia recommended.
 
-## Reference
-**FAQs**: Import JSON with `import pkg from './package.json' with { type: 'json' };`. **View Transitions**: Use `onNavigate()` with `document.startViewTransition()`. **Database**: Put queries in server routes, create `db.js` singleton. **Client Libraries**: Use `import { browser }` check, `onMount`, or `{#await}`. **Middleware**: Vite plugin in dev, adapter-node in production. **Integrations**: `vitePreprocess` for CSS preprocessors, `npx sv add` for tools. **Debugging**: VSCode debug terminal or `NODE_OPTIONS="--inspect" npm run dev`. **Migration v1→v2**: `error()`/`redirect()` no longer need `throw`, `cookies.set/delete` require `path`, `$app/stores` → `$app/state`. **Migration Sapper→SvelteKit**: Add `"type": "module"`, replace `sapper` with `@sveltejs/kit`, rename files (`_layout.svelte` → `+layout.svelte`), `preload` → `load` function.
+**Performance**: Optimize images with `@sveltejs/enhanced-img`. Compress videos to `.webm`/`.mp4`. Preload fonts. Find large packages with `rollup-plugin-visualizer`. Return promises from `load` for non-essential data. Colocate frontend/backend, deploy to edge, use CDN.
 
-**Rendering Modes**: CSR (browser), SSR (server), Hybrid (default), SPA (client-side routing), SSG (prerendered), ISR (on-demand). **Runtime Modules**: `$app/environment`, `$app/navigation`, `$app/paths`, `$app/forms`, `$app/state`, `$app/server`, `$service-worker`. **Environment**: `$env/static/public`, `$env/static/private`, `$env/dynamic/public`, `$env/dynamic/private`. **Types**: `$app/types` exports `Asset`, `RouteId`, `Pathname`, `RouteParams`, `LayoutParams`, `PageData`, `LayoutData`, `ActionData`.
+**Images**: Vite auto-processes imports. `@sveltejs/enhanced-img` generates avif/webp, multiple sizes. Serve via CDN, provide 2x resolution, set `fetchpriority="high"` for LCP, add width/height, always alt text.
+
+**Accessibility**: Unique page titles in `<svelte:head>`. SvelteKit focuses `<body>` after navigation. Set `lang` on `<html>`.
+
+**SEO**: SSR by default. Add unique `<title>` and `<meta name="description">`. Create dynamic sitemaps.
+
+## API Reference
+**Response**: `json(data)`, `text(body)`, `error(status, body)`, `redirect(status, location)`, `fail(status, data)`.
+
+**RequestEvent**: `cookies`, `fetch`, `locals`, `params`, `url`, `setHeaders()`, `getClientAddress()`.
+
+**LoadEvent**: Extends RequestEvent, adds `data`, `parent()`, `depends()`, `untrack()`.
+
+**Hooks**: `handle({event, resolve})`, `handleError({error, event, status, message})`, `handleFetch({event, request, fetch})`, `reroute({url, fetch})`.
+
+**Navigation**: `enhance`, `applyAction`, `goto(url, opts)`, `invalidate(resource)`, `beforeNavigate`/`afterNavigate`, `preloadData(href)`.
+
+**Environment**: `$app/environment` (browser, building, dev, version), `$env/static/private`, `$env/static/public`, `$env/dynamic/private`, `$env/dynamic/public`, `$app/state` (navigating, page, updated), `$app/paths` (asset, resolve).
+
+**Cookies**: `get(name)`, `getAll()`, `set(name, value, opts)` with required `path`, `delete(name, opts)`.
+
+**Server**: `$app/server` (command, form, query, query.batch, prerender, read), `getRequestEvent()`.
+
+**Configuration**: `adapter`, `csp`, `csrf`, `paths`, `prerender`, `router.type`, `version`.
+
+**Types**: `$types` (RequestHandler, Load, PageData, LayoutData, ActionData), `$app/types` (RouteId, Pathname, RouteParams, LayoutParams), `app.d.ts` (Error, Locals, PageData, PageState, Platform).
+
+## Migrations
+**v2**: `error()`/`redirect()` no throw, cookies need `path: '/'`, top-level promises `await`ed, `goto()` rejects external URLs, `resolvePath` → `resolveRoute`, `handleError` receives `status`/`message`, `use:enhance` callbacks renamed, file inputs need `enctype="multipart/form-data"`, Node 18.13+, `$app/stores` → `$app/state`.
+
+**Sapper**: Add `"type": "module"`, replace `sapper` with `@sveltejs/kit`, update scripts, replace config files, rename files (`_layout.svelte` → `+layout.svelte`), `preload` → `load`, `@sapper/app` → `$app/navigation`/`$app/stores`.

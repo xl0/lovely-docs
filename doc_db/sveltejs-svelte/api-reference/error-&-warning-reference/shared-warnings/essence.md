@@ -1,0 +1,1 @@
+Documentation of two Svelte warnings: void elements cannot have content, and $state.snapshot cannot clone certain objects like DOM elements.

@@ -1,1 +1,0 @@
-Index page for Svelte runtime documentation and APIs.

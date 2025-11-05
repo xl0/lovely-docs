@@ -1,1 +1,1 @@
-Server-side form actions in +page.server.js handle POST requests with progressive enhancement support via use:enhance.
+Export actions from +page.server.js to handle POST form submissions with optional progressive enhancement via use:enhance directive.

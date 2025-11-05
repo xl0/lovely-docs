@@ -1,25 +1,25 @@
-## Single-Page App Setup
+## Creating an SPA
 
-Disable SSR globally and use `adapter-static` with a fallback page:
+Use `adapter-static` with `fallback` option and disable SSR in root layout:
 
 ```js
-// src/routes/+layout.js
 export const ssr = false;
+```
 
-// svelte.config.js
+```js
 import adapter from '@sveltejs/adapter-static';
 const config = {
 	kit: { adapter: adapter({ fallback: '200.html' }) }
 };
 ```
 
-Prerender specific pages by enabling SSR and prerender for those routes:
+## Prerendering specific pages
 
 ```js
 export const prerender = true;
 export const ssr = true;
 ```
 
-For Apache, add `.htaccess` to route unmatched requests to the fallback page.
+## Caveats
 
-**Warning:** SPAs have poor performance, SEO, and accessibility. Prerender as many pages as possible or use static site generation instead.
+SPA mode has poor performance impact: multiple network round trips, SEO penalties, Core Web Vitals failures, and breaks without JavaScript. Prerender as many pages as possible or use static site generation instead.

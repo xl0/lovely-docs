@@ -1,31 +1,18 @@
-## Expected vs Unexpected Errors
+## Expected Errors
 
-**Expected errors** use the `error()` helper to throw exceptions that SvelteKit catches and renders with `+error.svelte`:
+Throw with the `error` helper:
 
 ```js
 import { error } from '@sveltejs/kit';
 error(404, 'Not found');
-// or with custom properties:
-error(404, { message: 'Not found', code: 'NOT_FOUND' });
 ```
 
-**Unexpected errors** are other exceptions. They show a generic message to users and pass through the `handleError` hook for custom handling.
+Renders nearest `+error.svelte` with `page.error` containing the error object. Customize error shape via `App.Error` interface in `src/app.d.ts`.
 
-## Type Safety
+## Unexpected Errors
 
-Declare custom error properties in `src/app.d.ts`:
-
-```ts
-declare global {
-	namespace App {
-		interface Error {
-			code: string;
-			id: string;
-		}
-	}
-}
-```
+Any other exception is logged but not exposed to users (generic `{ "message": "Internal Error" }` instead). Handle in `handleError` hook.
 
 ## Error Responses
 
-Customize the fallback error page with `src/error.html` using `%sveltekit.status%` and `%sveltekit.error.message%` placeholders. Errors in `load` functions render the nearest `+error.svelte`, except in root layouts which use the fallback page.
+Customize fallback error page with `src/error.html` using `%sveltekit.status%` and `%sveltekit.error.message%` placeholders. Errors in `load` functions render nearest `+error.svelte`; errors in root layout use fallback page.

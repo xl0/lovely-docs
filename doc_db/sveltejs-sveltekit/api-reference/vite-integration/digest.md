@@ -1,1 +1,0 @@
-The @sveltejs/kit/vite module provides Vite plugin integration for SvelteKit projects. This module exports utilities and configuration helpers for integrating Vite with SvelteKit's build system, enabling optimized development and production builds with Vite's fast module replacement and bundling capabilities.

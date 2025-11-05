@@ -1,1 +1,0 @@
-Animations in keyed each blocks trigger on reordering; custom animation functions receive node and from/to DOMRect positions, returning css or tick-based animations.

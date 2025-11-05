@@ -1,1 +1,0 @@
-The `svelte/motion` module provides utilities for creating smooth animations and transitions in Svelte applications. It includes functions for animating values over time with easing functions, allowing developers to create fluid motion effects without manual animation loops.

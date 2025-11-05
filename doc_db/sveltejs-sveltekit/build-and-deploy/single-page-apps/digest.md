@@ -1,17 +1,13 @@
-## Creating a Single-Page App
+## Creating an SPA
 
-Turn a SvelteKit app into a fully client-rendered SPA by specifying a fallback page that serves any URLs not handled by other means.
-
-### Setup
-
-Disable SSR for pages you don't want to prerender in your root layout:
+Disable SSR in your root layout to serve all pages via a fallback page:
 
 ```js
 /// file: src/routes/+layout.js
 export const ssr = false;
 ```
 
-Use `adapter-static` with the `fallback` option:
+Use `adapter-static` with the `fallback` option to generate your SPA:
 
 ```js
 /// file: svelte.config.js
@@ -28,11 +24,11 @@ const config = {
 export default config;
 ```
 
-The fallback page is an HTML file created from your app template that loads your app and navigates to the correct route. The specific filename depends on your host (e.g., Surge uses `200.html`).
+The fallback page is an HTML file that loads your app and navigates to the correct route. The specific filename depends on your host (e.g., `200.html` for Surge).
 
-### Prerendering Individual Pages
+## Prerendering specific pages
 
-Re-enable SSR and add prerender for specific pages:
+Re-enable SSR and add `prerender` for pages you want prerendered:
 
 ```js
 /// file: src/routes/my-prerendered-page/+page.js
@@ -40,9 +36,11 @@ export const prerender = true;
 export const ssr = true;
 ```
 
-These pages render at build time and output as static `.html` files, requiring no Node server to deploy.
+## Performance considerations
 
-### Apache Configuration
+SPA mode has significant drawbacks: multiple network round trips delay startup, harms SEO through performance penalties and Core Web Vitals failures, and breaks for users without JavaScript. Prerender as many pages as possible, especially your homepage. If you can prerender all pages, use static site generation instead. Otherwise, use an adapter with server-side rendering support.
+
+## Apache configuration
 
 Add `static/.htaccess` to route requests to the fallback page:
 
@@ -57,6 +55,4 @@ Add `static/.htaccess` to route requests to the fallback page:
 </IfModule>
 ```
 
-### Performance Considerations
-
-SPAs have significant drawbacks: multiple network round trips delay startup, harm SEO through performance penalties and Core Web Vitals failures, exclude non-JS-rendering search engines, and fail when JavaScript is disabled. Prerender as many pages as possible, especially the homepage. If all pages can be prerendered, use static site generation instead. Otherwise, use an adapter supporting server-side rendering.
+Note: The fallback page always uses absolute asset paths regardless of the `paths.relative` configuration.

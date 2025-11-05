@@ -1,19 +1,11 @@
-## Snapshots
+Preserve ephemeral DOM state (scroll positions, form inputs, etc.) across navigation using snapshots.
 
-Preserve ephemeral DOM state (scroll positions, form input values, etc.) across navigation by exporting a `snapshot` object from `+page.svelte` or `+layout.svelte`.
+Export a `snapshot` object with `capture` and `restore` methods from `+page.svelte` or `+layout.svelte`:
 
-The snapshot object must have two methods:
-- `capture()`: Called before navigation, returns the state to preserve
-- `restore(value)`: Called when navigating back, receives the captured state
-
-The captured data must be JSON-serializable to persist in `sessionStorage`, allowing restoration on page reload or back navigation from external sites.
-
-Example:
 ```svelte
 <script>
 	let comment = $state('');
 
-	/** @type {import('./$types').Snapshot<string>} */
 	export const snapshot = {
 		capture: () => comment,
 		restore: (value) => comment = value
@@ -23,4 +15,6 @@ Example:
 <textarea bind:value={comment} />
 ```
 
-Avoid capturing large objects as they remain in memory for the session duration and may exceed `sessionStorage` limits.
+The `capture` function is called before navigating away and its return value is stored in the browser's history stack. The `restore` function is called when navigating back, receiving the stored value.
+
+Data must be JSON-serializable to persist to `sessionStorage`, allowing restoration on page reload or navigation back from external sites. Avoid capturing very large objects as they remain in memory for the session duration.

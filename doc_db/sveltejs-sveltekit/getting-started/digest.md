@@ -1,59 +1,43 @@
 ## Creating a Project
 
-Run `npx sv create my-app` to scaffold a project, then `npm run dev` to start the dev server on localhost:5173.
+Run `npx sv create my-app` to scaffold a project. Pages are Svelte components in `src/routes` that are server-rendered initially then client-side. Use VS Code with the Svelte extension.
+
+## Project Types
+
+SvelteKit supports multiple rendering patterns: default (SSR + CSR), static site generation with `adapter-static`, SPAs with CSR only, serverless with `adapter-vercel`/`adapter-netlify`/`adapter-cloudflare`, own server with `adapter-node`, and deployment as mobile apps (Tauri/Capacitor), desktop apps (Tauri/Wails/Electron), browser extensions, or embedded devices. Use `csr = false` to disable client-side rendering or `bundleStrategy: 'single'` to limit concurrent requests.
 
 ## Project Structure
 
 ```
 src/
-├ lib/              # Library code ($lib alias)
-│ └ server/         # Server-only code ($lib/server alias)
+├ lib/              # Reusable code ($lib alias)
+│ └ server/         # Server-only code ($lib/server)
 ├ params/           # Param matchers
-├ routes/           # Routes (Svelte components, server-rendered then client-side)
-├ app.html          # Page template with placeholders: %sveltekit.head%, %sveltekit.body%, %sveltekit.assets%, %sveltekit.nonce%, %sveltekit.env.[NAME]%, %sveltekit.version%
-├ error.html        # Error page with placeholders: %sveltekit.status%, %sveltekit.error.message%
+├ routes/           # Routes
+├ app.html          # Page template
+├ error.html        # Error page
 ├ hooks.client.js   # Client hooks
 ├ hooks.server.js   # Server hooks
 ├ service-worker.js # Service worker
 └ tracing.server.js # Observability
 static/             # Static assets
-tests/              # Playwright tests
+tests/              # Tests
 ```
 
-**package.json** requires `@sveltejs/kit`, `svelte`, `vite` as devDependencies with `"type": "module"`.
+**app.html placeholders**: `%sveltekit.head%`, `%sveltekit.body%`, `%sveltekit.assets%`, `%sveltekit.nonce%`, `%sveltekit.env.[NAME]%`, `%sveltekit.version%`
 
-## Rendering Modes & Deployment
+**error.html placeholders**: `%sveltekit.status%`, `%sveltekit.error.message%`
 
-SvelteKit supports: SSR + CSR (default), static site generation, SPAs, and multi-page apps. Adapters configure deployment targets:
-- `adapter-node` for own servers/containers
-- `adapter-static` for static generation
-- `adapter-vercel`, `adapter-netlify`, `adapter-cloudflare` for serverless
-- For HTTP/1 limits (mobile/embedded), use `bundleStrategy: 'single'`
+**package.json** requires `@sveltejs/kit`, `svelte`, `vite` as devDependencies with `"type": "module"`
 
 ## Web Standards
 
-SvelteKit uses standard Web APIs: Fetch, Request/Response, Headers, FormData, Streams, URL, Web Crypto.
+SvelteKit uses standard Web APIs: `fetch`, `Request`/`Response`, `Headers`, `FormData`, Streams, `URL`/`URLSearchParams`, and `Web Crypto`.
 
-**Fetch**: Available in hooks, server routes, and browser. Special version in `load` functions and server hooks allows direct endpoint invocation during SSR without HTTP calls.
-
-**Request/Response/Headers**:
 ```js
 export function GET({ request }) {
-	return json({ userAgent: request.headers.get('user-agent') }, 
-		{ headers: { 'x-custom-header': 'potato' } });
+	const userAgent = request.headers.get('user-agent');
+	const foo = new URL(request.url).searchParams.get('foo');
+	return json({ userAgent, foo });
 }
 ```
-
-**FormData**:
-```js
-export async function POST(event) {
-	const body = await event.request.formData();
-	return json({ name: body.get('name') ?? 'world' });
-}
-```
-
-**Streams**: ReadableStream, WritableStream, TransformStream for large/chunked responses.
-
-**URL/URLSearchParams**: Access query parameters via `url.searchParams.get('foo')`.
-
-**Web Crypto**: `crypto.randomUUID()` and other operations.

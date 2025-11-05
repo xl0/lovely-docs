@@ -1,0 +1,1 @@
+Special Svelte elements for error boundaries, browser API access, document manipulation, and component configuration.

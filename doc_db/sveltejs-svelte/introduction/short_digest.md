@@ -1,0 +1,1 @@
+Svelte is a compiler-based UI framework. Create projects with `npx sv create myapp`. `.svelte` files contain `<script>`, markup, and `<style>` sections with component-scoped CSS. Use `<script module>` for module-level code and `<script>` for instance-level code with runes. `.svelte.js/.ts` files enable reusable reactive logic.

@@ -1,8 +1,6 @@
-## Expected vs Unexpected Errors
+## Expected Errors
 
-SvelteKit distinguishes between two error types:
-
-**Expected errors** are created with the `error()` helper from `@sveltejs/kit`. They throw an exception that SvelteKit catches, setting the response status code and rendering the nearest `+error.svelte` component with `page.error` containing the error object.
+Use the `error` helper from `@sveltejs/kit` to throw expected errors:
 
 ```js
 import { error } from '@sveltejs/kit';
@@ -16,28 +14,27 @@ export async function load({ params }) {
 }
 ```
 
-You can pass a string as the second argument or an object with custom properties:
+This sets the response status code and renders the nearest `+error.svelte` component where `page.error` contains the error object. You can pass either an object with `message` and custom properties, or just a string.
 
-```js
-error(404, { message: 'Not found', code: 'NOT_FOUND' });
-```
-
-**Unexpected errors** are any other exceptions. They're not exposed to users (to avoid leaking sensitive info) and instead show a generic `{ message: "Internal Error" }`. They pass through the `handleError` hook where you can add custom handling like error reporting.
-
-## Error Objects & Type Safety
-
-Error objects are `{ message: string }` by default. Add custom properties by declaring an `App.Error` interface in `src/app.d.ts`:
+To add custom properties to errors, declare an `App.Error` interface in `src/app.d.ts`:
 
 ```ts
 declare global {
 	namespace App {
 		interface Error {
+			message: string;
 			code: string;
 			id: string;
 		}
 	}
 }
 ```
+
+## Unexpected Errors
+
+Any other exception during request handling is an unexpected error. These are logged but not exposed to users (to avoid leaking sensitive info). Users see a generic `{ "message": "Internal Error" }` instead.
+
+Process unexpected errors in the `handleError` hook to add custom handling, send to error reporting services, or return a custom error object.
 
 ## Error Responses
 
@@ -46,13 +43,19 @@ If an error occurs in `handle` or `+server.js`, SvelteKit responds with either a
 Customize the fallback error page with `src/error.html`:
 
 ```html
-<html>
-	<title>%sveltekit.error.message%</title>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>%sveltekit.error.message%</title>
+	</head>
 	<body>
+		<h1>My custom error page</h1>
 		<p>Status: %sveltekit.status%</p>
 		<p>Message: %sveltekit.error.message%</p>
 	</body>
 </html>
 ```
 
-For errors in `load` functions during page rendering, SvelteKit renders the nearest `+error.svelte` component. Exception: errors in root `+layout.js/+layout.server.js` use the fallback error page since the root layout contains the error component.
+SvelteKit replaces `%sveltekit.status%` and `%sveltekit.error.message%` with actual values.
+
+If an error occurs in a `load` function during page rendering, SvelteKit renders the nearest `+error.svelte` component. Exception: errors in root `+layout.js` or `+layout.server.js` use the fallback error page since the root layout would contain the error component.

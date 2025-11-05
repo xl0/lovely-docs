@@ -1,1 +1,1 @@
-Landing page for advanced SvelteKit documentation section.
+Index page for advanced SvelteKit documentation sections.

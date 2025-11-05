@@ -1,0 +1,1 @@
+Animation utilities: Spring and Tween classes for physics-based and time-based value animation, plus accessibility-aware motion preference detection.

@@ -1,0 +1,1 @@
+Non-bidirectional transition directives that play independently rather than reversing each other.

@@ -1,1 +1,1 @@
-Type-safe client-server communication with query, form, command, and prerender functions that run on server and support validation, progressive enhancement, and single-flight mutations.
+Type-safe client-server communication via remote functions that execute on the server and support queries, forms, commands, and prerendering with validation.

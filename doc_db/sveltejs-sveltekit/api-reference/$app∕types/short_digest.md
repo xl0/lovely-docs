@@ -2,7 +2,7 @@
 
 Auto-generated TypeScript utilities for type-safe route handling:
 
-- **Asset**: Union of static files plus dynamic imports
+- **Asset**: Union of static files and dynamic imports
 - **RouteId**: All route IDs in your app
 - **Pathname**: All valid pathnames
 - **ResolvedPathname**: Pathnames with base path prefix

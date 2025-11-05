@@ -1,0 +1,1 @@
+Legacy Svelte reactive statements using $: prefix run when dependencies change, with compile-time dependency tracking and topological ordering.

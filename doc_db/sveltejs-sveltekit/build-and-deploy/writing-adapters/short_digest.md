@@ -1,7 +1,13 @@
 ## Adapter API
 
-Export default function returning `Adapter` with required `name` and `adapt(builder)`, optional `emulate()` and `supports`.
+Export a function returning an `Adapter` object with required `name` and `adapt(builder)` properties, plus optional `emulate()` and `supports` methods.
 
-## Adapt Method
+## Adapt Implementation
 
-Must clear build dir, write output via `builder.writeClient/Server/Prerendered()`, generate code that imports `Server`, instantiates with `builder.generateManifest()`, listens for requests, converts to `Request`, calls `server.respond(request, { getClientAddress })`, exposes platform via `platform` option, shims `fetch` if needed, bundles output, and places files correctly.
+The `adapt` method must:
+- Clear build directory
+- Write output via `builder.writeClient/Server/Prerendered()`
+- Generate code that imports `Server`, creates app with `builder.generateManifest()`, converts platform requests to `Request`, calls `server.respond()`, and returns `Response`
+- Expose platform info via `platform` option
+- Shim `fetch` globally if needed
+- Bundle output and place static/generated files appropriately

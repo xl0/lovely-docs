@@ -1,1 +1,0 @@
-The `$app/navigation` module provides `goto()` for programmatic navigation, `invalidateAll()` to re-run all load functions, and `invalidate(url)` to invalidate specific data dependencies.

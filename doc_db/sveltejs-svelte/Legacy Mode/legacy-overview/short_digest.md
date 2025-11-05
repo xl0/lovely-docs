@@ -1,1 +1,0 @@
-Svelte 5 deprecated Svelte 3/4 features in favor of runes and snippets. Legacy mode features work in Svelte 5 until a component opts into runes mode with `runes: true` or by using runes.

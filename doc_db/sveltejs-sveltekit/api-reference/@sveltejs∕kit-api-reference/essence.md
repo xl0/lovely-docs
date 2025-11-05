@@ -1,1 +1,1 @@
-API reference page for @sveltejs/kit module with notes on private vs public types.
+Complete TypeScript API reference for @sveltejs/kit covering response helpers, request/event types, hooks, adapters, remote functions, and cookies.

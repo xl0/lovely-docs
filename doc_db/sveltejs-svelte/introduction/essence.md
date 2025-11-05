@@ -1,0 +1,1 @@
+Foundational concepts of Svelte: what it is, how to set up projects, and the structure of Svelte components and modules.

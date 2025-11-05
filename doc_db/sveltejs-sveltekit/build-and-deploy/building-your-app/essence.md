@@ -1,1 +1,1 @@
-How to build a SvelteKit app and prevent code from running during the build process.
+How to build a SvelteKit app, prevent code execution during build, and preview the production build.

@@ -3,169 +3,267 @@
 ## Pages
 
 ### routing
-Filesystem-based routing with special `+` prefixed files for pages, layouts, API endpoints, and error handling.
+SvelteKit uses filesystem-based routing with special `+` prefixed files for pages, layouts, error handling, and API endpoints, with automatic type generation for type safety.
 
-Routes defined by `src/routes` directory structure with `+` prefixed files. `+page.svelte` for pages, `+page.js`/`+page.server.js` for load functions, `+layout.svelte` for shared markup, `+server.js` for API endpoints, `+error.svelte` for error pages. Load functions run on server/client or server-only. `+server.js` exports HTTP handlers. Use `$types` for type safety.
+## Filesystem routing
 
-### loading-data
-Define load functions in route files to fetch and return data to components, with separate universal and server-only variants offering different capabilities and execution contexts.
+Routes defined by `src/routes` directory structure. Files with `+` prefix are route files.
 
-## Load Functions
+## Page files
 
-Define in `+page.js`/`+page.server.js` or `+layout.js`/`+layout.server.js`:
+- `+page.svelte`: page component
+- `+page.js` / `+page.server.js`: `load` function for data fetching
+- `+page.server.js`: server-only operations, can export `actions` for forms
+
+## Layout files
+
+- `+layout.svelte`: wraps pages with shared markup, must include `{@render children()}`
+- `+layout.js` / `+layout.server.js`: `load` function, data available to child pages
+
+## Error handling
+
+- `+error.svelte`: customizes error pages, SvelteKit walks up tree to find closest boundary
+- Falls back to `src/error.html` for root-level errors
+
+## API routes
+
+- `+server.js`: export HTTP verb handlers (`GET`, `POST`, etc.)
+- Can coexist with `+page` in same directory (content negotiation via `accept` header)
+- Export `fallback` for unhandled methods
 
 ```js
-// Universal (server + browser)
-export function load({ params }) {
-	return { data: 'value' };
+export function GET({ url }) {
+	return new Response(String(Math.random()));
 }
 
-// Server-only
-export async function load({ params }) {
-	return { data: await db.query() };
+export async function POST({ request }) {
+	const { a, b } = await request.json();
+	return json(a + b);
 }
 ```
 
-## Universal vs Server
+## Type safety
 
-- **Universal**: Run on server (SSR) then browser. Can return non-serializable data.
-- **Server**: Run only on server. Must return serializable data. Use for DB/secrets.
+Use auto-generated `$types` module: annotate with `PageProps`, `LayoutProps`, `PageLoad`, `PageServerLoad`, etc. IDEs can infer types automatically.
 
-## Key Features
+### loading-data
+Define load functions in +page.js/+page.server.js or +layout.js/+layout.server.js to fetch data before rendering, with automatic dependency tracking and rerunning on relevant changes.
 
-- **Layout data**: Available to child layouts and pages
-- **URL data**: Access `url`, `route`, `params`
-- **Fetch**: Use provided `fetch()` (inherits cookies, allows relative URLs)
-- **Cookies**: Server load can access/set via `cookies.get/set()`
-- **Headers**: Set response headers with `setHeaders()`
-- **Parent data**: Access parent load data with `await parent()`
-- **Errors/Redirects**: Use `error()` and `redirect()` helpers
-- **Streaming**: Return unresolved promises from server load
-- **Rerun**: Triggered by param/url changes or `invalidate()`
-- **Auth**: Use `getRequestEvent()` in shared auth functions
+## Load Functions
+
+Define in `+page.js`/`+page.server.js` or `+layout.js`/`+layout.server.js`. Return values available via `data` prop.
+
+**Universal** (`+page.js`): Run on server and browser, can return non-serializable data.
+**Server** (`+page.server.js`): Run only on server, must return serializable data.
+
+```js
+// +page.server.js
+export async function load({ params }) {
+	return { post: await db.getPost(params.slug) };
+}
+```
+
+## Data Flow
+
+Layout data available to children. Access parent data with `await parent()`. Access page data from root layout via `page.data`.
+
+## URL Data
+
+Load receives `url`, `route`, `params`:
+
+```js
+export function load({ url, route, params }) {
+	console.log(params.slug); // from /blog/[slug]
+}
+```
+
+## Fetch
+
+Use provided `fetch` (not native). Inherits cookies, allows relative URLs on server, inlines responses during SSR:
+
+```js
+export async function load({ fetch, params }) {
+	return { item: await fetch(`/api/items/${params.id}`).then(r => r.json()) };
+}
+```
+
+## Errors & Redirects
+
+```js
+import { error, redirect } from '@sveltejs/kit';
+
+export function load({ locals }) {
+	if (!locals.user) error(401, 'not logged in');
+	if (!locals.user.isAdmin) redirect(307, '/login');
+}
+```
+
+## Streaming Promises
+
+Return unresolved promises for non-essential data:
+
+```js
+export async function load({ params }) {
+	return {
+		post: await loadPost(params.slug),
+		comments: loadComments(params.slug)
+	};
+}
+```
+
+## Rerunning
+
+Load reruns when `params`, `url`, or dependencies change. Manually trigger with `invalidate(url)` or `invalidateAll()`.
+
+```js
+export async function load({ depends }) {
+	depends('app:random');
+}
+```
+
+```svelte
+<button onclick={() => invalidate('app:random')}>Refresh</button>
+```
 
 ### form-actions
-Server-side form actions in +page.server.js handle POST requests with progressive enhancement support via use:enhance.
+Export actions from +page.server.js to handle POST form submissions with optional progressive enhancement via use:enhance directive.
 
-## Form Actions Basics
-
-Export `actions` from `+page.server.js` to handle POST requests:
+## Default Actions
 
 ```js
 export const actions = {
-	default: async (event) => {},
+	default: async (event) => {}
+};
+```
+
+Invoke with `<form method="POST">`.
+
+## Named Actions
+
+```js
+export const actions = {
 	login: async (event) => {},
 	register: async (event) => {}
 };
 ```
 
-Invoke with `<form method="POST" action="?/login">` or `<button formaction="?/register">`.
+Invoke with `<form method="POST" action="?/register">` or `<button formaction="?/register">`.
 
-## Handling Data & Errors
-
-Read form data and return results:
+## Processing Data
 
 ```js
 export const actions = {
 	login: async ({ request }) => {
 		const data = await request.formData();
-		if (!data.get('email')) {
-			return fail(400, { missing: true });
-		}
 		return { success: true };
 	}
 };
 ```
 
-Access in component via `form` prop. Use `redirect()` for redirects.
+Return value available as `form` prop.
+
+## Validation Errors
+
+```js
+import { fail } from '@sveltejs/kit';
+return fail(400, { email, missing: true });
+```
+
+## Redirects
+
+```js
+import { redirect } from '@sveltejs/kit';
+redirect(303, '/path');
+```
 
 ## Progressive Enhancement
 
-Add `use:enhance` for client-side form handling without full-page reloads:
-
 ```svelte
 <script>
-	import { enhance, applyAction } from '$app/forms';
+	import { enhance } from '$app/forms';
 </script>
-
-<form method="POST" use:enhance={({ formData }) => {
-	return async ({ result }) => {
-		await applyAction(result);
-	};
-}>
+<form method="POST" use:enhance>
 ```
 
-Use `deserialize` when implementing custom fetch-based handlers.
+Customize with `use:enhance={({ formData }) => async ({ result }) => {}}`.
+
+## Custom Submission
+
+```js
+const result = deserialize(await response.text());
+applyAction(result);
+```
+
+Add header `'x-sveltekit-action': 'true'` to POST to actions from custom fetch.
 
 ### page-options
-Export page options from layout and page files to control server rendering, prerendering, client rendering, trailing slashes, and adapter-specific configuration.
+Control per-page rendering behavior (prerendering, SSR, CSR, trailing slashes) and adapter configuration in SvelteKit.
 
 ## prerender
-`export const prerender = true/false/'auto'` generates static HTML at build time. Specify dynamic routes via `entries()` function. Pages must return identical content for all users.
+`export const prerender = true/false/'auto'` — render pages at build time as static HTML. Prerenderer crawls links to discover pages; use `entries()` function for dynamic routes not discoverable through crawling. Pages must return identical content for all users.
+
+## entries
+```js
+export function entries() {
+	return [{ slug: 'hello-world' }, { slug: 'another-blog-post' }];
+}
+export const prerender = true;
+```
 
 ## ssr
-`export const ssr = false` skips server rendering, sends empty shell. Setting in root layout makes entire app client-only (SPA).
+`export const ssr = false` — render only on client, skip server rendering. Useful for browser-only code.
 
 ## csr
-`export const csr = false` disables client-side rendering—no JavaScript shipped, HTML/CSS only, full-page navigation.
+`export const csr = false` — no JavaScript shipped, static HTML only. Disables scripts, form enhancement, and HMR.
 
 ## trailingSlash
-`export const trailingSlash = 'never' | 'always' | 'ignore'` controls URL trailing slash behavior.
+`export const trailingSlash = 'never'/'always'/'ignore'` — control trailing slash behavior.
 
 ## config
-`export const config = { ... }` sets adapter-specific configuration, merged at top level only.
+Adapter-specific configuration. Merges at top level only:
+```js
+export const config = { runtime: 'edge', regions: ['us1', 'us2'] }
+```
+
+Export from `+page.js`, `+page.server.js`, `+layout.js`, or `+layout.server.js`.
 
 ### state-management
-Guidelines for managing state in server-rendered and client-side applications, covering shared state pitfalls, load function purity, context API usage, component lifecycle preservation, and state persistence strategies.
+Best practices for managing state in server-client applications: avoid shared server state, keep load functions pure, use context API instead of globals, leverage component reuse with reactivity, and store persistent state in URLs or snapshots.
 
-**Avoid shared state on server** — don't store data in shared variables; use cookies and databases instead.
+**Avoid shared state on server**: Don't store data in shared variables—authenticate with cookies and use databases instead.
 
-**No side-effects in load** — return data instead of writing to stores:
-```js
-export async function load({ fetch }) {
-	return { user: await fetch('/api/user').then(r => r.json()) };
-}
-```
+**No side-effects in load**: Load functions must be pure; return data instead of writing to stores.
 
-**Use context API for safe state sharing** — pass functions into context to maintain reactivity across SSR boundaries.
+**Use context API**: Attach state to component tree with `setContext`/`getContext` instead of global state. Pass functions to maintain reactivity.
 
-**Component state is preserved** — make dependent values reactive with `$derived` when data changes.
+**Component state is preserved**: Components reuse on navigation; use `$derived` for reactive values or `{#key}` to force remounting.
 
-**URL search parameters** — store state that needs to survive reloads: `?sort=price&order=ascending`.
+**URL for persistent state**: Store filters/sorting in URL search parameters.
 
-**Snapshots** — preserve ephemeral UI state across navigation.
+**Snapshots for ephemeral state**: Use snapshots for temporary UI state like accordion toggles.
 
 ### remote-functions
-Type-safe client-server communication with query, form, command, and prerender functions that run on server and support validation, progressive enhancement, and single-flight mutations.
+Type-safe client-server communication via remote functions that execute on the server and support queries, forms, commands, and prerendering with validation.
 
-Remote functions enable type-safe client-server communication, always running on server. Four types: `query` (read), `query.batch` (batch reads), `form` (write with progressive enhancement), `command` (write from anywhere), `prerender` (build-time static data).
+Remote functions enable type-safe client-server communication via `.remote.js` files. Four types: **query** (read data, cached, refreshable), **query.batch** (batch multiple queries), **form** (write data with validation and field management), **command** (write data callable from anywhere), **prerender** (build-time static data).
 
-**query**:
 ```js
+// query
 export const getPost = query(v.string(), async (slug) => {
-  const [post] = await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
-  return post;
+  return await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
 });
-```
-Use with `await getPost(slug)` or access `.loading`, `.error`, `.current`. Call `.refresh()` to re-fetch.
 
-**form**:
-```js
+// form with fields
 export const createPost = form(v.object({title: v.string(), content: v.string()}), async (data) => {
-  await db.insert(data);
-  redirect(303, '/blog');
+  await db.sql`INSERT INTO post VALUES (...)`;
+});
+
+// command
+export const addLike = command(v.string(), async (id) => {
+  await db.sql`UPDATE item SET likes = likes + 1 WHERE id = ${id}`;
+  getLikes(id).refresh();
 });
 ```
-Spread onto `<form>`, access fields via `createPost.fields.title.as('text')`. Validate with `validate()`, get issues via `field.issues()`. Single-flight mutations: `submit().updates(query())`.
 
-**command**: Like form but callable from anywhere, no progressive enhancement. Update queries via `.updates(query())`.
-
-**prerender**: Build-time execution for static data. Specify `inputs: () => [...]`.
-
-Enable in config: `kit: { experimental: { remoteFunctions: true } }`
-
-### core-concepts
-Index page for core SvelteKit concepts and foundational topics.
-
-Overview page introducing fundamental SvelteKit concepts and architectural patterns.
+Enable with `kit.experimental.remoteFunctions: true` in config.
 

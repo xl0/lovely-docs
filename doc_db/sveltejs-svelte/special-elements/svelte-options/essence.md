@@ -1,0 +1,1 @@
+Configure per-component compiler options using the <svelte:options> element.

@@ -1,0 +1,1 @@
+Attachments are reactive functions that run when elements mount or state updates, with optional cleanup and control over re-execution.

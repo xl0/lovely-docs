@@ -1,0 +1,1 @@
+Common questions about SvelteKit development covering package management, library compatibility, APIs, databases, client-side code, proxying, middleware, and package manager setup.

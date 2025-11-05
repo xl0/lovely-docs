@@ -1,1 +1,1 @@
-Foundational patterns for routing, data loading, form handling, rendering configuration, state management, and type-safe client-server communication in SvelteKit applications.
+Fundamental patterns for routing, data loading, form handling, rendering control, state management, and type-safe client-server communication in SvelteKit.

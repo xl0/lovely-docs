@@ -1,1 +1,0 @@
-The $props rune receives component inputs with destructuring, fallback values, renaming, and type safety support.

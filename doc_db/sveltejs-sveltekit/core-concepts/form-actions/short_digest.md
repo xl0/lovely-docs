@@ -1,49 +1,67 @@
-## Form Actions Basics
-
-Export `actions` from `+page.server.js` to handle POST requests:
+## Default Actions
 
 ```js
 export const actions = {
-	default: async (event) => {},
+	default: async (event) => {}
+};
+```
+
+Invoke with `<form method="POST">`.
+
+## Named Actions
+
+```js
+export const actions = {
 	login: async (event) => {},
 	register: async (event) => {}
 };
 ```
 
-Invoke with `<form method="POST" action="?/login">` or `<button formaction="?/register">`.
+Invoke with `<form method="POST" action="?/register">` or `<button formaction="?/register">`.
 
-## Handling Data & Errors
-
-Read form data and return results:
+## Processing Data
 
 ```js
 export const actions = {
 	login: async ({ request }) => {
 		const data = await request.formData();
-		if (!data.get('email')) {
-			return fail(400, { missing: true });
-		}
 		return { success: true };
 	}
 };
 ```
 
-Access in component via `form` prop. Use `redirect()` for redirects.
+Return value available as `form` prop.
+
+## Validation Errors
+
+```js
+import { fail } from '@sveltejs/kit';
+return fail(400, { email, missing: true });
+```
+
+## Redirects
+
+```js
+import { redirect } from '@sveltejs/kit';
+redirect(303, '/path');
+```
 
 ## Progressive Enhancement
 
-Add `use:enhance` for client-side form handling without full-page reloads:
-
 ```svelte
 <script>
-	import { enhance, applyAction } from '$app/forms';
+	import { enhance } from '$app/forms';
 </script>
-
-<form method="POST" use:enhance={({ formData }) => {
-	return async ({ result }) => {
-		await applyAction(result);
-	};
-}>
+<form method="POST" use:enhance>
 ```
 
-Use `deserialize` when implementing custom fetch-based handlers.
+Customize with `use:enhance={({ formData }) => async ({ result }) => {}}`.
+
+## Custom Submission
+
+```js
+const result = deserialize(await response.text());
+applyAction(result);
+```
+
+Add header `'x-sveltekit-action': 'true'` to POST to actions from custom fetch.

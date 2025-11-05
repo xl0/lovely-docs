@@ -1,0 +1,1 @@
+`<svelte:component this={MyComponent} />` dynamically renders components in legacy mode, destroying and recreating the instance when `this` changes. In runes mode, use `<MyComponent>` directly instead.

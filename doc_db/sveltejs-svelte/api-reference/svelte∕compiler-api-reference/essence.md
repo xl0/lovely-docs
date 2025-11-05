@@ -1,0 +1,1 @@
+Complete API reference for the Svelte compiler with functions to compile components, parse AST, preprocess code, and migrate to runes, plus comprehensive type definitions for all AST node types.

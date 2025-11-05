@@ -1,6 +1,6 @@
-Service workers act as proxy servers for network requests, enabling offline support and performance optimization through precaching. SvelteKit automatically bundles and registers a service worker if `src/service-worker.js` (or `src/service-worker/index.js`) exists.
+Service workers act as proxy servers for network requests, enabling offline support and performance optimization through precaching. SvelteKit automatically bundles and registers a `src/service-worker.js` file (or `src/service-worker/index.js`).
 
-Inside the service worker, access the `$service-worker` module to get paths to static assets, build files, prerendered pages, app version, and base path. Use the version string to create unique cache names.
+Inside the service worker, access the `$service-worker` module for static assets, build files, prerendered pages, app version, and base path. Vite's `define` config applies to service workers.
 
 Example service worker implementation:
 ```js
@@ -35,7 +35,8 @@ self.addEventListener('fetch', (event) => {
 		const url = new URL(event.request.url);
 		const cache = await caches.open(CACHE);
 		if (ASSETS.includes(url.pathname)) {
-			return await cache.match(url.pathname);
+			const response = await cache.match(url.pathname);
+			if (response) return response;
 		}
 		try {
 			const response = await fetch(event.request);
@@ -43,11 +44,15 @@ self.addEventListener('fetch', (event) => {
 				cache.put(event.request, response.clone());
 			}
 			return response;
-		} catch {
-			return await cache.match(event.request);
+		} catch (err) {
+			const response = await cache.match(event.request);
+			if (response) return response;
+			throw err;
 		}
 	})());
 });
 ```
 
-Disable automatic registration via configuration if you need custom logic. During development, only browsers supporting ES modules in service workers work; manually register with `{ type: dev ? 'module' : 'classic' }`. Vite PWA plugin and Workbox are alternative solutions.
+Disable automatic registration via configuration if you need custom logic. During development, only browsers supporting ES modules in service workers work; use `{ type: dev ? 'module' : 'classic' }` when manually registering. The `build` and `prerendered` arrays are empty during development.
+
+Alternatives: Workbox library or Vite PWA plugin for PWA applications.

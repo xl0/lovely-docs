@@ -1,9 +1,0 @@
-## Reactive let/var in legacy mode
-
-Top-level variables are automatically reactive. Reactivity is assignment-based, so mutations like `.push()` require a reassignment to trigger updates:
-
-```svelte
-let numbers = [1, 2, 3, 4];
-numbers.push(5); // no update
-numbers = numbers; // triggers update
-```

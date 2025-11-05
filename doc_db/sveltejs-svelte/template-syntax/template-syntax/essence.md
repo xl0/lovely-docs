@@ -1,0 +1,1 @@
+Documentation index for Svelte template syntax

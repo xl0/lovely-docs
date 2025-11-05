@@ -1,1 +1,0 @@
-Svelte provides :global() modifier and :global blocks to apply styles globally, and -global- prefix for keyframes.

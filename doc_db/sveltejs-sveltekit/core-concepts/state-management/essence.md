@@ -1,1 +1,1 @@
-Guidelines for managing state in server-rendered and client-side applications, covering shared state pitfalls, load function purity, context API usage, component lifecycle preservation, and state persistence strategies.
+Best practices for managing state in server-client applications: avoid shared server state, keep load functions pure, use context API instead of globals, leverage component reuse with reactivity, and store persistent state in URLs or snapshots.

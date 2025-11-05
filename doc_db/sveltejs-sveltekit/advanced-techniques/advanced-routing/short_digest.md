@@ -1,17 +1,23 @@
 ## Rest Parameters
-`[...file]` matches variable segments: `/[org]/[repo]/tree/[branch]/[...file]` with `/sveltejs/kit/tree/main/docs/file.md` gives `file: 'docs/file.md'`.
+`[...file]` matches variable segments: `/[org]/[repo]/tree/[branch]/[...file]` → `file: 'documentation/docs/04-advanced-routing.md'`
 
 ## Optional Parameters
-`[[lang]]/home` matches both `home` and `en/home`.
+`[[lang]]/home` matches both `/home` and `/en/home`
 
 ## Matching
-Create `src/params/fruit.js` with `match(param)` function, use `[page=fruit]` in routes.
+Validate parameters with matchers in `src/params/fruit.js`:
+```js
+export function match(param) {
+	return param === 'apple' || param === 'orange';
+}
+```
+Use as `[page=fruit]` in routes.
 
-## Sorting
-Specificity > matchers > optional/rest > alphabetical. `/foo-abc` matches `foo-abc/+page.svelte` before `foo-[c]/+page.svelte`.
+## Route Sorting
+Priority: specificity > matchers > alphabetical. Rest/optional params have lowest priority unless final.
 
 ## Encoding
-`[x+3a]` for `:`, `[x+2f]` for `/`. `/smileys/:-)` becomes `src/routes/smileys/[x+3a]-[x+29]/+page.svelte`.
+Special characters: `/` → `[x+2f]`, `:` → `[x+3a]`. Unicode: `🤪` → `[u+d83e][u+dd2a]`
 
 ## Layout Groups
-`(app)` and `(marketing)` organize routes without URL changes. Use `+page@(app).svelte` to inherit from `(app)` layout only.
+`(group)` directories organize routes without affecting URLs. Use `+page@segment` to break out of layout hierarchy.

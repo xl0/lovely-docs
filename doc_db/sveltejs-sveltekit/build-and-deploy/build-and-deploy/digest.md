@@ -1,1 +1,1 @@
-This page serves as an introduction to building and deploying SvelteKit applications. It covers the process of preparing your application for production and deploying it to various hosting platforms.
+This page serves as an index/overview for build and deployment documentation in SvelteKit. It appears to be a structural page that organizes related documentation topics rather than containing detailed technical content itself.

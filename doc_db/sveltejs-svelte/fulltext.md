@@ -1,32 +1,26 @@
 
 ## Directories
 
-### Introduction
-Getting started with Svelte project setup, component file structure, and reactive logic patterns.
+### introduction
+Foundational concepts of Svelte: what it is, how to set up projects, and the structure of Svelte components and modules.
 
-## Project Setup
+## Overview
 
-Create a new project with SvelteKit:
-```bash
-npx sv create myapp
-npm install
-npm run dev
-```
+Svelte is a compiler-based UI framework that transforms HTML, CSS, and JavaScript components into optimized code. Supports everything from components to full-stack apps with SvelteKit.
 
-Alternative with Vite:
-```bash
-npm create vite@latest  # select svelte
-npm run build
-```
+## Getting Started
 
-Vite is recommended over Rollup/Webpack. VS Code extension available.
+Create a new project with `npx sv create myapp` (SvelteKit recommended) or `npm create vite@latest` with Svelte option. Use VS Code extension for editor support or `sv check` from command line.
 
-## Component Files
+## Svelte Files
 
-Svelte components use `.svelte` files with optional `<script>`, `<style>`, and markup sections:
-- `<script>` runs per component instance
-- `<script module>` runs once at module load
-- `<style>` CSS is automatically scoped to the component
+`.svelte` files contain optional `<script>`, markup, and `<style>` sections.
+
+**Instance-level scripts** (`<script>`) run per component creation and use runes for props and reactivity.
+
+**Module-level scripts** (`<script module>`) run once on module load and can export bindings.
+
+CSS in `<style>` blocks is scoped to the component.
 
 ```svelte
 <script module>
@@ -37,215 +31,207 @@ Svelte components use `.svelte` files with optional `<script>`, `<style>`, and m
 	total += 1;
 </script>
 
+<button onclick={() => alert('Welcome!')}>click me</button>
+
 <style>
-	p { color: burlywood; }
+	button { font-size: 2em; }
 </style>
 ```
 
-## Reactive Logic Files
+## Svelte Modules
 
-`.svelte.js` and `.svelte.ts` files are regular JS/TS modules that support Svelte runes for creating reusable reactive logic and sharing reactive state across your app.
+`.svelte.js` and `.svelte.ts` files support runes for creating reusable reactive logic and sharing reactive state.
 
-### Runes
-Runes are $-prefixed compiler keywords that manage reactive state, derived values, side effects, and component communication in Svelte.
+### runes
+Svelte 5 runes are $ -prefixed compiler keywords for managing reactive state, derived values, side effects, component props, and debugging.
 
 ## Runes
 
-Runes are `$`-prefixed compiler keywords that control Svelte's reactivity. Unlike functions, they cannot be imported, assigned, or passed as arguments.
+`$`-prefixed compiler keywords that control Svelte behavior. Not importable, not assignable, only valid in specific positions.
 
 ### $state
-Creates reactive variables. Arrays and objects become deeply reactive proxies:
+Creates reactive state with automatic UI updates. Supports deep reactivity for objects/arrays via proxies.
+
 ```js
 let count = $state(0);
 let todos = $state([{ done: false, text: 'add more todos' }]);
-todos[0].done = !todos[0].done; // triggers update
+todos[0].done = !todos[0].done; // triggers updates
 ```
-Use `$state.raw` for non-reactive state. Use `$state.snapshot()` to get a plain object from a proxy.
+
+Variants: `$state.raw` (no deep reactivity), `$state.snapshot(value)` (static snapshot), `$state.eager(value)` (immediate updates). Cannot directly export and reassign; mutate properties or use getter functions instead.
 
 ### $derived
-Declares computed state that automatically updates when dependencies change:
-```svelte
+Reactive derived state that automatically updates when dependencies change.
+
+```js
 let count = $state(0);
 let doubled = $derived(count * 2);
 ```
-For complex logic, use `$derived.by(() => { ... })`. Expressions must be side-effect free. Uses push-pull reactivity—dependents are notified immediately, but derived values only re-evaluate when read.
+
+Use `$derived.by` for complex derivations. Derived values can be temporarily reassigned for optimistic UI. Uses push-pull reactivity: changes notify dependents immediately but derived values only re-evaluate when read.
 
 ### $effect
-Runs side-effect functions that automatically track reactive dependencies and re-run when they change:
-```svelte
+Runs side-effect functions when tracked state changes with automatic dependency tracking.
+
+```js
 $effect(() => {
-	const context = canvas.getContext('2d');
 	context.fillStyle = color;
 	context.fillRect(0, 0, size, size);
 });
+
+$effect(() => {
+	const interval = setInterval(() => count += 1, ms);
+	return () => clearInterval(interval);
+});
 ```
-Supports teardown functions: `$effect(() => { const interval = setInterval(...); return () => clearInterval(interval); })`. Use `$effect.pre` to run before DOM updates. Use `$effect.root()` for manually-controlled effects.
+
+Only synchronously read values are tracked. Asynchronously read values (after await/setTimeout) are not tracked. Variants: `$effect.pre()` (before DOM updates), `$effect.tracking()` (returns true if in tracking context), `$effect.pending()` (count of pending promises), `$effect.root()` (manually controlled non-tracked scope). Don't use for state synchronization—use `$derived` instead.
 
 ### $props
-Receives component inputs with destructuring and fallback values:
+Receives component inputs with destructuring and fallback values.
+
 ```svelte
-let { adjective = 'happy', super: trouper, ...others } = $props();
+<script lang="ts">
+	let { adjective = 'happy' }: { adjective: string } = $props();
+</script>
 ```
-Generate unique instance IDs with `$props.id()`.
+
+Supports renaming (`{ super: trouper }`), rest properties (`...others`), and type annotations. `$props.id()` generates unique per-instance IDs for linking elements.
 
 ### $bindable
-Marks props as bindable to enable two-way data binding:
+Enables bidirectional prop binding between parent and child components.
+
 ```svelte
 // Child
-let { value = $bindable() } = $props();
+let { value = $bindable(), ...props } = $props();
+
 // Parent
-<Child bind:value={message} />
+<FancyInput bind:value={message} />
 ```
 
+Allows state mutation in children and supports fallback values.
+
 ### $inspect
-Development-only rune for reactive logging:
-```svelte
-$inspect(count, message); // logs on change
-$inspect(count).with((type, value) => { /* custom handler */ });
-$inspect.trace(); // traces which reactive state caused re-run
+Development-only rune that reactively logs value changes.
+
+```js
+$inspect(value);
+$inspect(value).with(callback); // callback receives "init" or "update" type
+$inspect.trace(); // traces which reactive state caused re-run (v5.14+)
 ```
 
 ### $host
-Accesses the host element in custom element components:
-```svelte
-$host().dispatchEvent(new CustomEvent(type));
+Accesses the host element in custom element components for dispatching custom events.
+
+```js
+$host().dispatchEvent(new CustomEvent(type))
 ```
 
-### Template Syntax
-Svelte's template syntax for markup, expressions, conditionals, loops, snippets, and reactive directives for binding, styling, transitions, and animations.
-
-# Template Syntax
+### template-syntax
+Complete reference for Svelte's template syntax including markup, control flow, bindings, directives, and special tags.
 
 ## Markup & Attributes
-Lowercase tags are HTML elements; capitalized/dot-notation tags are components. Attributes support JavaScript expressions and shorthand: `<button disabled={!clickable}>` or `<button {disabled}>`. Spread attributes: `<Widget {...things} />`. Boolean attributes included if truthy.
+Lowercase tags are HTML elements; capitalized/dot-notation tags are components. Attributes support JavaScript expressions with shorthand `{name}` for `name={name}`. Boolean attributes include if truthy, exclude if falsy. Spread attributes with `{...things}` where later values override earlier ones.
 
-## Text & HTML
-Include expressions with braces: `<h1>Hello {name}!</h1>`. Use `{@html}` for raw HTML (sanitize to prevent XSS). Null/undefined omitted, others stringified.
+## Events & Text
+Event attributes use `on:` prefix (case-sensitive). Svelte delegates certain events (click, input, keydown, etc.) to root for performance. Text expressions coerce to strings; use `{@html}` for raw HTML (sanitize to prevent XSS).
 
-## Events
-Listen with `on` prefix: `<button onclick={handler}>`. Event attributes are case-sensitive and delegated to root for performance.
+## Control Flow
+- `{#if}...{:else if}...{:else}` for conditional rendering
+- `{#each items as item, i (key)}` for iteration with optional destructuring and `{:else}` for empty lists
+- `{#key expression}` destroys/recreates contents when expression changes
+- `{#await promise}...{:then value}...{:catch error}` for Promise handling
 
-## Conditional Rendering
-`{#if expression}...{:else if}...{:else}...{/if}` for conditional blocks.
-
-## Iteration
-`{#each items as item (item.id)}` iterates with optional keying for efficient updates. Supports destructuring and `{:else}` for empty lists.
-
-## Key Block
-`{#key expression}...{/key}` destroys and recreates contents when expression changes, useful for reinitializing components or replaying transitions.
-
-## Async Handling
-`{#await promise}...{:then value}...{:catch error}...{/await}` branches on Promise states. SSR only renders pending state.
-
-## Snippets
-Reusable markup declared with `{#snippet name(params)}...{/snippet}` and rendered with `{@render name()}`. Pass to components explicitly or implicitly:
-```svelte
-<Table {header} {row} />
-<!-- or -->
-<Table>
-  {#snippet header()}...{/snippet}
-  {#snippet row(d)}...{/snippet}
-</Table>
-```
-Type with `Snippet<[ParamType]>`. Use optional chaining for optional snippets: `{@render children?.()}`.
+## Snippets & Rendering
+Snippets are reusable markup blocks: `{#snippet name(params)}...{/snippet}`. Pass as props or use implicit `children` snippet. Render with `{@render snippet()}` supporting optional chaining. Type with `Snippet<[ParamTypes]>`.
 
 ## Directives
+- `bind:` creates two-way bindings (inputs, selects, media, dimensions, component props marked with `$bindable()`)
+- `use:` attaches action functions on element mount
+- `transition:` animates enter/leave with `|local` (default) or `|global` scope
+- `in:` and `out:` apply non-bidirectional transitions
+- `animate:` triggers on keyed each block reordering
+- `style:` sets inline styles with `|important` modifier
+- `class:` sets classes (prefer `class={}` attribute with objects/arrays)
 
-**bind:** Two-way binding between components/DOM. `bind:value`, `bind:checked`, `bind:group` (radio/checkbox), `bind:files`. Media: `bind:currentTime`, `bind:paused`, `bind:volume`. Dimensions: `bind:clientWidth`, `bind:clientHeight`. Components: mark props with `$bindable()`. Function bindings for validation: `bind:property={get, set}`.
+## Special Tags
+- `{@const name = value}` defines block-scoped constants
+- `{@debug var1, var2}` logs on change and pauses with devtools
+- `{@attach function}` runs functions on mount/state updates with optional cleanup
+- `{@html content}` injects raw HTML (use `:global` for styling injected content)
 
-**use:** Actions attached on mount via `use:myaction={data}`. Define with `$effect` for setup/teardown.
+## Advanced
+Await expressions (Svelte 5.36+, experimental): Use `await` in scripts and markup with `<svelte:boundary pending>` for loading states and `$effect.pending()` for subsequent updates.
 
-**style:** Inline styles with shorthand: `style:color="red" style:width={w} style:background-color|important={bg}`.
-
-**class:** Set classes via attribute (preferred): `class={condition ? 'large' : 'small'}` or `class={{ cool, lame: !cool }}`. Legacy directive: `class:cool={cool}`.
-
-**transition:** Bidirectional animations on enter/leave: `transition:fade={{ duration: 2000 }}` or `transition:fade|global`. Custom transitions return `{ duration, css(t, u) }` or `{ tick(t, u) }`. Events: `introstart`, `introend`, `outrostart`, `outroend`.
-
-**in:/out:** Non-bidirectional transitions. `in` plays alongside `out` rather than reversing: `in:fly={{ y: 200 }} out:fade`.
-
-**animate:** Reordering animations in keyed each blocks: `animate:flip={{ delay: 500 }}`. Custom functions receive `{ from, to }` DOMRect and return `{ duration, easing, css(t, u) }`.
-
-**@attach:** Reactive functions on mount/update: `{@attach myAttachment}`. Return cleanup function. Factories for reusable patterns: `{@attach tooltip(content)}`.
-
-**@const:** Local constants in block scope: `{@const area = box.width * box.height}`.
-
-**@debug:** Log variables on change: `{@debug variable}` or `{@debug}` for any state change.
-
-## Comments
-HTML comments work. `svelte-ignore` disables warnings. `@component` shows documentation on hover.
-
-### Styling
-Component styling with automatic scoping, global style overrides, CSS custom properties, and nested style behavior.
+### styling
+Svelte provides scoped component styles by default, with mechanisms to apply global styles and use CSS custom properties for dynamic styling.
 
 ## Scoped Styles
 
-Svelte automatically scopes component styles by adding hash-based classes (e.g., `svelte-123xyz`) to elements. Scoped selectors receive a 0-1-0 specificity boost, taking precedence over global styles. Keyframes are also scoped automatically.
+Svelte scopes component styles by default using hash-based classes (e.g., `svelte-123xyz`). Scoped selectors receive a 0-1-0 specificity boost to override global styles. Subsequent scoping uses `:where()` to prevent further specificity increases. `@keyframes` are automatically scoped.
 
 ## Global Styles
 
-Use `:global(selector)` to apply styles globally. Use `-global-` prefix for keyframes. Use `:global { ... }` block for multiple global selectors:
+Use `:global(...)` modifier for single selectors or `:global` block for multiple selectors:
 
 ```svelte
 <style>
 	:global(body) { margin: 0; }
-	@keyframes -global-my-animation { }
-	:global { div { } p { } }
+	:global {
+		div { color: red; }
+		p { font-size: 14px; }
+	}
 </style>
+```
+
+For keyframes, prepend `-global-`:
+
+```svelte
+@keyframes -global-my-animation { /* code */ }
 ```
 
 ## CSS Custom Properties
 
-Pass CSS custom properties to components with `--property-name` syntax and read them using `var(--property-name, fallback)`. Properties are inherited from parent elements and can be defined globally on `:root`.
+Pass CSS custom properties to components using `--property-name` syntax and consume them with `var(--property-name, fallback)`. Properties inherit from parent elements and can be defined globally on `:root`.
 
 ## Nested Style Elements
 
-Only one top-level `<style>` tag per component is allowed. Nested `<style>` tags inside elements or logic blocks bypass scoping and apply globally to the DOM:
+Only one top-level `<style>` tag per component is allowed. Nested `<style>` tags inside elements or logic blocks are inserted without scoping and apply globally to the DOM.
 
-```svelte
-<div>
-	<style>
-		div { color: red; }
-	</style>
-</div>
-```
 
-### Special Elements
-Built-in components for accessing browser APIs, error handling, and controlling component compilation.
+### special-elements
+Special Svelte elements for error boundaries, browser API access, document manipulation, and component configuration.
 
 ## Special Elements
 
-Built-in components for accessing browser APIs and controlling rendering behavior.
+Svelte provides special elements for handling errors, accessing browser APIs, and rendering dynamic content.
 
 ### Error Handling
-**`<svelte:boundary>`** — Catches rendering, update, and effect errors in children. Requires either a `failed` snippet or `onerror` callback. The `failed` snippet receives `error` and `reset` parameters for recovery UI. Does not catch event handler or async errors.
-
+`<svelte:boundary>` catches rendering and effect errors, handles pending async states, and provides error recovery:
 ```svelte
-<svelte:boundary>
-	<Component />
-	{#snippet failed(error, reset)}
-		<button onclick={reset}>Retry</button>
-	{/snippet}
+<svelte:boundary onerror={(e, r) => { error = e; reset = r; }}>
+	<p>{await delayed('hello!')}</p>
+	{#snippet pending()}<p>loading...</p>{/snippet}
+	{#snippet failed(error, reset)}<button onclick={reset}>try again</button>{/snippet}
 </svelte:boundary>
 ```
+Note: Does not catch errors in event handlers or setTimeout.
 
-### Window & Document
-**`<svelte:window>`** — Attaches event listeners to `window` with automatic cleanup. Bindable properties: `innerWidth`, `innerHeight`, `outerWidth`, `outerHeight`, `scrollX`, `scrollY`, `online`, `devicePixelRatio`.
-
-**`<svelte:document>`** — Attaches event listeners and actions to `document`. Bindable readonly properties: `activeElement`, `fullscreenElement`, `pointerLockElement`, `visibilityState`.
-
-**`<svelte:body>`** — Attaches event listeners and actions to `document.body`. Use for events like `mouseenter` and `mouseleave` that don't fire on `window`.
-
-All three must be at component top level only.
-
+### Window & Document Access
+`<svelte:window>` attaches event listeners and binds to window properties (innerWidth, innerHeight, scrollX, scrollY, online, devicePixelRatio):
 ```svelte
-<svelte:window bind:scrollY={y} onkeydown={handleKeydown} />
-<svelte:document bind:activeElement={el} onvisibilitychange={handler} />
-<svelte:body onmouseenter={handleMouseenter} use:someAction />
+<svelte:window onkeydown={handleKeydown} bind:scrollY={y} />
 ```
 
-### Head & DOM
-**`<svelte:head>`** — Inserts elements into `document.head`. Must appear only at component top level.
+`<svelte:document>` attaches listeners and actions to document, with readonly bindings for activeElement, fullscreenElement, pointerLockElement, visibilityState:
+```svelte
+<svelte:document onvisibilitychange={handleVisibilityChange} use:someAction />
+```
 
+`<svelte:body>` attaches listeners to document.body for events like mouseenter/mouseleave.
+
+### Head & Dynamic Elements
+`<svelte:head>` inserts elements into document.head:
 ```svelte
 <svelte:head>
 	<title>Hello world!</title>
@@ -253,322 +239,284 @@ All three must be at component top level only.
 </svelte:head>
 ```
 
-**`<svelte:element>`** — Renders a DOM element with runtime-determined tag name via the `this` prop. If `this` is nullish, nothing renders. Only `bind:this` binding works.
-
-```svelte
-<svelte:element this={tag} />
-```
+`<svelte:element>` renders a DOM element with runtime-determined tag name via the `this` prop. Only `bind:this` binding is supported. Use `xmlns` attribute for SVG.
 
 ### Configuration
-**`<svelte:options>`** — Specifies per-component compiler options:
-- `runes={true|false}` — Forces runes or legacy mode
-- `namespace="html|svg|mathml"` — Sets component namespace
-- `customElement={...}` — Configures custom element compilation
-- `css="injected"` — Injects styles inline
+`<svelte:options>` sets per-component compiler options: `runes`, `namespace`, `customElement`, `css="injected"`.
 
-### Runtime APIs
-Core runtime APIs for state management, component lifecycle, context passing, and imperative component control in Svelte.
+### runtime-apis
+Core runtime APIs for state management (stores, context), component lifecycle, and imperative component creation/rendering.
 
 ## Stores
 
-Reactive values accessed via `$` prefix. Svelte 5 runes reduce necessity, but stores remain useful for async data and manual control.
-
-- `writable(initial, startFn?)` - Mutable store with `.set()` and `.update()`
-- `readable(initial, startFn)` - Immutable store
-- `derived(store(s), callback, initial?)` - Computed store
-- `readonly(store)` - Read-only wrapper
-- `get(store)` - Get value without subscribing
-
-Store contract: `.subscribe(fn)` returning unsubscribe function, optionally `.set()` for writable stores.
-
-```js
-const count = writable(0);
-count.subscribe(v => console.log(v));
-count.set(1);
-```
-
-## Context API
-
-Pass values parent-to-child without prop-drilling using `setContext(key, value)` and `getContext(key)`. Store reactive state by mutating objects. Wrap in helpers for type safety. Context is request-isolated (safe for SSR).
+Reactive objects accessed via `$` prefix in components with automatic subscription/unsubscription.
 
 ```svelte
-// Parent
-setContext('my-context', 'value');
-// Child
-const value = getContext('my-context');
+import { writable } from 'svelte/store';
+const count = writable(0);
+$count = 2; // calls .set()
 ```
+
+**API:**
+- `writable(initial, onSubscribe?)` - `.set()` and `.update()` methods
+- `readable(initial, onSubscribe)` - Read-only store
+- `derived(store(s), callback, initial?)` - Computed store
+- `readonly(store)` - Wrap as read-only
+- `get(store)` - Synchronous value retrieval
+
+Store contract: Must have `.subscribe(fn)` returning unsubscribe function. Optionally `.set(value)` for writable stores.
+
+## Context
+
+Parent-to-child value passing without prop-drilling. Use `setContext(key, value)` in parent and `getContext(key)` in child. For reactive state, mutate objects rather than reassigning. Use `createContext<T>()` for type safety. Context is isolated per request.
 
 ## Lifecycle Hooks
 
-- `onMount` - Runs when component mounts to DOM, can return cleanup function, doesn't run on server
-- `onDestroy` - Runs before unmount, only hook that runs on server
-- `tick()` - Returns promise resolving after pending state changes apply
-- Use `$effect.pre` and `$effect` runes instead of deprecated `beforeUpdate`/`afterUpdate`
+Two phases: creation and destruction.
+
+- `onMount()` - Client-side initialization, returns cleanup function
+- `onDestroy()` - Cleanup, runs server-side
+- `tick()` - Post-update logic
+- `$effect.pre()` - Runs before DOM update
+- `$effect()` - Runs after DOM update
 
 ```svelte
+onMount(() => {
+  return () => { /* cleanup */ };
+});
+
 $effect.pre(() => {
-	messages;
-	const autoscroll = viewport?.offsetHeight + viewport?.scrollTop > viewport?.scrollHeight - 50;
-	if (autoscroll) tick().then(() => viewport.scrollTo(0, viewport.scrollHeight));
+  messages; // runs before DOM update
+  tick().then(() => { /* after update */ });
 });
 ```
 
 ## Imperative Component API
 
-- `mount(Component, options)` - Instantiate and mount component to DOM element
-- `unmount(component)` - Remove mounted component, returns Promise if `outro: true`
-- `render(Component, options)` - Server-only, returns `{ body, head }`
-- `hydrate(Component, options)` - Like mount but reuses server-rendered HTML
+- `mount(App, { target, props })` - Instantiate and mount component
+- `unmount(app, { outro: true })` - Remove component with optional transitions
+- `render(App, { props })` - Server-only, returns `{ body, head }` for SSR
+- `hydrate(App, { target, props })` - Reuse SSR HTML and make interactive
 
-### Miscellaneous
-Testing, TypeScript integration, custom elements, and migration guides for Svelte 4 and 5 with common questions answered.
+### miscellaneous
+Advanced topics covering testing strategies, TypeScript integration, web components, and migration guides for Svelte 4 and 5.
 
 ## Testing
 
-**Vitest**: Configure `vite.config.js` for browser entry points. Wrap effect tests in `$effect.root()` and use `flushSync()` for synchronous execution.
+**Vitest**: Configure `vite.config.js` with `resolve: { conditions: ['browser'] }` when `VITEST` env var is set. Name test files `.svelte.test.js` to use runes. Use `$effect.root()` and `flushSync()` for effect testing. Mount components with `mount(Component, { target, props })`. Use `@testing-library/svelte` for less brittle tests.
 
-```js
-test('Multiplier', () => {
-	let double = multiplier(0, 2);
-	expect(double.value).toEqual(0);
-});
-```
+**Storybook**: Create stories with `defineMeta()` and test interactions via the `play` function.
 
-**Component Testing**: Use `mount()` API or `@testing-library/svelte`.
-
-```js
-const component = mount(Component, { target: document.body, props: { initial: 0 } });
-```
-
-**Playwright E2E**: Configure `playwright.config.js` with webServer settings.
-
-```js
-test('home page has expected h1', async ({ page }) => {
-	await page.goto('/');
-	await expect(page.locator('h1')).toBeVisible();
-});
-```
+**Playwright**: Configure `playwright.config.js` with `webServer` to start your app. Write tests using page locators and assertions.
 
 ## TypeScript
 
-Add `lang="ts"` to script tags. Configure `vitePreprocess` in `svelte.config.js`. Set `tsconfig.json`: `target: ES2015`, `verbatimModuleSyntax: true`, `isolatedModules: true`.
-
-```svelte
-<script lang="ts" generics="Item extends { text: string }">
-	interface Props {
-		items: Item[];
-		select(item: Item): void;
-	}
-	let { items, select }: Props = $props();
-	let count: number = $state(0);
-</script>
-```
-
-Extend DOM types in `.d.ts`:
-
-```ts
-declare namespace svelteHTML {
-	interface IntrinsicElements {
-		'my-custom-element': { someattribute: string; 'on:event': (e: CustomEvent) => void };
-	}
-}
-```
+Add `lang="ts"` to script tags. For full support, configure `vitePreprocess` in `svelte.config.js`. Set `tsconfig.json`: `target: ES2015`, `verbatimModuleSyntax: true`, `isolatedModules: true`. Type `$props()` with interfaces, use `generics` attribute for generic components, and `Component`/`ComponentProps` types for component typing. Augment `svelte/elements` module for custom attributes.
 
 ## Custom Elements
 
-Compile to web components with `customElement: true` and `<svelte:options customElement="tag-name" />`. Props exposed as DOM properties and attributes.
+Compile to web components with `customElement: true` in config. Specify tag name: `<svelte:options customElement="my-element" />`. Props exposed as DOM properties and attributes. Register with `customElements.define('my-element', MyElement.element)`.
 
-```svelte
-<svelte:options customElement={{ tag: 'my-element', props: { name: { reflect: true } } }} />
-```
-
-Configuration: `tag`, `shadow: "none"`, `props` (per-property: `attribute`, `reflect`, `type`), `extend` (function to extend class).
+Advanced options via object syntax: `tag` (auto-register), `shadow: "none"` (disable shadow DOM), `props` (per-property config), `extend` (customize class).
 
 Limitations: styles encapsulated, not SSR-friendly, slotted content renders eagerly, context doesn't cross boundaries, avoid property names starting with `on`.
 
 ## Svelte 4 Migration
 
-**Minimum versions**: Node 16+, TypeScript 5+, SvelteKit 1.20.4+, webpack 5+
-
-**Breaking changes**:
-- Bundlers must specify `browser` condition
-- No CommonJS output or `svelte/register`
-- Stricter types: `createEventDispatcher`, `Action`, `ActionReturn`, `onMount`
-- `tag` option → `customElement` option
-- `SvelteComponentTyped` → `SvelteComponent`
-- Transitions local by default; use `|global` modifier
-- Slot bindings not exposed to named slots
-- Preprocessors execute in order with required names
-- `svelte.JSX` → `svelteHTML`
-- ESLint: `eslint-plugin-svelte3` → `eslint-plugin-svelte`
+**Requirements**: Node 16+, TypeScript 5+. **Bundlers**: specify `browser` condition. **ESM only**: CJS removed. **Stricter types**: `createEventDispatcher`, `Action`, `ActionReturn`, `onMount`. **Custom elements**: `tag` → `customElement`. **Deprecated**: `SvelteComponentTyped` → `SvelteComponent`. **Transitions**: local by default, use `|global` for old behavior. **Slot bindings**: default and named slots no longer share bindings. **Preprocessors**: execute in order (markup, script, style per preprocessor); MDsveX must come first. **ESLint**: `eslint-plugin-svelte3` → `eslint-plugin-svelte`. **Other**: `inert` on outroing elements, `classList.toggle`/`CustomEvent` may need polyfills, `svelte.JSX` → `svelteHTML`.
 
 ## Svelte 5 Migration
 
-**Reactivity**: `let` → `$state`, `$:` → `$derived`/`$effect`, `export let` → `$props()`
-
-**Events**: `on:click` → `onclick`, `createEventDispatcher` → callback props
-
-**Slots**: `<slot />` → `children` prop with `{@render}`, named slots → props, `let:` → snippets
-
-**Components**: Functions not classes; use `mount(App, {target})` instead of `new App({target})`
-
-**Runes mode**: No export bindings, `$bindable()` required for two-way binding, `accessors`/`immutable` ignored, stricter HTML/attributes
-
-**Other**: Modern browsers only, whitespace simplified, `null`/`undefined` → empty string, form resets trigger bindings
+**Reactivity**: `let` → `$state()`, `$:` → `$derived()` or `$effect()`. **Props**: `export let` → `let { prop } = $props()`. **Events**: `on:click` → `onclick`, `createEventDispatcher` → callback props. **Slots**: `<slot />` → `children` prop with `{@render children?.()}`. **Components**: `new Component()` → `mount(Component, { target })`. Run `npx sv migrate svelte-5` for automatic conversion.
 
 ## FAQ
 
-**Support**: Reference docs, Stack Overflow (tag: svelte), Discord, Reddit
+**Getting Started**: Interactive tutorial (5-10 min to start, 1.5 hrs full). **Support**: Reference docs for syntax, Stack Overflow for code questions, Discord/Reddit for discussions. **Tooling**: Official VS Code extension, prettier-plugin-svelte, `@component` comments for documentation. **Routing**: SvelteKit is official (filesystem router, SSR, HMR). **Mobile**: Tauri or Capacitor with SvelteKit SPA. **Styling**: Unused styles removed automatically, use `:global(...)` for global styles. **HMR**: SvelteKit supports via Vite and svelte-hmr.
 
-**Tooling**: Official VS Code extension, prettier-plugin-svelte
+### api-reference
+Complete API reference for Svelte 5 runtime, compiler, and error handling with type definitions and examples.
 
-**Routing**: SvelteKit (official) or page.js, navaid, svelte-spa-router, Routify
+## Runtime API
 
-**Mobile**: SvelteKit SPA → Tauri or Capacitor; Svelte Native for Svelte 4 only
+**Mounting & Lifecycle**: `mount(component, options)`, `hydrate()`, `unmount(component, {outro: true})`, `onMount(fn)`, `onDestroy(fn)`, `tick()`, `settled()`, `flushSync(fn)`, `untrack(fn)`
 
-**Styling**: Svelte removes unused styles; use `:global(...)` for global styles
+**State & Reactivity**: `$state()`, `$derived()`, `$effect()`, `$inspect()`, `$state.snapshot()`, `$state.raw()`, `$bindable()`, `$props()`, `$restProps()`
 
-**HMR**: SvelteKit (built on Vite) or community plugins for rollup/webpack
+**Context**: `setContext(key, ctx)`, `getContext(key)`, `createContext()` (type-safe)
 
-### API Reference
-Complete API reference for Svelte modules, compiler, and comprehensive error/warning documentation with solutions.
+**Events**: `createEventDispatcher()` (deprecated, use callback props), `on(element, event, handler)` preserves handler order
 
-## Core Modules
+**Stores**: `writable(initial)`, `readable(initial, start)`, `derived(sources, fn)`, `get(store)`, `readonly(store)`, `toStore(getter, setter?)`, `fromStore(store)`
 
-**svelte**: Main framework entry point with core APIs.
+**Animations & Transitions**: `flip(node, {from, to}, params)` for FLIP animations; `blur`, `fade`, `fly`, `scale`, `slide`, `draw`, `crossfade` transitions with `delay`, `duration`, `easing`
 
-**svelte/action**: Custom actions for DOM element behavior.
+**Motion**: `Spring` and `Tween` classes with `set(value, options)` returning promises; `prefersReducedMotion.current` for accessibility
 
-**svelte/animate**: Animation utilities for state changes.
+**Easing**: 33 functions (`linear`, `quad`, `cubic`, `sine`, `expo`, `circ`, `back`, `elastic`, `bounce`) with `In`/`Out`/`InOut` variants
 
-**svelte/compiler**: Programmatic component compilation to JavaScript for build tools.
+**Reactive Built-ins**: `SvelteMap`, `SvelteSet`, `SvelteDate`, `SvelteURL`, `SvelteURLSearchParams`, `MediaQuery` (5.7.0+), `createSubscriber(start)` for external event integration
 
-**svelte/easing**: Easing functions (linear, quadratic, cubic, sine, exponential, elastic, bounce) with In/Out/InOut variants. Example: `import { quintOut } from 'svelte/easing'; transition:fade={{ duration: 400, easing: quintOut }}`
+**Window Reactivity** (5.11.0+): `innerWidth`, `innerHeight`, `outerWidth`, `outerHeight`, `scrollX`, `scrollY`, `screenLeft`, `screenTop`, `devicePixelRatio`, `online` from `svelte/reactivity/window`
 
-**svelte/events**: Event handling utilities.
+**Actions**: Type with `Action<Element, Parameter, Attributes>`, return `{update?, destroy?}` object
 
-**svelte/motion**: Smooth animations and value transitions with easing.
+**Attachments**: `createAttachmentKey()` for programmatic attachment symbols, `fromAction(action, argFn)` converts actions to attachments
 
-**svelte/reactivity**: Reactive versions of Map, Set, URL and built-ins that integrate with Svelte's reactivity system.
+**Server Rendering**: `render(Component, {props, context, idPrefix})` returns `{body, head}`
 
-**svelte/reactivity/window**: Reactive window properties accessible via `.current`. Example: `import { innerWidth, innerHeight } from 'svelte/reactivity/window'; <p>{innerWidth.current}x{innerHeight.current}</p>`
+**Advanced**: `fork()` for preloading, `getAbortSignal()` for async cleanup, `createRawSnippet(fn)`
 
-**svelte/server**: Server-side rendering utilities for Node.js.
+## Compiler API
 
-**svelte/store**: Reactive state management with store creation and subscriptions.
+**Core**: `compile(source, options)`, `compileModule(source, options)`, `parse(source, options)`, `preprocess(source, preprocessor)`, `migrate(source, options)`, `VERSION`
 
-**svelte/transition**: Transition directives (fade, fly, slide, scale, draw, crossfade) with duration, delay, and easing options. Example: `<div transition:fade={{ duration: 300 }}>Content</div>`
+**Options**: `name`, `customElement`, `generate` ('client'|'server'|false), `dev`, `runes`, `css` ('injected'|'external'), `namespace`, `preserveComments`, `preserveWhitespace`, `fragments`, `hmr`, `modernAst`
 
-**svelte/legacy**: Deprecated functions for migration from older versions.
+**Preprocessors**: `PreprocessorGroup` with optional `markup`, `script`, `style` functions receiving content, attributes, markup, filename; return `Processed` with code, map, dependencies
 
 ## Error & Warning Reference
 
-**Compile Errors**: Animation, attributes, bindings, blocks, CSS, each blocks, props/exports, runes, slots, snippets, state, Svelte meta tags, parsing errors.
+**Client Errors**: `async_derived_orphan`, `derived_references_self`, `state_unsafe_mutation`, `effect_orphan`, `effect_update_depth_exceeded`, `effect_in_teardown`, `bind_invalid_checkbox_value`, `bind_not_bindable`, `component_api_invalid_new`, `each_key_duplicate`, `invalid_snippet`, `hydration_failed`
 
-**Compile Warnings**: Accessibility, attributes, code quality, deprecated syntax, hydration issues, unused CSS.
+**Client Warnings**: `console_log_state`, `await_reactivity_loss`, `await_waterfall`, `state_proxy_equality_mismatch`, `state_proxy_unmount`, `binding_property_non_reactive`, `ownership_invalid_binding`, `hydration_attribute_changed`, `hydration_mismatch`, `select_multiple_invalid_value`, `transition_slide_display`
 
-**Runtime Errors (Client)**: Binding, component API, state mutations, effects, keyed blocks, hydration, snippets.
+**Compile Errors**: Animation uniqueness, binding expression restrictions, block syntax, CSS scoping, rune placement, slot/snippet rules, Svelte meta tag rules, HTML structure assumptions
 
-**Runtime Warnings (Client)**: Stale assignment values, non-reactive bindings, state proxy logging, event handlers, hydration mismatches, lifecycle issues, invalid mutations, transition display requirements.
+**Compile Warnings**: Accessibility (autofocus, click handlers, alt text, video captions, labels, headings, tabindex), code quality (component naming, `$state()` usage, class placement, `<script module>`, `{@render}`, `mount()`/`hydrate()`, HTML structure)
 
-**Common Errors**: Invalid default snippets, lifecycle outside components, missing render tags, invalid snippet arguments, store shape validation, element value types, server-only methods.
+**Shared Errors**: `missing_context`, `set_context_after_init`, `invalid_default_snippet`, `snippet_without_render_tag`, `store_invalid_shape`, `lifecycle_outside_component`
 
-**Common Warnings**: Void element content, uncloneable state snapshots.
+**Server Errors**: `await_invalid`, `lifecycle_function_unavailable`, `html_deprecated`
 
-Suppress warnings with `<!-- svelte-ignore <code> -->` comments supporting multiple comma-separated codes.
+**Suppressing Warnings**: Use `<!-- svelte-ignore rule1, rule2 (reason) -->` comments
 
-### Legacy Mode
-Svelte 3/4 features deprecated in Svelte 5, including reactive variables, $: statements, export let props, event dispatching, slots, and imperative component APIs.
+## Type Definitions
 
-## Reactive Variables
+`Component<Props, Exports>`, `ComponentProps<Comp>`, `Snippet<Params>`, `MountOptions<Props>`, `Action<Element, Parameter, Attributes>`, `ActionReturn<Parameter, Attributes>`
 
-Top-level variables are automatically reactive. Mutations require reassignment to trigger updates:
+### legacy-mode-api
+Legacy Svelte 3/4 API for reactive variables, component props, slots, events, and imperative component control.
+
+## Reactivity
+
+Top-level variables are automatically reactive in legacy mode. Reactivity is assignment-based—array mutations require reassignment to trigger updates:
+
 ```svelte
 let numbers = [1, 2, 3];
 numbers.push(4); // no update
 numbers = numbers; // triggers update
 ```
 
-## Reactive Statements
+Reactive statements use `$:` prefix and re-run when dependencies change:
 
-Prefix statements with `$:` to make them reactive—they re-run when dependencies change and are topologically ordered:
 ```svelte
-let a = 1, b = 2;
 $: sum = a + b;
-$: console.log(`${a} + ${b} = ${sum}`);
+$: console.log(sum);
 ```
 
-Dependencies are determined at compile time. Wrap browser-only code: `$: if (browser) { ... }`
+Dependencies are determined by compile-time static analysis only.
 
-## Props
+## Component API
 
-Declare props with `export let`:
+Props are declared with `export` keyword:
+
 ```svelte
 export let foo;
 export let bar = 'default value';
+export { className as class }; // renaming
 ```
 
-Rename props: `export { className as class };`
+Access all props with `$$props` or all non-declared props with `$$restProps`:
 
-Access all props with `$$props` or undeclared props with `$$restProps`:
 ```svelte
-<button {...$$restProps} class="variant-{$$props.class ?? ''}">click me</button>
+<button {...$$restProps} class="variant-{variant}">click me</button>
 ```
 
-## Event Handlers
+Check which named slots were provided using `$$slots`:
 
-Attach handlers with `on:` directive and chain modifiers with `|`:
 ```svelte
-<button on:click={handleClick}>click me</button>
-<form on:submit|preventDefault|once={handle}></form>
+{#if $$slots.description}
+  <slot name="description" />
+{/if}
+```
+
+## Slots
+
+Default and named slots with fallback content:
+
+```svelte
+<slot></slot>
+<slot name="buttons">Default button</slot>
+```
+
+Pass data to slots:
+
+```svelte
+<!-- Component -->
+<slot item={process(data)} />
+
+<!-- Parent -->
+<FancyList let:item={processed}>
+  <div>{processed.text}</div>
+</FancyList>
+```
+
+Use `<svelte:fragment slot="name">` to fill named slots without a wrapper element.
+
+## Events
+
+Event handlers use `on:` directive with optional modifiers:
+
+```svelte
+<button on:click|once|preventDefault={handleClick}>click</button>
 ```
 
 Available modifiers: `preventDefault`, `stopPropagation`, `stopImmediatePropagation`, `passive`, `nonpassive`, `capture`, `once`, `self`, `trusted`
 
-Forward events: `<button on:click>forward event</button>`
+Forward events with `<button on:click>`.
 
 Dispatch component events:
+
 ```svelte
 import { createEventDispatcher } from 'svelte';
 const dispatch = createEventDispatcher();
-dispatch('increment');
+dispatch('decrement');
 ```
-
-Only `once` modifier works on component events.
-
-## Slots
-
-Render slotted content with `<slot>`. Named slots use `slot="name"` attribute. Provide fallback content inside `<slot>` tags. Pass data to slots with props and expose to parent using `let:` directive.
-
-Check if a named slot was provided with `$$slots`:
-```svelte
-{#if $$slots.description}
-	<slot name="description" />
-{/if}
-```
-
-Use `<svelte:fragment slot="name">` to place content in named slots without a wrapping DOM element.
 
 ## Dynamic Components
 
-Use `<svelte:component this={MyComponent} />` to dynamically render components that change at runtime.
+Render components dynamically with `<svelte:component this={MyComponent} />`, which recreates the instance when `this` changes.
+
+Use `<svelte:self>` for recursive component inclusion.
 
 ## Imperative API
 
-Create components with:
+Create and control components programmatically:
+
 ```ts
 const app = new App({
-	target: document.body,
-	props: { answer: 42 },
-	hydrate: false,
-	intro: false
+  target: document.body,
+  props: { answer: 42 },
+  hydrate: false
 });
+
+app.$set({ answer: 43 });
+app.$on('event', callback);
+app.$destroy();
 ```
 
-Instance methods: `$set(props)`, `$on(event, callback)`, `$destroy()`
+With `accessors: true`, props are synchronous getters/setters:
 
-With `accessors: true`, props are synchronously settable: `component.count += 1;`
+```ts
+component.count += 1;
+```
 
-Server-side rendering: `const { head, html, css } = App.render({ answer: 42 });`
+Server-side rendering:
+
+```ts
+const { head, html, css } = App.render({ answer: 42 });
+```
+
+**Note:** Svelte 5 uses `mount()`, `unmount()`, and `$state` instead.
 
 

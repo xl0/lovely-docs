@@ -1,1 +1,1 @@
-Module providing access to configured application base and assets paths.
+API reference for $app/paths module providing asset and pathname resolution utilities with base path handling.

@@ -1,17 +1,14 @@
 ## Authentication
-Sessions are revocable but require DB queries; JWT offer better latency but can't be revoked. Check auth cookies in server hooks, store user info in `locals`, use Lucia.
+Sessions require DB queries but can be revoked immediately; JWTs offer better latency but cannot be revoked. Check auth cookies in server hooks, store user info in `locals`. Use Lucia for session-based auth.
 
 ## Performance
-SvelteKit handles code-splitting, preloading, hashing, and prerendering. Optimize images with `@sveltejs/enhanced-img`, compress videos, preload fonts. Use `rollup-plugin-visualizer` to find large packages. Return promises from `load` for streaming, use server `load` to avoid waterfalls. Deploy near backend, serve images from CDN.
+Diagnose with PageSpeed Insights, WebPageTest, or browser devtools in preview mode. Optimize images with `@sveltejs/enhanced-img`, compress videos to `.webm`/`.mp4`, preload fonts in `handle` hook. Find large packages with `rollup-plugin-visualizer`, replace JS analytics with server-side, use dynamic `import(...)` for conditional code. Avoid waterfalls by using server `load` functions. Colocate frontend/backend, deploy to edge, use CDN for images.
 
 ## Icons & Images
-Use Iconify for CSS icons. Avoid per-icon `.svelte` files. Use `@sveltejs/enhanced-img` for responsive images with multiple formats:
-```svelte
-<enhanced:img src="./image.jpg?w=1280;640;400" sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px" fetchpriority="high" alt="text" />
-```
+Use Iconify CSS for icons without per-file imports. Avoid icon libraries with one `.svelte` file per icon. Optimize images with `@sveltejs/enhanced-img` for build-time or `@unpic/svelte` for dynamic images. Set `fetchpriority="high"` for LCP images, add width/height to prevent layout shift.
 
 ## Accessibility
-Add unique `<title>` in `<svelte:head>` for screen readers. SvelteKit focuses `<body>` after navigation. Set `lang` on `<html>`.
+Set unique page titles in `<svelte:head>` for screen reader announcements. SvelteKit focuses `<body>` after navigation; customize with `afterNavigate` hook. Set `lang` attribute on `<html>` for multi-language apps.
 
 ## SEO
-SSR enabled by default. Add unique `<title>` and `<meta name="description">` per page. Create sitemaps via `src/routes/sitemap.xml/+server.js`.
+SSR enabled by default. Add unique `<title>` and `<meta name="description">` in `<svelte:head>`. Create dynamic sitemaps via endpoints. For AMP: set `inlineStyleThreshold: Infinity`, disable `csr`, transform HTML with `@sveltejs/amp`.

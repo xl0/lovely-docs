@@ -2,253 +2,273 @@
 ## Directories
 
 ### getting-started
-Setup, project structure, deployment adapters, and standard Web APIs for building SvelteKit applications.
+Initial setup, project structure, deployment options, and standard Web API usage in SvelteKit.
 
 ## Creating a Project
 
-Run `npx sv create my-app` to scaffold a project, then `npm run dev` to start the dev server on localhost:5173.
+Run `npx sv create my-app` to scaffold a project. Pages are Svelte components in `src/routes` that are server-rendered initially then client-side. Use VS Code with the Svelte extension.
+
+## Project Types
+
+SvelteKit supports multiple rendering patterns: default (SSR + CSR), static site generation with `adapter-static`, SPAs with CSR only, serverless with `adapter-vercel`/`adapter-netlify`/`adapter-cloudflare`, own server with `adapter-node`, and deployment as mobile apps (Tauri/Capacitor), desktop apps (Tauri/Wails/Electron), browser extensions, or embedded devices. Use `csr = false` to disable client-side rendering or `bundleStrategy: 'single'` to limit concurrent requests.
 
 ## Project Structure
 
 ```
 src/
-├ lib/              # Library code ($lib alias)
-│ └ server/         # Server-only code ($lib/server alias)
+├ lib/              # Reusable code ($lib alias)
+│ └ server/         # Server-only code ($lib/server)
 ├ params/           # Param matchers
-├ routes/           # Routes (Svelte components, server-rendered then client-side)
-├ app.html          # Page template with placeholders: %sveltekit.head%, %sveltekit.body%, %sveltekit.assets%, %sveltekit.nonce%, %sveltekit.env.[NAME]%, %sveltekit.version%
-├ error.html        # Error page with placeholders: %sveltekit.status%, %sveltekit.error.message%
+├ routes/           # Routes
+├ app.html          # Page template
+├ error.html        # Error page
 ├ hooks.client.js   # Client hooks
 ├ hooks.server.js   # Server hooks
 ├ service-worker.js # Service worker
 └ tracing.server.js # Observability
 static/             # Static assets
-tests/              # Playwright tests
+tests/              # Tests
 ```
 
-**package.json** requires `@sveltejs/kit`, `svelte`, `vite` as devDependencies with `"type": "module"`.
+**app.html placeholders**: `%sveltekit.head%`, `%sveltekit.body%`, `%sveltekit.assets%`, `%sveltekit.nonce%`, `%sveltekit.env.[NAME]%`, `%sveltekit.version%`
 
-## Rendering Modes & Deployment
+**error.html placeholders**: `%sveltekit.status%`, `%sveltekit.error.message%`
 
-SvelteKit supports: SSR + CSR (default), static site generation, SPAs, and multi-page apps. Adapters configure deployment targets:
-- `adapter-node` for own servers/containers
-- `adapter-static` for static generation
-- `adapter-vercel`, `adapter-netlify`, `adapter-cloudflare` for serverless
-- For HTTP/1 limits (mobile/embedded), use `bundleStrategy: 'single'`
+**package.json** requires `@sveltejs/kit`, `svelte`, `vite` as devDependencies with `"type": "module"`
 
 ## Web Standards
 
-SvelteKit uses standard Web APIs: Fetch, Request/Response, Headers, FormData, Streams, URL, Web Crypto.
+SvelteKit uses standard Web APIs: `fetch`, `Request`/`Response`, `Headers`, `FormData`, Streams, `URL`/`URLSearchParams`, and `Web Crypto`.
 
-**Fetch**: Available in hooks, server routes, and browser. Special version in `load` functions and server hooks allows direct endpoint invocation during SSR without HTTP calls.
-
-**Request/Response/Headers**:
 ```js
 export function GET({ request }) {
-	return json({ userAgent: request.headers.get('user-agent') }, 
-		{ headers: { 'x-custom-header': 'potato' } });
+	const userAgent = request.headers.get('user-agent');
+	const foo = new URL(request.url).searchParams.get('foo');
+	return json({ userAgent, foo });
 }
 ```
-
-**FormData**:
-```js
-export async function POST(event) {
-	const body = await event.request.formData();
-	return json({ name: body.get('name') ?? 'world' });
-}
-```
-
-**Streams**: ReadableStream, WritableStream, TransformStream for large/chunked responses.
-
-**URL/URLSearchParams**: Access query parameters via `url.searchParams.get('foo')`.
-
-**Web Crypto**: `crypto.randomUUID()` and other operations.
 
 ### core-concepts
-Foundational patterns for routing, data loading, form handling, rendering configuration, state management, and type-safe client-server communication in SvelteKit applications.
+Fundamental patterns for routing, data loading, form handling, rendering control, state management, and type-safe client-server communication in SvelteKit.
 
 ## Routing
-Routes defined by `src/routes` directory structure with `+` prefixed files: `+page.svelte` for pages, `+page.js`/`+page.server.js` for load functions, `+layout.svelte` for shared markup, `+server.js` for API endpoints, `+error.svelte` for error pages.
 
-## Load Functions
-Define in `+page.js`/`+page.server.js` or `+layout.js`/`+layout.server.js`. Universal load functions run on server and browser; server-only load functions run only on server and must return serializable data. Access `params`, `url`, `route`, `cookies`, set headers, access parent data, stream promises, and trigger reruns on param/url changes or `invalidate()`.
+Filesystem-based routing via `src/routes` directory. Files prefixed with `+` are route files.
+
+**Page files**: `+page.svelte` (component), `+page.js`/`+page.server.js` (load functions), `+page.server.js` (server-only operations, form actions)
+
+**Layout files**: `+layout.svelte` (wraps pages with `{@render children()}`), `+layout.js`/`+layout.server.js` (load functions, data available to children)
+
+**Error handling**: `+error.svelte` (customizes error pages, walks tree to find closest boundary), falls back to `src/error.html`
+
+**API routes**: `+server.js` exports HTTP handlers (`GET`, `POST`, etc.), can coexist with `+page` via content negotiation
+
+**Type safety**: Use auto-generated `$types` module with `PageProps`, `LayoutProps`, `PageLoad`, `PageServerLoad`
+
+## Loading Data
+
+Define load functions in `+page.js`/`+page.server.js` or `+layout.js`/`+layout.server.js`. Return values available via `data` prop.
+
+**Universal** (`+page.js`): Runs on server and browser, can return non-serializable data.
+**Server** (`+page.server.js`): Runs only on server, must return serializable data.
+
+Layout data available to children. Access parent data with `await parent()`. Load receives `url`, `route`, `params`.
+
+Use provided `fetch` (not native)—inherits cookies, allows relative URLs on server, inlines responses during SSR.
+
+Return unresolved promises for non-essential data to enable streaming.
+
+Load reruns when `params`, `url`, or dependencies change. Manually trigger with `invalidate(url)` or `invalidateAll()`.
 
 ```js
-export async function load({ params, fetch, cookies }) {
-	const data = await fetch('/api/data');
-	cookies.set('key', 'value');
-	return { data };
+export async function load({ params, fetch, depends }) {
+	depends('app:random');
+	return {
+		post: await fetch(`/api/posts/${params.slug}`).then(r => r.json()),
+		comments: loadComments(params.slug)
+	};
 }
 ```
 
+Throw errors with `error(401, 'not logged in')` or redirect with `redirect(307, '/login')`.
+
 ## Form Actions
-Export `actions` from `+page.server.js` to handle POST requests. Read form data, return results or errors with `fail()`, redirect with `redirect()`. Add `use:enhance` directive for client-side handling without full-page reloads.
+
+Export `actions` from `+page.server.js` to handle POST submissions.
 
 ```js
 export const actions = {
-	login: async ({ request }) => {
+	default: async ({ request }) => {
 		const data = await request.formData();
-		if (!data.get('email')) return fail(400, { missing: true });
 		return { success: true };
-	}
+	},
+	login: async (event) => {},
+	register: async (event) => {}
 };
+```
+
+Invoke default with `<form method="POST">`, named actions with `<form method="POST" action="?/register">`.
+
+Return `fail(400, { email, missing: true })` for validation errors. Return values available as `form` prop.
+
+Progressive enhancement via `use:enhance` directive:
+```svelte
+<script>
+	import { enhance } from '$app/forms';
+</script>
+<form method="POST" use:enhance>
 ```
 
 ## Page Options
-Export configuration from layout and page files:
-- `prerender = true/'auto'` — generates static HTML at build time
-- `ssr = false` — skips server rendering, sends empty shell
-- `csr = false` — disables client-side rendering, HTML/CSS only
-- `trailingSlash = 'never' | 'always' | 'ignore'` — controls URL trailing slash behavior
-- `config = {...}` — adapter-specific configuration
+
+Control per-page rendering behavior via exports in `+page.js`, `+page.server.js`, `+layout.js`, or `+layout.server.js`:
+
+- `prerender = true/'auto'`: Render pages at build time as static HTML. Use `entries()` function for dynamic routes.
+- `ssr = false`: Render only on client, skip server rendering.
+- `csr = false`: No JavaScript shipped, static HTML only.
+- `trailingSlash = 'never'/'always'/'ignore'`: Control trailing slash behavior.
+- `config`: Adapter-specific configuration.
 
 ## State Management
-Avoid shared state on server; use cookies and databases instead. Don't write to stores in load functions—return data instead. Use context API for safe state sharing. Store persistent state in URL search parameters. Preserve ephemeral UI state with snapshots.
+
+**Avoid shared state on server**: Authenticate with cookies, use databases instead of shared variables.
+
+**Load functions must be pure**: Return data instead of writing to stores.
+
+**Use context API**: Attach state to component tree with `setContext`/`getContext` instead of globals.
+
+**Component state is preserved**: Components reuse on navigation; use `$derived` for reactivity or `{#key}` to force remounting.
+
+**URL for persistent state**: Store filters/sorting in URL search parameters.
+
+**Snapshots for ephemeral state**: Use snapshots for temporary UI state.
 
 ## Remote Functions
-Type-safe client-server communication with `query` (read), `form` (write with progressive enhancement), `command` (write from anywhere), and `prerender` (build-time data).
+
+Type-safe client-server communication via `.remote.js` files. Four types: **query** (read data, cached, refreshable), **form** (write data with validation), **command** (write data callable from anywhere), **prerender** (build-time static data).
 
 ```js
 export const getPost = query(v.string(), async (slug) => {
-	const [post] = await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
-	return post;
+	return await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
 });
 
-export const createPost = form(v.object({title: v.string()}), async (data) => {
-	await db.insert(data);
-	redirect(303, '/blog');
+export const createPost = form(v.object({title: v.string(), content: v.string()}), async (data) => {
+	await db.sql`INSERT INTO post VALUES (...)`;
+});
+
+export const addLike = command(v.string(), async (id) => {
+	await db.sql`UPDATE item SET likes = likes + 1 WHERE id = ${id}`;
+	getLikes(id).refresh();
 });
 ```
 
-Enable with `kit: { experimental: { remoteFunctions: true } }`
+Enable with `kit.experimental.remoteFunctions: true` in config.
 
 ### build-and-deploy
-Build and deploy SvelteKit apps using adapters for various platforms (Node, static, Cloudflare, Netlify, Vercel) with platform-specific configuration and runtime APIs.
+Adapters deploy SvelteKit apps to various platforms with platform-specific configuration and runtime APIs.
 
 ## Building
 
-SvelteKit builds in two stages: Vite optimizes code, then an adapter tunes it for the target environment. Prevent code execution during build by checking `building` from `$app/environment`. Preview builds with `vite preview`.
+SvelteKit builds in two stages: Vite optimizes code, then an adapter tunes it for the target environment. Prevent build-time code execution using the `building` flag from `$app/environment`. Preview with `vite preview`.
 
 ## Adapters
 
-Adapters are deployment plugins configured in `svelte.config.js` that transform built apps for specific platforms. Official adapters exist for Cloudflare, Netlify, Node, static sites, and Vercel. Access platform-specific context via `RequestEvent.platform`.
+Adapters are deployment plugins configured in `svelte.config.js` that transform built apps for specific platforms. Official adapters: Cloudflare, Netlify, Node, static sites, and Vercel. Access platform-specific context via `RequestEvent.platform`.
 
 ## Deployment Options
 
-**adapter-auto** automatically detects and uses the correct adapter (Cloudflare Pages, Netlify, Vercel, Azure Static Web Apps, AWS SST, Google Cloud Run). Install the specific adapter to devDependencies for environment-specific configuration.
+**adapter-auto** automatically detects and uses the correct adapter for Cloudflare Pages, Netlify, Vercel, Azure Static Web Apps, AWS (via SST), or Google Cloud Run.
 
-**Node servers** (`adapter-node`): Build with `npm run build`, deploy `build/`, `package.json`, `node_modules/`. Start with `node build`. Configure via environment variables: `PORT` (3000), `HOST` (0.0.0.0), `ORIGIN`, reverse proxy headers (`PROTOCOL_HEADER`, `HOST_HEADER`, `PORT_HEADER`), client IP detection (`ADDRESS_HEADER`, `XFF_DEPTH`), `BODY_SIZE_LIMIT` (512kb), `SHUTDOWN_TIMEOUT` (30s). Supports graceful shutdown via `sveltekit:shutdown` event and systemd socket activation.
+**Node.js**: Install `@sveltejs/adapter-node`. Configure via environment variables: `PORT` (3000), `HOST` (0.0.0.0), `ORIGIN`, `PROTOCOL_HEADER`, `HOST_HEADER`, `ADDRESS_HEADER`, `XFF_DEPTH`, `BODY_SIZE_LIMIT` (512kb), `SHUTDOWN_TIMEOUT` (30s). Listen to `sitelkit:shutdown` event for graceful cleanup. Custom server example:
+```js
+import { handler } from './build/handler.js';
+import express from 'express';
+const app = express();
+app.use(handler);
+app.listen(3000);
+```
 
-**Static sites** (`adapter-static`): Set `prerender = true` in root layout. Configure `pages`, `assets`, `fallback` (for SPA), `precompress`, `strict`. For GitHub Pages, set `paths.base` to repo name and generate `404.html` fallback.
+**Static Site Generation**: Use `adapter-static` with `export const prerender = true;` in root layout. Options: `pages` (output dir), `fallback` (for SPA), `precompress`, `strict`, `trailingSlash`.
 
-**Single-page apps** (`adapter-static`): Disable SSR globally with `export const ssr = false` in root layout, use fallback page. Prerender specific pages by enabling SSR and `export const prerender = true` for those routes. Add `.htaccess` for Apache routing. Warning: SPAs have poor performance, SEO, and accessibility.
+**Single-Page Apps**: Use `adapter-static` with `fallback` option and `export const ssr = false;` in root layout. Optionally prerender specific pages with `export const prerender = true;`. Note: poor performance, SEO penalties, requires JavaScript.
 
-**Cloudflare** (`adapter-cloudflare`): Configure fallback (`'plaintext'` or `'spa'`), customize `_routes.json` with `include`/`exclude` (max 100 rules). Access runtime APIs via `platform?.env`. Test locally with `wrangler dev .svelte-kit/cloudflare` (Workers) or `wrangler pages dev .svelte-kit/cloudflare` (Pages).
+**Cloudflare**: Use `adapter-cloudflare`. Options: `fallback` (plaintext or spa), `routes` (customize `_routes.json`). Access bindings via `platform.env`. Use `read()` from `$app/server` instead of `fs`. Enable `nodejs_compat` flag if needed.
 
-**Netlify** (`adapter-netlify`): Use `edge: true` for Deno-based edge functions, `split: true` for function splitting. Access Netlify context via `event.platform?.context`. Use `_redirects` file for redirects. Use `read()` from `$app/server` instead of `fs` for file access.
+**Netlify**: Use `adapter-netlify` with `edge` and `split` options. Requires `netlify.toml`. Access context via `event.platform?.context`. Supports `_headers`, `_redirects`, Forms, and custom Functions.
 
-**Vercel** (`adapter-vercel`): Set options via `export const config` in route files: `runtime` (`'edge'` or `'nodejs20.x'`/`'nodejs22.x'`), `regions`, `split`, `memory` (128-3008 MB), `maxDuration`. ISR configuration: `expiration`, `bypassToken`, `allowQuery`. Bypass cache with `__prerender_bypass=<token>` cookie or `x-prerender-revalidate` header. Configure image optimization with `sizes`, `formats`, `minimumCacheTTL`, `domains`. Use `read()` from `$app/server` instead of `fs`.
+**Vercel**: Use `adapter-vercel`. Route configuration:
+```js
+export const config = {
+	split: true,
+	runtime: 'edge',  // or 'nodejs20.x'
+	regions: ['iad1'],
+	memory: 1024,
+	isr: { expiration: 60, bypassToken: TOKEN, allowQuery: ['search'] }
+};
+```
+Image optimization: `adapter({ images: { sizes: [640, 1920], formats: ['image/webp'] } })`. Use `$env/static/private` for environment variables.
 
 ## Custom Adapters
 
-Implement the Adapter API by exporting a function returning an object with `name` and `adapt(builder)` methods. The `adapt` method must clear the build directory, write output via `builder.writeClient/Server/Prerendered()`, generate code that imports `Server`, instantiate with `builder.generateManifest()`, listen for requests, convert to `Request`, call `server.respond(request, { getClientAddress })`, expose platform via `platform` option, shim `fetch` if needed, bundle output, and place files correctly.
+Export a function returning an `Adapter` object with required `name` and `adapt(builder)` properties. The `adapt` method must clear build directory, write output via `builder.writeClient/Server/Prerendered()`, generate code that imports `Server`, creates app with `builder.generateManifest()`, converts platform requests to `Request`, calls `server.respond()`, and returns `Response`. Expose platform info via `platform` option and shim `fetch` globally if needed.
 
 ### advanced-techniques
-Advanced SvelteKit patterns for routing, hooks, error handling, navigation, service workers, security, state preservation, observability, and library packaging.
+Advanced SvelteKit patterns for routing, hooks, error handling, navigation, service workers, security, state management, and library publishing.
 
 ## Routing
-
-**Rest Parameters** — `[...file]` captures variable segments: `/[org]/[repo]/tree/[branch]/[...file]` matches `/sveltejs/kit/tree/main/docs/file.md` with `file: 'docs/file.md'`.
-
-**Optional Parameters** — `[[lang]]/home` matches both `home` and `en/home`.
-
-**Matchers** — Create `src/params/fruit.js` with `match(param)` function, use `[page=fruit]` in routes.
-
-**Route Sorting** — Specificity > matchers > optional/rest > alphabetical.
-
-**Encoding** — Use `[x+3a]` for `:`, `[x+2f]` for `/`. `/smileys/:-)` becomes `src/routes/smileys/[x+3a]-[x+29]/+page.svelte`.
-
-**Layout Groups** — `(app)` and `(marketing)` organize routes without URL changes. Use `+page@(app).svelte` to inherit from specific layout.
+- **Rest parameters**: `[...file]` matches variable segments
+- **Optional parameters**: `[[lang]]/home` matches `/home` and `/en/home`
+- **Matchers**: Validate parameters in `src/params/fruit.js` with `export function match(param)`; use as `[page=fruit]`
+- **Route sorting**: Specificity > matchers > alphabetical; rest/optional params lowest priority unless final
+- **Encoding**: `/` → `[x+2f]`, `:` → `[x+3a]`, `🤪` → `[u+d83e][u+dd2a]`
+- **Layout groups**: `(group)` directories organize routes without affecting URLs; use `+page@segment` to break layout hierarchy
 
 ## Hooks
+App-wide functions for specific events in `src/hooks.server.js`, `src/hooks.client.js`, `src/hooks.js`.
 
-**Server Hooks** — `handle` intercepts every request; `handleFetch` intercepts `event.fetch` calls; `handleValidationError` customizes validation errors.
+**Server hooks**: `handle` (modify every request/response), `locals` (add custom data), `handleFetch` (modify fetch calls), `handleValidationError` (schema validation failures)
 
-**Shared Hooks** — `handleError` logs errors and returns safe representation for `$page.error`.
+**Shared hooks**: `handleError` (log/customize errors), `init` (async initialization)
 
-**Universal Hooks** — `reroute` translates URLs to routes; `transport` encodes/decodes custom types across server/client.
+**Universal hooks**: `reroute` (translate URLs), `transport` (pass custom types across boundary)
 
-Files: `src/hooks.server.js`, `src/hooks.client.js`, `src/hooks.js`
-
-## Error Handling
-
-**Expected Errors** — Use `error(404, 'Not found')` or `error(404, { message: 'Not found', code: 'NOT_FOUND' })` to throw exceptions SvelteKit catches and renders with `+error.svelte`.
-
-**Unexpected Errors** — Other exceptions show generic message to users and pass through `handleError` hook.
-
-**Type Safety** — Declare custom error properties in `src/app.d.ts`:
-```ts
-declare global {
-	namespace App {
-		interface Error {
-			code: string;
-			id: string;
-		}
-	}
+Example:
+```js
+export async function handle({ event, resolve }) {
+	if (event.url.pathname.startsWith('/custom')) return new Response('custom');
+	const response = await resolve(event);
+	response.headers.set('x-custom-header', 'value');
+	return response;
 }
 ```
 
-**Fallback Page** — Customize with `src/error.html` using `%sveltekit.status%` and `%sveltekit.error.message%` placeholders.
+## Error Handling
+- **Expected errors**: Use `error(404, 'Not found')` helper; renders nearest `+error.svelte` with `page.error`
+- **Unexpected errors**: Logged but not exposed (generic message shown); handle in `handleError` hook
+- **Fallback page**: Customize with `src/error.html` using `%sveltekit.status%` and `%sveltekit.error.message%` placeholders
 
 ## Link Navigation
-
-Control behavior with `data-sveltekit-*` attributes:
+Configure `<a>` behavior with `data-sveltekit-*` attributes:
 - `data-sveltekit-preload-data`: `"hover"` or `"tap"`
 - `data-sveltekit-preload-code`: `"eager"`, `"viewport"`, `"hover"`, or `"tap"`
 - `data-sveltekit-reload`: force full-page navigation
-- `data-sveltekit-replacestate`: replace history entry
-- `data-sveltekit-keepfocus`: retain focus after navigation
+- `data-sveltekit-replacestate`: replace history instead of push
+- `data-sveltekit-keepfocus`: keep focus on current element
 - `data-sveltekit-noscroll`: prevent scroll to top
 
-Disable with `"false"` value.
-
 ## Service Workers
+SvelteKit automatically bundles `src/service-worker.js`. Access `$service-worker` module for assets, build files, version, and base path. Example caches built app and static files on install, cleans old caches on activate, serves from cache with network fallback on fetch.
 
-SvelteKit automatically registers `src/service-worker.js`. Access `$service-worker` module for build files, static assets, version, and base path. Implement install/activate/fetch handlers to cache assets and handle offline requests. Use version string for unique cache names. Disable auto-registration via config if needed.
-
-## Server-Only Modules
-
-Mark modules as server-only using `.server` filename suffix or `$lib/server/` directory to prevent sensitive data leaking to browser. SvelteKit errors if any import chain from client code reaches server-only modules.
+## Server-only Modules
+Mark modules as server-only using `.server` suffix or `$lib/server/` directory to prevent sensitive data leaks. SvelteKit blocks import chains from public code to server-only modules, including indirect imports. Works with dynamic imports; disabled during tests when `process.env.TEST === 'true'`.
 
 ## Snapshots
-
-Export `snapshot` object with `capture()` and `restore()` methods from `+page.svelte` or `+layout.svelte` to preserve DOM state across navigation:
-```svelte
-export const snapshot = {
-	capture: () => state,
-	restore: (value) => state = value
-};
-```
+Preserve DOM state across navigation by exporting `snapshot` object with `capture` and `restore` methods from `+page.svelte` or `+layout.svelte`. Data stored in history stack and `sessionStorage`; must be JSON-serializable.
 
 ## Shallow Routing
-
-Use `pushState()` and `replaceState()` from `$app/navigation` to create history entries without navigating:
-```svelte
-pushState('', { showModal: true });
-```
-
-Preload data before pushing state:
-```svelte
-const result = await preloadData(href);
-if (result.type === 'loaded' && result.status === 200) {
-	pushState(href, { selected: result.data });
-}
-```
-
-**Caveats** — `page.state` is empty during SSR and initial page load. Requires JavaScript.
+Create history entries without navigating using `pushState(url, state)` and `replaceState(url, state)`. Access state via `page.state`. Use `preloadData(href)` to load data before shallow navigation. State is empty during SSR and initial page load; requires JavaScript.
 
 ## Observability
-
 Enable OpenTelemetry in `svelte.config.js`:
 ```js
 kit: {
@@ -258,64 +278,72 @@ kit: {
 	}
 }
 ```
-
-Create `src/instrumentation.server.ts` for tracing setup. SvelteKit emits spans for `handle` hooks, `load` functions, form actions, and remote functions. Access spans via `event.tracing.root` and `event.tracing.current`.
+Create `src/instrumentation.server.ts` for setup. Add custom attributes: `event.tracing.root.setAttribute('userId', user.id)`.
 
 ## Component Libraries
+Use `@sveltejs/package` to build libraries. Structure: `src/lib` is public, `svelte-package` generates `dist` with preprocessed components and auto-generated types.
 
-Use `@sveltejs/package` to build libraries with `src/lib` as public-facing code. Configure `package.json` exports with `types` and `svelte` conditions:
-```json
-{
-  "exports": {
-    ".": { "types": "./dist/index.d.ts", "svelte": "./dist/index.js" },
-    "./Foo.svelte": { "types": "./dist/Foo.svelte.d.ts", "svelte": "./dist/Foo.svelte" }
-  }
-}
-```
+**package.json fields**:
+- `exports`: Define entry points with `types` and `svelte` conditions
+- `files`: Typically `["dist"]`
+- `sideEffects`: Mark CSS: `["**/*.css"]`
 
-Include `dist` folder in `files`. Mark CSS as having side effects: `["**/*.css"]`. Type definitions auto-generate. Avoid SvelteKit-specific modules; use `esm-env` or pass values as props. All relative imports need full paths with extensions.
+**TypeScript**: Types auto-generated; use `typesVersions` for non-root exports or require `"moduleResolution": "bundler"`.
+
+**Important**: All relative imports need full paths with extensions: `import { x } from './something/index.js'`
 
 ### best-practices
 Production-ready patterns for authentication, performance optimization, accessibility, SEO, and asset handling in SvelteKit applications.
 
-## Authentication and Authorization
-Sessions are revocable but require DB queries; JWT offer better latency but can't be revoked. Check auth cookies in server hooks and store user info in `locals`. Use framework-specific libraries like Lucia.
+## Authentication
+- **Sessions vs Tokens**: Sessions require DB queries but can be revoked immediately; JWTs offer better latency but cannot be revoked
+- **Integration**: Check auth cookies in server hooks, store user info in `locals`
+- **Lucia**: Recommended session-based auth library, add via `npx sv add lucia`
 
 ## Performance
-SvelteKit handles code-splitting, asset preloading, file hashing, request coalescing, parallel loading, data inlining, conservative invalidation, prerendering, and link preloading.
-
-Diagnose with PageSpeed Insights, WebPageTest, or browser devtools (Lighthouse, Network, Performance tabs). Instrument slow APIs with OpenTelemetry or Server-Timing headers.
-
-Optimize images with `@sveltejs/enhanced-img`, compress videos to `.webm`/`.mp4` with lazy-loading, preload fonts via `resolve` with `preload` filter in `handle` hook. Find large packages with `rollup-plugin-visualizer`. Replace JS analytics with server-side solutions. Use Partytown for third-party scripts. Use dynamic `import(...)` for conditional code.
-
-Preload links (default enabled), return promises from `load` for streaming non-essential data, use server `load` instead of universal to avoid waterfalls. Deploy frontend near backend or use edge deployment, serve images from CDN, use HTTP/2+.
+- **Diagnostics**: Use PageSpeed Insights, WebPageTest, or browser devtools (Lighthouse, Network, Performance tabs) in preview mode
+- **Images**: Use `@sveltejs/enhanced-img` for build-time optimization
+- **Videos**: Compress to `.webm`/`.mp4`, lazy-load with `preload="none"`
+- **Fonts**: Preload in `handle` hook, subset to reduce size
+- **Code size**: Use `rollup-plugin-visualizer` to find large packages, replace JS analytics with server-side, use dynamic `import(...)` for conditional code, run third-party scripts in web workers with Partytown
+- **Navigation**: Preload with link options, return promises from `load` for non-essential data, use server `load` functions to avoid waterfalls
+- **Hosting**: Colocate frontend/backend, deploy to edge, use CDN for images, require HTTP/2+
 
 ## Icons
-Use Iconify for CSS-based icons. Avoid icon libraries with one `.svelte` file per icon as they slow down Vite's dependency optimization.
+- **CSS approach**: Use Iconify CSS to include icons without per-file imports
+- **Svelte approach**: Avoid icon libraries with one `.svelte` file per icon
 
 ## Images
-Vite auto-processes imported assets with hashing and inlining. `@sveltejs/enhanced-img` generates avif/webp formats, multiple sizes, and intrinsic dimensions:
-```svelte
-<enhanced:img src="./image.jpg?w=1280;640;400" sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px" fetchpriority="high" alt="text" />
-```
-For dynamic/external images use `@unpic/svelte` or provider-specific libraries. Serve via CDN, provide 2x resolution images, set `fetchpriority="high"` for LCP images.
+- **Vite built-in**: Auto-processes imported assets with hashing and inlining
+- **@sveltejs/enhanced-img**: Build-time plugin generating avif/webp formats, multiple sizes, intrinsic dimensions
+  ```svelte
+  <enhanced:img src="./image.jpg?w=1280;640;400" sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"/>
+  ```
+- **CDN-based**: For dynamic images using `@unpic/svelte` or provider-specific libraries
+- **Best practices**: Serve via CDN, provide 2x resolution images, set `fetchpriority="high"` for LCP images, add width/height to prevent layout shift, always provide alt text
 
 ## Accessibility
-Every page needs a unique `<title>` in `<svelte:head>` for screen reader announcements. SvelteKit focuses `<body>` after navigation (or an `autofocus` element if present). Customize with `afterNavigate` hook. Set `lang` attribute on `<html>` in `src/app.html` or dynamically via `handle` hook.
+- **Route announcements**: Set unique page titles in `<svelte:head>` for screen reader announcements during client-side navigation
+- **Focus management**: SvelteKit focuses `<body>` after navigation (or an `autofocus` element if present), customize with `afterNavigate` hook or `goto` with `keepFocus` option
+- **Language attribute**: Set `lang` attribute on `<html>` in `src/app.html`, use server handle hook for multi-language apps
 
 ## SEO
-SSR enabled by default with minimal performance overhead and automatic trailing slash normalization. Add unique `<title>` and `<meta name="description">` to each page in `<svelte:head>`. Create sitemaps via `src/routes/sitemap.xml/+server.js` endpoint. For AMP support, set `inlineStyleThreshold: Infinity`, disable `csr`, add `amp` to `<html>`, and transform with `@sveltejs/amp` in hooks.
+- **SSR enabled by default** for reliable search engine indexing
+- **Performance matters** - use hybrid rendering and optimize images
+- **Metadata**: Add unique `<title>` and `<meta name="description">` in `<svelte:head>`
+- **Sitemaps**: Create dynamic sitemaps via endpoints
+- **AMP support**: Set `inlineStyleThreshold: Infinity`, disable `csr`, transform HTML with `@sveltejs/amp` in server hooks
 
-### appendix-&-reference
-Reference documentation covering FAQs, integrations, debugging, migration guides from v1/Sapper, and glossary of rendering modes and concepts.
+### appendix
+Reference material covering FAQs, integrations, debugging, migration guides from v1 and Sapper, and terminology for SvelteKit development.
 
 ## Frequently Asked Questions
 
-**Package Management**: Import JSON with `import pkg from './package.json' with { type: 'json' };`. Use `nodeLinker: 'node-modules'` in `.yarnrc.yml` for Yarn 2/3 ESM support.
+**Package Management**: Import JSON with `import pkg from './package.json' with { type: 'json' };`. Yarn 2/3 requires `nodeLinker: 'node-modules'` in `.yarnrc.yml`.
 
-**Library Packaging**: Validate with publint.dev. Ensure `exports` field, correct file extensions (`.mjs`/`.cjs`), and ship Svelte components as uncompiled `.svelte` files. Use `svelte-package` for Svelte libraries.
+**Library Packaging**: Distribute Svelte components as uncompiled `.svelte` files with ESM-only JS. Use `svelte-package` for Svelte libraries. Validate with publint.dev.
 
-**View Transitions**: 
+**View Transitions**: Wrap navigation with `document.startViewTransition()`:
 ```js
 import { onNavigate } from '$app/navigation';
 onNavigate((navigation) => {
@@ -329,114 +357,129 @@ onNavigate((navigation) => {
 });
 ```
 
-**Database**: Put queries in server routes, create `db.js` singleton, use `hooks.server.js` for setup.
+**Client-side Code**: Check `browser` environment variable or use `onMount` for dynamic imports.
 
-**Client-side Libraries**: Use `import { browser } from '$app/environment'` check, `onMount`, or `{#await}` blocks.
+**Database**: Query via `db.js` singleton in server routes, setup in `hooks.server.js`.
 
-**Backend API Proxy**: Use `event.fetch` in dev/prod, or set up proxy with `server.proxy` in dev and rewrite paths in production.
+**External APIs**: Use `event.fetch` in server routes, proxy via `server.proxy` in dev, or create API routes in production.
 
-**Middleware**: Use Vite plugin with `configureServer` in dev; use adapter-node in production.
+**Middleware**: Dev uses Vite plugin with `configureServer`. Production uses `adapter-node` middleware.
 
 ## Integrations
 
-**vitePreprocess**: Enables CSS preprocessors (PostCSS, SCSS, Less, Stylus, SugarSS). Included by default with TypeScript. Use `vitePreprocess({ script: true })` for complex TypeScript in Svelte 5.
+**vitePreprocess**: Enables CSS preprocessing (PostCSS, SCSS, Less, Stylus, SugarSS), included by default with TypeScript.
 
 **Add-ons**: `npx sv add` installs prettier, eslint, vitest, playwright, lucia, tailwind, drizzle, paraglide, mdsvex, storybook.
 
-**Alternative Preprocessors**: `svelte-preprocess` supports Pug, Babel, global styles. Install and configure in `svelte.config.js`.
-
-**Vite Plugins**: Enhance projects with Vite plugins (see vitejs/awesome-vite).
+**Alternatives**: `svelte-preprocess` supports Pug, Babel, global styles. Any Vite plugin from vitejs/awesome-vite works.
 
 ## Breakpoint Debugging
 
-**VSCode**: Debug terminal via `CMD/Ctrl + Shift + P` → "Debug: JavaScript Debug Terminal" → `npm run dev`, or use `.vscode/launch.json` with `"type": "node-terminal"` and press `F5`.
+VSCode Debug Terminal: `CMD/Ctrl + Shift + P` → "Debug: JavaScript Debug Terminal" → `npm run dev`. Browser DevTools: `NODE_OPTIONS="--inspect" npm run dev` → open `localhost:5173` → click Node.js DevTools icon.
 
-**Browser DevTools**: Run `NODE_OPTIONS="--inspect" npm run dev`, open `localhost:5173`, click "Open dedicated DevTools for Node.js", or navigate to `chrome://inspect`.
+## Migration to v2
 
-## Migration: v1 to v2
+**Breaking Changes**:
+- `error()` and `redirect()` no longer need `throw`
+- Cookies require explicit `path: '/'`
+- Top-level promises must be explicitly `await`ed
+- `goto()` rejects external URLs; use `window.location.href`
+- Paths relative by default; `preloadCode` needs `base` prefix
+- `resolvePath` → `resolveRoute` (includes `base` automatically)
+- `handleError` receives `status` and `message`
+- Dynamic env vars blocked during prerendering
+- `use:enhance` callbacks: `form`/`data` → `formElement`/`formData`
+- File input forms need `enctype="multipart/form-data"`
+- TypeScript: `moduleResolution: "bundler"`, `verbatimModuleSyntax`
+- Node 18.13+, svelte@4, vite@5, typescript@5
+- `$app/stores` deprecated; migrate to `$app/state`
 
-**Breaking Changes**: `error()` and `redirect()` no longer need `throw`. `cookies.set/delete` require `path` parameter. Top-level promises must be explicitly `await`ed. `goto()` rejects external URLs. `preloadCode` requires `base` prefix. `resolvePath` → `resolveRoute`. Dynamic env vars blocked during prerendering. `$app/stores` deprecated → use `$app/state`. Forms with file inputs need `enctype="multipart/form-data"`. Requires Node 18.13+, Svelte 4, Vite 5, TypeScript 5.
+## Migration from Sapper
 
-**Automatic Migration**: Run `npx sv migrate sveltekit-2`.
-
-## Migration: Sapper to SvelteKit
-
-**Package Setup**: Add `"type": "module"` to package.json. Replace `sapper` with `@sveltejs/kit` + adapter.
-
-**Scripts**: `sapper build/dev/export` → `vite build/dev` (with appropriate adapter).
+**Setup**: Add `"type": "module"` to package.json. Replace `sapper` with `@sveltejs/kit` and adapter. Update scripts: `sapper build` → `vite build`, `sapper dev` → `vite dev`.
 
 **Configuration**: Replace `webpack.config.js`/`rollup.config.js` with `svelte.config.js`.
 
 **File Structure**: `src/template.html` → `src/app.html`, `_layout.svelte` → `+layout.svelte`, `_error.svelte` → `+error.svelte`, `routes/about.svelte` → `routes/about/+page.svelte`.
 
-**Data Loading**: `preload` → `load` function in `+page.js`/`+layout.js` with single `event` argument.
-
-**Navigation**: `@sapper/app` imports (`goto`, `prefetch`, `prefetchRoutes`) → `goto`, `preloadData`, `preloadCode` from `$app/navigation`.
-
-**Stores**: `stores()` → import `navigating`, `page` from `$app/stores`.
-
-**API Access**: No `req`/`res` access; `fetch` available globally. Relative URLs resolve against current page, not base URL.
+**API Changes**: `preload` → `load` in `+page.js`/`+layout.js` with single `event` argument. `@sapper/app` imports → `$app/navigation`, `$app/stores`. `stores()` → import `navigating`, `page` directly. No `this` object; throw `error()`, `redirect()`. Relative URLs resolve against current page, not base. `sapper:prefetch` → `data-sveltekit-preload-data`.
 
 ## Glossary
 
-**Rendering Modes**:
-- **CSR**: Browser-based rendering (disable with `csr = false`)
-- **SSR**: Server-side rendering (disable with `ssr = false`)
-- **Hybrid**: Default SvelteKit mode (SSR initial + CSR navigation)
-- **SPA**: Single HTML shell with client-side routing (`adapter-static`)
-- **SSG**: All pages prerendered (`adapter-static` or `prerender` option)
-- **ISR**: On-demand static generation (`adapter-vercel`)
+**Rendering Modes**: CSR (browser-based, default), SSR (server-side, default), Hybrid (SSR initial + CSR navigation), SPA (single HTML file, poor SEO), MPA (traditional server-rendered).
 
-**Key Concepts**:
-- **Hydration**: Server data transmitted with HTML; components initialize without re-fetching; event listeners attached
-- **Prerendering**: Build-time HTML generation; must return same content for all users; no form actions
-- **Edge Rendering**: CDN-based rendering near users
-- **Routing**: Client-side navigation by default; skip with `data-sveltekit-reload`
-- **PWA**: Installable web app with offline capabilities via service workers
-- **MPA**: Traditional server-rendered multi-page applications
+**Static Generation**: Prerendering (build-time HTML), SSG (all pages prerendered with `adapter-static`), ISR (on-demand with `adapter-vercel`).
 
-## Resources
+**Other**: Hydration (server HTML enhanced with client interactivity), Routing (client-side navigation interception, skip with `data-sveltekit-reload`), Edge (CDN-based rendering), PWA (installable web app).
 
-**FAQs**: SvelteKit FAQ, Svelte FAQ, vite-plugin-svelte FAQ
+## Additional Resources
 
-**Examples**: Official - sveltejs/realworld (blog), HackerNews clone, svelte.dev. Community examples on GitHub and Svelte Society.
-
-**Support**: Discord, StackOverflow.
+FAQs: SvelteKit FAQ, Svelte FAQ, vite-plugin-svelte FAQ. Examples: Official examples (realworld blog, HackerNews clone, svelte.dev), community examples on GitHub. Support: Discord, StackOverflow.
 
 ### api-reference
-Complete reference for SvelteKit's runtime modules, environment variables, type system, configuration, and server-side APIs.
+Complete TypeScript API reference for SvelteKit covering response helpers, request/event types, hooks, forms, navigation, environment variables, configuration, and auto-generated types.
 
-## Server-side Hooks
-`@sveltejs/kit/hooks` module provides `handle`, `handleError`, `handleFetch` hooks defined in `hooks.server.js` for intercepting and customizing request/response lifecycle.
+## Core Response & Error Handling
+- `json(data)`, `text(body)` - Create responses
+- `error(status, body)`, `redirect(status, location)`, `fail(status, data)` - Throw errors/redirects
+- `isHttpError()`, `isRedirect()`, `isActionFailure()` - Type guards
 
-## Runtime Modules
-- `$app/environment` - Access environment variables and runtime information (build modes, config)
-- `$app/navigation` - `goto()` for programmatic navigation, `invalidateAll()` and `invalidate(url)` to re-run load functions
-- `$app/paths` - `base` and `assets` paths configured in `svelte.config.js`
-- `$app/forms` - Utilities for handling form submissions and form data
-- `$app/state` - Read-only state objects: `page`, `navigating`, `updated` (SvelteKit 2.12+)
-- `$app/stores` - Legacy store-based state (use `$app/state` instead)
-- `$app/server` - Server-only utilities for hooks, routes, and server load functions
-- `$service-worker` - Service worker functionality access
+## Request & Page Types
+- **RequestEvent**: `cookies`, `fetch`, `locals`, `params`, `url`, `setHeaders()`, `getClientAddress()`
+- **LoadEvent**: Extends RequestEvent, adds `data`, `parent()`, `depends()`, `untrack()`
+- **Page**: `url`, `params`, `route.id`, `status`, `error`, `data`, `state`, `form`
+- **ActionResult**: `{type: 'success'|'failure'|'redirect'|'error', ...}`
 
-## Environment Variables
-- `$env/static/public` - Public variables (prefixed `PUBLIC_`) injected at build time, safe for client
-- `$env/static/private` - Private variables statically replaced at build time, server-only
-- `$env/dynamic/public` - Runtime access to public variables in server and client code
-- `$env/dynamic/private` - Runtime access to private variables on server side
+## Hooks
+- **handle**: `(input: {event, resolve}) => Response`
+- **handleError**: `(input: {error, event, status, message}) => App.Error`
+- **handleFetch**: `(input: {event, request, fetch}) => Response`
+- **reroute**: `(event: {url, fetch}) => void | string`
+- **sequence**: Chain multiple handle middleware with specific ordering
 
-## Type Safety
-`$app/types` exports auto-generated TypeScript utilities: `Asset`, `RouteId`, `Pathname`, `ResolvedPathname`, `RouteParams<'/blog/[slug]'>` → `{ slug: string }`, `LayoutParams`. Generated `.d.ts` files export typed `RequestHandler`, `Load`, `PageData`, `LayoutData`, `ActionData`. Helper types `PageProps` and `LayoutProps` (v2.16.0+) combine data with form/children.
+## Forms & Navigation
+- **enhance**: Intercept form submissions, prevent default, update form state
+- **applyAction**: Update `form` property and `page.status`
+- **deserialize**: Deserialize form submission responses
+- **goto(url, opts)**: Programmatic navigation with `replaceState`, `noScroll`, `keepFocus`, `invalidateAll`
+- **invalidate(resource)**: Re-run load functions for resource
+- **beforeNavigate/afterNavigate**: Navigation lifecycle hooks
+- **preloadData(href)**: Preload page code and load functions
 
-## Configuration & Build
-- `svelte.config.js` - Project configuration with `kit` property for adapter selection and options
-- `svelte-kit sync` - Generates `tsconfig.json` and `./$types` definitions (runs as `prepare` script)
-- Vite CLI - `vite dev`, `vite build`, `vite preview` for development and building
-- `$lib` - Automatic import alias for `src/lib` directory (customizable in config)
+## Environment & Configuration
+- **$app/environment**: `browser`, `building`, `dev`, `version` constants
+- **$env/static/private**: Build-time private variables
+- **$env/static/public**: Build-time public variables (PUBLIC_ prefix)
+- **$env/dynamic/private**: Runtime private variables (server-only)
+- **$env/dynamic/public**: Runtime public variables (PUBLIC_ prefix)
+- **$app/state**: `navigating`, `page`, `updated` read-only state objects
+- **$app/paths**: `asset(file)`, `resolve(pathname, params?)` - Path resolution with base path handling
 
-## Adapters & Polyfills
-- Node.js adapter - Runtime for server-side rendering and backend deployment
-- Node.js polyfills - Browser APIs available in server-side contexts
-- Vite integration - Build system plugin and configuration utilities
+## Cookies & Server
+- `get(name)`, `getAll()`, `set(name, value, opts)`, `delete(name, opts)` - `path` required, `httpOnly`/`secure` default true
+- **$app/server**: `command`, `form`, `query`, `query.batch`, `prerender`, `read` - Remote functions and asset reading
+- **getRequestEvent**: Access current RequestEvent in server context
+
+## Adapter & Build
+- **Builder**: `log`, `rimraf`, `mkdirp`, `config`, `routes`, `writeClient()`, `writeServer()`, `generateManifest()`, `compress()`
+- **Node utilities**: `createReadableStream(file)`, `getRequest({request, base, bodySizeLimit})`, `setResponse(res, response)`
+- **installPolyfills()**: Install web API polyfills for Node.js
+
+## Configuration (svelte.config.js)
+- **adapter** - Platform output converter (required)
+- **csp** - Content Security Policy with mode ('hash'|'nonce'|'auto')
+- **csrf** - CSRF protection: checkOrigin, trustedOrigins
+- **paths** - URL config: assets (CDN), base, relative
+- **prerender** - concurrency, crawl, entries, origin
+- **router.type** - 'pathname' (default) or 'hash'
+- **version** - name, pollInterval
+
+## Types
+- **$types**: Auto-generated typed `RequestHandler`, `Load` functions, `PageData`, `LayoutData`, `ActionData`
+- **$app/types**: `RouteId`, `Pathname`, `RouteParams<'/blog/[slug]'>`, `LayoutParams`
+- **app.d.ts**: Ambient types for `Error`, `Locals`, `PageData`, `PageState`, `Platform`
+
+## Service Worker
+- **$service-worker**: `base`, `build`, `files`, `prerendered`, `version` constants for cache management
 
 

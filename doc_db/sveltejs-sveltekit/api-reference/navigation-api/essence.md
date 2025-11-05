@@ -1,0 +1,1 @@
+API for programmatic navigation, lifecycle hooks, and data preloading in SvelteKit applications.

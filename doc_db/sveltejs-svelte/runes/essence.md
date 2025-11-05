@@ -1,0 +1,1 @@
+Svelte 5 runes are $ -prefixed compiler keywords for managing reactive state, derived values, side effects, component props, and debugging.

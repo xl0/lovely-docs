@@ -1,1 +1,1 @@
-Landing page for SvelteKit reference documentation.
+Index page for reference documentation

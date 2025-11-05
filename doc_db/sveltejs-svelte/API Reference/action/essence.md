@@ -1,1 +1,0 @@
-Module for creating and using custom Svelte actions on DOM elements.

@@ -1,1 +1,1 @@
-Module that provides Node.js polyfills for browser APIs in SvelteKit server-side contexts.
+`installPolyfills()` from `@sveltejs/kit/node/polyfills` makes web APIs (`crypto`, `File`) available as globals in Node.js.

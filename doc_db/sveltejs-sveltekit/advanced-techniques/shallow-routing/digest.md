@@ -1,68 +1,43 @@
-## Shallow Routing
+Shallow routing allows you to create history entries without navigating, useful for modals and overlays that users can dismiss by navigating back.
 
-Create history entries without navigating using `pushState()` and `replaceState()` from `$app/navigation`. This enables patterns like history-driven modals that can be dismissed by navigating back.
+**Core Functions:**
+- `pushState(url, state)` - Creates a new history entry with associated state
+- `replaceState(url, state)` - Sets state without creating a new history entry
+- `preloadData(href)` - Loads data for a route before navigating
 
-### Basic Usage
-
+**Basic Modal Example:**
 ```svelte
 <script>
-	import { pushState } from '$app/navigation';
-	import { page } from '$app/state';
-
-	function showModal() {
-		pushState('', { showModal: true });
-	}
+  import { pushState } from '$app/navigation';
+  import { page } from '$app/state';
+  
+  function showModal() {
+    pushState('', { showModal: true });
+  }
 </script>
 
 {#if page.state.showModal}
-	<Modal close={() => history.back()} />
+  <Modal close={() => history.back()} />
 {/if}
 ```
 
-The first argument to `pushState` is a relative URL (use `''` to stay on current URL). The second argument is the new page state, accessible via `page.state`. Use `replaceState` instead to set state without creating a new history entry.
-
-### Loading Data for Routes
-
-When rendering another `+page.svelte` inside the current page via shallow routing, preload its data using `preloadData()`:
-
+**Loading Data for Shallow Routes:**
+When rendering another page component without navigating, use `preloadData` to fetch its data:
 ```svelte
-<script>
-	import { preloadData, pushState, goto } from '$app/navigation';
-	import { page } from '$app/state';
-
-	let { data } = $props();
-</script>
-
-{#each data.thumbnails as thumbnail}
-	<a
-		href="/photos/{thumbnail.id}"
-		onclick={async (e) => {
-			if (innerWidth < 640 || e.shiftKey || e.metaKey || e.ctrlKey) return;
-			e.preventDefault();
-
-			const result = await preloadData(e.currentTarget.href);
-			if (result.type === 'loaded' && result.status === 200) {
-				pushState(e.currentTarget.href, { selected: result.data });
-			} else {
-				goto(e.currentTarget.href);
-			}
-		}}
-	>
-		<img alt={thumbnail.alt} src={thumbnail.src} />
-	</a>
-{/each}
-
-{#if page.state.selected}
-	<Modal onclose={() => history.back()}>
-		<PhotoPage data={page.state.selected} />
-	</Modal>
-{/if}
+<a href="/photos/{id}" onclick={async (e) => {
+  e.preventDefault();
+  const result = await preloadData(e.currentTarget.href);
+  if (result.type === 'loaded' && result.status === 200) {
+    pushState(href, { selected: result.data });
+  } else {
+    goto(href);
+  }
+}}>
 ```
 
-If the link element uses `data-sveltekit-preload-data`, the data will already be requested and `preloadData` will reuse that request.
-
-### Important Notes
-
-- `page.state` is always empty during server-side rendering and on initial page load
-- Shallow routing requires JavaScript; provide fallback behavior for when it's unavailable
-- Make page state type-safe by declaring an `App.PageState` interface in `src/app.d.ts`
+**Important Notes:**
+- First argument to `pushState` is relative URL; use `''` to stay on current URL
+- Access state via `page.state` (requires SvelteKit 2.12+; use `$page.state` from stores in earlier versions)
+- Make state type-safe by declaring `App.PageState` interface in `src/app.d.ts`
+- During SSR and on initial page load, `page.state` is always empty
+- Shallow routing requires JavaScript; provide fallback behavior

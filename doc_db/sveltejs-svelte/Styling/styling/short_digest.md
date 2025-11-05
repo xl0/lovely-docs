@@ -1,1 +1,0 @@
-Index page for Svelte styling documentation. No substantive content provided.

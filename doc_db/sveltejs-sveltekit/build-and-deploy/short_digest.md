@@ -1,19 +1,17 @@
-## Building & Adapters
+## Adapters
 
-SvelteKit builds in two stages: Vite optimizes code, then an adapter tunes it for the target environment. Prevent build-time execution with `building` from `$app/environment`.
+Adapters transform built SvelteKit apps for deployment. Configure in `svelte.config.js`. Official adapters: Cloudflare, Netlify, Node, static sites, Vercel. **adapter-auto** auto-detects the platform.
 
-Adapters are deployment plugins configured in `svelte.config.js`. **adapter-auto** automatically detects the correct adapter. Official adapters: Node, static sites, Cloudflare, Netlify, Vercel.
+## Deployment
 
-## Key Deployment Patterns
+**Node.js**: `@sveltejs/adapter-node`. Configure via `PORT`, `HOST`, `ORIGIN`, `PROTOCOL_HEADER`, `HOST_HEADER`, `BODY_SIZE_LIMIT`, `SHUTDOWN_TIMEOUT`. Listen to `sveltekit:shutdown` for cleanup.
 
-**Node**: `npm run build`, deploy `build/`, `package.json`, `node_modules/`. Start with `node build`. Configure via `PORT`, `HOST`, `ORIGIN`, reverse proxy headers, `BODY_SIZE_LIMIT` (512kb), `SHUTDOWN_TIMEOUT` (30s).
+**Static**: `@sveltejs/adapter-static` with `export const prerender = true;`
 
-**Static**: Set `prerender = true` in root layout. Configure `pages`, `assets`, `fallback`, `precompress`.
+**SPA**: `adapter-static` with `fallback` option and `export const ssr = false;`
 
-**SPA**: Disable SSR globally with `export const ssr = false`, use fallback page. Prerender specific pages with `export const prerender = true`.
+**Cloudflare**: `@sveltejs/adapter-cloudflare`. Access bindings via `platform.env`. Use `read()` from `$app/server` instead of `fs`.
 
-**Cloudflare**: Configure fallback, `_routes.json` rules (max 100). Access runtime APIs via `platform?.env`. Test with `wrangler dev .svelte-kit/cloudflare`.
+**Netlify**: `@sveltejs/adapter-netlify` with `edge` and `split` options. Access context via `event.platform?.context`.
 
-**Netlify**: Use `edge: true` for edge functions, `split: true` for function splitting. Access context via `event.platform?.context`. Use `read()` from `$app/server` instead of `fs`.
-
-**Vercel**: Set `runtime` (`'edge'` or `'nodejs20.x'`), `regions`, `split`, `memory`, `maxDuration` via `export const config`. ISR: `expiration`, `bypassToken`, `allowQuery`. Bypass cache with `__prerender_bypass=<token>` cookie.
+**Vercel**: `@sveltejs/adapter-vercel`. Configure `split`, `runtime`, `regions`, `memory`, `isr`. Image optimization available.

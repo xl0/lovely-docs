@@ -1,1 +1,1 @@
-SvelteKit is a framework for building web apps with Svelte (comparable to Next.js or Nuxt). It provides routing, build optimizations, offline support, configurable rendering (SSR/CSR/prerendering), image optimization, and HMR via Vite. Svelte itself is just a UI component compiler.
+SvelteKit is a web application framework built on Svelte. It provides routing, build optimizations, SSR/CSR/prerendering, offline support, and HMR development experience via Vite. Similar to Next.js or Nuxt for other frameworks.

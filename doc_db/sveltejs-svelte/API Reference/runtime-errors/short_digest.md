@@ -1,1 +1,0 @@
-Reference documentation for runtime errors in Svelte, categorized as client errors, server errors, and shared errors.

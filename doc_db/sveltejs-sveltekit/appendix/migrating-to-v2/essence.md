@@ -1,0 +1,1 @@
+Breaking changes and migration guide for upgrading from SvelteKit v1 to v2.

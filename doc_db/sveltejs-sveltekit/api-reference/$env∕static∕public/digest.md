@@ -1,1 +1,8 @@
-The `$env/static/public` module provides access to public environment variables that are statically injected at build time. These variables are safe to expose in client-side code since they're intended to be public. They must be prefixed with `PUBLIC_` in your `.env` file to be included in this module. Use this for configuration values that need to be accessible from the browser, such as API endpoints or feature flags.
+Public environment variables that are safely exposed to client-side code. Only includes variables beginning with the configured public prefix (defaults to `PUBLIC_`). Values are replaced statically at build time.
+
+Import public environment variables:
+```ts
+import { PUBLIC_BASE_URL } from '$env/static/public';
+```
+
+Unlike `$env/static/private`, these variables can be safely used in browser code since they're intended to be public.

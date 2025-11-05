@@ -1,0 +1,1 @@
+This page serves as the index/entry point for Svelte template syntax documentation. It appears to be a generated documentation file that would contain or link to information about Svelte's template syntax features, including directives, bindings, and markup patterns used in `.svelte` component files.

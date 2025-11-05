@@ -1,11 +1,11 @@
-The `$env/dynamic/public` module provides access to public environment variables at runtime in SvelteKit applications.
+Access public environment variables at runtime on the client side.
 
-Public environment variables are those prefixed with `PUBLIC_` and are safe to expose to the browser. Unlike static environment variables, dynamic public variables can change at runtime and are evaluated when the application runs.
+Public dynamic environment variables are those prefixed with `PUBLIC_` (configurable via `config.kit.env.publicPrefix`). Unlike static public environment variables, these are sent from server to client at runtime, resulting in larger network requests.
 
-Access public environment variables using:
-```javascript
+Usage:
+```ts
 import { env } from '$env/dynamic/public';
-console.log(env.PUBLIC_API_URL);
+console.log(env.PUBLIC_DEPLOYMENT_SPECIFIC_VARIABLE);
 ```
 
-These variables are available in both server and client code, making them useful for configuration that needs to be accessible from the browser.
+Prefer `$env/static/public` when possible to avoid the network overhead of sending variables dynamically.

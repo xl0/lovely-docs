@@ -1,1 +1,1 @@
-$lib is an automatic import alias for the src/lib directory in SvelteKit projects.
+$lib is an automatic import alias pointing to src/lib for importing reusable components and utilities.

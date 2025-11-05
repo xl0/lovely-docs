@@ -1,1 +1,0 @@
-API for imperatively creating, mounting, unmounting, and server-rendering Svelte components.

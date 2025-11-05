@@ -1,16 +1,11 @@
-**Avoid shared state on server** — don't store data in shared variables; use cookies and databases instead.
+**Avoid shared state on server**: Don't store data in shared variables—authenticate with cookies and use databases instead.
 
-**No side-effects in load** — return data instead of writing to stores:
-```js
-export async function load({ fetch }) {
-	return { user: await fetch('/api/user').then(r => r.json()) };
-}
-```
+**No side-effects in load**: Load functions must be pure; return data instead of writing to stores.
 
-**Use context API for safe state sharing** — pass functions into context to maintain reactivity across SSR boundaries.
+**Use context API**: Attach state to component tree with `setContext`/`getContext` instead of global state. Pass functions to maintain reactivity.
 
-**Component state is preserved** — make dependent values reactive with `$derived` when data changes.
+**Component state is preserved**: Components reuse on navigation; use `$derived` for reactive values or `{#key}` to force remounting.
 
-**URL search parameters** — store state that needs to survive reloads: `?sort=price&order=ascending`.
+**URL for persistent state**: Store filters/sorting in URL search parameters.
 
-**Snapshots** — preserve ephemeral UI state across navigation.
+**Snapshots for ephemeral state**: Use snapshots for temporary UI state like accordion toggles.

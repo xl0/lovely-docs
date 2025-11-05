@@ -1,31 +1,25 @@
-## Built-in optimizations
+## Key optimizations
+SvelteKit provides automatic code-splitting, preloading, hashing, request coalescing, and prerendering.
 
-SvelteKit handles code-splitting, asset preloading, file hashing, request coalescing, parallel loading, data inlining, conservative invalidation, prerendering, and link preloading.
+## Diagnosing
+Use PageSpeed Insights, WebPageTest, or browser devtools (Lighthouse, Network, Performance tabs). Test in preview mode, not dev mode.
 
-## Diagnosing issues
-
-Test in preview mode (not dev). Use PageSpeed Insights, WebPageTest, or browser devtools (Lighthouse, Network, Performance tabs). Instrument slow APIs with OpenTelemetry or Server-Timing headers.
-
-## Asset optimization
-
+## Assets
 - **Images**: Use `@sveltejs/enhanced-img`
 - **Videos**: Compress to `.webm`/`.mp4`, lazy-load with `preload="none"`, strip audio with FFmpeg
-- **Fonts**: Preload via `resolve` with `preload` filter in `handle` hook, subset fonts
+- **Fonts**: Preload in `handle` hook, subset to reduce size
 
 ## Code size
-
 - Use latest Svelte version
 - Use `rollup-plugin-visualizer` to find large packages
 - Replace JS analytics with server-side (Cloudflare, Netlify, Vercel)
-- Use Partytown for third-party scripts in web workers
 - Use dynamic `import(...)` for conditional code
+- Run third-party scripts in web workers with Partytown
 
 ## Navigation
-
-- Preload with link options (default enabled)
-- Return promises from `load` for streaming non-essential data
-- Avoid waterfalls: use server `load` instead of universal, combine DB queries with joins
+- Preload with link options
+- Return promises from `load` for non-essential data
+- Avoid waterfalls: use server `load` functions, combine DB queries with joins, avoid SPA mode
 
 ## Hosting
-
-Deploy frontend near backend or use edge deployment. Serve images from CDN. Use HTTP/2+.
+- Colocate frontend/backend, deploy to edge, use CDN for images, require HTTP/2+

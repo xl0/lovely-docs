@@ -1,1 +1,1 @@
-Landing page for Svelte framework documentation.
+Root documentation index page with auto-generated content.

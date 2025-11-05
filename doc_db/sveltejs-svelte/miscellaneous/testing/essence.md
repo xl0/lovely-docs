@@ -1,0 +1,1 @@
+Testing strategies for Svelte: unit/component tests with Vitest, component documentation with Storybook, and end-to-end tests with Playwright.

@@ -1,1 +1,1 @@
-Practical performance optimization techniques for SvelteKit apps: diagnosing issues, optimizing assets, reducing code size, improving navigation, and hosting considerations.
+Practical performance optimization techniques for SvelteKit apps covering diagnostics, asset optimization, code reduction, navigation patterns, and hosting considerations.

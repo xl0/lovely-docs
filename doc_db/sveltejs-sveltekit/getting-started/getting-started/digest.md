@@ -1,1 +1,1 @@
-This page serves as the entry point for the documentation. It provides an overview and introduction to getting started with the framework, likely covering initial setup, installation, and basic concepts needed to begin development.
+This page appears to be a documentation index or landing page for the Getting Started section of SvelteKit. The actual content is not provided in the page excerpt - only the frontmatter is shown, indicating this is an auto-generated documentation file. The page serves as an entry point to introductory material for new users.

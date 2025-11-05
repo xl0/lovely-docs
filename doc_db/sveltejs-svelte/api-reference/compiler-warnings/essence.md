@@ -1,0 +1,1 @@
+Reference of all Svelte compiler warnings with codes, descriptions, and how to suppress them using `<!-- svelte-ignore -->` comments.

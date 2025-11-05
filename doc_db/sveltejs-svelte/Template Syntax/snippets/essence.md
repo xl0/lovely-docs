@@ -1,1 +1,0 @@
-Snippets are reusable markup components that can be passed as props to other components, with optional typing and support for parameters.

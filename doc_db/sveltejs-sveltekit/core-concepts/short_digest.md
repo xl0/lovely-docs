@@ -1,30 +1,17 @@
 ## Routing
-`src/routes` directory with `+` prefixed files: `+page.svelte`, `+page.server.js`, `+layout.svelte`, `+server.js`, `+error.svelte`.
+Filesystem-based via `src/routes`. Files prefixed with `+` are route files: `+page.svelte`, `+page.server.js` (load/actions), `+layout.svelte`, `+server.js` (API). Auto-generated `$types` for type safety.
 
-## Load Functions
-```js
-export async function load({ params, fetch, cookies }) {
-	return { data: await fetch('/api/data') };
-}
-```
-Universal and server-only variants. Access params, url, cookies, set headers, stream promises.
+## Loading Data
+Define load functions in `+page.js`/`+page.server.js` or `+layout.js`/`+layout.server.js`. Universal (`+page.js`) runs on server and browser; Server (`+page.server.js`) runs only on server. Use provided `fetch`, return promises for streaming, reruns on `params`/`url` changes.
 
 ## Form Actions
-```js
-export const actions = {
-	login: async ({ request }) => {
-		const data = await request.formData();
-		return fail(400, { missing: true });
-	}
-};
-```
-Use `use:enhance` for client-side handling.
+Export `actions` from `+page.server.js`. Invoke with `<form method="POST" action="?/actionName">`. Return `fail(400, data)` for validation errors. Progressive enhancement via `use:enhance`.
 
 ## Page Options
-`prerender`, `ssr`, `csr`, `trailingSlash`, `config` exports control rendering and behavior.
+`prerender`, `ssr`, `csr`, `trailingSlash`, `config` exports control rendering behavior.
 
 ## State Management
-Avoid shared server state. Return data from load functions. Use context API, URL parameters, and snapshots for state.
+Avoid shared server state. Keep load functions pure. Use context API instead of globals. Store persistent state in URLs, ephemeral state in snapshots.
 
 ## Remote Functions
-Type-safe `query`, `form`, `command`, `prerender` functions. Enable with `kit: { experimental: { remoteFunctions: true } }`
+Type-safe client-server communication via `.remote.js`: **query** (read, cached), **form** (write, validated), **command** (write, anywhere), **prerender** (build-time). Enable with `kit.experimental.remoteFunctions: true`.

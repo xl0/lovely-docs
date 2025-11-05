@@ -1,1 +1,1 @@
-This page serves as an index for best practices documentation in SvelteKit. It appears to be a landing page for a collection of best practice guidelines and recommendations for developers using SvelteKit. The actual best practices content would be found in linked sections within this documentation area.
+This page serves as an index/landing page for best practices documentation in SvelteKit. The actual content appears to be generated automatically from a script and the page itself contains no substantive information - only a title and a note indicating it's auto-generated.

@@ -1,1 +1,1 @@
-Runtime access to public environment variables in SvelteKit applications.
+Runtime access to public environment variables prefixed with PUBLIC_ on the client side.

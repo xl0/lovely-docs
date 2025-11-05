@@ -1,0 +1,1 @@
+Breaking changes and migration steps for upgrading from Svelte 3 to Svelte 4, including minimum version requirements, stricter types, API changes, and configuration updates.

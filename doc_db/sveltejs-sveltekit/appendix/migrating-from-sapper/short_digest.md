@@ -1,0 +1,13 @@
+## Key Changes
+- Add `"type": "module"` to package.json
+- Replace `sapper` with `@sveltejs/kit` and adapter
+- Update scripts: `sapper build` → `vite build`, `sapper dev` → `vite dev`
+- Replace `webpack.config.js`/`rollup.config.js` with `svelte.config.js`
+- Rename files: `src/template.html` → `src/app.html`, `_layout.svelte` → `+layout.svelte`, `_error.svelte` → `+error.svelte`
+- Routes: `routes/about.svelte` → `routes/about/+page.svelte`
+- `preload` → `load` in `+page.js`/`+layout.js` with single `event` argument
+- `@sapper/app` imports → `$app/navigation`, `$app/stores`
+- `stores()` → import `navigating`, `page` directly
+- No `this` object; throw `error()`, `redirect()`
+- Relative URLs resolve against current page, not base
+- `sapper:prefetch` → `data-sveltekit-preload-data`

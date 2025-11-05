@@ -1,0 +1,1 @@
+Complete API reference for Svelte 5 runtime, compiler, and error handling with type definitions and examples.

@@ -104,6 +104,9 @@ class Settings(BaseSettings):
     templates_dir: Path = Path("../templates")
     project_root: Path = Path(__file__).parent.parent if "__file__" in globals() else Path.cwd()
     sources: dict[str, Source] = {
+        # Sveltekit markdowns should come from https://github.com/sveltejs/svelte.dev
+        # The ones in sveltejs/svelte and /kit are used as a source to generate the
+        # final ones.
         "sveltejs/svelte": GitSource(
             name="sveltejs-svelte",
             doc_dir="apps/svelte.dev/content/docs/svelte",

@@ -1,0 +1,1 @@
+Deprecated migration utilities for converting Svelte 4 code patterns to Svelte 5, including component class conversion and event handler/modifier replacements.

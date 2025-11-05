@@ -1,1 +1,0 @@
-Miscellaneous documentation section with no content.

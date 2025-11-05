@@ -1,1 +1,1 @@
-App-wide functions that hook into SvelteKit lifecycle events for request handling, error management, routing, and type serialization.
+App-wide functions that give fine-grained control over SvelteKit's behavior in response to specific events.

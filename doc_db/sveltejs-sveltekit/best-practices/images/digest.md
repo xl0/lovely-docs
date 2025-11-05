@@ -2,13 +2,11 @@
 
 **Vite's built-in handling**: Automatically processes imported assets, adds hashes for caching, and inlines small assets.
 ```svelte
-<script>
-	import logo from '$lib/assets/logo.png';
-</script>
+import logo from '$lib/assets/logo.png';
 <img alt="The project logo" src={logo} />
 ```
 
-**@sveltejs/enhanced-img**: Build-time plugin that generates optimal formats (avif, webp), creates multiple sizes, sets intrinsic dimensions to prevent layout shift, and strips EXIF data. Only works with local files during build.
+**@sveltejs/enhanced-img**: Build-time plugin that generates optimal formats (avif, webp), creates multiple sizes, sets intrinsic dimensions to prevent layout shift, and strips EXIF data. Only works with local files at build time.
 
 Setup:
 ```js
@@ -18,33 +16,18 @@ export default defineConfig({
 });
 ```
 
-Usage with static imports:
+Usage:
 ```svelte
 <enhanced:img src="./path/to/your/image.jpg" alt="An alt text" />
 ```
 
-Dynamic imports with query parameter:
+For dynamic image selection, import with `?enhanced` query:
 ```svelte
-<script>
-	import MyImage from './path/to/your/image.jpg?enhanced';
-</script>
+import MyImage from './path/to/your/image.jpg?enhanced';
 <enhanced:img src={MyImage} alt="some alt text" />
 ```
 
-Or with glob:
-```svelte
-<script>
-	const imageModules = import.meta.glob('/path/to/assets/*.{jpg,png}', {
-		eager: true,
-		query: { enhanced: true }
-	})
-</script>
-{#each Object.entries(imageModules) as [_path, module]}
-	<enhanced:img src={module.default} alt="some alt text" />
-{/each}
-```
-
-**Responsive sizing**: Use `sizes` attribute for large images to serve smaller versions on smaller devices:
+Specify `sizes` for responsive images:
 ```svelte
 <enhanced:img src="./image.png" sizes="min(1280px, 100vw)"/>
 ```
@@ -54,20 +37,20 @@ Custom widths with `w` query parameter:
 <enhanced:img src="./image.png?w=1280;640;400" sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"/>
 ```
 
-**Per-image transforms**: Apply transforms via query string:
+Per-image transforms via query string:
 ```svelte
 <enhanced:img src="./path/to/your/image.jpg?blur=15" alt="An alt text" />
 ```
 
-**CDN approach**: For images not available at build time (CMS, database, backend). Use CDN-agnostic libraries like `@unpic/svelte` or provider-specific solutions (Cloudinary, Contentful, Storyblok, Contentstack).
+**CDN-based loading**: For images not available at build time (CMS, database). Use CDN-agnostic libraries like `@unpic/svelte` or provider-specific solutions (Cloudinary, Contentful, Storyblok, Contentstack).
 
 ## Best Practices
 
-- Mix approaches in one project as needed
+- Mix approaches in one project based on use case
 - Serve all images via CDN to reduce latency
 - Provide images at 2x resolution for HiDPI displays
-- Use `sizes` for images larger than ~400px width
+- Use `sizes` for large images (>400px) to serve smaller versions on mobile
 - Set `fetchpriority="high"` and avoid `loading="lazy"` for LCP images
-- Constrain images with container/styling to prevent layout shift
+- Constrain images with container/styling to prevent layout shift; `@sveltejs/enhanced-img` adds width/height automatically
 - Always provide `alt` text
-- Don't use `em` or `rem` in `sizes` attribute; use absolute units
+- Don't use `em` or `rem` in `sizes` declarations as they're relative to user's default font-size, not CSS-modified values

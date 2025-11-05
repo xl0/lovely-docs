@@ -1,1 +1,0 @@
-svelte/legacy provides deprecated migration utilities for transitioning from older Svelte versions.

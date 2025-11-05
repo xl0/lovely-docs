@@ -1,21 +1,17 @@
-# Svelte Documentation
+## Core Concepts
+Svelte is a compiler-based UI framework. `.svelte` files contain `<script>`, markup, and `<style>` sections with scoped CSS by default.
 
-**Setup**: SvelteKit (`npx sv create myapp`) or Vite recommended.
+## Svelte 5 Runes
+`$state()` - reactive state, `$derived()` - computed values, `$effect()` - side effects, `$props()` - component inputs, `$bindable()` - two-way binding, `$inspect()` - debug logging.
 
-**Runes**: `$state` (reactive), `$derived` (computed), `$effect` (side-effects), `$props()` (inputs), `$bindable()` (two-way), `$inspect()` (logging), `$host()` (custom elements).
+## Template Syntax
+Control flow: `{#if}`, `{#each}`, `{#key}`, `{#await}`. Snippets: `{#snippet name()}...{/snippet}` rendered with `{@render}`. Directives: `bind:`, `use:`, `transition:`, `animate:`, `style:`, `class:`. Special elements: `<svelte:window>`, `<svelte:document>`, `<svelte:head>`, `<svelte:boundary>`.
 
-**Template**: Expressions `{expr}`, conditionals `{#if}...{/if}`, loops `{#each items as item}...{/each}`, snippets `{#snippet name()}...{/snippet}`, directives: `bind:`, `use:`, `style:`, `class:`, `transition:`, `animate:`.
+## Runtime APIs
+**Stores**: `writable()`, `readable()`, `derived()`, accessed via `$` prefix. **Context**: `setContext(key, value)`, `getContext(key)`. **Lifecycle**: `onMount()`, `onDestroy()`, `tick()`. **Imperative**: `mount()`, `unmount()`, `render()`, `hydrate()`. **Animations**: `flip()`, transitions (`fade`, `fly`, `scale`, etc.), `Spring`/`Tween` classes.
 
-**Styling**: Auto-scoped, use `:global()` for global styles, CSS custom properties inherited.
+## Advanced
+**TypeScript**: Add `lang="ts"`, configure `vitePreprocess`. **Custom Elements**: `customElement: true` option. **Testing**: Vitest, Storybook, Playwright. **Migration**: Svelte 5 uses `$state()` instead of `let`, `$derived()` instead of `$:`, `$props()` instead of `export let`, callback props instead of `createEventDispatcher()`.
 
-**Special Elements**: `<svelte:boundary>` (error handling), `<svelte:window>` (window listeners), `<svelte:head>` (document head), `<svelte:element this={tag} />` (dynamic tags), `<svelte:options>` (compiler config).
-
-**State**: Stores (`writable`, `readable`, `derived`), Context API (`setContext`/`getContext`).
-
-**Lifecycle**: `onMount`, `onDestroy`, `tick()`, `mount()`, `unmount()`.
-
-**TypeScript**: Add `lang="ts"`, configure `vitePreprocess`, use generics.
-
-**Custom Elements**: `<svelte:options customElement="tag-name" />`.
-
-**Svelte 5**: `let` → `$state`, `$:` → `$derived`/`$effect`, `export let` → `$props()`, `on:click` → `onclick`, `<slot />` → `children` prop.
+## Legacy Mode (Svelte 3/4)
+Reactive variables with `$:` statements. Props via `export let`. Events with `createEventDispatcher()`. Imperative: `new App({target, props})`, `app.$set()`, `app.$destroy()`.

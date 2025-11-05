@@ -1,0 +1,1 @@
+Overview of deprecated Svelte 3/4 features in Svelte 5 and the distinction between legacy and runes mode.

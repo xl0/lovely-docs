@@ -1,1 +1,0 @@
-Component styling with automatic scoping, global style overrides, CSS custom properties, and nested style behavior.

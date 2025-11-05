@@ -1,15 +1,34 @@
-## Core Modules
-- `$app/navigation` - `goto()`, `invalidateAll()`, `invalidate(url)`
-- `$app/environment`, `$app/paths`, `$app/forms`, `$app/state` - Runtime utilities
-- `$app/server` - Server-only operations
-- `$env/static/public|private`, `$env/dynamic/public|private` - Environment variables
+## Core Functions
+- `json(data)`, `text(body)`, `error(status, body)`, `redirect(status, location)`, `fail(status, data)`
+- Type guards: `isHttpError()`, `isRedirect()`, `isActionFailure()`
 
-## Types & Config
-- `$app/types` - Auto-generated route types: `RouteParams<'/blog/[slug]'>` → `{ slug: string }`
-- `svelte.config.js` - Kit configuration with adapter selection
-- `svelte-kit sync` - Generate types and config
-- `$lib` - Alias for `src/lib`
+## Key Types
+- **RequestEvent**: `cookies`, `fetch`, `locals`, `params`, `url`, `setHeaders()`, `getClientAddress()`
+- **LoadEvent**: Extends RequestEvent, adds `data`, `parent()`, `depends()`, `untrack()`
+- **Page**: `url`, `params`, `route.id`, `status`, `error`, `data`, `state`, `form`
 
-## Server
-- `@sveltejs/kit/hooks` - `handle`, `handleError`, `handleFetch` in `hooks.server.js`
-- Node.js adapter for SSR and deployment
+## Hooks
+- **handle**: `(input: {event, resolve}) => Response`
+- **handleError**, **handleFetch**, **reroute**
+- **sequence**: Chain multiple handle middleware
+
+## Forms & Navigation
+- **enhance**: Intercept form submissions without JavaScript
+- **goto(url, opts)**: Programmatic navigation
+- **invalidate(resource)**: Re-run load functions
+- **beforeNavigate/afterNavigate**: Navigation lifecycle
+- **preloadData(href)**: Preload page code and load functions
+
+## Environment
+- **$app/environment**: `browser`, `building`, `dev`, `version`
+- **$env/static/private**, **$env/static/public**: Build-time variables
+- **$env/dynamic/private**, **$env/dynamic/public**: Runtime variables
+- **$app/state**: `navigating`, `page`, `updated` read-only objects
+
+## Configuration (svelte.config.js)
+- **adapter**, **csp**, **csrf**, **paths**, **prerender**, **router.type**, **version**
+
+## Types
+- **$types**: Auto-generated typed handlers and data types
+- **$app/types**: `RouteId`, `Pathname`, `RouteParams<'/blog/[slug]'>`
+- **app.d.ts**: Ambient types for `Error`, `Locals`, `PageData`, `PageState`

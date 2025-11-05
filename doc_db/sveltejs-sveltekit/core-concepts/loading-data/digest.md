@@ -15,13 +15,6 @@ export async function load({ params }) {
 }
 ```
 
-```svelte
-<script>
-	let { data } = $props();
-</script>
-<h1>{data.post.title}</h1>
-```
-
 ## Universal vs Server Load
 
 - **Universal** (`+page.js`, `+layout.js`): Run on server during SSR, then in browser. Can return non-serializable data (classes, components). Use for external API calls.
@@ -29,47 +22,48 @@ export async function load({ params }) {
 
 When both exist, server load runs first and its return value becomes the `data` property of the universal load's argument.
 
-## Layout Data
+## Data Flow
 
-Layout `load` functions return data available to child layouts and pages. Data from multiple `load` functions merges, with later values overwriting earlier ones.
+Layout load data is available to child layouts and pages. Access parent data with `await parent()`:
 
 ```js
-// +layout.server.js
-export async function load() {
-	return { posts: await db.getPostSummaries() };
+// +layout.js
+export function load() { return { a: 1 }; }
+
+// +page.js
+export async function load({ parent }) {
+	const { a } = await parent();
+	return { c: a + 1 };
 }
 ```
 
-```svelte
-<!-- +layout.svelte -->
-<script>
-	let { data, children } = $props();
-</script>
-<main>{@render children()}</main>
-<aside>
-	{#each data.posts as post}
-		<a href="/blog/{post.slug}">{post.title}</a>
-	{/each}
-</aside>
-```
+Access page data from root layout via `page.data`:
 
-Access parent data in child pages via `page.data` or by importing `page` from `$app/state`.
+```svelte
+<script>
+	import { page } from '$app/state';
+</script>
+<title>{page.data.title}</title>
+```
 
 ## URL Data
 
-Load functions receive:
-- **`url`**: URL instance with `origin`, `hostname`, `pathname`, `searchParams`
-- **`route`**: Route directory name (e.g., `/a/[b]/[...c]`)
-- **`params`**: Parsed route parameters (e.g., `{ b: 'x', c: 'y/z' }`)
+Load functions receive `url` (URL instance), `route` (route directory name), and `params` (derived from pathname and route):
+
+```js
+export function load({ url, route, params }) {
+	console.log(route.id); // '/a/[b]/[...c]'
+	console.log(params.b); // 'x' from /a/x/y/z
+}
+```
 
 ## Fetch Requests
 
-Use the provided `fetch` function (not native fetch):
+Use the provided `fetch` function (not native fetch) to make requests. It:
 - Inherits cookies and authorization headers on server
 - Allows relative URLs on server
-- Internal requests bypass HTTP overhead
-- Responses are captured and inlined during SSR
-- Responses are reused during hydration
+- Inlines responses into HTML during SSR
+- Reuses responses during hydration
 
 ```js
 export async function load({ fetch, params }) {
@@ -89,11 +83,11 @@ export async function load({ cookies }) {
 }
 ```
 
-Cookies are only passed through `fetch` if the target is the same host or a subdomain.
+Cookies are only passed through fetch if the target host is the same domain or a subdomain.
 
 ## Headers
 
-Both universal and server load functions can call `setHeaders()` to set response headers (server-side only):
+Both universal and server load functions can set response headers via `setHeaders()` (server-side only):
 
 ```js
 export async function load({ fetch, setHeaders }) {
@@ -105,30 +99,9 @@ export async function load({ fetch, setHeaders }) {
 }
 ```
 
-Cannot set `set-cookie` headers; use `cookies.set()` instead.
+## Error Handling
 
-## Parent Data
-
-Access parent load function data with `await parent()`:
-
-```js
-// +layout.js
-export function load() {
-	return { a: 1 };
-}
-
-// +page.js
-export async function load({ parent }) {
-	const { a } = await parent();
-	return { c: a + 1 };
-}
-```
-
-In server load functions, `parent()` returns data from parent server layouts. In universal load functions, it returns data from parent universal layouts (treating missing layouts as pass-through functions).
-
-## Errors and Redirects
-
-Throw errors with the `error` helper to render the nearest `+error.svelte`:
+Throw errors using the `error` helper to specify HTTP status code:
 
 ```js
 import { error } from '@sveltejs/kit';
@@ -140,7 +113,9 @@ export function load({ locals }) {
 }
 ```
 
-Use `redirect` helper to redirect users:
+## Redirects
+
+Use the `redirect` helper with a 3xx status code:
 
 ```js
 import { redirect } from '@sveltejs/kit';
@@ -154,7 +129,7 @@ export function load({ locals }) {
 
 ## Streaming Promises
 
-Server load functions can return unresolved promises, which stream to the browser as they resolve:
+Server load functions can return unresolved promises for non-essential data. They stream to the browser as they resolve, enabling skeleton loading states:
 
 ```js
 export async function load({ params }) {
@@ -172,41 +147,18 @@ export async function load({ params }) {
 	{#each comments as comment}
 		<p>{comment.content}</p>
 	{/each}
-{:catch error}
-	<p>Error: {error.message}</p>
 {/await}
 ```
 
-Attach a noop `.catch()` to unhandled promises to prevent crashes.
-
-## Dependency Tracking and Rerunning
+## Dependency Tracking & Rerunning
 
 Load functions rerun when:
 - Referenced `params` properties change
 - Referenced `url` properties change (pathname, search, searchParams)
 - `await parent()` is called and parent reruns
-- A dependency declared via `fetch(url)` or `depends(url)` is invalidated
+- A dependency URL is invalidated via `invalidate(url)` or `invalidateAll()`
 
-Manually rerun load functions with `invalidate(url)` or `invalidateAll()`:
-
-```js
-export async function load({ fetch, depends }) {
-	depends('app:random');
-	return { number: await fetch('/api/random').json() };
-}
-```
-
-```svelte
-<script>
-	import { invalidate } from '$app/navigation';
-	function refresh() {
-		invalidate('app:random');
-	}
-</script>
-<button onclick={refresh}>Refresh</button>
-```
-
-Exclude values from tracking with `untrack()`:
+Exclude from tracking with `untrack()`:
 
 ```js
 export async function load({ untrack, url }) {
@@ -216,33 +168,34 @@ export async function load({ untrack, url }) {
 }
 ```
 
-## Authentication
+Manually trigger reruns:
 
-For auth checks:
-- Use hooks to protect routes before load functions run
-- Use auth guards in `+page.server.js` for route-specific protection
-- Use `getRequestEvent()` from `$app/server` to access request context in shared functions
+```js
+export async function load({ depends }) {
+	depends('app:random');
+	return { number: Math.random() };
+}
+```
+
+```svelte
+<button onclick={() => invalidate('app:random')}>Refresh</button>
+```
+
+## getRequestEvent
+
+Access the request event in shared logic without passing it around:
 
 ```js
 // src/lib/server/auth.js
-import { redirect } from '@sveltejs/kit';
 import { getRequestEvent } from '$app/server';
 
 export function requireLogin() {
 	const { locals, url } = getRequestEvent();
 	if (!locals.user) {
-		redirect(307, `/login?redirectTo=${url.pathname}`);
+		redirect(307, '/login');
 	}
 	return locals.user;
 }
 ```
 
-```js
-// +page.server.js
-import { requireLogin } from '$lib/server/auth';
-
-export function load() {
-	const user = requireLogin();
-	return { message: `hello ${user.name}!` };
-}
-```
+Then call in any load function or form action.

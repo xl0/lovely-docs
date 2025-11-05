@@ -1,1 +1,1 @@
-Introduction to building and deploying SvelteKit applications.
+Documentation index for build and deployment in SvelteKit.

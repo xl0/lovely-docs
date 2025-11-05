@@ -1,1 +1,0 @@
-Getting started with Svelte project setup, component file structure, and reactive logic patterns.

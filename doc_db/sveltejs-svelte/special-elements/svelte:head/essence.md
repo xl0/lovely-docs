@@ -1,0 +1,1 @@
+Insert elements into document.head using the <svelte:head> special element.

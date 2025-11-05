@@ -1,0 +1,1 @@
+How to compile Svelte components as web components and configure their behavior, properties, and lifecycle.

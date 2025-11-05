@@ -1,0 +1,12 @@
+## Key Changes
+- **Requirements**: Node 16+, TypeScript 5+, updated build tools
+- **Bundlers**: Must specify `browser` condition
+- **CJS Removed**: ESM only
+- **Stricter Types**: `createEventDispatcher`, `Action`, `ActionReturn`, `onMount` have stricter typing
+- **Custom Elements**: `tag` → `customElement` option
+- **SvelteComponentTyped**: Deprecated, use `SvelteComponent`
+- **Transitions**: Local by default, use `|global` for old behavior
+- **Slot Bindings**: Default and named slots no longer share bindings
+- **Preprocessors**: Execute in order (markup, script, style per preprocessor); MDsveX must come first
+- **ESLint**: Migrate from `eslint-plugin-svelte3` to `eslint-plugin-svelte`
+- **Other**: `inert` on outroing elements, `classList.toggle`/`CustomEvent` may need polyfills, `svelte.JSX` → `svelteHTML`

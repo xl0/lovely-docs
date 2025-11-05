@@ -1,1 +1,1 @@
-Access public environment variables in SvelteKit applications via the $env/static/public module.
+Module for importing public environment variables that are statically replaced at build time and safe to expose to client code.

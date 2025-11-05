@@ -1,1 +1,1 @@
-Access private environment variables at runtime in SvelteKit server-side code.
+Module for accessing private runtime environment variables on the server side only.

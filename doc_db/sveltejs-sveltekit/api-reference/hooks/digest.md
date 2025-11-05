@@ -1,8 +1,34 @@
-The `@sveltejs/kit/hooks` module provides server-side hooks for intercepting and customizing the request/response lifecycle in SvelteKit applications.
+## sequence
 
-**Key hooks available:**
-- `handle` - Intercepts every request on the server, allowing you to modify request/response or run custom logic
-- `handleError` - Catches errors during request handling and allows custom error processing
-- `handleFetch` - Intercepts fetch requests made on the server side
+Helper function for chaining multiple `handle` middleware functions with specific ordering rules:
 
-These hooks are defined in a `hooks.server.js` file at the root of your project and are called during server-side request processing.
+- `transformPageChunk`: Applied in **reverse order** and merged
+- `preload`: Applied in **forward order**, first one wins (subsequent calls skipped)
+- `filterSerializedResponseHeaders`: Applied in **forward order**, first one wins
+
+### Example
+
+```js
+import { sequence } from '@sveltejs/kit/hooks';
+
+async function first({ event, resolve }) {
+	const result = await resolve(event, {
+		transformPageChunk: ({ html }) => html,
+		preload: () => true
+	});
+	return result;
+}
+
+async function second({ event, resolve }) {
+	const result = await resolve(event, {
+		transformPageChunk: ({ html }) => html,
+		preload: () => true,
+		filterSerializedResponseHeaders: () => true
+	});
+	return result;
+}
+
+export const handle = sequence(first, second);
+```
+
+Execution order: first preprocess → second preprocess → second transforms → first transforms → second postprocess → first postprocess

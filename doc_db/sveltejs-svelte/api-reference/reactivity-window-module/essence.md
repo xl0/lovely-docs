@@ -1,0 +1,1 @@
+Reactive window property bindings available since Svelte 5.11.0 that automatically track changes without manual event listeners.

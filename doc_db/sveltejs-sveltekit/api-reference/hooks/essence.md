@@ -1,1 +1,1 @@
-Server-side hooks module for intercepting and customizing request/response handling in SvelteKit.
+The sequence helper chains multiple handle middleware functions with different execution orders for different options.

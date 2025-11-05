@@ -1,1 +1,0 @@
-API reference for svelte/motion module providing animation utilities.

@@ -1,1 +1,1 @@
-Setup, project structure, deployment adapters, and standard Web APIs for building SvelteKit applications.
+Initial setup, project structure, deployment options, and standard Web API usage in SvelteKit.

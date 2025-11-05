@@ -1,1 +1,1 @@
-This is a reference documentation index page for SvelteKit. It serves as the entry point to the API reference and technical documentation sections of the framework.
+This is a documentation index page that serves as the entry point to the reference section. It contains no substantive technical content - it is a structural page used to organize and navigate to other reference documentation topics.

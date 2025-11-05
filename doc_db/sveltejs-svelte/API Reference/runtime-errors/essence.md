@@ -1,1 +1,0 @@
-Reference guide for runtime errors in Svelte applications organized by execution context.

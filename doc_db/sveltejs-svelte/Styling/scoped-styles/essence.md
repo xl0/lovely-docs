@@ -1,1 +1,0 @@
-Svelte automatically scopes component styles using hash-based classes, preventing style leakage and giving component styles higher specificity than global styles.

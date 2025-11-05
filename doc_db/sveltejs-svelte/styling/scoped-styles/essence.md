@@ -1,0 +1,1 @@
+Svelte components have scoped styles by default, implemented via hash-based classes that prevent style leakage and increase selector specificity.

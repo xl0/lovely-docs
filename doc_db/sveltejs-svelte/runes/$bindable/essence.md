@@ -1,0 +1,1 @@
+The $bindable rune enables bidirectional prop binding, allowing child components to pass data back to parents using the bind: directive.

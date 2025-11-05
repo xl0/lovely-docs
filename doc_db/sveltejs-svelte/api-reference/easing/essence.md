@@ -1,0 +1,1 @@
+Collection of 33 easing functions for animations with In/Out/InOut variants.

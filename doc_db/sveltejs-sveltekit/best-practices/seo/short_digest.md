@@ -1,3 +1,3 @@
-**Out of box**: SSR enabled by default (better indexing), minimal performance overhead, automatic trailing slash normalization.
+**SSR enabled by default** for reliable search engine indexing. **Performance matters** - use hybrid rendering and optimize images. **Normalized URLs** prevent duplicates.
 
-**Manual setup**: Add unique `<title>` and `<meta name="description">` to each page in `<svelte:head>`. Create sitemaps via `src/routes/sitemap.xml/+server.js` endpoint. For AMP support, set `inlineStyleThreshold: Infinity`, disable `csr`, add `amp` to `<html>`, and transform with `@sveltejs/amp` in hooks.
+Add unique `<title>` and `<meta name="description">` in `<svelte:head>`. Create dynamic sitemaps via endpoints. For AMP support, set `inlineStyleThreshold: Infinity`, disable `csr`, and transform HTML with `@sveltejs/amp` in server hooks.

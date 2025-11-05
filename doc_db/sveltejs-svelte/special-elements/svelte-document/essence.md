@@ -1,0 +1,1 @@
+Special element for attaching event listeners and actions to the document object.

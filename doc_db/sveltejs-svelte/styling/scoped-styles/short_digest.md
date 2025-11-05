@@ -1,0 +1,1 @@
+Svelte scopes component styles by adding a hash-based class (e.g., `svelte-123xyz`) to elements. Scoped selectors get a 0-1-0 specificity boost, overriding global styles. Subsequent scoping class additions use `:where()` to avoid further specificity increases. `@keyframes` are also scoped automatically.

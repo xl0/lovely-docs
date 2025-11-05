@@ -1,1 +1,1 @@
-Polyfills module for using browser APIs in Node.js server-side SvelteKit environments.
+Function to install web API polyfills for Node.js environments.

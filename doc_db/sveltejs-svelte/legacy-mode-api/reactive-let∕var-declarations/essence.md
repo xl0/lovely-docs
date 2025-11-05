@@ -1,0 +1,1 @@
+Legacy mode automatically makes top-level variables reactive through assignment-based tracking, requiring explicit reassignment for mutations to trigger updates.

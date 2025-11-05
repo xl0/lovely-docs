@@ -1,1 +1,0 @@
-Overview and navigation hub for Svelte's special elements documentation.

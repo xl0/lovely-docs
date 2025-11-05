@@ -1,1 +1,0 @@
-Core runtime APIs for state management, component lifecycle, context passing, and imperative component control in Svelte.

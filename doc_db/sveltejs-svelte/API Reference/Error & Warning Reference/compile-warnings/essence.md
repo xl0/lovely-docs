@@ -1,1 +1,0 @@
-Comprehensive reference of Svelte compiler warnings covering accessibility rules, attribute validation, and code quality checks.

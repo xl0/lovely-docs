@@ -1,1 +1,9 @@
-The `@sveltejs/kit/node/polyfills` module provides polyfills for Node.js environments when using SvelteKit. This module enables compatibility for browser APIs and features in server-side Node.js contexts, allowing code that relies on browser-specific functionality to work in server-side rendering scenarios.
+The `installPolyfills()` function from `@sveltejs/kit/node/polyfills` makes web APIs available as globals in Node.js environments. It polyfills:
+- `crypto`
+- `File`
+
+Usage:
+```js
+import { installPolyfills } from '@sveltejs/kit/node/polyfills';
+installPolyfills();
+```

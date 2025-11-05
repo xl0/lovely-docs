@@ -1,1 +1,1 @@
-SvelteKit provides built-in accessibility features: route announcements via live regions, focus management after navigation, and language attribute configuration.
+SvelteKit provides built-in accessibility features: route announcements via page titles, automatic focus management, and language attribute configuration.

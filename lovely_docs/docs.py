@@ -106,70 +106,73 @@ async def anthropic_count_tokens(client: anthropic.AsyncAnthropic, model: str, t
     )
     return res.input_tokens
 
-@ls.traceable("chain", name="Process page")
 async def llm_process_page(settings: Settings, page: DocPage, libname: str) -> DocPage:
-    logger.debug(f"Processing {page.path}")
+    with ls.trace(name=f"Process page: {page.path}", run_type="chain") as trace:
+        logger.debug(f"Processing {page.path}")
 
 
-    model = llm.get_async_model(settings.model)
-    model.key = settings.api_key
+        model = llm.get_async_model(settings.model)
+        model.key = settings.api_key
 
-    # We need to use anthropic client directly to count tokens.
-    anthropic_client = anthropic.AsyncAnthropic(api_key=settings.api_key)
+        # We need to use anthropic client directly to count tokens.
+        anthropic_client = anthropic.AsyncAnthropic(api_key=settings.api_key)
 
 
-    template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("process_page.j2")
-    inputs = {
-        "text": page.fulltext,
-        "filename": page.path.name,
-        "path": page.path.parent.name + "/",
-        "libname": libname
-    }
-    with ls.trace("Template", "prompt", inputs=inputs) as trace:
-        prompt = template.render(**inputs)
-        trace.end(outputs=prompt)
+        template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("process_page.j2")
+        inputs = {
+            "text": page.fulltext,
+            "filename": page.path.name,
+            "path": page.path.parent.name + "/",
+            "libname": libname
+        }
+        with ls.trace("Template", "prompt", inputs=inputs) as template_trace:
+            prompt = template.render(**inputs)
+            template_trace.end(outputs=prompt)
 
-    with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as trace:
-        async for attempt in AsyncRetrying(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)):
-            with attempt:
-                try:
-                    res = await model.prompt(prompt=prompt, schema=PageReplySchema, max_tokens=32768, temperature=0)
-                    trace.end(outputs=await res.text())
-                except Exception as e:
-                    logger.warning(f"Retry {attempt.retry_state.attempt_number}: {str(e)}")
-                    raise
+        with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as llm_trace:
+            async for attempt in AsyncRetrying(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)):
+                with attempt:
+                    try:
+                        res = await model.prompt(prompt=prompt, schema=PageReplySchema, max_tokens=32768, temperature=0)
+                        llm_trace.end(outputs=await res.text())
+                    except Exception as e:
+                        logger.warning(f"Retry {attempt.retry_state.attempt_number}: {str(e)}")
+                        raise
 
-    with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as trace:
-        reply = PageReplySchema.model_validate_json(await res.text())
-        # Normalize better_name: lowercase, replace spaces with hyphens, remove .md extension
-        reply.better_name = (reply.better_name.lower()  .replace(' ', '-')
-                                                        .removesuffix('.md')
-                                                        .replace("/", "∕")) # No / in filenames!
-        trace.end(outputs=reply)
-        usage = await res.usage()
+        with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as parse_trace:
+            reply = PageReplySchema.model_validate_json(await res.text())
+            # Normalize better_name: lowercase, replace spaces with hyphens, remove .md extension
+            reply.better_name = (reply.better_name.lower()  .replace(' ', '-')
+                                                            .removesuffix('.md')
+                                                            .replace("/", "∕")) # No / in filenames!
+            parse_trace.end(outputs=reply)
+            usage = await res.usage()
 
-    # Count tokens for fulltext, digest, and short_digest in parallel
-    fulltext_tokens, digest_tokens, short_digest_tokens = await asyncio.gather(
-        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", page.fulltext),
-        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.digest),
-        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.short_digest)
-    )
-    token_counts = TokenCounts(
-        fulltext=fulltext_tokens,
-        digest=digest_tokens,
-        short_digest=short_digest_tokens
-    )
+        # Count tokens for fulltext, digest, and short_digest in parallel
+        fulltext_tokens, digest_tokens, short_digest_tokens = await asyncio.gather(
+            anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", page.fulltext),
+            anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.digest),
+            anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.short_digest)
+        )
+        token_counts = TokenCounts(
+            fulltext=fulltext_tokens,
+            digest=digest_tokens,
+            short_digest=short_digest_tokens
+        )
 
-    return DocPage(
-        path=page.path,
-        fulltext=page.fulltext,
-        name=reply.better_name,
-        digest=reply.digest,
-        short_digest=reply.short_digest,
-        essence=reply.essence,
-        relevant=reply.relevant,
-        token_counts=token_counts,
-        usage=usage)
+        result = DocPage(
+            path=page.path,
+            fulltext=page.fulltext,
+            name=reply.better_name,
+            digest=reply.digest,
+            short_digest=reply.short_digest,
+            essence=reply.essence,
+            relevant=reply.relevant,
+            token_counts=token_counts,
+            usage=usage)
+
+        trace.end(outputs=result)
+        return result
 
 # %% ../nbs/02_docs.ipynb 19
 class DirReplySchema(BaseModel):
@@ -179,114 +182,120 @@ class DirReplySchema(BaseModel):
     essence: str
     relevant: bool
 
-@ls.traceable("chain", name="Process directory")
 async def llm_process_directory(settings: Settings, directory: DocDirectory,  libname: str) -> DocDirectory:
     """Create a summary for a directory based on its relevant pages and subdirectories"""
 
-    logger.debug(f"Processing {directory.path}")
+    with ls.trace(name=f"Process directory: {directory.path}", run_type="chain") as trace:
+        logger.debug(f"Processing {directory.path}")
 
-    # If the directory did not have any relevant pages / subdirs, we should not be called.
-    assert any(x for x in directory.pages+directory.subdirs if x.relevant)
+        # If the directory did not have any relevant pages / subdirs, we should not be called.
+        assert any(x for x in directory.pages+directory.subdirs if x.relevant)
 
-    model = llm.get_async_model(settings.model)
-    model.key = settings.api_key
+        model = llm.get_async_model(settings.model)
+        model.key = settings.api_key
 
-    # We need to use anthropic client directly to count tokens.
-    anthropic_client = anthropic.AsyncAnthropic(api_key=settings.api_key)
+        # We need to use anthropic client directly to count tokens.
+        anthropic_client = anthropic.AsyncAnthropic(api_key=settings.api_key)
 
-    template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("process_directory.j2")
+        template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("process_directory.j2")
 
-    input = {
-        "dirname": directory.path.name,
-        "path": directory.path.parent.name,
-        "pages": [p for p in directory.pages if p.relevant],
-        "subdirs": [s for s in directory.subdirs if s.relevant],
-        "libname": libname
-    }
-    with ls.trace("Template", "prompt", inputs=input) as trace:
-        prompt = template.render(**input)
-        trace.end(outputs=prompt)
-
-
-    with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as trace:
-        async for attempt in AsyncRetrying(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)):
-            with attempt:
-                try:
-                    res = await model.prompt(prompt=prompt, schema=DirReplySchema, max_tokens=32768, temperature=0)
-                    trace.end(outputs=await res.text())
-                    usage = await res.usage()
-                except Exception as e:
-                    logger.warning(f"Retry {attempt.retry_state.attempt_number}: {str(e)}")
-                    raise
-
-    with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as trace:
-        reply = DirReplySchema.model_validate_json(await res.text())
-        reply.better_name = (reply.better_name.lower()  .replace(' ', '-')
-                                                        .removesuffix('.md')
-                                                        .replace("/", "∕")) # No / in filenames!
-        trace.end(outputs=reply)
+        input = {
+            "dirname": directory.path.name,
+            "path": directory.path.parent.name,
+            "pages": [p for p in directory.pages if p.relevant],
+            "subdirs": [s for s in directory.subdirs if s.relevant],
+            "libname": libname
+        }
+        with ls.trace("Template", "prompt", inputs=input) as template_trace:
+            prompt = template.render(**input)
+            template_trace.end(outputs=prompt)
 
 
-    # We save a generated fulltext for a directory which is the sum of digests of all the pages and subdirs within.
-    fulltext_template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("directory_fulltext.j2")
-    fulltext = fulltext_template.render(**input)
+        with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as llm_trace:
+            async for attempt in AsyncRetrying(stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)):
+                with attempt:
+                    try:
+                        res = await model.prompt(prompt=prompt, schema=DirReplySchema, max_tokens=32768, temperature=0)
+                        llm_trace.end(outputs=await res.text())
+                        usage = await res.usage()
+                    except Exception as e:
+                        logger.warning(f"Retry {attempt.retry_state.attempt_number}: {str(e)}")
+                        raise
 
-    # Count tokens for fulltext, digest, and short_digest in parallel
-    fulltext_tokens, digest_tokens, short_digest_tokens = await asyncio.gather(
-        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", fulltext),
-        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.digest),
-        anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.short_digest)
-    )
-    token_counts = TokenCounts(
-        fulltext=fulltext_tokens,
-        digest=digest_tokens,
-        short_digest=short_digest_tokens
-    )
+        with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as parse_trace:
+            reply = DirReplySchema.model_validate_json(await res.text())
+            reply.better_name = (reply.better_name.lower()  .replace(' ', '-')
+                                                            .removesuffix('.md')
+                                                            .replace("/", "∕")) # No / in filenames!
+            parse_trace.end(outputs=reply)
 
-    res = directory.model_copy(deep=True)
-    res.name = reply.better_name
-    res.digest = reply.digest
-    res.short_digest = reply.short_digest
-    res.essence = reply.essence
-    res.relevant = reply.relevant
-    res.fulltext = fulltext
-    res.token_counts = token_counts
-    res.usage = usage
-    return res
+
+        # We save a generated fulltext for a directory which is the sum of digests of all the pages and subdirs within.
+        fulltext_template = Environment(loader=FileSystemLoader(settings.templates_dir)).get_template("directory_fulltext.j2")
+        fulltext = fulltext_template.render(**input)
+
+        # Count tokens for fulltext, digest, and short_digest in parallel
+        fulltext_tokens, digest_tokens, short_digest_tokens = await asyncio.gather(
+            anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", fulltext),
+            anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.digest),
+            anthropic_count_tokens(anthropic_client, "claude-haiku-4-5", reply.short_digest)
+        )
+        token_counts = TokenCounts(
+            fulltext=fulltext_tokens,
+            digest=digest_tokens,
+            short_digest=short_digest_tokens
+        )
+
+        result = directory.model_copy(deep=True)
+        result.name = reply.better_name
+        result.digest = reply.digest
+        result.short_digest = reply.short_digest
+        result.essence = reply.essence
+        result.relevant = reply.relevant
+        result.fulltext = fulltext
+        result.token_counts = token_counts
+        result.usage = usage
+
+        trace.end(outputs=result)
+        return result
 
 # %% ../nbs/02_docs.ipynb 23
-@ls.traceable("chain", name="Process directory tree")
 async def process_tree_depth_first(settings: Settings, doc_dir: DocDirectory, libname: str) -> DocDirectory:
     """
     Process documentation tree depth-first with parallel processing.
     Mutates the doc_dir object.
     """
 
-    # First, recursively process all subdirectories in parallel
-    subdirs: list[DocDirectory] = await asyncio.gather(*[
-        process_tree_depth_first(settings, subdir, libname) for subdir in doc_dir.subdirs
-    ])
-    subdirs = sorted(subdirs, key=lambda s: s.path)
+    with ls.trace(name=f"Process tree: {libname}/{doc_dir.path}", run_type="chain") as trace:
+        # First, recursively process all subdirectories in parallel
+        subdirs: list[DocDirectory] = await asyncio.gather(*[
+            process_tree_depth_first(settings, subdir, libname) for subdir in doc_dir.subdirs
+        ])
+        subdirs = sorted(subdirs, key=lambda s: s.path)
 
-    # Then process all pages in this directory in parallel
-    pages = await asyncio.gather(*[
-        llm_process_page(settings, page, libname) for page in doc_dir.pages
-    ])
-    pages = sorted(pages, key=lambda s: s.path)
+        # Then process all pages in this directory in parallel
+        pages = await asyncio.gather(*[
+            llm_process_page(settings, page, libname) for page in doc_dir.pages
+        ])
+        pages = sorted(pages, key=lambda s: s.path)
 
-    # .name is llm-generated and might be not unique. Make it unique.
-    names: set[str] = set()
-    for x in subdirs + pages:
-        name, i = x.name, 2
-        while name in names:
-            name = f"{x.name}_{str(i)}"
-            x.name = name
-        names.add(name)
+        # .name is llm-generated and might be not unique. Make it unique.
+        names: set[str] = set()
+        for x in subdirs + pages:
+            name, i = x.name, 2
+            while name in names:
+                name = f"{x.name}_{str(i)}"
+                x.name = name
+            names.add(name)
 
-    if not any(x for x in subdirs+pages if x.relevant):
-        return DocDirectory(path=doc_dir.path, pages=pages, relevant=False)
+        if not any(x for x in subdirs+pages if x.relevant):
+            result = DocDirectory(path=doc_dir.path, pages=pages, relevant=False)
+            trace.end(outputs=result)
+            return result
 
-    return await llm_process_directory(settings, DocDirectory(path=doc_dir.path, pages=pages, subdirs=subdirs), libname)
+        result = await llm_process_directory(settings, DocDirectory(path=doc_dir.path, pages=pages, subdirs=subdirs), libname)
+        trace.end(outputs=result)
+        return result
 
 # %% ../nbs/02_docs.ipynb 28
 def calculate_total_usage(doc_dir: DocDirectory) -> Usage:

@@ -1,0 +1,1 @@
+Development debugging rune that reactively logs value changes with optional custom callbacks and function tracing.

@@ -1,1 +1,0 @@
-This page documents legacy APIs in Svelte that are maintained for backward compatibility but may be deprecated or superseded by newer approaches. Programmers should review this section to understand which APIs are considered legacy and what modern alternatives are recommended for new projects.

@@ -1,0 +1,1 @@
+The {@render} tag renders snippets, supporting expressions and optional chaining for undefined snippets.

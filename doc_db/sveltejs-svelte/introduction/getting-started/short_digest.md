@@ -1,0 +1,1 @@
+Create a new project with `npx sv create myapp` using SvelteKit (recommended) or `npm create vite@latest` with Svelte option. Use VS Code extension for editor support or `sv check` from command line. Get help on Discord or Stack Overflow.

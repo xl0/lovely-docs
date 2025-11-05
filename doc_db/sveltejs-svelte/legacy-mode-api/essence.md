@@ -1,0 +1,1 @@
+Legacy Svelte 3/4 API for reactive variables, component props, slots, events, and imperative component control.

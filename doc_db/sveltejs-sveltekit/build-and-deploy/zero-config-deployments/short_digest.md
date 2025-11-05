@@ -1,3 +1,1 @@
-**adapter-auto** automatically selects the correct deployment adapter based on your environment (Cloudflare Pages, Netlify, Vercel, Azure Static Web Apps, AWS SST, or Google Cloud Run).
-
-Install the specific adapter to devDependencies for environment-specific configuration options and better CI performance. adapter-auto itself takes no options.
+**adapter-auto** automatically selects the correct adapter for Cloudflare Pages, Netlify, Vercel, Azure Static Web Apps, AWS (via SST), or Google Cloud Run. For configuration options, install the specific adapter directly since adapter-auto takes no options.

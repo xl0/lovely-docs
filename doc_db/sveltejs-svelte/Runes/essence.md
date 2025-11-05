@@ -1,1 +1,0 @@
-Runes are $-prefixed compiler keywords that manage reactive state, derived values, side effects, and component communication in Svelte.

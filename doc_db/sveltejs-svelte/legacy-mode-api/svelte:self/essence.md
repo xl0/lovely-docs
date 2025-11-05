@@ -1,0 +1,1 @@
+Legacy element for recursive component self-reference, now superseded by direct self-imports.

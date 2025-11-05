@@ -1,1 +1,0 @@
-Deploy SvelteKit to Cloudflare Workers using the deprecated adapter-cloudflare-workers (use adapter-cloudflare instead), configure Wrangler, and access runtime bindings through platform.env.

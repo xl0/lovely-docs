@@ -1,1 +1,0 @@
-Links to FAQs, example projects, and community support channels for SvelteKit developers.

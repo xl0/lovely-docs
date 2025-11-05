@@ -1,0 +1,1 @@
+Reference of all Svelte compiler warnings covering accessibility, code quality, deprecated features, and best practices.

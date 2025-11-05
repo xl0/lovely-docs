@@ -1,1 +1,0 @@
-The `svelte/animate` module provides animation utilities for Svelte components. It enables smooth transitions and animations for DOM elements and component state changes. Key features include built-in animation functions that can be applied to elements using Svelte's animation directives, allowing developers to create fluid visual effects without manual keyframe management.

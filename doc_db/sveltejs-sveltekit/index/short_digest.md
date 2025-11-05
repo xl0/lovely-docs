@@ -1,1 +1,1 @@
-Main documentation homepage for SvelteKit.
+Main documentation entry point (auto-generated).

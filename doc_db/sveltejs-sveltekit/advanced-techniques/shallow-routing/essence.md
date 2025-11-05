@@ -1,1 +1,1 @@
-Create history entries without navigating using pushState/replaceState to enable patterns like history-driven modals.
+Shallow routing lets you create browser history entries with associated state without navigating, enabling history-driven modals and overlays.

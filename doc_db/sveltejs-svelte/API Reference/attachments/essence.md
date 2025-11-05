@@ -1,1 +1,0 @@
-Module for handling attachments in Svelte applications.

@@ -1,1 +1,0 @@
-The {@render ...} tag executes a snippet, supporting conditional expressions and optional chaining for undefined snippets.

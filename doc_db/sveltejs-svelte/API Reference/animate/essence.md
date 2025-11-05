@@ -1,1 +1,0 @@
-Module providing animation utilities for Svelte components

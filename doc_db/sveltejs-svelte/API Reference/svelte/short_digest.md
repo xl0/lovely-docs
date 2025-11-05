@@ -1,1 +1,0 @@
-Main `svelte` module entry point providing core framework APIs and functionality.

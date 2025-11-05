@@ -1,1 +1,0 @@
-Certain lifecycle methods like mount cannot be invoked in server contexts and must be avoided during render.

@@ -1,66 +1,34 @@
-## Link Navigation Attributes
+SvelteKit uses `<a>` elements for navigation. Customize link behavior with `data-sveltekit-*` attributes applied to the link or parent element.
 
-SvelteKit uses standard `<a>` elements for navigation. Customize behavior with `data-sveltekit-*` attributes applied to links or parent elements. These also apply to `<form method="GET">`.
-
-### data-sveltekit-preload-data
-Controls when page data is preloaded:
+**data-sveltekit-preload-data**: Controls when page data is preloaded
 - `"hover"` (default): preload on mouse hover or touchstart
 - `"tap"`: preload only on click/tap
+- Respects `navigator.connection.saveData` for reduced data usage
 
-Respects `navigator.connection.saveData` for reduced data usage.
-
-```html
-<a data-sveltekit-preload-data="tap" href="/stonks">Get values</a>
-```
-
-### data-sveltekit-preload-code
-Controls when page code is preloaded (prerequisite for data preloading):
+**data-sveltekit-preload-code**: Controls when page code is preloaded
 - `"eager"`: preload immediately
 - `"viewport"`: preload when link enters viewport
 - `"hover"`: preload code on hover
 - `"tap"`: preload code on tap
+- Only affects links present in DOM after navigation; later-added links use hover/tap
+- Ignored if user has reduced data usage enabled
 
-Only applies to links in DOM immediately after navigation. Ignored if user has reduced data usage enabled.
+**data-sveltekit-reload**: Forces full-page browser navigation instead of SvelteKit handling. Links with `rel="external"` behave the same way.
 
-### data-sveltekit-reload
-Forces full-page browser navigation instead of SvelteKit handling:
-```html
-<a data-sveltekit-reload href="/path">Path</a>
-```
+**data-sveltekit-replacestate**: Replaces current history entry instead of creating new one with `pushState`.
 
-Links with `rel="external"` behave the same way and are ignored during prerendering.
+**data-sveltekit-keepfocus**: Retains focus on currently focused element after navigation. Avoid on links; only use on elements that persist after navigation.
 
-### data-sveltekit-replacestate
-Replaces current history entry instead of creating new one:
-```html
-<a data-sveltekit-replacestate href="/path">Path</a>
-```
+**data-sveltekit-noscroll**: Prevents automatic scroll to top (or hash target) after navigation.
 
-### data-sveltekit-keepfocus
-Retains focus on currently focused element after navigation:
-```html
-<form data-sveltekit-keepfocus>
-	<input type="text" name="query">
-</form>
-```
-
-Avoid on links; use only on elements that persist after navigation.
-
-### data-sveltekit-noscroll
-Prevents automatic scroll to top (or hash target) after navigation:
-```html
-<a href="path" data-sveltekit-noscroll>Path</a>
-```
-
-### Disabling Options
-Set attribute to `"false"` to disable within a scoped element:
+**Disabling options**: Use `"false"` value to disable inherited attributes in nested elements:
 ```html
 <div data-sveltekit-preload-data>
-	<a href="/a">preloaded</a>
-	<div data-sveltekit-preload-data="false">
-		<a href="/b">not preloaded</a>
-	</div>
+  <a href="/a">preloaded</a>
+  <div data-sveltekit-preload-data="false">
+    <a href="/b">not preloaded</a>
+  </div>
 </div>
 ```
 
-Use conditional syntax: `data-sveltekit-preload-data={condition ? 'hover' : false}`
+These attributes also apply to `<form method="GET">` elements.

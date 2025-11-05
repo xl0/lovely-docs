@@ -1,1 +1,0 @@
-Deploy SvelteKit apps to Cloudflare Workers or Pages using adapter-cloudflare with configuration options, runtime API access, and local testing setup.

@@ -1,4 +1,4 @@
-Remote functions enable type-safe client-server communication. They're exported from `.remote.js` or `.remote.ts` files and always run on the server, allowing safe access to server-only modules like databases and environment variables.
+Remote functions enable type-safe client-server communication. They're exported from `.remote.js` or `.remote.ts` files and always execute on the server, allowing safe access to server-only modules like databases and environment variables.
 
 **Setup**: Enable in `svelte.config.js`:
 ```js
@@ -6,17 +6,17 @@ kit: { experimental: { remoteFunctions: true } },
 compilerOptions: { experimental: { async: true } }
 ```
 
-**query**: Read dynamic data from server. Accepts optional validation schema and returns a Promise with `loading`, `error`, `current` properties, or use with `await`. Supports `refresh()` to re-fetch and caching while on page.
+**query**: Reads dynamic data from server. Accepts optional validation schema and returns a Promise. Supports `loading`, `error`, `current` properties or `await`. Can be refreshed via `.refresh()` method. Queries are cached per page.
 
 ```js
 export const getPost = query(v.string(), async (slug) => {
   const [post] = await db.sql`SELECT * FROM post WHERE slug = ${slug}`;
-  if (!post) error(404, 'Not found');
+  if (!post) error(404);
   return post;
 });
 ```
 
-**query.batch**: Batches simultaneous queries into single request. Server callback receives array of arguments and returns function `(input, index) => output`.
+**query.batch**: Batches multiple simultaneous calls into one server request. Callback receives array of arguments and returns a function that maps each input to output.
 
 ```js
 export const getWeather = query.batch(v.string(), async (cities) => {
@@ -26,44 +26,41 @@ export const getWeather = query.batch(v.string(), async (cities) => {
 });
 ```
 
-**form**: Write data via HTML form. Takes validation schema and handler. Returns object with `method`, `action` for progressive enhancement, and `fields` for building inputs.
+**form**: Writes data to server. Takes validation schema and callback receiving form data. Returns object with `method`, `action`, and `fields` properties. Fields use `.as(type)` to generate input attributes. Supports nested objects/arrays, files, and validation.
 
 ```js
 export const createPost = form(
   v.object({ title: v.pipe(v.string(), v.nonEmpty()), content: v.pipe(v.string(), v.nonEmpty()) }),
   async ({ title, content }) => {
-    const user = await auth.getUser();
-    if (!user) error(401, 'Unauthorized');
-    await db.sql`INSERT INTO post (slug, title, content) VALUES (${slug}, ${title}, ${content})`;
+    await db.sql`INSERT INTO post (title, content) VALUES (${title}, ${content})`;
     redirect(303, `/blog/${slug}`);
   }
 );
 ```
 
-Field attributes via `.as(type)`: `input {...field.as('text')}`, `textarea {...field.as('text')}`, `input {...field.as('checkbox')}`, `input {...field.as('radio', value)}`, `select {...field.as('select')}`.
+Field validation: `createPost.fields.title.issues()` returns validation errors. Call `createPost.validate()` programmatically. Use `.preflight(schema)` for client-side validation. Sensitive fields use leading underscore (e.g., `_password`) to prevent repopulation on error.
 
-Validation: Call `validate()` programmatically. Use `preflight(schema)` for client-side validation. Access issues via `field.issues()` or `fields.allIssues()`. Programmatically mark invalid with `invalid(issue1, issue2)` or `invalid.fieldName(message)`.
+Single-flight mutations: Refresh specific queries after form submission either server-side with `await getPosts().refresh()` or client-side with `submit().updates(getPosts())`. Use `.withOverride()` for optimistic updates.
 
-Get/set values: `field.value()` returns current value, `fields.value()` returns object. Update with `fields.set({...})` or `field.set(value)`.
+Multiple form instances: Use `.for(id)` to create isolated instances for repeated forms.
 
-Sensitive data: Prefix field name with underscore to prevent repopulation on validation failure: `_password`.
+**command**: Like form but not tied to an element, callable from anywhere. Cannot be called during render. Requires explicit query updates via `.refresh()` or `.updates()`.
 
-Single-flight mutations: Refresh queries after form submission via `await getPosts().refresh()` or `await getPost(id).set(result)` inside handler, or client-side with `submit().updates(getPosts())` and `withOverride((posts) => [...])`.
+```js
+export const addLike = command(v.string(), async (id) => {
+  await db.sql`UPDATE item SET likes = likes + 1 WHERE id = ${id}`;
+  getLikes(id).refresh();
+});
+```
 
-Returns: Handler can return data available as `form.result` or use `redirect()`. Result is ephemeral.
+**prerender**: Invokes at build time for static data. Accepts validation schema and optional `inputs` array specifying which arguments to prerender. Set `dynamic: true` to allow runtime calls with non-prerendered arguments.
 
-Enhance: Customize submission with `form.enhance(async ({ form, data, submit }) => {...})`. Must call `form.reset()` manually.
+```js
+export const getPost = prerender(v.string(), async (slug) => { /* ... */ }, {
+  inputs: () => ['first-post', 'second-post']
+});
+```
 
-Multiple instances: Use `form.for(id)` for isolated form instances in lists.
+**Validation**: Pass Standard Schema (Zod, Valibot) as first argument. Use `invalid()` function for programmatic validation errors. Implement `handleValidationError` hook to customize error responses. Pass `'unchecked'` to skip validation.
 
-Button props: Use `buttonProps` for different form actions per button via `formaction` attribute.
-
-**command**: Call data-writing function from anywhere (not form-specific). Like `form` but no progressive enhancement. Cannot be called during render. Update queries via `command(id).updates(query(id))` or inside command with `query(id).refresh()`.
-
-**prerender**: Invoke at build time for static data. Specify inputs via `inputs: () => [...]`. Set `dynamic: true` to allow runtime calls with non-prerendered arguments. Data cached via Cache API.
-
-**Validation**: Arguments validated with Standard Schema (Zod, Valibot). Failed validation returns 400 Bad Request. Implement `handleValidationError` hook to customize error. Pass `'unchecked'` to skip validation.
-
-**getRequestEvent**: Access current RequestEvent inside remote functions for cookies/auth. Note: `route`, `params`, `url` relate to calling page, not endpoint. Cannot set headers (except cookies in form/command).
-
-**Redirects**: Supported in `query`, `form`, `prerender`. Not in `command`.
+**getRequestEvent**: Access current RequestEvent inside remote functions for cookies and auth. Note: `route`, `params`, `url` relate to the calling page, not the endpoint.

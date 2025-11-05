@@ -1,1 +1,1 @@
-Module for accessing environment variables and runtime information in SvelteKit.
+Runtime environment detection constants for conditional code execution in SvelteKit apps.

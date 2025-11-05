@@ -1,0 +1,1 @@
+Snippets are reusable markup blocks declared with `{#snippet name(params)}...{/snippet}`. They can be passed as props to components, with implicit `children` snippet for component content. Type with `Snippet<[ParamTypes]>` from `'svelte'`. Snippets replace deprecated Svelte 4 slots.

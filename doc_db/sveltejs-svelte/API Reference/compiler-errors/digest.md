@@ -1,1 +1,0 @@
-This page documents compiler errors that can occur when compiling Svelte components. It includes a comprehensive reference of error messages, their causes, and how to resolve them. The content is auto-generated from the compiler's error definitions, providing developers with detailed explanations for each error type they may encounter during the build process.

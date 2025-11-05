@@ -1,1 +1,0 @@
-The `svelte/action` module provides utilities for creating custom actions in Svelte. Actions are functions that can be attached to DOM elements to add interactivity or modify element behavior. They receive the element as a parameter and can optionally return an object with lifecycle methods (update, destroy) and parameters.

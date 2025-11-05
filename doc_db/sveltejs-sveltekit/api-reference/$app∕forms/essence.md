@@ -1,1 +1,1 @@
-Module for managing form submissions and form-related utilities in SvelteKit.
+API for handling form submissions and responses in SvelteKit with functions to enhance forms, apply actions, and deserialize responses.

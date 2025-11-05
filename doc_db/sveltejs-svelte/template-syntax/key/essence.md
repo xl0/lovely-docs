@@ -1,0 +1,1 @@
+The {#key} block destroys and recreates its contents when an expression value changes, useful for component reinitialisation and triggering transitions.

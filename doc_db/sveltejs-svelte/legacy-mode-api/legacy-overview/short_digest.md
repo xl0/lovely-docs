@@ -1,0 +1,1 @@
+Svelte 5 deprecated Svelte 3/4 features (still supported). Components can run in legacy mode (Svelte 3/4 syntax) or runes mode (opt-in with `runes: true`). Once in runes mode, legacy features unavailable.

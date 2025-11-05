@@ -36,7 +36,6 @@
 		"hast-util-class-list": "^2.0.1",
 		"hast-util-is-element": "^3.0.0",
 		"hastscript": "^9.0.1",
-		"i": "^0.3.7",
 		"lovely-docs-mcp": "file:../lovely-docs-mcp",
 		"lowlight": "^3.3.0",
 		"mode-watcher": "^1.1.0",

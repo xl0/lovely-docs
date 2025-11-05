@@ -1,1 +1,17 @@
-The `$env/static/private` module provides access to private environment variables that are only available on the server side during build time. These variables are statically replaced at build time and cannot be accessed from the browser or client-side code. Use this module to securely handle sensitive configuration like API keys, database credentials, and other secrets that should never be exposed to the client.
+Static private environment variables loaded from `.env` files and `process.env` by Vite. Cannot be imported into client-side code. Only includes variables that don't begin with `config.kit.env.publicPrefix` and do start with `config.kit.env.privatePrefix` (if configured).
+
+Values are statically injected at build time, enabling optimizations like dead code elimination, unlike `$env/dynamic/private`.
+
+```ts
+import { API_KEY } from '$env/static/private';
+```
+
+All environment variables referenced in code should be declared in `.env` even without values:
+```
+MY_FEATURE_FLAG=""
+```
+
+Override values from command line:
+```sh
+MY_FEATURE_FLAG="enabled" npm run dev
+```

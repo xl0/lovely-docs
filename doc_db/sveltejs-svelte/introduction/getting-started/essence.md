@@ -1,0 +1,1 @@
+Instructions for setting up a new Svelte project using SvelteKit or Vite, with editor tooling and support resources.

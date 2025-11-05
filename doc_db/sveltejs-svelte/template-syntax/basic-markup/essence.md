@@ -1,0 +1,1 @@
+Svelte template syntax for markup: tags, attributes with expressions, component props, event handling, and text interpolation.

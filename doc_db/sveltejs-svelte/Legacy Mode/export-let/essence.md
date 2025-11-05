@@ -1,1 +1,0 @@
-Legacy mode component props are declared with export let, with optional defaults and renaming support.

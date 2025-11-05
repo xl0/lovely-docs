@@ -1,1 +1,0 @@
-Svelte 3/4 features deprecated in Svelte 5, including reactive variables, $: statements, export let props, event dispatching, slots, and imperative component APIs.

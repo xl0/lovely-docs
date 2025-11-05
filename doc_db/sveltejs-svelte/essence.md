@@ -1,1 +1,1 @@
-Complete reference for Svelte's reactive component framework with runes-based reactivity, template syntax, state management, and migration from Svelte 4.
+Complete reference for Svelte 5 framework covering runes, template syntax, styling, runtime APIs, special elements, and migration from legacy versions.

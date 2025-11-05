@@ -1,1 +1,1 @@
-Define load functions in route files to fetch and return data to components, with separate universal and server-only variants offering different capabilities and execution contexts.
+Define load functions in +page.js/+page.server.js or +layout.js/+layout.server.js to fetch data before rendering, with automatic dependency tracking and rerunning on relevant changes.

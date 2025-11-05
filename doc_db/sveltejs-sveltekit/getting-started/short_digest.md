@@ -1,31 +1,32 @@
-## Quick Start
+## Project Setup
 
-Run `npx sv create my-app` then `npm run dev` (localhost:5173).
+Run `npx sv create my-app` to scaffold. Pages are Svelte components in `src/routes` with SSR + CSR by default.
 
 ## Project Structure
 
 ```
 src/
-├ lib/              # Library code ($lib alias)
-├ routes/           # Pages (Svelte components)
-├ app.html          # Page template
+├ lib/              # Reusable code ($lib alias)
+│ └ server/         # Server-only code
+├ routes/           # Routes
+├ app.html          # Page template with %sveltekit.head%, %sveltekit.body%, etc.
 ├ error.html        # Error page
 ├ hooks.client.js   # Client hooks
 ├ hooks.server.js   # Server hooks
-static/             # Static assets
 ```
 
-## Deployment
+## Deployment Patterns
 
-Adapters configure rendering and deployment: `adapter-node` (own servers), `adapter-static` (static), `adapter-vercel/netlify/cloudflare` (serverless).
+Supports SSR + CSR (default), static generation (`adapter-static`), SPA (CSR only), serverless (`adapter-vercel`/`adapter-netlify`/`adapter-cloudflare`), Node server (`adapter-node`), and mobile/desktop/browser extension deployment.
 
 ## Web APIs
 
-SvelteKit uses standard Web APIs: Fetch, Request/Response, Headers, FormData, Streams, URL, Web Crypto.
+Uses standard Web APIs: `fetch`, `Request`/`Response`, `Headers`, `FormData`, `URL`/`URLSearchParams`, Web Crypto.
 
 ```js
 export function GET({ request }) {
-	return json({ userAgent: request.headers.get('user-agent') }, 
-		{ headers: { 'x-custom-header': 'potato' } });
+	const userAgent = request.headers.get('user-agent');
+	const foo = new URL(request.url).searchParams.get('foo');
+	return json({ userAgent, foo });
 }
 ```

@@ -1,1 +1,0 @@
-Reference for runtime warnings in Svelte, split into client-side warnings and shared warnings that apply across environments.

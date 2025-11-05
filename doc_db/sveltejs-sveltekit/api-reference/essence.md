@@ -1,1 +1,1 @@
-Complete reference for SvelteKit's runtime modules, environment variables, type system, configuration, and server-side APIs.
+Complete TypeScript API reference for SvelteKit covering response helpers, request/event types, hooks, forms, navigation, environment variables, configuration, and auto-generated types.

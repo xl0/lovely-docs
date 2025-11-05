@@ -1,1 +1,0 @@
-The `@sveltejs/kit/node` module provides Node.js runtime support for SvelteKit applications. This module enables server-side rendering and backend functionality when deploying SvelteKit to Node.js environments. It handles the integration between SvelteKit's framework and Node.js server capabilities.

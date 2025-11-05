@@ -1,0 +1,1 @@
+Nested style tags in Svelte components are inserted without scoping and apply globally to the DOM.

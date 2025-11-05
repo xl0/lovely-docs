@@ -1,0 +1,1 @@
+Documentation index for legacy Svelte APIs

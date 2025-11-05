@@ -1,1 +1,0 @@
-Two ways to set classes: the class attribute (supporting strings, objects, and arrays) and the class: directive, with the attribute being more powerful and composable.

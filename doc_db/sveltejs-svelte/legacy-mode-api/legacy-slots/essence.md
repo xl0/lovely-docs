@@ -1,0 +1,1 @@
+Legacy mode slot syntax for passing and rendering content in Svelte components, including default/named slots, fallback content, and bidirectional data passing.

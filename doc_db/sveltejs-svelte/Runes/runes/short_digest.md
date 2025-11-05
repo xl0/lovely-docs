@@ -1,1 +1,0 @@
-Runes are Svelte's reactive primitives for state management. Key runes: `$state` for reactive variables, `$derived` for computed values, `$effect` for side effects, `$watch` for observing changes.

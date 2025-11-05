@@ -1,8 +1,25 @@
-The `$app/environment` module provides access to environment variables and runtime information in SvelteKit applications.
+The `$app/environment` module exports four constants for runtime environment detection:
 
-This module exports environment-related utilities that allow you to:
-- Access environment variables in both server and client contexts
-- Determine the current runtime environment (development, production, etc.)
-- Check build-time and runtime configuration
+- `browser: boolean` - True when the app is running in the browser (false on server)
+- `building: boolean` - True during the build step and prerendering when SvelteKit analyzes your app
+- `dev: boolean` - True when the dev server is running (not guaranteed to match NODE_ENV or MODE)
+- `version: string` - The value of `config.kit.version.name`
 
-Key exports include variables for detecting the build mode and accessing environment configuration set during the build process.
+Example usage:
+```js
+import { browser, building, dev, version } from '$app/environment';
+
+if (browser) {
+  // Browser-only code
+}
+
+if (building) {
+  // Build/prerender-only code
+}
+
+if (dev) {
+  // Dev server code
+}
+
+console.log(version); // e.g., "1.0.0"
+```

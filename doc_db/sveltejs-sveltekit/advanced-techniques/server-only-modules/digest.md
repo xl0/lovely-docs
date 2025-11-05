@@ -1,6 +1,6 @@
 ## Server-only modules
 
-Prevent accidental exposure of sensitive data (API keys, private environment variables) to the browser by marking code as server-only.
+Prevent accidental exposure of sensitive data (API keys, private environment variables) to the browser by marking modules as server-only.
 
 ### Private environment variables
 
@@ -12,13 +12,13 @@ The `$app/server` module (containing `read()` for filesystem access) can only be
 
 ### Creating server-only modules
 
-Two ways to mark your own modules as server-only:
+Two approaches:
 1. Add `.server` to filename: `secrets.server.js`
 2. Place in `$lib/server/`: `$lib/server/secrets.js`
 
 ### How it works
 
-SvelteKit prevents any import chain from public-facing code (like `+page.svelte`) to server-only code, even if only unused exports are imported:
+SvelteKit prevents any import chain from public-facing code to server-only modules, even if the public code doesn't directly use the sensitive exports:
 
 ```js
 // $lib/server/secrets.js
@@ -32,6 +32,8 @@ export const add = (a, b) => a + b;
 import { add } from './utils.js'; // ERROR: import chain includes server-only code
 ```
 
-This also works with dynamic imports like `` await import(`./${foo}.js`) ``.
+Works with dynamic imports including interpolated ones like `` await import(`./${foo}.js`) ``.
 
-**Note:** Unit testing frameworks disable this check when `process.env.TEST === 'true'`.
+### Testing note
+
+Unit testing frameworks like Vitest don't distinguish between server and public code, so illegal import detection is disabled when `process.env.TEST === 'true'`.

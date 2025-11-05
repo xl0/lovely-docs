@@ -1,1 +1,1 @@
-SvelteKit supports multiple rendering strategies and deployment targets through configurable adapters.
+Overview of different application types and deployment patterns supported by SvelteKit with corresponding adapters and configuration options.

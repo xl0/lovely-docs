@@ -1,1 +1,1 @@
-Introduction and starting point for framework documentation.
+Entry point documentation page for SvelteKit getting started guides.

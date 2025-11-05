@@ -1,1 +1,0 @@
-Authentication and authorization strategies in SvelteKit: comparing sessions vs tokens, integration via server hooks, and using framework-specific libraries.

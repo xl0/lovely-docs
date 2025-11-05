@@ -16,7 +16,6 @@ const config = {
 		})
 	}
 };
-
 export default config;
 ```
 
@@ -24,25 +23,24 @@ Add `export const prerender = true;` to your root layout (`src/routes/+layout.js
 
 ## Configuration Options
 
-- **pages**: Output directory for prerendered pages (default: `build`)
-- **assets**: Output directory for static assets (default: same as `pages`)
+- **pages**: Directory for prerendered pages (default: `build`)
+- **assets**: Directory for static assets (default: same as `pages`)
 - **fallback**: Fallback page for SPA mode (e.g., `200.html` or `404.html`). Has negative performance/SEO impacts
 - **precompress**: Generate `.br` and `.gz` compressed files when `true`
-- **strict**: Validates all pages/endpoints are prerendered or fallback is set (default: `true`)
+- **strict**: Validates all pages/endpoints are prerendered or fallback is set (default: `true`). Set to `false` to disable
 
 ## Important Notes
 
-Set `trailingSlash: 'always'` in your root layout if your host doesn't serve `/a.html` for requests to `/a`.
+- Set `trailingSlash: 'always'` in your layout if your host doesn't serve `/a.html` for requests to `/a`
+- Vercel has zero-config support; omit adapter options there
+- For GitHub Pages with non-username repos, update `config.kit.paths.base` to your repo name
+- Add `.nojekyll` file to `static/` directory when deploying to GitHub Pages without GitHub Actions
 
-For partial prerendering, use a different adapter with the `prerender` option instead of `adapter-static`.
-
-## GitHub Pages Deployment
-
-Update `config.kit.paths.base` to your repo name since the site is served from `https://your-username.github.io/your-repo-name`.
-
-Generate a `404.html` fallback page:
+## GitHub Pages Deployment Example
 
 ```js
+import adapter from '@sveltejs/adapter-static';
+
 const config = {
 	kit: {
 		adapter: adapter({ fallback: '404.html' }),
@@ -51,8 +49,7 @@ const config = {
 		}
 	}
 };
+export default config;
 ```
 
-Use GitHub Actions to automate deployment (example workflow provided in documentation).
-
-Add `.nojekyll` file to `static/` directory if not using GitHub Actions to prevent Jekyll interference.
+Use GitHub Actions workflow to build and deploy automatically on push to main branch.

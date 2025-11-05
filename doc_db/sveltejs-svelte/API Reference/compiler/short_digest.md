@@ -1,1 +1,0 @@
-The `svelte/compiler` module provides programmatic access to Svelte's compiler for compiling components to JavaScript, useful for build tool integration and custom tooling.

@@ -1,1 +1,0 @@
-Svelte template syntax for markup: tags, attributes with expressions, event listeners, text interpolation, and comments.

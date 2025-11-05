@@ -1,1 +1,0 @@
-Overview of available integrations and preprocessors for SvelteKit projects including vitePreprocess, add-ons, alternative preprocessors, and Vite plugins.

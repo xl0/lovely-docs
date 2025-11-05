@@ -1,1 +1,0 @@
-Error boundary component that catches rendering and effect errors, with optional failed snippet and onerror callback for recovery.

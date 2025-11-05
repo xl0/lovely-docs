@@ -1,1 +1,0 @@
-Module for creating smooth animations and value transitions with easing functions.

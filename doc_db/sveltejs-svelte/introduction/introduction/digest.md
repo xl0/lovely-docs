@@ -1,0 +1,1 @@
+This page appears to be a documentation index or introduction page for Svelte. The actual content is not provided in the page excerpt - only the frontmatter metadata is shown, indicating this is an auto-generated documentation file. The page serves as an entry point to the Svelte documentation structure.

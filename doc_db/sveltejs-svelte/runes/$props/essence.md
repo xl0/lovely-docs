@@ -1,0 +1,1 @@
+The $props rune receives component inputs with destructuring, fallback values, type safety, and includes $props.id() for generating unique element identifiers.

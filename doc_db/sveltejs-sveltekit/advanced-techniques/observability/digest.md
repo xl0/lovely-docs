@@ -20,11 +20,11 @@ const config = {
 };
 ```
 
-Create `src/instrumentation.server.ts` for tracing setup and instrumentation code. This file runs before application code is imported.
+Create `src/instrumentation.server.ts` for tracing setup. This file runs before application code is imported.
 
 ### Augmenting Spans
 
-Access the root span and current span via `event.tracing`:
+Access root and current spans via `event.tracing` to add custom attributes:
 ```js
 import { getRequestEvent } from '$app/server';
 
@@ -32,12 +32,14 @@ const event = getRequestEvent();
 event.tracing.root.setAttribute('userId', user.id);
 ```
 
-The root span is associated with the root `handle` function. The current span depends on context (handle, load, form action, or remote function).
+### Local Development
 
-### Local Development with Jaeger
+Install dependencies:
+```sh
+npm i @opentelemetry/sdk-node @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-proto import-in-the-middle
+```
 
-1. Install dependencies: `npm i @opentelemetry/sdk-node @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-proto import-in-the-middle`
-2. Create `src/instrumentation.server.js`:
+Create `src/instrumentation.server.js`:
 ```js
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
@@ -57,10 +59,8 @@ const sdk = new NodeSDK({
 sdk.start();
 ```
 
-3. View traces at localhost:16686
+View traces in Jaeger at localhost:16686.
 
 ### Dependencies
 
-SvelteKit uses `@opentelemetry/api` as an optional peer dependency. If you see a missing dependency error, install `@opentelemetry/api` directly or use a library like `@opentelemetry/sdk-node` or `@vercel/otel` which depend on it.
-
-**Note:** Tracing has nontrivial overhead. Consider enabling only in development and preview environments.
+SvelteKit uses `@opentelemetry/api` as an optional peer dependency. It's typically installed automatically when setting up trace collection, but can be installed manually if needed.

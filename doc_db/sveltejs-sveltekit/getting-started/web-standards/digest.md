@@ -1,8 +1,8 @@
-SvelteKit builds on standard Web APIs available in modern browsers and non-browser environments like Cloudflare Workers, Deno, and Vercel Functions. Polyfills are provided during development and in Node-based adapters.
+SvelteKit builds on standard Web APIs available in modern browsers and environments like Cloudflare Workers, Deno, and Vercel Functions. Node-based adapters provide polyfills where necessary.
 
-**Fetch APIs**: The `fetch` function is available in hooks, server routes, and the browser. A special version in `load` functions, server hooks, and API routes allows invoking endpoints directly during server-side rendering without HTTP calls while preserving credentials. Server-side `fetch` outside `load` requires explicit `cookie` and/or `authorization` headers. Relative requests are supported in these special contexts.
+**Fetch APIs**: `fetch` is available in hooks, server routes, and the browser. A special version in `load` functions, server hooks, and API routes allows invoking endpoints directly during server-side rendering without HTTP calls while preserving credentials. Relative requests are supported server-side.
 
-**Request**: Accessible as `event.request` in hooks and server routes. Provides methods like `request.json()` and `request.formData()` for extracting posted data.
+**Request**: Accessible as `event.request` in hooks and server routes. Provides methods like `request.json()` and `request.formData()` for reading posted data.
 
 **Response**: Returned from `await fetch(...)` and handlers in `+server.js` files. A SvelteKit app fundamentally transforms a `Request` into a `Response`.
 
@@ -10,8 +10,9 @@ SvelteKit builds on standard Web APIs available in modern browsers and non-brows
 ```js
 export function GET({ request }) {
 	console.log(...request.headers);
-	return json({ userAgent: request.headers.get('user-agent') }, 
-		{ headers: { 'x-custom-header': 'potato' } });
+	return json({ userAgent: request.headers.get('user-agent') }, {
+		headers: { 'x-custom-header': 'potato' }
+	});
 }
 ```
 

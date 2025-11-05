@@ -1,1 +1,0 @@
-Svelte 3/4 imperative API for instantiating components, updating props, listening to events, and server-side rendering.
