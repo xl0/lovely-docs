@@ -51,7 +51,7 @@ class DocItem(BaseModel):
     short_digest: str = ""
     essence: str = ""
     relevant: bool = True
-    usage: Usage | None = Field(default_factory=Usage)
+    usage: Usage = Field(default_factory=lambda: Usage(0, 0))
     token_counts: TokenCounts = Field(default_factory=TokenCounts)
     fulltext: str = ""
     children: list['DocItem'] = Field(default_factory=list)
@@ -162,7 +162,7 @@ async def llm_process_page(
                         )
                         llm_trace.end(outputs=await res.text())
                     except Exception as e:
-                        logger.warning(f"Retry {attempt.retry_state.attempt_number}: {str(e)}")
+                        logger.warning(f"{page.origPath}: retry {attempt.retry_state.attempt_number}: {str(e)}")
                         raise
 
         with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as parse_trace:
@@ -191,7 +191,7 @@ async def llm_process_page(
                     )
                 except Exception as e:
                     logger.warning(
-                        f"Retry token count {attempt.retry_state.attempt_number}: {str(e)}"
+                        f"{page.origPath}: retry token count {attempt.retry_state.attempt_number}: {str(e)}"
                     )
                     raise
 
@@ -275,7 +275,7 @@ async def llm_process_directory(
                         usage = await res.usage()
                     except Exception as e:
                         logger.warning(
-                            f"{directory.origPath} retry {attempt.retry_state.attempt_number}: {str(e)}"
+                            f"{directory.origPath}: retry {attempt.retry_state.attempt_number}: {str(e)}"
                         )
                         raise
 
@@ -310,7 +310,7 @@ async def llm_process_directory(
                     )
                 except Exception as e:
                     logger.warning(
-                        f"Retry token count {attempt.retry_state.attempt_number}: {str(e)}"
+                        f"{directory.origPath}: retry token count {attempt.retry_state.attempt_number}: {str(e)}"
                     )
                     raise
 
@@ -480,6 +480,7 @@ def build_metadata(source: Source, doc: DocItem):
     return {
         "map": file_map(doc),
         "name": source.name,
+        "ecosystems": source.ecosystems,
         "source_type": source_type,
         "source": source.model_dump(mode="json"),
         "date": datetime.now(timezone.utc).isoformat(),

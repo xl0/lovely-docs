@@ -24,7 +24,8 @@ source =  GitSource(
     name="sveltejs/svelte",
     doc_dir="apps/svelte.dev/content/docs/svelte",
     repo="https://github.com/sveltejs/svelte.dev",
-    commit="main")
+    commit="main",
+    ecosystems=["svelte"])
 
 
 commit, clone_dir = clone_repo(source)

@@ -33,4 +33,4 @@ source = GitSource(
     commit="main")
 
 commit, clone_dir = clone_repo(source)
-
+source.commit = commit # Replace the literal commit (master) with the hash

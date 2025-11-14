@@ -34,7 +34,8 @@ source = GitSource(
     name="sveltejs/sveltekit",
     doc_dir="apps/svelte.dev/content/docs/kit",
     repo="https://github.com/sveltejs/svelte.dev",
-    commit="main")
+    commit="main",
+    ecosystems=["svelte"])
 
 commit, clone_dir = clone_repo(source)
 source.commit = commit # Replace the literal commit (master) with the hash

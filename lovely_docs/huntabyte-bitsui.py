@@ -32,9 +32,11 @@ source = GitSource(
     name="huntabyte/bitsui",
     doc_dir="docs/static/docs",
     repo="git@github.com:xl0/bits-ui.git",
-    commit="better-llms-txt")
+    commit="better-llms-txt",
+    ecosystems=["svelte"])
 
 commit, clone_dir = clone_repo(source)
+source.commit = commit # Replace the literal commit (master) with the hash
 
 # %% ../nbs/12_huntabyte-bitsui.ipynb 9
 # Recursively copy all .txt files in docs/static to corresponding .md files

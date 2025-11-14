@@ -8,6 +8,8 @@ __all__ = ['settings', 'Source', 'GitSource', 'LLMTxtSource', 'WebSource', 'Sett
 # %% ../nbs/00_settings.ipynb 3
 import os
 from pydantic_settings import BaseSettings
+from pydantic import Field
+
 from pathlib import Path
 
 # Load environment variables from .env file
@@ -87,6 +89,7 @@ setup_logging()
 class Source(BaseSettings):
     name: str
     comment: str|None = None
+    ecosystems: list[str] = Field(default_factory=list)
 
 
 class GitSource(Source):

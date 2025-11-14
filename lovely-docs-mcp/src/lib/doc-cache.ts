@@ -40,6 +40,8 @@ export interface LibraryDBItem {
 	model: string;
 	commit: string;
 	tree: DocItem;
+	ecosystems: Array<string>;
+	essence?: string;
 }
 
 export const cache = new Map<string, LibraryDBItem>();
@@ -100,6 +102,7 @@ const IndexJsonDataSchema = v.object({
 	date: v.string(),
 	model: v.string(),
 	commit: v.string(),
+	ecosystems: v.optional(v.array(v.string())),
 });
 
 // Json comes with optional fields as null. Convert them to undefined.
@@ -182,6 +185,8 @@ export async function loadLibrary(libraryPath: string): Promise<LibraryDBItem> {
 			source: o.source,
 			source_type: o.source_type,
 			tree: root,
+			ecosystems: o.ecosystems ?? [],
+			essence: root.markdown.essence,
 		};
 	} else {
 		debug(res.issues);
@@ -211,13 +216,21 @@ export async function loadLibrariesFromJson(path: string): Promise<void> {
 	debug(`Loaded ${cache.size} libraries, %o`);
 }
 
-export function getLibraries(): Map<string, { name: string; source?: any; source_type?: string }> {
-	const res = new Map<string, { name: string; source?: any; source_type?: string }>();
+export function getLibraries(): Map<
+	string,
+	{ name: string; source?: any; source_type?: string; ecosystems: string[]; essence?: string }
+> {
+	const res = new Map<
+		string,
+		{ name: string; source?: any; source_type?: string; ecosystems: string[]; essence?: string }
+	>();
 	for (const [key, lib] of cache) {
 		res.set(key, {
 			name: lib.name,
 			source: lib.source,
 			source_type: lib.source_type,
+			ecosystems: lib.ecosystems,
+			essence: lib.essence,
 		});
 	}
 	debug(`getLibraries() -> %o`, res.size);
