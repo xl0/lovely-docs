@@ -1104,5 +1104,5 @@
   "date": "2025-11-13T11:00:10.696631+00:00",
   "model": "claude-haiku-4.5",
   "commit": "0528ad5fe5486be5b3691edc99daacfaf782e426-dirty",
-  "ecosystems": ["svelte"]
+  "ecosystems": ["svelte", "shadcn-svelte"]
 }

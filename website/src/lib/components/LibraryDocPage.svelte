@@ -45,6 +45,7 @@
 	let collapsibleStorageKey = $state('');
 	let collapsibleOpen = $state(false);
 
+    /// XXX This state management stuff needs a rework
 	// compute storage key whenever library or path changes
 	$effect(() => {
 		const suffix = isRoot ? '__root' : pathSegments.join('/');
@@ -121,11 +122,14 @@
 				</Badge>
 			</div>
 
+			{#if currentNode?.markdown?.essence}
+				<div class="mb-3 text-sm text-muted-foreground italic border-l-2 border-muted pl-3">
+					{currentNode.markdown.essence}
+				</div>
+			{/if}
+
 			{#if isRoot}
 				<Card class="mb-4">
-					<CardHeader>
-						<CardTitle>Source Information</CardTitle>
-					</CardHeader>
 					<CardContent>
 						<dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
 							{#if lib.source.repo}
@@ -143,14 +147,6 @@
 						</dl>
 					</CardContent>
 				</Card>
-			{/if}
-			<!-- <p class="text-sm text-muted-foreground font-mono">
-				Source: {currentNode.origPath}
-			</p> -->
-			{#if currentNode?.markdown?.essence}
-				<div class="mt-3 text-sm text-muted-foreground italic border-l-2 border-muted pl-3">
-					{currentNode.markdown.essence}
-				</div>
 			{/if}
 
 			{#if hasChildren}

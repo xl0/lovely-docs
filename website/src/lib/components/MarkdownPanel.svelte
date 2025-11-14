@@ -37,7 +37,7 @@
 
 <div class="flex flex-col gap-4">
 	<!-- Variant selector card -->
-	<Card>
+	<Card class="py-2">
 		<CardContent class="py-3">
 			<div class="flex items-center justify-between gap-4">
 				<MarkdownVariantSelector
