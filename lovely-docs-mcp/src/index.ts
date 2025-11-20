@@ -121,8 +121,7 @@ async function startHttpServer(port: number) {
 	app.use(
 		cors({
 			origin: "*",
-			exposedHeaders: ["Mcp-Session-Id"],
-			allowedHeaders: ["Content-Type", "mcp-session-id", "Authorization"],
+			exposedHeaders: ["Mcp-Session-Id", "Content-Type", "mcp-session-id", "Authorization"],
 		})
 	);
 
