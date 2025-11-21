@@ -1,58 +1,32 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
-	import {
-		getNodeMarkdown,
-		getRelevantEssenceSubTree,
-		markdownVariantKeys,
-		type MarkdownLevel
-	} from 'lovely-docs-mcp/doc-cache';
 
 	const { data } = $props<{ data: PageData }>();
 	const libraries = $derived(data.libraries);
+	const mcp = $derived(data.mcp);
 
-	const url = new URL(page.url);
-	const searchParams = $derived(new URLSearchParams(url.search));
+	type MarkdownVariant = PageData['mcp']['markdownVariantKeys'][number];
 
+	const searchParams = $derived(page.url.searchParams);
 	const selectedLibrary = $derived(searchParams.get('library') ?? libraries[0]?.key ?? '');
 	const op = $derived(searchParams.get('op') ?? 'getNodeMarkdown');
 	const path = $derived(searchParams.get('path') ?? '');
-	const level = $derived((searchParams.get('level') ?? 'digest') as MarkdownLevel);
+	const level = $derived((searchParams.get('level') ?? 'digest') as MarkdownVariant);
 
-	const hasLibrary = $derived(Boolean(selectedLibrary));
+	const request = $derived(mcp.request);
+	const result = $derived(mcp.result);
+	const error = $derived(mcp.error);
+	const markdownVariants = $derived(mcp.markdownVariantKeys);
 
-	const request = $derived({
-		tool: op,
-		args: { library: selectedLibrary, path: path || undefined, level }
-	});
-
-	const { result, error } = $derived.by(() => {
-		if (!hasLibrary) return { result: null, error: 'Library is required' } as const;
-
-		try {
-			if (op === 'getNodeMarkdown') {
-				const res = getNodeMarkdown(selectedLibrary, path || undefined, level) ?? null;
-				return { result: res, error: null } as const;
-			}
-			if (op === 'getRelevantEssenceSubTree') {
-				const res = getRelevantEssenceSubTree(selectedLibrary, path || '');
-				return { result: res ?? null, error: null } as const;
-			}
-			return { result: null, error: `Unknown operation: ${op}` } as const;
-		} catch (e) {
-			const msg = e instanceof Error ? e.message : 'Unknown error';
-			return { result: null, error: msg } as const;
-		}
-	});
-
-	function buildUrl(params: Record<string, string | undefined>): string {
-		const url = new URL(page.url);
-		Object.entries(params).forEach(([k, v]) => {
-			if (v === undefined || v === '') url.searchParams.delete(k);
-			else url.searchParams.set(k, v);
+	function updateUrl(params: Record<string, string | undefined>) {
+		const next = new URLSearchParams(searchParams);
+		Object.entries(params).forEach(([key, value]) => {
+			if (value === undefined || value === '') next.delete(key);
+			else next.set(key, value);
 		});
-		return `${url.pathname}${url.search}`;
+		goto(`?${next.toString()}`, { replaceState: true, noScroll: true });
 	}
 </script>
 
@@ -66,13 +40,12 @@
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start border rounded-lg p-4 bg-background/60">
 		<div class="space-y-4">
 			<div class="space-y-1">
-				<label class="block text-sm font-medium">Library</label>
+				<label for="library-select" class="block text-sm font-medium">Library</label>
 				<select
+					id="library-select"
 					class="w-full border rounded px-2 py-1 bg-background text-sm"
-					on:change={(e) => {
-						const value = (e.currentTarget as HTMLSelectElement).value;
-						location.href = buildUrl({ library: value });
-					}}>
+					value={selectedLibrary}
+					onchange={(e) => updateUrl({ library: (e.target as HTMLSelectElement).value })}>
 					{#each libraries as lib}
 						<option value={lib.key} selected={lib.key === selectedLibrary}>
 							{lib.key} – {lib.summary.name}
@@ -82,46 +55,41 @@
 			</div>
 
 			<div class="space-y-1">
-				<label class="block text-sm font-medium">Operation</label>
+				<label for="op-select" class="block text-sm font-medium">Operation</label>
 				<select
+					id="op-select"
 					class="w-full border rounded px-2 py-1 bg-background text-sm"
-					on:change={(e) => {
-						const value = (e.currentTarget as HTMLSelectElement).value;
-						location.href = buildUrl({ library: selectedLibrary, op: value, path, level });
-					}}>
-					<option value="getNodeMarkdown" selected={op === 'getNodeMarkdown'}> getNodeMarkdown </option>
-					<option value="getRelevantEssenceSubTree" selected={op === 'getRelevantEssenceSubTree'}>
-						getRelevantEssenceSubTree
-					</option>
+					value={op}
+					onchange={(e) =>
+						updateUrl({ op: (e.target as HTMLSelectElement).value, library: selectedLibrary, path, level })}>
+					<option value="getNodeMarkdown">getNodeMarkdown</option>
+					<option value="getRelevantEssenceSubTree">getRelevantEssenceSubTree</option>
 				</select>
 			</div>
 
 			<div class="space-y-1">
-				<label class="block text-sm font-medium">Path (optional)</label>
+				<label for="path-input" class="block text-sm font-medium">Path (optional)</label>
 				<input
+					id="path-input"
 					value={path}
 					placeholder="e.g. api/Client/connect"
 					class="w-full border rounded px-2 py-1 bg-background text-sm"
-					on:change={(e) => {
-						const value = (e.currentTarget as HTMLInputElement).value;
-						location.href = buildUrl({ library: selectedLibrary, op, path: value, level });
-					}} />
+					oninput={(e) =>
+						updateUrl({ path: (e.target as HTMLInputElement).value, library: selectedLibrary, op, level })} />
 				<p class="text-xs text-muted-foreground">Matches the internal doc tree paths used by the MCP server.</p>
 			</div>
 
 			{#if op === 'getNodeMarkdown'}
 				<div class="space-y-1">
-					<label class="block text-sm font-medium">Markdown level</label>
+					<label for="level-select" class="block text-sm font-medium">Markdown level</label>
 					<select
+						id="level-select"
 						class="bg-black text-green-400 border border-green-700 text-xs px-1 py-0.5 w-full"
 						value={level}
-						on:change={(e) => {
-							const value = (e.target as HTMLSelectElement).value;
-							searchParams.set('level', value);
-							goto(`?${searchParams.toString()}`, { replaceState: true });
-						}}>
-						{#each markdownVariantKeys as k}
-							<option value={k} selected={level === k}>{k}</option>
+						onchange={(e) =>
+							updateUrl({ level: (e.target as HTMLSelectElement).value, library: selectedLibrary, op, path })}>
+						{#each markdownVariants as k}
+							<option value={k}>{k}</option>
 						{/each}
 					</select>
 				</div>
@@ -152,4 +120,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
