@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { mcpState } from '../../../state.svelte';
+	import { page } from '$app/state';
 	import Markdown from '$lib/components/Markdown.svelte';
 	import * as Card from '$lib/components/ui/card';
+	import { mcpState } from '../../../state.svelte';
 
-	let { data } = $props<{ data: PageData }>();
+	let { data } = $props();
 
 	const level = $derived(page.url.hash ? page.url.hash.slice(1) : 'digest');
 	const content = $derived(data.content[level] ?? data.content['digest']);
