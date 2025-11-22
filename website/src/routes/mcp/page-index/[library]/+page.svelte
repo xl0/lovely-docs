@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 
 	const { data } = $props();
 
@@ -9,12 +10,16 @@
 	let selectedPath = $state('');
 	let selectedLevel = $state('digest');
 
+	const library = $derived(page.params.library);
+	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === library));
+
+
 	function navigate() {
 		if (resourceCommand === 'doc-page' && selectedPath) {
 			const parts = selectedPath.split('/');
 			const lib = parts[0];
 			const rest = parts.slice(1).join('/');
-			goto(resolve(`/mcp/doc-page/${lib}${rest}#${selectedLevel}`));
+			goto(resolve(`/mcp/doc-page/${lib}/${rest}#${selectedLevel}`));
 		}
 	}
 </script>
@@ -56,21 +61,21 @@
 	{/if}
 {/snippet}
 
-{#if data.hasTree}
+{#if !!data.mcp.pageIndexes && library}
 	<div class="font-mono text-xs whitespace-pre-wrap">
 		<button
 			class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
 			onclick={() => {
 				resourceCommand = 'doc-page';
-				selectedPath = data.library;
+				selectedPath = library;
 				navigate();
 			}}>
 			/<span class="text-muted-foreground">:</span>
 		</button>
 		<div class="pl-4 border-l border-muted ml-1">
-			{@render treeNode(data.tree, data.library)}
+			{@render treeNode(pageIndex?.tree, library)}
 		</div>
 	</div>
 {:else}
-	<p class="text-xs text-muted-foreground"># no pages found for {data.library}</p>
+	<p class="text-xs text-muted-foreground"># no pages found for {library}</p>
 {/if}
