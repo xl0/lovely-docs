@@ -411,8 +411,6 @@
 		<!-- Index pages for each ecosystem -->
 		<a href={resolve('/mcp/doc-index')}>doc-index</a>
 		<a href={resolve('/mcp/doc-index-verbose')}>doc-index-verbose</a>
-			<a href={resolve(`/mcp/doc-index`)}>doc-index</a>
-			<a href={resolve(`/mcp/doc-index-verbose`)}>doc-index-verbose</a>
 		<!-- Page index for each library -->
 		{#each libraries as lib}
 			<a href={resolve(`/mcp/page-index/${lib.key}`)}>page-index {lib.key}</a>

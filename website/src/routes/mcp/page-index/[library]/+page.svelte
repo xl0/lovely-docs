@@ -1,13 +1,8 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 
 	const { data } = $props();
-
-	let resourceCommand = $state<string>('doc-page');
-	let selectedPath = $state('');
-	let selectedLevel = $state('digest');
 
 	const library = $derived(page.params.library);
 	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === library));
