@@ -8,12 +8,17 @@ import { hideBin } from "yargs/helpers";
 import { loadLibrariesFromJson, type LibraryFilterOptions } from "./lib/doc-cache.js";
 
 import dbg from "debug";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import { getServer, ResourceResponseError } from "./server.js";
 
 const debug = dbg("app:index");
 
-const doc_db_path = join(process.cwd(), "..", "doc_db");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const isDist = __dirname.endsWith("dist");
+const doc_db_path = isDist ? join(__dirname, "doc_db") : join(__dirname, "..", "..", "doc_db");
 
 await loadLibrariesFromJson(doc_db_path);
 

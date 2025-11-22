@@ -1,58 +1,58 @@
 {
-  "name": "lovely-docs-mcp",
-  "version": "0.0.0",
-  "description": "MCP server for lovely-docs",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./doc-cache": {
-      "types": "./dist/lib/doc-cache.d.ts",
-      "default": "./dist/lib/doc-cache.js"
-    },
-    "./handlers": {
-      "types": "./dist/lib/handlers.d.ts",
-      "default": "./dist/lib/handlers.js"
-    }
-  },
-  "bin": {
-    "lovely-docs-mcp": "dist/index.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "bun run build",
-    "publish": "npm publish",
-    "serve": "bun run src/index.ts --transport http",
-    "serve:watch": "bun --watch run src/index.ts  --transport http"
-  },
-  "keywords": [
-    "mcp",
-    "mcp-server"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.22.0",
-    "@types/debug": "^4.1.12",
-    "@types/yaml": "^1.9.7",
-    "cors": "^2.8.5",
-    "debug": "^4.4.3",
-    "express": "^5.1.0",
-    "lovely-docs-mcp": ".",
-    "neverthrow": "^8.2.0",
-    "valibot": "^1.1.0",
-    "yaml": "^2.8.1",
-    "yargs": "^18.0.0"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.5",
-    "@types/node": "^24.10.1",
-    "@types/yargs": "^17.0.35",
-    "typescript": "^5.9.3"
-  }
+	"name": "lovely-docs-mcp",
+	"version": "0.0.0",
+	"description": "MCP server for lovely-docs",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./doc-cache": {
+			"types": "./dist/lib/doc-cache.d.ts",
+			"default": "./dist/lib/doc-cache.js"
+		},
+		"./handlers": {
+			"types": "./dist/lib/handlers.d.ts",
+			"default": "./dist/lib/handlers.js"
+		}
+	},
+	"bin": {
+		"lovely-docs-mcp": "dist/index.js"
+	},
+	"scripts": {
+		"build": "tsc && cp -r ../doc_db dist/",
+		"prepublishOnly": "bun run build",
+		"publish": "npm publish",
+		"serve": "cd dist; bun run index.js --transport http",
+		"dev": "bun --watch run src/index.ts  --transport http"
+	},
+	"keywords": [
+		"mcp",
+		"mcp-server"
+	],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.22.0",
+		"@types/debug": "^4.1.12",
+		"@types/yaml": "^1.9.7",
+		"cors": "^2.8.5",
+		"debug": "^4.4.3",
+		"express": "^5.1.0",
+		"lovely-docs-mcp": ".",
+		"neverthrow": "^8.2.0",
+		"valibot": "^1.1.0",
+		"yaml": "^2.8.1",
+		"yargs": "^18.0.0"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.5",
+		"@types/node": "^24.10.1",
+		"@types/yargs": "^17.0.35",
+		"typescript": "^5.9.3"
+	}
 }
