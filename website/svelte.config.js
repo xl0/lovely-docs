@@ -26,7 +26,17 @@ const config = {
 			base: "/lovely-docs"
 		},
 		prerender: {
-			handleUnseenRoutes: 'warn'
+			handleUnseenRoutes: 'warn',
+			handleMissingId: (details) => {
+				// Ignore missing IDs for markdown level selectors (digest, fulltext, short_digest, essence)
+				const markdownLevels = ['digest', 'fulltext', 'short_digest', 'essence'];
+				if (markdownLevels.includes(details.id)) {
+					return; // Silently ignore
+				}
+				// For other missing IDs, log a warning
+				console.warn(`Missing ID: ${details.id} on ${details.path}`);
+				console.warn(`  Referenced from: ${details.referrers.join(', ')}`);
+			}
 		}
 	}
 };

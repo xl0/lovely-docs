@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { page } from '$app/state';
-	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { mcpState } from '../../../state.svelte';
 	import Markdown from '$lib/components/Markdown.svelte';
@@ -11,40 +10,27 @@
 
 	const level = $derived(page.url.hash ? page.url.hash.slice(1) : 'digest');
 	const content = $derived(data.content[level] ?? data.content['digest']);
-
-	function navigate(path: string) {
-		const parts = path.split('/');
-		const lib = parts[0];
-		const rest = parts.slice(1).join('/');
-		const url = `/mcp/${lib}${rest ? '/' + rest : ''}#${level}`;
-		// @ts-ignore
-		goto(resolve(url));
-	}
-
-	function getFullPath(basePath: string, child: string): string {
-		return `${basePath}/${child}`;
-	}
 </script>
 
 {#snippet childNode(node: unknown, basePath: string)}
 	{#if Array.isArray(node)}
 		{#each node as child}
 			{#if typeof child === 'string'}
-				{@const fullPath = getFullPath(basePath, child)}
-				<button
-					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
-					onclick={() => navigate(fullPath)}>
+				{@const fullPath = `${basePath}/${child}`}
+				<a
+					href={resolve(`/mcp/doc-page/${fullPath}#${level}`)}
+					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
 					<span class="text-muted-foreground">- </span>{child}
-				</button>
+				</a>
 			{:else if typeof child === 'object' && child !== null}
 				{#each Object.entries(child) as [key, value]}
-					{@const fullPath = getFullPath(basePath, key)}
+					{@const fullPath = `${basePath}/${key}`}
 					<div>
-						<button
-							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
-							onclick={() => navigate(fullPath)}>
+						<a
+							href={resolve(`/mcp/doc-page/${fullPath}#${level}`)}
+							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
 							{key}<span class="text-muted-foreground">:</span>
-						</button>
+						</a>
 						<div class="pl-4 border-l border-muted ml-1">
 							{@render childNode(value, fullPath)}
 						</div>
