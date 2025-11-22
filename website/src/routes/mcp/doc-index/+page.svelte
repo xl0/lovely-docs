@@ -1,26 +1,23 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 
 	const { data } = $props();
 
 	const ecosystem = $derived(page.url.hash.slice(1));
-	const activeResource = $derived(data.mcp.resources.find((r) => (r.label === page.url.hash.slice(1)) || !ecosystem));
+	const activeResource = $derived(data.mcp.resources.find((r) => r.label === page.url.hash.slice(1) || !ecosystem));
 </script>
 
 {#if activeResource}
-	<div class="font-mono text-sm whitespace-pre-wrap">
-			{#each activeResource.index as lib}
-				<button
-					class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
-					onclick={() => {
-						goto(resolve(`/mcp/page-index/${lib}`));
-					}}>
-					<span class="text-muted-foreground">- </span>{lib}
-				</button>
-			{/each}
+	<div class="font-mono text-sm">
+		{#each activeResource.index as lib}
+			<a
+				href={resolve(`/mcp/page-index/${lib}`)}
+				class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
+				<span class="text-muted-foreground">- </span>{lib}
+			</a>
+		{/each}
 	</div>
 {:else}
-	<p class="text-xs text-muted-foreground"># no resources for ecosystem {ecosystem??'*'}</p>
+	<p class="text-xs text-muted-foreground"># no resources for ecosystem {ecosystem ?? '*'}</p>
 {/if}

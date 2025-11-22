@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
-	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 
 	const { data } = $props();
 
@@ -12,16 +11,6 @@
 
 	const library = $derived(page.params.library);
 	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === library));
-
-
-	function navigate() {
-		if (resourceCommand === 'doc-page' && selectedPath) {
-			const parts = selectedPath.split('/');
-			const lib = parts[0];
-			const rest = parts.slice(1).join('/');
-			goto(resolve(`/mcp/doc-page/${lib}/${rest}#${selectedLevel}`));
-		}
-	}
 </script>
 
 {#snippet treeNode(node: unknown, prefix: string = '')}
@@ -29,28 +18,20 @@
 		{#each node as child}
 			{#if typeof child === 'string'}
 				{@const fullPath = prefix ? `${prefix}/${child}` : child}
-				<button
-					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
-					onclick={() => {
-						resourceCommand = 'doc-page';
-						selectedPath = fullPath;
-						navigate();
-					}}>
+				<a
+					href={resolve(`/mcp/doc-page/${fullPath}`)}
+					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
 					<span class="text-muted-foreground">- </span>{child}
-				</button>
+				</a>
 			{:else if typeof child === 'object' && child !== null}
 				{#each Object.entries(child) as [key, value]}
 					{@const fullPath = prefix ? `${prefix}/${key}` : key}
 					<div>
-						<button
-							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
-							onclick={() => {
-								resourceCommand = 'doc-page';
-								selectedPath = fullPath;
-								navigate();
-							}}>
+						<a
+							href={resolve(`/mcp/doc-page/${fullPath}`)}
+							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
 							{key}<span class="text-muted-foreground">:</span>
-						</button>
+						</a>
 						<div class="pl-4 border-l border-muted ml-1">
 							{@render treeNode(value, fullPath)}
 						</div>
@@ -62,16 +43,12 @@
 {/snippet}
 
 {#if !!data.mcp.pageIndexes && library}
-	<div class="font-mono text-xs whitespace-pre-wrap">
-		<button
-			class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors"
-			onclick={() => {
-				resourceCommand = 'doc-page';
-				selectedPath = library;
-				navigate();
-			}}>
+	<div class="font-mono text-xs">
+		<a
+			href={resolve(`/mcp/doc-page/${library}`)}
+			class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
 			/<span class="text-muted-foreground">:</span>
-		</button>
+		</a>
 		<div class="pl-4 border-l border-muted ml-1">
 			{@render treeNode(pageIndex?.tree, library)}
 		</div>
