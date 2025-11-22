@@ -6,7 +6,7 @@
 	import Markdown from '$lib/components/Markdown.svelte';
 	import * as Card from '$lib/components/ui/card';
 
-	let { data } = $props<{ data: PageData }>();
+	let { data } = $props();
 
 	const level = $derived(page.url.hash ? page.url.hash.slice(1) : 'digest');
 	const content = $derived(data.content[level] ?? data.content['digest']);
