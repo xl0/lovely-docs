@@ -150,6 +150,12 @@ function parseCliOptions(): CliOptions {
 		process.exit(1);
 	}
 
+	// Helper to get env var, treating empty strings as undefined
+	const getEnv = (key: string): string | undefined => {
+		const value = process.env[key];
+		return value && value.trim() !== "" ? value : undefined;
+	};
+
 	return {
 		transport: argv.transport as TransportMode,
 		httpPort: argv["http-port"] as number,
@@ -157,12 +163,12 @@ function parseCliOptions(): CliOptions {
 		includeEcosystems: (argv["include-ecosystems"] as string[] | undefined) ?? [],
 		excludeLibs: (argv["exclude-libs"] as string[] | undefined) ?? [],
 		excludeEcosystems: (argv["exclude-ecosystems"] as string[] | undefined) ?? [],
-		repo: argv.repo ?? process.env.LOVELY_DOCS_REPO ?? "https://github.com/xl0/lovely-docs",
-		branch: argv.branch ?? process.env.LOVELY_DOCS_BRANCH ?? "master",
-		gitCacheDir: argv["git-cache-dir"] ?? process.env.LOVELY_DOCS_GIT_CACHE_DIR,
+		repo: argv.repo ?? getEnv("LOVELY_DOCS_REPO") ?? "https://github.com/xl0/lovely-docs",
+		branch: argv.branch ?? getEnv("LOVELY_DOCS_BRANCH") ?? "master",
+		gitCacheDir: argv["git-cache-dir"] ?? getEnv("LOVELY_DOCS_GIT_CACHE_DIR"),
 		gitSync: argv["git-sync"],
 		gitSyncOnly: argv["git-sync-only"],
-		docDir: argv["doc-dir"] ?? process.env.LOVELY_DOCS_DOC_DIR,
+		docDir: argv["doc-dir"] ?? getEnv("LOVELY_DOCS_DOC_DIR"),
 	};
 }
 
