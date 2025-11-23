@@ -75,14 +75,37 @@
 }
 
 /* MCP Terminal Theme - Unix Hacker Aesthetic */
+/* Light mode: Black text on white background with subtle green accents */
 .mcp-theme {
   --radius: 0;
   --default-transition-duration: 0ms;
+  --background: oklch(1 0 0); /* Pure white */
+  --foreground: oklch(0.15 0 0); /* Near black */
+  --card: oklch(0.97 0 0); /* Very light gray */
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(0.97 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.15 0 0); /* Black for primary */
+  --primary-foreground: oklch(1 0 0); /* White text on black */
+  --secondary: oklch(0.85 0 0); /* Light gray */
+  --secondary-foreground: oklch(0.15 0 0);
+  --muted: oklch(0.92 0 0); /* Light gray */
+  --muted-foreground: oklch(0.45 0 0); /* Medium gray */
+  --accent: oklch(0.448 0.119 151.328); /* Subtle green accent */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.55 0.22 25); /* Red */
+  --border: oklch(0.75 0 0); /* Gray border */
+  --input: oklch(0.75 0 0);
+  --ring: oklch(0.448 0.119 151.328); /* Green ring for focus */
+}
+
+/* Dark mode: Bright green on black (classic terminal) */
+.dark .mcp-theme {
   --background: oklch(0 0 0); /* Pure black */
   --foreground: oklch(0.792 0.209 151.711); /* Bright green-400 */
   --card: oklch(0.05 0 0); /* Near black with slight lift */
   --card-foreground: oklch(0.792 0.209 151.711);
-  --popover: oklch(0 0 0);
+  --popover: oklch(0.05 0 0);
   --popover-foreground: oklch(0.792 0.209 151.711);
   --primary: oklch(0.792 0.209 151.711); /* Green-400 */
   --primary-foreground: oklch(0 0 0);
@@ -96,6 +119,27 @@
   --border: oklch(0.448 0.119 151.328 / 0.6); /* Green-800 with transparency */
   --input: oklch(0.448 0.119 151.328 / 0.7);
   --ring: oklch(0.723 0.219 149.579); /* Green-500 */
+}
+
+/* Apply MCP theme to portaled elements (dropdowns, etc.) */
+/* Since portals render outside .mcp-theme, we need to target them differently */
+body:has(.mcp-theme) [data-bits-select-content],
+body:has(.mcp-theme) [data-slot="select-content"] {
+  --radius: 0;
+  --popover: oklch(0.97 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --border: oklch(0.75 0 0);
+  --accent: oklch(0.448 0.119 151.328);
+  --accent-foreground: oklch(1 0 0);
+}
+
+body.dark:has(.mcp-theme) [data-bits-select-content],
+body.dark:has(.mcp-theme) [data-slot="select-content"] {
+  --popover: oklch(0.05 0 0);
+  --popover-foreground: oklch(0.792 0.209 151.711);
+  --border: oklch(0.448 0.119 151.328 / 0.6);
+  --accent: oklch(0.527 0.154 150.069);
+  --accent-foreground: oklch(0.962 0.044 156.743);
 }
 
 @theme inline {

@@ -7,7 +7,7 @@
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import * as Collapsible from '$lib/components/ui/collapsible';
-	import { Github, ChevronDown } from '@lucide/svelte';
+	import { Github, ChevronDown, Bot } from '@lucide/svelte';
 	import type { LibraryDBItem, DocItem } from 'lovely-docs-mcp/doc-cache';
 	import dbg from 'debug';
 
@@ -86,6 +86,14 @@
 			{/each}
 		</nav>
 		<div class="flex items-center gap-2">
+			<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view">
+				<Button
+					variant="outline"
+					size="icon"
+					class="mcp-theme bg-background text-foreground border-border hover:bg-accent">
+					<Bot size={20} />
+				</Button>
+			</a>
 			<a href="https://github.com/xl0/lovely-docs" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 				<Button variant="outline" size="icon">
 					<Github size={20} />

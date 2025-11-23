@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
-	import { handleCommandChange, resourceCommands } from '$lib/mcp-tools-resource.js';
+	import { handleResourceCommandChange, resourceCommands } from '$lib/mcp-tools-resource.js';
 
 	const { data } = $props();
 
 	const ecosystems = $derived(data.mcp.ecosystems);
-	const ecosystemOptions = $derived(['*', ...ecosystems]);
+	const ecosystemOptions = $derived(ecosystems);
 	const selectedEcosystem = $derived(page.url.hash.slice(1) || '*');
 	const activeResource = $derived(
 		data.mcp.resources.find((r) => r.label === selectedEcosystem) || data.mcp.resources.find((r) => r.label === '*')
@@ -16,7 +17,7 @@
 
 	function handleEcosystemChange(value: string) {
 		const hash = value !== '*' ? `#${value}` : '';
-		window.location.href = resolve(`/mcp/doc-index${hash}`);
+		goto(resolve(`/mcp/resources/doc-index${hash}`));
 	}
 
 	const resourceRoot = 'doc-index';
@@ -29,7 +30,10 @@
 			<span class="text-foreground/70">$</span>
 			<span class="text-foreground">lovely-docs://</span>
 
-			<Select.Root type="single" value={resourceRoot} onValueChange={(v) => handleCommandChange(v, resourceRoot)}>
+			<Select.Root
+				type="single"
+				value={resourceRoot}
+				onValueChange={(v) => handleResourceCommandChange(v, resourceRoot)}>
 				<Select.Trigger size="sm" class="bg-background border-border text-foreground" aria-label="Resource command">
 					<span>{resourceRoot}</span>
 				</Select.Trigger>
@@ -60,7 +64,7 @@
 				<div class="font-mono text-sm">
 					{#each activeResource.index as lib}
 						<a
-							href={resolve(`/mcp/page-index/${lib}`)}
+							href={resolve(`/mcp/resources/page-index/${lib}`)}
 							class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
 							<span class="text-muted-foreground">- </span>{lib}
 						</a>

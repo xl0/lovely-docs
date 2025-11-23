@@ -2,9 +2,10 @@
 	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import { Github } from '@lucide/svelte';
+	import { Github, Bot } from '@lucide/svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import dbg from 'debug';
+	import { resolve } from '$app/paths';
 
 	const debug = dbg('app:page');
 
@@ -27,7 +28,7 @@
 		return Array.from(set).sort();
 	});
 
-	let selectedEcosystems = $derived(allEcosystems)
+	let selectedEcosystems = $derived(allEcosystems);
 
 	const filteredLibraries = $derived.by<[string, LibrarySummary][]>(() => {
 		// If there are no ecosystem tags at all, just show all libraries.
@@ -39,9 +40,6 @@
 		);
 	});
 
-	$effect(() => {
-		debug(data);
-	});
 </script>
 
 <div class="container mx-auto px-4 py-8 max-w-6xl">
@@ -51,6 +49,14 @@
 			<p class="text-muted-foreground text-lg">Browse available documentation collections</p>
 		</div>
 		<div class="flex items-center gap-2">
+			<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view">
+				<Button
+					variant="outline"
+					size="icon"
+					class="mcp-theme bg-background text-foreground border-border hover:bg-accent">
+					<Bot size={20} />
+				</Button>
+			</a>
 			<a href="https://github.com/xl0/lovely-docs" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 				<Button variant="outline" size="icon">
 					<Github size={20} />
@@ -84,7 +90,7 @@
 	{:else}
 		<div class="grid gap-4 grid-cols-1">
 			{#each filteredLibraries as [key, library]}
-				<a href="{key}" class="block">
+				<a href={key} class="block">
 					<Card class="h-full hover:border-primary">
 						<CardHeader>
 							<CardTitle class="flex flex-col gap-2">

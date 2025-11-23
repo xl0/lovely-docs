@@ -4,6 +4,6 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		goto(resolve('/mcp/doc-index'), { replaceState: true });
+		goto(resolve('/mcp/resources/doc-index'), { replaceState: true });
 	});
 </script>

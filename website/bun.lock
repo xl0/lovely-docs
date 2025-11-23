@@ -14,6 +14,7 @@
         "hastscript": "^9.0.1",
         "lovely-docs-mcp": "file:../lovely-docs-mcp",
         "lowlight": "^3.3.0",
+        "lucide-svelte": "^0.554.0",
         "mode-watcher": "^1.1.0",
         "nodemon": "^3.1.11",
         "rehype-external-links": "^3.0.0",
@@ -396,6 +397,8 @@
     "lovely-docs-mcp": ["lovely-docs-mcp@file:../lovely-docs-mcp", { "dependencies": { "@modelcontextprotocol/sdk": "^0.5.0", "@types/debug": "^4.1.12", "debug": "^4.4.3" }, "devDependencies": { "@types/node": "^20.19.24", "typescript": "^5.9.3" }, "bin": { "lovely-docs-mcp": "dist/index.js" } }],
 
     "lowlight": ["lowlight@3.3.0", "", { "dependencies": { "@types/hast": "^3.0.0", "devlop": "^1.0.0", "highlight.js": "~11.11.0" } }, "sha512-0JNhgFoPvP6U6lE/UdVsSq99tn6DhjjpAj5MxG49ewd2mOBVtwWYIT8ClyABhq198aXXODMU6Ox8DrGy/CpTZQ=="],
+
+    "lucide-svelte": ["lucide-svelte@0.554.0", "", { "peerDependencies": { "svelte": "^3 || ^4 || ^5.0.0-next.42" } }, "sha512-LLcpHi3SuKup0nVD1kKqo8FDZnjXJp48uST26GGh8Jcyrxqk5gmgpnvKmHsHox674UL3cPS1DCul/wFL7ybGqg=="],
 
     "lz-string": ["lz-string@1.5.0", "", { "bin": { "lz-string": "bin/bin.js" } }, "sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ=="],
 

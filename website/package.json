@@ -39,6 +39,7 @@
 		"hastscript": "^9.0.1",
 		"lovely-docs-mcp": "file:../lovely-docs-mcp",
 		"lowlight": "^3.3.0",
+		"lucide-svelte": "^0.554.0",
 		"mode-watcher": "^1.1.0",
 		"nodemon": "^3.1.11",
 		"rehype-external-links": "^3.0.0",

@@ -4,7 +4,7 @@
 	import { page } from '$app/state';
 	import * as Card from '$lib/components/ui/card';
 	import * as Select from '$lib/components/ui/select';
-	import { handleCommandChange, resourceCommands } from '$lib/mcp-tools-resource.js';
+	import { handleResourceCommandChange, resourceCommands } from '$lib/mcp-tools-resource.js';
 	import type { LayoutData } from './$types.js';
 	type LibraryOption = LayoutData['mcp']['libraries'][number];
 
@@ -28,7 +28,10 @@
 			<span class="text-foreground/70">$</span>
 			<span class="text-foreground">lovely-docs://</span>
 
-			<Select.Root type="single" value={resourceRoot} onValueChange={(v) => handleCommandChange(v, resourceRoot)}>
+			<Select.Root
+				type="single"
+				value={resourceRoot}
+				onValueChange={(v) => handleResourceCommandChange(v, resourceRoot)}>
 				<Select.Trigger size="sm" class="bg-background border-border text-foreground" aria-label="Resource command">
 					<span>{resourceRoot}</span>
 				</Select.Trigger>
@@ -43,7 +46,7 @@
 				type="single"
 				value={library}
 				onValueChange={(lib) => {
-					goto(resolve(`/mcp/page-index/${lib}`));
+					goto(resolve(`/mcp/resources/page-index/${lib}`));
 				}}>
 				<Select.Trigger size="sm" class="bg-background border-border text-foreground" aria-label="Ecosystem">
 					<span>{library}</span>
@@ -57,6 +60,5 @@
 		</Card.Content>
 	</Card.Root>
 
-    {@render children()}
-
+	{@render children()}
 </div>

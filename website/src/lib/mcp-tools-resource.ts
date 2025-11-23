@@ -16,8 +16,22 @@ export const resourceCommands: ResourceCommand[] = [
 		{ id: 'doc-page', label: 'doc-page', target: 'library' }
 	];
 
+export type ToolCommand =
+	| { id: 'list-libraries'; label: 'listLibraries'; target: 'ecosystem' }
+	| { id: 'list-pages'; label: 'listPages'; target: 'library' }
+	| { id: 'get-page'; label: 'getPage'; target: 'library' };
 
-export function handleCommandChange(value: string, current: string) {
-    if (value !== current) goto(resolve(`/mcp/${value}`));
-	}
+export const toolCommands: ToolCommand[] = [
+	{ id: 'list-libraries', label: 'listLibraries', target: 'ecosystem' },
+	{ id: 'list-pages', label: 'listPages', target: 'library' },
+	{ id: 'get-page', label: 'getPage', target: 'library' }
+];
 
+
+export function handleResourceCommandChange(value: string, current: string) {
+	if (value !== current) goto(resolve(`/mcp/resources/${value}`));
+}
+
+export function handleToolCommandChange(value: string, current: string) {
+	if (value !== current) goto(resolve(`/mcp/tools/${value}`));
+}

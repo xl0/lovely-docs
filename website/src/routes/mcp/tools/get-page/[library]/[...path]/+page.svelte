@@ -1,0 +1,185 @@
+<script lang="ts">
+	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
+	import { goto } from '$app/navigation';
+	import * as Card from '$lib/components/ui/card';
+	import * as Select from '$lib/components/ui/select';
+	import Markdown from '$lib/components/Markdown.svelte';
+	import { handleToolCommandChange, toolCommands } from '$lib/mcp-tools-resource';
+	import { mcpState } from '$lib/mcp-state.svelte';
+
+	const { data } = $props();
+
+	const libraries = $derived(data.mcp.libraries);
+	const libraryOptions = $derived(libraries.map((l: any) => l.key));
+	const markdownVariants = $derived(data.mcp.markdownVariants);
+
+	const selectedLibrary = $derived(page.params.library ?? libraries[0].key ?? '');
+	const selectedPath = $derived(page.params.path ?? '');
+	const selectedLevel = $derived(page.url.searchParams.get('level') || 'digest');
+
+	const content = $derived(data.content ? (data.content[selectedLevel] ?? data.content['digest']) : null);
+
+	// Get paths for current library
+	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === selectedLibrary));
+
+	// Paths are already relative to the library (no library prefix)
+	const pathOptions = $derived(
+		(pageIndex?.paths ?? []).map((pathPart: string) => ({
+			value: pathPart,
+			label: pathPart
+		}))
+	);
+
+	const resourceRoot = 'get-page';
+
+	function updateUrl(lib: string, pathPart: string, lvl: string) {
+		goto(resolve(`/mcp/tools/get-page/${lib}${pathPart !== '/' ? '/' + pathPart : ''}?level=${lvl}`));
+	}
+
+	// Helper to construct full path for links
+	function getFullPath(pathPart: string): string {
+		return pathPart === '/' ? selectedLibrary : `${selectedLibrary}/${pathPart}`;
+	}
+</script>
+
+{#snippet childNode(node: unknown, basePathPart: string)}
+	{#if Array.isArray(node)}
+		{#each node as child}
+			{#if typeof child === 'string'}
+				{@const childPathPart = basePathPart ? `${basePathPart}/${child}` : child}
+				{@const childFullPath = getFullPath(childPathPart)}
+				<a
+					href={resolve(`/mcp/tools/get-page/${childFullPath}?level=${selectedLevel}`)}
+					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
+					<span class="text-muted-foreground">- </span>{child}
+				</a>
+			{:else if typeof child === 'object' && child !== null}
+				{#each Object.entries(child) as [key, value]}
+					{@const childPathPart = basePathPart ? `${basePathPart}/${key}` : key}
+					{@const childFullPath = getFullPath(childPathPart)}
+					<div>
+						<a
+							href={resolve(`/mcp/tools/get-page/${childFullPath}?level=${selectedLevel}`)}
+							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
+							{key}<span class="text-muted-foreground">:</span>
+						</a>
+						<div class="pl-4 border-l border-muted ml-1">
+							{@render childNode(value, childPathPart)}
+						</div>
+					</div>
+				{/each}
+			{/if}
+		{/each}
+	{/if}
+{/snippet}
+
+<div class="space-y-2">
+	<!-- Selector Bar -->
+	<Card.Root class="border-border bg-card">
+		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
+			<span class="text-foreground/70">$</span>
+			<div class="flex items-center">
+				<Select.Root type="single" value={resourceRoot} onValueChange={(v) => handleToolCommandChange(v, resourceRoot)}>
+					<Select.Trigger
+						size="sm"
+						class="bg-background border-border text-foreground px-2 h-7"
+						aria-label="Tool command">
+						<span>GetPage</span>
+					</Select.Trigger>
+					<Select.Content class="bg-popover border border-border text-popover-foreground">
+						{#each toolCommands as cmd}
+							<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+				<span class="text-foreground ml-2">(</span>
+			</div>
+
+			<div class="flex items-center gap-1">
+				<span class="text-muted-foreground">library=</span>
+				<Select.Root type="single" value={selectedLibrary} onValueChange={(v) => updateUrl(v, '', selectedLevel)}>
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Library">
+						<span>{selectedLibrary || '(select)'}</span>
+					</Select.Trigger>
+					<Select.Content class="bg-popover border border-border text-popover-foreground max-h-[80dvh]">
+						{#each libraryOptions as lib}
+							<Select.Item value={lib}>{lib}</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+			</div>
+
+			<span class="text-foreground">,</span>
+
+			<div class="flex items-center gap-1">
+				<span class="text-muted-foreground">page=</span>
+				<Select.Root
+					type="single"
+					value={selectedPath}
+					onValueChange={(v) => updateUrl(selectedLibrary, v, selectedLevel)}>
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Page">
+						<span>{pathOptions.find((o) => o.value === selectedPath)?.label ?? (selectedPath || '/')}</span>
+					</Select.Trigger>
+					<Select.Content class="bg-popover border border-border text-popover-foreground max-h-[80dvh]">
+						{#each pathOptions as option}
+							<Select.Item value={option.value}>{option.label}</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+			</div>
+
+			<span class="text-foreground">,</span>
+
+			<div class="flex items-center gap-1">
+				<span class="text-muted-foreground">level=</span>
+				<Select.Root
+					type="single"
+					value={selectedLevel}
+					onValueChange={(v) => updateUrl(selectedLibrary, selectedPath, v)}>
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Level">
+						<span>{selectedLevel}</span>
+					</Select.Trigger>
+					<Select.Content class="bg-popover border border-border text-popover-foreground">
+						{#each markdownVariants as v}
+							<Select.Item value={v}>{v}</Select.Item>
+						{/each}
+					</Select.Content>
+				</Select.Root>
+			</div>
+
+			<span class="text-foreground">);</span>
+		</Card.Content>
+	</Card.Root>
+
+	<!-- Content -->
+	<Card.Root class="border-border bg-card">
+		<Card.Content class="overflow-auto min-h-[320px]">
+			{#if content}
+				{#if mcpState.renderMarkdown}
+					<Markdown content={content.text} />
+					{#if content.children && Array.isArray(content.children) && content.children.length > 0}
+						<Card.Root class="border-border bg-card mt-4">
+							<Card.Content class="font-mono text-xs">
+								<div class="text-foreground/70 mb-2">Available sub-pages:</div>
+								{@render childNode(content.children, selectedPath)}
+							</Card.Content>
+						</Card.Root>
+					{/if}
+				{:else}
+					<div class="font-mono text-xs">
+						<pre class="whitespace-pre-wrap text-foreground">{content.text}</pre>
+						{#if content.children && Array.isArray(content.children) && content.children.length > 0}
+							<div class="mt-4 border-t border-border pt-4">
+								<div class="text-foreground/70 mb-2">Available sub-pages:</div>
+								{@render childNode(content.children, selectedPath)}
+							</div>
+						{/if}
+					</div>
+				{/if}
+			{:else}
+				<p class="text-xs text-muted-foreground"># select library and page to view content</p>
+			{/if}
+		</Card.Content>
+	</Card.Root>
+</div>

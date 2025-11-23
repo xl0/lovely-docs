@@ -10,23 +10,26 @@ import {
 } from 'lovely-docs-mcp/doc-cache';
 import { getPageIndex, libraryIndex } from 'lovely-docs-mcp/handlers';
 
+import dbg from 'debug';
+const debug = dbg('app:mcp:tools:layout:server');
+
 const toYaml = (value: unknown): string => YAML.stringify(value).trim();
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
 	value !== null && typeof value === 'object' && !Array.isArray(value);
 
 function flattenPagePaths(tree: unknown, library: string): string[] {
-	const paths: string[] = [library];
+	const paths: string[] = ['/']; // Root path for the library
 	const visit = (nodes: unknown, trail: string[]) => {
 		if (!Array.isArray(nodes)) return;
 		for (const node of nodes) {
 			if (typeof node === 'string') {
 				const segments = [...trail, node];
-				paths.push([library, ...segments].join('/'));
+				paths.push(segments.join('/'));
 			} else if (isRecord(node)) {
 				for (const [key, child] of Object.entries(node)) {
 					const nextTrail = [...trail, key];
-					paths.push([library, ...nextTrail].join('/'));
+					paths.push(nextTrail.join('/'));
 					visit(child, nextTrail);
 				}
 			}
@@ -102,7 +105,7 @@ export const load: LayoutServerLoad = async () => {
 	const baseOptions: LibraryFilterOptions = {};
 	const { tools, resources, ecosystems, libraries, pageIndexes, markdownVariants } = buildIndexes(baseOptions);
 
-	return {
+	const res =  {
 		mcp: {
 			tools,
 			resources,
@@ -112,4 +115,7 @@ export const load: LayoutServerLoad = async () => {
 			markdownVariants
 		}
 	};
+	debug({libraries, pageIndexes})
+
+	return res;
 };

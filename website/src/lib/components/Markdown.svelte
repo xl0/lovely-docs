@@ -156,17 +156,3 @@
 <div class="prose prose-slate dark:prose-invert max-w-none">
 	{@html markdownHtml}
 </div>
-
-<!-- <style>
-	:global(.prose pre) {
-		@apply bg-muted border rounded-lg p-4;
-	}
-
-	:global(.prose code) {
-		@apply text-sm;
-	}
-
-	:global(.prose pre code) {
-		@apply bg-transparent p-0;
-	}
-</style> -->
