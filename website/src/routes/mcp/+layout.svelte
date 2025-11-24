@@ -22,7 +22,7 @@
 	const mode = $derived(page.route.id?.startsWith('/mcp/tools') ? 'tools' : 'resources');
 
 	// Check if we're on a doc-page route for the markdown toggle
-	const isDocPage = $derived(page.route.id === '/mcp/resources/doc-page/[library]/[...path]');
+	const isDocPage = $derived(page.route.id?.startsWith('/mcp/resources/doc-page/') || page.route.id?.startsWith('/mcp/tools/get-page/'));
 </script>
 
 <div class="mcp-theme min-h-screen bg-background text-foreground font-mono">
