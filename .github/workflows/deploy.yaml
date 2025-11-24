@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
+    paths:
+      - "website/**"
+      - "doc_db/**"
   workflow_dispatch:
 
 permissions:
