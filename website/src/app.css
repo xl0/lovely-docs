@@ -113,7 +113,7 @@
   --secondary-foreground: oklch(0.962 0.044 156.743); /* Green-100 */
   --muted: oklch(0.393 0.095 152.535); /* Green-900 */
   --muted-foreground: oklch(0.627 0.194 149.214); /* Green-600 */
-  --accent: oklch(21.372% 0.05384 154.073); /* Green-700 */
+  --accent: oklch(23.91% 0.06159 152.993); /* Green-700 */
   --accent-foreground: oklch(0.962 0.044 156.743);
   --destructive: oklch(0.637 0.237 25.331); /* Red-500 */
   --border: oklch(0.448 0.119 151.328 / 0.6); /* Green-800 with transparency */

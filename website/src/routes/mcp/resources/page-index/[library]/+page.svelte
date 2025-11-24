@@ -55,17 +55,13 @@
 					<div class="mb-1">
 						<a
 							href={resolve(`/mcp/resources/doc-page/${fullPath}`)}
-							class="flex items-baseline overflow-hidden text-primary hover:text-primary/80 hover:bg-accent transition-colors w-full">
-							<span class="whitespace-nowrap shrink-0">{key}</span>
-							{#if essence}
-								<span class="text-muted-foreground text-xs truncate" title={essence}>
-									: {essence}
-								</span>
-							{/if}
+							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block text-nowrap">
+							{key}<span class="whitespace-nowrap shrink-0 text-muted-foreground">: {essence}</span>
+
 						</a>
 
 						{#if children}
-							<div class="pl-4 border-l border-muted ml-1 mt-1">
+							<div class="pl-4 border-l border-muted ml-1">
 								{@render verboseTreeNode(children, childPathPart)}
 							</div>
 						{/if}
