@@ -1,7 +1,12 @@
 {
 	"name": "lovely-docs-mcp",
-	"version": "0.0.0",
+	"version": "0.0.3",
 	"description": "MCP server for lovely-docs",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/xl0/lovely-docs.git"
+	},
+    "homepage": "https://lovely-docs.github.io",
 	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -22,11 +27,15 @@
 	"bin": {
 		"lovely-docs-mcp": "dist/index.js"
 	},
+	"files": [
+		"dist",
+		"README.md"
+	],
 	"scripts": {
 		"build": "tsc",
 		"git-sync": "bun run src/index.ts --git-sync-only",
 		"prepublishOnly": "bun run build",
-		"publish": "npm publish",
+		"release": "bun publish",
 		"serve": "bun run dist/index.js --transport http",
 		"dev": "LOVELY_DOCS_DEV=1 bun --watch run src/index.ts  --transport http"
 	},
@@ -39,12 +48,9 @@
 	"dependencies": {
 		"@logtail/node": "^0.5.6",
 		"@modelcontextprotocol/sdk": "^1.22.0",
-		"@types/debug": "^4.1.12",
-		"@types/yaml": "^1.9.7",
 		"cors": "^2.8.5",
 		"debug": "^4.4.3",
 		"express": "^5.1.0",
-		"lovely-docs-mcp": ".",
 		"neverthrow": "^8.2.0",
 		"simple-git": "^3.30.0",
 		"valibot": "^1.1.0",
@@ -52,6 +58,8 @@
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
+		"@types/debug": "^4.1.12",
+		"@types/yaml": "^1.9.7",
 		"@types/cors": "^2.8.19",
 		"@types/express": "^5.0.5",
 		"@types/node": "^24.10.1",
