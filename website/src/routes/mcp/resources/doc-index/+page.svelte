@@ -24,14 +24,14 @@
 		const eco = value !== '*' ? value : '';
 		const verb = verbose ? '&verbose=true' : '';
 		const hash = eco || verb ? `#${eco}${verb}` : '';
-		goto(resolve(`/mcp/resources/doc-index${hash}`));
+		goto((resolve('/mcp/resources/doc-index') + hash) as string);
 	}
 
 	function toggleVerbose() {
 		const eco = selectedEcosystem !== '*' ? selectedEcosystem : '';
 		const verb = !verbose ? '&verbose=true' : '';
 		const hash = eco || verb ? `#${eco}${verb}` : '';
-		goto(resolve(`/mcp/resources/doc-index${hash}`));
+		goto((resolve('/mcp/resources/doc-index') + hash) as string);
 	}
 
 	const resourceRoot = 'doc-index';
@@ -41,7 +41,7 @@
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
 		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-foreground/70">$</span>
+			<span class="text-primary">URL: </span>
 			<span class="text-foreground">lovely-docs://</span>
 
 			<Select.Root

@@ -8,6 +8,7 @@
 	import { mcpState } from '$lib/mcp-state.svelte';
 	import type { Snippet } from 'svelte';
 	import { SquareArrowLeft, User } from '@lucide/svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	const { data, children } = $props<{ data: LayoutData; children: Snippet }>();
 
@@ -36,7 +37,7 @@
 						<SquareArrowLeft class="size-6" />
 					</Button>
 				</a>
-				<h1 class="text-2xl tracking-widest uppercase">lovely-docs :: Through the eyes of a Bender unit</h1>
+				<h1 class="text-2xl tracking-widest uppercase">lovely-docs</h1>
 			</div>
 			<div role="tablist" aria-label="MCP data views" class="flex gap-2 items-center">
 				<a href={resolve('/human')} class="">
@@ -44,6 +45,7 @@
 						<User size={16} />
 					</Button>
 				</a>
+				<ThemeToggle class="size-8" />
 
 				<div role="tablist" aria-label="MCP data views" class="flex gap-2 items-center">
 					{#each tabs as tab}

@@ -5,4 +5,3 @@ const docPath = path.resolve(process.cwd(), '../doc_db/');
 
 await loadLibrariesFromJson(docPath);
 
-export const prerender = true;

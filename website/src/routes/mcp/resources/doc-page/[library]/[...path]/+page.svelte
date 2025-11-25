@@ -80,7 +80,7 @@
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
 		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-foreground/70">$</span>
+			<span class="text-primary">URL: </span>
 			<span class="text-foreground">lovely-docs://</span>
 
 			<Select.Root
