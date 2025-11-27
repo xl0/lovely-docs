@@ -42,7 +42,7 @@
 	});
 </script>
 
-<div class="container mx-auto px-4 py-8 max-w-6xl">
+<div class="container mx-auto">
 	<div class="flex items-center justify-between mb-8">
 		<div class="flex items-baseline gap-2">
 			<a href={resolve('/')} aria-label="Go back">
@@ -87,12 +87,12 @@
 		</div>
 	{/if}
 
-	<div class="grid gap-4 grid-cols-1">
+	<div class="grid gap-2 grid-cols-1">
 		{#each filteredLibraries as [key, library]}
 			<a href={resolve(`/human/${key}`)} class="block">
-				<Card class="h-full hover:border-primary">
-					<CardHeader>
-						<CardTitle class="flex flex-col gap-2">
+				<Card class="h-full hover:border-primary p-4 pb-2">
+					<CardHeader class="p-0">
+						<CardTitle class="flex flex-col gap-2 p-0">
 							<div class="flex items-center justify-between gap-3">
 								<div class="flex items-center gap-2 flex-wrap">
 									<span>{library.name}</span>

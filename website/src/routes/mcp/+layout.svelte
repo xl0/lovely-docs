@@ -28,7 +28,7 @@
 	);
 </script>
 
-<div class="mcp-theme min-h-screen bg-background text-foreground font-mono">
+<div class="mcp-theme min-h-fit bg-background text-foreground font-mono">
 	<div class="w-full px-4 py-8 space-y-2">
 		<header class="border-b border-border pb-4 mb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
 			<div class="flex items-center gap-3">
