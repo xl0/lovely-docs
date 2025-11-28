@@ -4,6 +4,7 @@
 	import DocSidebar from '$lib/components/DocSidebar.svelte';
 	import MarkdownPanel from '$lib/components/MarkdownPanel.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import Search from '$lib/components/Search.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import * as Sheet from '$lib/components/ui/sheet';
@@ -93,6 +94,7 @@
 
 				<!-- Header Actions -->
 				<div class="flex items-center gap-2">
+					<Search libraryFilter={libraryKey} placeholder="Search in {lib.name}..." />
 					<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view">
 						<Button
 							variant="outline"

@@ -5,6 +5,7 @@
 	import { Github, Bot, SquareArrowLeft, BookOpen } from '@lucide/svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import Search from '$lib/components/Search.svelte';
 
 	import dbg from 'debug';
 	import { resolve } from '$app/paths';
@@ -62,6 +63,7 @@
 				</div>
 			</div>
 			<div class="flex items-center gap-2">
+				<Search />
 				<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view">
 					<Button
 						variant="outline"
