@@ -6,7 +6,7 @@
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
-	import { PUBLIC_POSTHOG_KEY, PUBLIC_POSTHOG_HOST } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 
 	$effect(() => {
 		if (mode.current === 'light') {
@@ -17,9 +17,9 @@
 	});
 
 	onMount(() => {
-		if (browser && PUBLIC_POSTHOG_KEY) {
-			posthog.init(PUBLIC_POSTHOG_KEY, {
-				api_host: PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+		if (browser && env.PUBLIC_POSTHOG_KEY) {
+			posthog.init(env.PUBLIC_POSTHOG_KEY, {
+				api_host: env.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
 				capture_pageview: false,
 				capture_pageleave: true
 			});
