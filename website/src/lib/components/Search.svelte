@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { Search as SearchIcon } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Command from '$lib/components/ui/command';
-	import { createSearchIndex, searchIndex, type SearchResult } from '$lib/utils/search';
+	import { createSearchIndex, searchIndex, type SearchResult, type SearchContent } from '$lib/utils/search';
+	import { page } from '$app/state';
+
 
 	let { libraryFilter, placeholder = 'Search documentation...' }: { libraryFilter?: string; placeholder?: string } =
 		$props();
@@ -13,15 +14,13 @@
 	let searchQuery = $state('');
 	let results = $state<SearchResult[]>([]);
 
-	onMount(async () => {
-		try {
-			const response = await fetch('/search-index.json');
-			const content = await response.json();
-			createSearchIndex(content);
-			searchState = 'ready';
-		} catch (error) {
-			console.error('Failed to load search index:', error);
-		}
+	$effect(() => {
+		page.data.searchIndex.then((content: SearchContent[]) => {
+			if (content && content.length > 0) {
+				createSearchIndex(content);
+				searchState = 'ready';
+			}
+		});
 	});
 
 	$effect(() => {
@@ -63,11 +62,12 @@
 	{/if}
 
 	{#if searchQuery !== '' && results.length > 0}
-		<Command.List>
-			<Command.Group>
-				{#each results as { displayName, href, snippet, libraryName } (href)}
+		<Command.List class="max-h-[400px] overflow-y-auto">
+			<Command.Group class="p-0">
+				{#each results as { displayName, href, snippet, libraryName }, index (href)}
 					<Command.Item
 						value={href}
+						keywords={[]}
 						onSelect={() => {
 							searchQuery = '';
 							open = false;

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import WideModeToggle from '$lib/components/WideModeToggle.svelte';
 	import DocSidebar from '$lib/components/DocSidebar.svelte';
 	import MarkdownPanel from '$lib/components/MarkdownPanel.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -9,6 +10,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import * as Sheet from '$lib/components/ui/sheet';
 	import { Github, Bot, Menu } from '@lucide/svelte';
+	import { wideMode } from '$lib/wide-mode.svelte';
 	import type { LibraryDBItem, DocItem } from 'lovely-docs/doc-cache';
 
 	let { data } = $props();
@@ -109,12 +111,13 @@
 						</Button>
 					</a>
 					<ThemeToggle />
+					<WideModeToggle />
 				</div>
 			</div>
 		</header>
 
 		<!-- Page Content -->
-		<main class="container mx-auto max-w-4xl px-4 py-8">
+		<main class="container mx-auto px-4 py-8" class:max-w-4xl={!wideMode.value}>
 			{#if currentNode}
 				<div class="mb-6">
 					<div class="mb-3 flex items-center justify-between">

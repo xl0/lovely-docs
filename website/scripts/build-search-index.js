@@ -26,12 +26,18 @@ function extractPages(node, libraryKey, libraryName, currentPath = []) {
 	// Add current node if it has a displayName (not root)
 	if (currentPath.length > 0) {
 		const content = node.markdown?.content || '';
+		const digest = node.markdown?.digest || '';
+		const shortDigest = node.markdown?.short_digest || '';
+		const essence = node.markdown?.essence || '';
+
 		entries.push({
 			libraryKey,
 			libraryName,
 			path: currentPath.join('/'),
 			displayName: node.displayName,
-			essence: node.markdown?.essence || '',
+			essence: cleanMd(essence),
+			digest: cleanMd(digest),
+			shortDigest: cleanMd(shortDigest),
 			content: cleanMd(content),
 			relevant: node.relevant,
 			href: `/human/${libraryKey}/${currentPath.join('/')}`
@@ -57,6 +63,7 @@ async function buildSearchIndex() {
 
 	return searchIndex;
 }
+console.log(`Building search index`);
 
 const searchData = await buildSearchIndex();
 
@@ -64,4 +71,4 @@ const outputPath = resolve(__dirname, '../static/search-index.json');
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, JSON.stringify(searchData), { flag: 'w' });
 
-console.log(`✓ Built search index with ${searchData.length} pages`);
+console.log(`✓ Built search index with ${searchData.length} pages in ${outputPath}`);
