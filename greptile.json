@@ -1,0 +1,3 @@
+{
+  "ignorePatterns": "greptile.json\n/doc_db"
+}
