@@ -6,7 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --radius: 0.65rem;
+  --radius: 0.5rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -215,7 +215,7 @@ body:has(.mcp-theme) [data-slot="select-content"] {
 
   /* Thin scrollbar styling */
   * {
-    scrollbar-gutter: stable;
+    /* scrollbar-gutter: stable; */
     scrollbar-width: thin;
     scrollbar-color: oklch(0.554 0.046 257.417 / 0.3) transparent;
   }

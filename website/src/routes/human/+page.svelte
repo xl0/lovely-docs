@@ -6,6 +6,7 @@
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import WideModeToggle from '$lib/components/WideModeToggle.svelte';
 
 	import dbg from 'debug';
 	import { resolve } from '$app/paths';
@@ -78,6 +79,7 @@
 					</Button>
 				</a>
 				<ThemeToggle />
+				<WideModeToggle />
 			</div>
 		</div>
 
