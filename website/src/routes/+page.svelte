@@ -10,30 +10,26 @@
 	type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
 	let selectedPm = $state<PackageManager>('npm');
 
-	const pmCommands: Record<PackageManager, { init: string; add: string; list: string; run: string }> = {
+	const pmCommands: Record<PackageManager, { init: string; add: string; list: string }> = {
 		npm: {
 			init: 'npx -y lovely-docs init',
 			add: 'npx -y lovely-docs add',
-			list: 'npx -y lovely-docs list',
-			run: 'npx -y lovely-docs'
+			list: 'npx -y lovely-docs list'
 		},
 		pnpm: {
 			init: 'pnpm dlx lovely-docs init',
 			add: 'pnpm dlx lovely-docs add',
-			list: 'pnpm dlx lovely-docs list',
-			run: 'pnpm dlx lovely-docs'
+			list: 'pnpm dlx lovely-docs list'
 		},
 		yarn: {
 			init: 'yarn dlx lovely-docs init',
 			add: 'yarn dlx lovely-docs add',
-			list: 'yarn dlx lovely-docs list',
-			run: 'yarn dlx lovely-docs'
+			list: 'yarn dlx lovely-docs list'
 		},
 		bun: {
 			init: 'bunx lovely-docs init',
 			add: 'bunx lovely-docs add',
-			list: 'bunx lovely-docs list',
-			run: 'bunx lovely-docs'
+			list: 'bunx lovely-docs list'
 		}
 	};
 </script>
@@ -74,9 +70,8 @@
 				<p>AI coding tools work best when given access to up-to-date documentation.</p>
 				<p>
 					Lovely Docs places the documentation inside a folder (<code>.lovely-docs/</code> by default) in your project. The
-					documentation is available in both condensed and fulltext forms -
-
-					noise is removed from pages, and content summaries are created for each directory.
+					documentation is available in both condensed and fulltext forms - noise is removed from pages, and content summaries
+					are created for each directory.
 				</p>
 				<p>
 					Your coding agent should have an easy time searching and reading the documentation using its built-in tools,
@@ -225,10 +220,6 @@ Complete reference for Svelte 5 framework covering runes-based reactivity, templ
 					<div class="text-muted-foreground text-sm font-semibold">Add documentation</div>
 					<code class="bg-muted block rounded px-4 py-2 font-mono text-sm"
 						>{pmCommands[selectedPm].add} &lt;library&gt;</code>
-				</div>
-				<div class="space-y-2">
-					<div class="text-muted-foreground text-sm font-semibold">Interactive mode</div>
-					<code class="bg-muted block rounded px-4 py-2 font-mono text-sm">{pmCommands[selectedPm].run}</code>
 				</div>
 			</div>
 		</section>
