@@ -1,15 +1,14 @@
 <script lang="ts">
-	import type { LayoutData } from './$types';
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
-	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
-	import { mcpState } from '$lib/mcp-state.svelte';
-	import type { Snippet } from 'svelte';
-	import { SquareArrowLeft, User } from '@lucide/svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import Footer from '$lib/components/Footer.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { mcpState } from '$lib/mcp-state.svelte';
+	import { SquareArrowLeft, User } from '@lucide/svelte';
+	import type { Snippet } from 'svelte';
+	import type { LayoutData } from './$types';
 
 	const { data, children } = $props<{ data: LayoutData; children: Snippet }>();
 

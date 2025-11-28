@@ -1,5 +1,8 @@
 # Lovely Docs
 
+[![](https://alexey.work/badge/)](https://alexey.work?ref=ld-md)
+
+
 **Lovely Docs** is a dual-interface documentation platform designed to serve both humans and AI agents. It provides a curated collection of documentation for popular libraries and frameworks, accessible through a modern web interface and a Model Context Protocol (MCP) server.
 
 ## Overview
