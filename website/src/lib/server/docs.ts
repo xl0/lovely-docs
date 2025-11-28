@@ -1,5 +1,6 @@
 import { getLibrary, type DocItem } from 'lovely-docs/doc-cache';
 import { error } from '@sveltejs/kit';
+import { getWebsiteLibraries } from './library-service.js';
 
 function stripMarkdown(node: DocItem): DocItem {
 	const newChildren: Record<string, DocItem> = {};
@@ -9,13 +10,14 @@ function stripMarkdown(node: DocItem): DocItem {
 
 	return {
 		...node,
-		markdown: {essence: node.markdown.essence}, // Remove markdown content
+		markdown: { essence: node.markdown.essence }, // Remove markdown content
 		children: newChildren
 	};
 }
 
-export function getDocPageData(libraryKey: string, pathSegments: string[]) {
-	const library = getLibrary(libraryKey);
+export async function getDocPageData(libraryKey: string, pathSegments: string[]) {
+	const libraries = await getWebsiteLibraries();
+	const library = getLibrary(libraries, libraryKey);
 
 	if (!library) {
 		throw error(404, `Library not found: ${libraryKey}`);

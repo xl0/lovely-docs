@@ -15,7 +15,7 @@ export const load = async ({ params }) => {
 	const pathSegments = path ? path.split('/').filter(Boolean) : [];
 
 	try {
-		const { currentNode } = getDocPageData(library, pathSegments);
+		const { currentNode } = await getDocPageData(library, pathSegments);
 
 		const levels: MarkdownLevel[] = ['digest', 'fulltext', 'short_digest', 'essence'];
 		const content: Record<string, { text: string; children?: unknown[] }> = {};
@@ -26,17 +26,16 @@ export const load = async ({ params }) => {
 			if (text !== undefined) {
 				content[level] = {
 					text,
-					children: (level === 'digest' || level === 'fulltext') ? children : undefined
+					children: level === 'digest' || level === 'fulltext' ? children : undefined
 				};
 			}
 		}
 
 		if (Object.keys(content).length === 0) {
-			 if (Object.keys(currentNode.children).length > 0) {
+			if (Object.keys(currentNode.children).length > 0) {
 				content['digest'] = { text: '', children };
 			}
 		}
-
 
 		return { content };
 	} catch (e) {

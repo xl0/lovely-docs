@@ -3,14 +3,17 @@ import dbg from 'debug';
 import YAML from 'yaml';
 import { z } from 'zod';
 
+
+
 import {
-  filterEcosystems,
-  filterLibraries,
-  getEcosystems,
-  getLibraries,
-  isMarkdownLevel,
-  markdownVariantKeys,
-  type LibraryFilterOptions
+	filterEcosystems,
+	filterLibraries,
+	getEcosystems,
+	getLibrarySummaries,
+	isMarkdownLevel,
+	markdownVariantKeys,
+	type LibraryFilterOptions,
+	type LibraryDBItem
 } from './doc-cache.js';
 import { getPage, getPageIndex, libraryIndex } from './handlers.js';
 
@@ -36,18 +39,21 @@ export class ResourceResponseError extends Error {
 	}
 }
 
-export function getServer(options: LibraryFilterOptions): McpServer {
+export function getServer(options: LibraryFilterOptions, libraries: Map<string, LibraryDBItem>): McpServer {
 	const server = new McpServer({
 		name: 'lovely-docs-mcp',
 		version: '0.1.0'
 	});
+
+	const summaries = getLibrarySummaries(libraries);
+	const filteredSummaries = filterLibraries(summaries, options);
 
 	// Tools
 	server.registerTool(
 		'listLibraries',
 		{
 			title: 'List available docs',
-			description: `Optionally filter by ecosystem: [${Array.from(filterEcosystems(getEcosystems(getLibraries()), options))
+			description: `Optionally filter by ecosystem: [${Array.from(filterEcosystems(getEcosystems(summaries), options))
 				.sort()
 				.join(', ')}]. Set verbose=true for descriptions.`,
 			inputSchema: {
@@ -57,8 +63,7 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 		},
 		async ({ ecosystem, verbose }: { ecosystem?: string; verbose?: boolean }) => {
 			if (!ecosystem) ecosystem = '*';
-			const libs = filterLibraries(getLibraries(), options);
-			const idx = libraryIndex(libs, ecosystem);
+			const idx = libraryIndex(filteredSummaries, ecosystem);
 			const payload = verbose ? idx : Object.keys(idx);
 			return {
 				content: [{ type: 'text' as const, text: toYaml(payload) }]
@@ -77,8 +82,10 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 			}
 		},
 		async ({ library, verbose }: { library: string; verbose?: boolean }) => {
-			const libs = filterLibraries(getLibraries(), options);
-			const result = getPageIndex(libs, library, verbose);
+			if (!filteredSummaries.has(library)) {
+				return mcpError(`Library not found or excluded: ${library}`);
+			}
+			const result = getPageIndex(libraries, library, verbose);
 			if (result.isErr()) return mcpError(result.error);
 			const pages = result.value.tree ?? {};
 			return {
@@ -101,8 +108,10 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 			}
 		},
 		async ({ library, page, level }: { library: string; page?: string; level?: string }) => {
-			const libs = filterLibraries(getLibraries(), options);
-			const result = getPage(libs, String(library), page, level as any);
+			if (!filteredSummaries.has(library)) {
+				return mcpError(`Library not found or excluded: ${library}`);
+			}
+			const result = getPage(libraries, String(library), page, level as any);
 			if (result.isErr()) return mcpError(result.error);
 			const text = result.value.text + (result.value.children ? '\nAvailable sub-pages:\n' + toYaml(result.value.children) : '');
 			return {
@@ -121,7 +130,7 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 		}),
 		{
 			title: 'Index of available libraries',
-			description: `Available ecossytems: [${Array.from(filterEcosystems(getEcosystems(getLibraries()), options))
+			description: `Available ecossytems: [${Array.from(filterEcosystems(getEcosystems(summaries), options))
 				.sort()
 				.join(', ')}] or * for all. Set verbose=true for descriptions.`,
 			mimeType: 'text/yaml'
@@ -132,8 +141,7 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 			const vParam = typeof variables.verbose === 'string' ? variables.verbose : variables.verbose?.[0];
 			const verbose = vParam === 'true';
 
-			const libs = filterLibraries(getLibraries(), options);
-			const idx = libraryIndex(libs, ecosystem);
+			const idx = libraryIndex(filteredSummaries, ecosystem);
 
 			const payload = verbose ? idx : Object.keys(idx);
 
@@ -162,11 +170,14 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 			const name = typeof variables.name === 'string' ? variables.name : variables.name?.[0];
 			if (!name) throw new ResourceResponseError('Missing required parameter: name', uri.href);
 
+			if (!filteredSummaries.has(name)) {
+				throw new ResourceResponseError(`Library not found or excluded: ${name}`, uri.href);
+			}
+
 			const vParam = typeof variables.verbose === 'string' ? variables.verbose : variables.verbose?.[0];
 			const verbose = vParam === 'true';
 
-			const libs = filterLibraries(getLibraries(), options);
-			const result = getPageIndex(libs, name, verbose);
+			const result = getPageIndex(libraries, name, verbose);
 			if (result.isErr()) throw new ResourceResponseError(result.error, uri.href);
 			const pages = result.value.tree ?? {};
 
@@ -203,13 +214,16 @@ export function getServer(options: LibraryFilterOptions): McpServer {
 			const [name, ...rest] = decodedFullPath.split('/');
 			const p = rest.length ? rest.join('/') : undefined;
 
+			if (!filteredSummaries.has(name)) {
+				throw new ResourceResponseError(`Library not found or excluded: ${name}`, uri.href);
+			}
+
 			const level = typeof variables.level === 'string' ? variables.level : variables.level?.[0];
 			if (level !== undefined && !isMarkdownLevel(level)) {
 				throw new ResourceResponseError(`Invalid level: ${level}. Must be one of: ${markdownVariantKeys.join(', ')}`, uri.href);
 			}
 
-			const libs = filterLibraries(getLibraries(), options);
-			const result = getPage(libs, name, p, level);
+			const result = getPage(libraries, name, p, level);
 			if (result.isErr()) throw new ResourceResponseError(result.error, uri.href);
 
 			return {

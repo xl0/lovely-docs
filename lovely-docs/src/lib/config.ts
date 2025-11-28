@@ -43,7 +43,6 @@ export class ConfigManager {
 	}
 
 	async save(config: Config): Promise<void> {
-		console.error({ config });
 		const content = stringify(config);
 		await writeFile(this.configPath, content, 'utf-8');
 	}

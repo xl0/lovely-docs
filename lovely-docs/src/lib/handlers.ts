@@ -1,7 +1,7 @@
 import dbg from 'debug';
 import { err, ok, type Result } from 'neverthrow';
-import type { LibrarySummary } from './doc-cache.js';
-import { getNodeMarkdown, getRelevantEssenceSubTree, type MarkdownLevel, getEcosystems } from './doc-cache.js';
+import type { LibrarySummary, LibraryDBItem } from './doc-cache.js';
+import { getNodeMarkdown, getRelevantEssenceSubTree, type MarkdownLevel, getEcosystems, type EssenceDocNode } from './doc-cache.js';
 const debug = dbg('app:lib:handlers');
 
 export function libraryIndex(libraries: Map<string, LibrarySummary>, ecosystem: string) {
@@ -12,32 +12,30 @@ export function libraryIndex(libraries: Map<string, LibrarySummary>, ecosystem: 
 	return Object.fromEntries(Array.from(filtered.entries()).map(([key, lib]) => [key, lib.essence]));
 }
 
-export const buildNested = (node: any): unknown[] => {
+export const buildNested = (node: EssenceDocNode): unknown[] => {
 	const items: unknown[] = [];
 	for (const [key, child] of Object.entries(node.children ?? {})) {
-		const childNode = child as any;
-		const hasChildren = childNode && Object.keys(childNode.children ?? {}).length > 0;
+		const hasChildren = child && Object.keys(child.children ?? {}).length > 0;
 		if (!hasChildren) {
 			items.push(key);
 		} else {
-			items.push({ [key]: buildNested(childNode) });
+			items.push({ [key]: buildNested(child) });
 		}
 	}
 	return items;
 };
 
-export const buildNestedVerbose = (node: any): unknown[] => {
+export const buildNestedVerbose = (node: EssenceDocNode): unknown[] => {
 	const items: unknown[] = [];
 	for (const [key, child] of Object.entries(node.children ?? {})) {
-		const childNode = child as any;
-		const hasChildren = childNode && Object.keys(childNode.children ?? {}).length > 0;
+		const hasChildren = child && Object.keys(child.children ?? {}).length > 0;
 		if (!hasChildren) {
-			items.push({ [key]: childNode.essence });
+			items.push({ [key]: child.essence });
 		} else {
 			items.push({
 				[key]: {
-					essence: childNode.essence,
-					children: buildNestedVerbose(childNode)
+					essence: child.essence,
+					children: buildNestedVerbose(child)
 				}
 			});
 		}
@@ -46,19 +44,19 @@ export const buildNestedVerbose = (node: any): unknown[] => {
 };
 
 export function getPageIndex(
-	libraries: Map<string, LibrarySummary>,
+	libraries: Map<string, LibraryDBItem>,
 	library: string,
 	verbose: boolean = false
 ): Result<Record<string, unknown>, string> {
 	const byKey = libraries.get(library);
 	if (!byKey) return err(`Unknown library: ${library}`);
-	const tree = getRelevantEssenceSubTree(library, '/');
+	const tree = getRelevantEssenceSubTree(libraries, library, '/');
 	if (!tree) return ok({});
 	return ok({ tree: verbose ? buildNestedVerbose(tree) : buildNested(tree) });
 }
 
 export function getPage(
-	libraries: Map<string, LibrarySummary>,
+	libraries: Map<string, LibraryDBItem>,
 	library: string,
 	page: string | undefined,
 	level: MarkdownLevel | undefined
@@ -66,12 +64,12 @@ export function getPage(
 	const byKey = libraries.get(library);
 	if (!byKey) return err(`Library not found: ${library}`);
 	const effectiveLevel = (level ?? 'digest') as MarkdownLevel;
-	const text = getNodeMarkdown(library, page ?? '/', effectiveLevel);
+	const text = getNodeMarkdown(libraries, library, page ?? '/', effectiveLevel);
 	if (text === undefined) return err(`Page not found in ${library} at path ${page ?? '/'}`);
 
 	let children: unknown[] | undefined;
 	if (effectiveLevel === 'digest' || effectiveLevel === 'fulltext') {
-		const subTree = getRelevantEssenceSubTree(library, page ?? '/');
+		const subTree = getRelevantEssenceSubTree(libraries, library, page ?? '/');
 		if (subTree) {
 			children = buildNested(subTree);
 		}

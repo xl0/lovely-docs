@@ -3,10 +3,15 @@ import * as p from '@clack/prompts';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
 import { DocRepo, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
-import { listLibraries, type LibraryInfo } from '../lib/doc-cache.js';
+import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
 import { Installer } from '../lib/installer.js';
 import { join } from 'path';
 import { existsSync } from 'fs';
+interface LibraryInfo {
+	id: string;
+	name: string;
+	ecosystems: string[];
+}
 
 export const addCommand = new Command('add')
 	.description('Add a documentation library to your project')
@@ -35,7 +40,20 @@ export const addCommand = new Command('add')
 		const targetDir = join(process.cwd(), config.installDir);
 
 		// Get all libraries
-		const libraries = await listLibraries(docDbPath);
+		let librariesDb;
+		try {
+			librariesDb = await loadLibrariesFromJson(docDbPath);
+		} catch (e) {
+			console.error(pc.red(`Failed to list libraries from ${docDbPath}:`), e);
+			return;
+		}
+
+		const librariesMap = getLibrarySummaries(librariesDb);
+		const libraries: LibraryInfo[] = Array.from(librariesMap.entries()).map(([id, lib]) => ({
+			id,
+			name: lib.name,
+			ecosystems: lib.ecosystems
+		}));
 
 		if (libraries.length === 0) {
 			console.log(pc.yellow('No libraries available.'));

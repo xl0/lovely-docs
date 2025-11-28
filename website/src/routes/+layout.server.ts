@@ -1,7 +1,3 @@
-import { loadLibrariesFromJson } from "lovely-docs/doc-cache";
-import path from 'path';
+import { getWebsiteLibraries } from '$lib/server/library-service';
 
-const docPath = path.resolve(process.cwd(), '../doc_db/');
-
-await loadLibrariesFromJson(docPath);
-
+await getWebsiteLibraries();

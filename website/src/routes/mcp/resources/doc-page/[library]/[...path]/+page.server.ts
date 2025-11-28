@@ -11,7 +11,7 @@ export const load = async ({ params }) => {
 		throw error(404, 'Library name is required');
 	}
 
-	const { currentNode } = getDocPageData(library, pathSegments);
+	const { currentNode } = await getDocPageData(library, pathSegments);
 
 	// For SSG, we need to return content for all levels so the client can switch between them
 	// without making a new request.
@@ -32,7 +32,7 @@ export const load = async ({ params }) => {
 		if (text !== undefined) {
 			content[level] = {
 				text,
-				children: (level === 'digest' || level === 'fulltext') ? children : undefined
+				children: level === 'digest' || level === 'fulltext' ? children : undefined
 			};
 		}
 	}

@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const libraryKey = segments[0];
 	const pathSegments = segments.slice(1);
 
-	const { libraryInfo, currentNode } = getDocPageData(libraryKey, pathSegments);
+	const { libraryInfo, currentNode } = await getDocPageData(libraryKey, pathSegments);
 
 	return {
 		libraryInfo,

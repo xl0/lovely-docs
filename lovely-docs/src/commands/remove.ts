@@ -4,8 +4,14 @@ import fs from 'fs-extra';
 import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
-import { listLibraries } from '../lib/doc-cache.js';
+import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
 import { getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
+
+interface LibraryInfo {
+	id: string;
+	name: string;
+	ecosystems: string[];
+}
 
 export const removeCommand = new Command('remove')
 	.description('Remove a documentation library from your project')
@@ -35,7 +41,13 @@ export const removeCommand = new Command('remove')
 			docDbPath = getDocDbPath(repoPath);
 		}
 
-		const libraries = await listLibraries(docDbPath);
+		const librariesDb = await loadLibrariesFromJson(docDbPath);
+		const librariesMap = getLibrarySummaries(librariesDb);
+		const libraries: LibraryInfo[] = Array.from(librariesMap.entries()).map(([id, lib]) => ({
+			id,
+			name: lib.name,
+			ecosystems: lib.ecosystems
+		}));
 		const targetDir = join(process.cwd(), config.installDir);
 
 		let librariesToRemove: string[] = [];

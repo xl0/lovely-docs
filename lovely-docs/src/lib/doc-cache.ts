@@ -208,9 +208,10 @@ export async function loadLibrary(libraryPath: string): Promise<LibraryDBItem> {
 	}
 }
 
-export async function loadLibrariesFromJson(path: string): Promise<void> {
+export async function loadLibrariesFromJson(path: string): Promise<Map<string, LibraryDBItem>> {
 	debug('Scanning libraries...');
 	const entries = await readdir(path, { withFileTypes: true });
+	const libraries = new Map<string, LibraryDBItem>();
 
 	for (const entry of entries) {
 		if (!entry.isDirectory()) continue;
@@ -221,13 +222,14 @@ export async function loadLibrariesFromJson(path: string): Promise<void> {
 
 		try {
 			const libraryCache = await loadLibrary(libPath);
-			cache.set(entry.name, libraryCache);
+			libraries.set(entry.name, libraryCache);
 		} catch (error) {
 			debug(`Failed to load library ${entry.name}: %o`, error);
 		}
 	}
 
-	debug(`Loaded ${cache.size} libraries`);
+	debug(`Loaded ${libraries.size} libraries`);
+	return libraries;
 }
 
 function buildEssenceTree(node: DocItem): EssenceDocNode | null {
@@ -248,8 +250,12 @@ function buildEssenceTree(node: DocItem): EssenceDocNode | null {
 }
 
 // Get a tree of pages for a library, optionally with essence for each node.
-export function getRelevantEssenceSubTree(libraryName: string, rootPath: string): EssenceDocNode | undefined {
-	const lib = cache.get(libraryName);
+export function getRelevantEssenceSubTree(
+	libraries: Map<string, LibraryDBItem>,
+	libraryName: string,
+	rootPath: string
+): EssenceDocNode | undefined {
+	const lib = libraries.get(libraryName);
 	if (!lib) return undefined;
 	const normPath = normalizePath(rootPath);
 	const rootNode = findNodeByPath(lib.tree, normPath);
@@ -271,9 +277,9 @@ export interface LibraryFilterOptions {
 	excludeEcosystems?: string[];
 }
 
-export function getLibraries(): Map<string, LibrarySummary> {
+export function getLibrarySummaries(libraries: Map<string, LibraryDBItem>): Map<string, LibrarySummary> {
 	const res = new Map<string, LibrarySummary>();
-	for (const [key, lib] of cache) {
+	for (const [key, lib] of libraries) {
 		res.set(key, {
 			name: lib.name,
 			source: lib.source,
@@ -282,7 +288,7 @@ export function getLibraries(): Map<string, LibrarySummary> {
 			essence: lib.essence
 		});
 	}
-	debug(`getLibraries() -> %o`, res.size);
+	debug(`getLibrarySummaries() -> %o`, res.size);
 	return res;
 }
 
@@ -359,8 +365,13 @@ function findNodeByPath(root: DocItem, path: string): DocItem | undefined {
 	return node;
 }
 
-export function getNodeMarkdown(libraryName: string, path: string | undefined, level: MarkdownLevel): string | undefined {
-	const lib = cache.get(libraryName);
+export function getNodeMarkdown(
+	libraries: Map<string, LibraryDBItem>,
+	libraryName: string,
+	path: string | undefined,
+	level: MarkdownLevel
+): string | undefined {
+	const lib = libraries.get(libraryName);
 	if (!lib) return undefined;
 	const normPath = normalizePath(path);
 	const node = findNodeByPath(lib.tree, normPath);
@@ -370,43 +381,8 @@ export function getNodeMarkdown(libraryName: string, path: string | undefined, l
 	return content ?? '';
 }
 
-export function getLibrary(name: string): LibraryDBItem | undefined {
-	const res = cache.get(name);
+export function getLibrary(libraries: Map<string, LibraryDBItem>, name: string): LibraryDBItem | undefined {
+	const res = libraries.get(name);
 	debug(`getLibrary(${name}) -> %o`, res?.name);
 	return res;
-}
-
-export interface LibraryInfo {
-	id: string;
-	name: string;
-	ecosystems: string[];
-}
-
-export async function listLibraries(docDbPath: string): Promise<LibraryInfo[]> {
-	if (!existsSync(docDbPath)) {
-		throw new Error(`Documentation database path does not exist: ${docDbPath}`);
-	}
-
-	const entries = await readdir(docDbPath, { withFileTypes: true });
-	const libraries: LibraryInfo[] = [];
-
-	for (const entry of entries) {
-		if (!entry.isDirectory()) continue;
-		const indexPath = join(docDbPath, entry.name, 'index.json');
-		if (!existsSync(indexPath)) continue;
-
-		try {
-			const content = await readFile(indexPath, 'utf-8');
-			const data = JSON.parse(content);
-			libraries.push({
-				id: entry.name,
-				name: data.name || entry.name,
-				ecosystems: data.ecosystems || []
-			});
-		} catch (e) {
-			console.error(`Failed to parse library index ${indexPath}:`, e);
-			throw new Error(`Failed to parse library index ${indexPath}: ${e}`);
-		}
-	}
-	return libraries;
 }

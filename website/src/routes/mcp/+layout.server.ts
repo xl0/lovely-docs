@@ -4,11 +4,13 @@ import {
 	filterEcosystems,
 	filterLibraries,
 	getEcosystems,
-	getLibraries,
+	getLibrarySummaries,
 	markdownVariantKeys,
-	type LibraryFilterOptions
+	type LibraryFilterOptions,
+	type LibraryDBItem
 } from 'lovely-docs/doc-cache';
 import { getPageIndex, libraryIndex } from 'lovely-docs/handlers';
+import { getWebsiteLibraries } from '$lib/server/library-service';
 
 import dbg from 'debug';
 const debug = dbg('app:mcp:tools:layout:server');
@@ -40,13 +42,15 @@ function flattenPagePaths(tree: unknown, library: string): string[] {
 	return paths;
 }
 
-function buildIndexes(options: LibraryFilterOptions) {
-	const libs = filterLibraries(getLibraries(), options);
+async function buildIndexes(options: LibraryFilterOptions) {
+	const libraries = await getWebsiteLibraries();
+	const summaries = getLibrarySummaries(libraries);
+	const libs = filterLibraries(summaries, options);
 	const librarySummaries = Array.from(libs.entries()).map(([key, summary]) => ({
 		key,
 		name: summary.name ?? key
 	}));
-	const ecosystems = Array.from(filterEcosystems(getEcosystems(getLibraries()), options)).sort();
+	const ecosystems = Array.from(filterEcosystems(getEcosystems(summaries), options)).sort();
 
 	const ecosystemKeys = ['*', ...ecosystems];
 
@@ -80,11 +84,11 @@ function buildIndexes(options: LibraryFilterOptions) {
 
 	const pageIndexes = librarySummaries.map(({ key }) => {
 		const lib = libs.get(key);
-		const result = getPageIndex(libs, key);
-		const tree = result.isOk() ? result.value.tree ?? [] : [];
+		const result = getPageIndex(libraries, key);
+		const tree = result.isOk() ? (result.value.tree ?? []) : [];
 
-		const verboseResult = getPageIndex(libs, key, true);
-		const verboseTree = verboseResult.isOk() ? verboseResult.value.tree ?? [] : [];
+		const verboseResult = getPageIndex(libraries, key, true);
+		const verboseTree = verboseResult.isOk() ? (verboseResult.value.tree ?? []) : [];
 
 		const wrappedTree = [{ '/': tree }];
 		const wrappedVerboseTree = [
@@ -119,9 +123,9 @@ function buildIndexes(options: LibraryFilterOptions) {
 
 export const load: LayoutServerLoad = async () => {
 	const baseOptions: LibraryFilterOptions = {};
-	const { tools, resources, ecosystems, libraries, pageIndexes, markdownVariants } = buildIndexes(baseOptions);
+	const { tools, resources, ecosystems, libraries, pageIndexes, markdownVariants } = await buildIndexes(baseOptions);
 
-	const res =  {
+	const res = {
 		mcp: {
 			tools,
 			resources,
