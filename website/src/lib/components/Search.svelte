@@ -5,6 +5,8 @@
 	import { createSearchIndex, searchIndex, type SearchResult, type SearchContent } from '$lib/utils/search';
 	import { page } from '$app/state';
 	import posthog from 'posthog-js';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	let { libraryFilter, placeholder = 'Search documentation...' }: { libraryFilter?: string; placeholder?: string } =
 		$props();
@@ -77,7 +79,7 @@
 							});
 							searchQuery = '';
 							open = false;
-							window.location.href = href;
+							goto(resolve(href as any));
 						}}>
 						<div class="flex w-full flex-col gap-1">
 							<div class="flex w-full items-center justify-between">
