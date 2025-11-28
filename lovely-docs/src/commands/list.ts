@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
 import { DocRepo, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
-import { listLibraries } from '../lib/doc-cache.js';
+import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
 
 export const listCommand = new Command('list')
 	.description('List available documentation libraries')
@@ -26,7 +26,20 @@ export const listCommand = new Command('list')
 			docDbPath = await docRepo.sync(config.source.repo, config.source.branch);
 		}
 
-		const libraries = await listLibraries(docDbPath);
+		let librariesDb;
+		try {
+			librariesDb = await loadLibrariesFromJson(docDbPath);
+		} catch (e) {
+			console.error(pc.red(`Failed to list libraries from ${docDbPath}:`), e);
+			return;
+		}
+
+		const librariesMap = getLibrarySummaries(librariesDb);
+		const libraries = Array.from(librariesMap.entries()).map(([id, lib]) => ({
+			id,
+			name: lib.name,
+			ecosystems: lib.ecosystems
+		}));
 
 		if (libraries.length === 0) {
 			console.log(pc.yellow('No libraries found. Try running `npx lovely-docs init` again to sync.'));

@@ -4,9 +4,15 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
-import { listLibraries, type LibraryInfo } from '../lib/doc-cache.js';
+import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
 import { DocRepo, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
 import { Installer } from '../lib/installer.js';
+
+interface LibraryInfo {
+	id: string;
+	name: string;
+	ecosystems: string[];
+}
 
 export const updateCommand = new Command('update')
 	.description('Update installed documentation libraries')
@@ -36,7 +42,13 @@ export const updateCommand = new Command('update')
 		}
 
 		const targetDir = join(process.cwd(), config.installDir);
-		const libraries = await listLibraries(docDbPath);
+		const librariesDb = await loadLibrariesFromJson(docDbPath);
+		const librariesMap = getLibrarySummaries(librariesDb);
+		const libraries: LibraryInfo[] = Array.from(librariesMap.entries()).map(([id, lib]) => ({
+			id,
+			name: lib.name,
+			ecosystems: lib.ecosystems
+		}));
 		const installer = new Installer(docDbPath, targetDir);
 
 		p.intro(pc.bold('Update Documentation Libraries'));

@@ -10,7 +10,7 @@ import { join } from 'path';
 import { ConfigManager } from '../lib/config.js';
 import { DocRepo, getCacheDir, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
 import { getServer, ResourceResponseError } from '../lib/server.js';
-import { loadLibrariesFromJson, type LibraryFilterOptions } from '../lib/doc-cache.js';
+import { loadLibrariesFromJson, getLibrarySummaries, type LibraryFilterOptions } from '../lib/doc-cache.js';
 
 const debug = dbg('app:mcp');
 
@@ -87,7 +87,7 @@ export const mcpCommand = new Command('mcp')
 		}
 
 		// Load libraries
-		await loadLibrariesFromJson(docDbPath);
+		const libraries = await loadLibrariesFromJson(docDbPath);
 
 		// Prepare filter options
 		const filterOptions: LibraryFilterOptions = {
@@ -110,16 +110,24 @@ export const mcpCommand = new Command('mcp')
 
 		if (options.transport === 'http') {
 			const port = parseInt(options.port, 10);
-			await startHttpServer(port, filterOptions, logtail, repo);
+			await startHttpServer(port, filterOptions, logtail, repo, libraries);
 		} else {
 			const stdio = new StdioServerTransport();
-			const server = getServer(filterOptions);
+			const server = getServer(filterOptions, libraries);
 			await server.connect(stdio);
 			console.error('Lovely Docs MCP Server running on stdio');
 		}
 	});
 
-async function startHttpServer(port: number, defaultFilterOptions: LibraryFilterOptions, logtail: Logtail | NullLogger, repoUrl: string) {
+import type { LibraryDBItem } from '../lib/doc-cache.js';
+
+async function startHttpServer(
+	port: number,
+	defaultFilterOptions: LibraryFilterOptions,
+	logtail: Logtail | NullLogger,
+	repoUrl: string,
+	libraries: Map<string, LibraryDBItem>
+) {
 	const serverStartTime = Date.now();
 	const app = express();
 	app.use(express.json());
@@ -163,7 +171,7 @@ async function startHttpServer(port: number, defaultFilterOptions: LibraryFilter
 			excludeEcosystems: [...(defaultFilterOptions.excludeEcosystems || []), ...(queryFilters.excludeEcosystems || [])]
 		};
 
-		const server = getServer(filterOptions);
+		const server = getServer(filterOptions, libraries);
 
 		const requestMetadata = {
 			method: req.body?.method,

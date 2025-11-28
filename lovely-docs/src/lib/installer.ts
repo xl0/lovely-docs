@@ -40,7 +40,7 @@ export class Installer {
 		await this.copyVariant(libPath, join(this.targetDir, `${libraryName}.orig.md`), 'fulltext');
 
 		// 2. Generate LLM_MAP.md
-		const essenceTree = await this.buildEssenceTree(libPath, index.map, '');
+		const essenceTree = await this.buildEssenceTree(libPath, index.map, '', index.name);
 		const llmMapContent = this.renderEssenceTree(essenceTree, libTargetDir);
 		await fs.outputFile(join(libTargetDir, 'LLM_MAP.md'), llmMapContent);
 
@@ -77,7 +77,7 @@ export class Installer {
 		}
 	}
 
-	private async buildEssenceTree(path: string, node: IndexNode, relativePath: string): Promise<EssenceNode> {
+	private async buildEssenceTree(path: string, node: IndexNode, relativePath: string, libraryName?: string): Promise<EssenceNode> {
 		let essence = '';
 		const essencePath = join(path, 'essence.md');
 		if (existsSync(essencePath)) {
@@ -91,7 +91,7 @@ export class Installer {
 		}
 
 		return {
-			name: node.displayName,
+			name: libraryName || node.displayName,
 			essence,
 			children,
 			relativePath
@@ -103,11 +103,12 @@ export class Installer {
 		const indent = '  '.repeat(depth);
 
 		if (depth === 0) {
-			output += `# ${node.name} Map\n\n`;
+			output += `# ${node.name}\n\n`;
 			if (node.essence) output += `${node.essence}\n\n`;
 		} else {
 			const mdPath = node.relativePath ? `./${node.relativePath}.md` : './root.md';
-			output += `${indent}[[${mdPath}]] ${node.essence.trim().replace(/\n/g, ' ')}\n`;
+			const essence = node.essence.trim().replace(/\n/g, ' ');
+			output += `${indent}${mdPath}: ${essence}\n`;
 		}
 
 		for (const child of Object.values(node.children)) {

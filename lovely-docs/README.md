@@ -1,163 +1,131 @@
 # lovely-docs
 
-CLI tool and MCP server for managing curated documentation in your projects.
+Hierarchically optimized documentation for AI coding agents.
+
+## Why?
+
+MCP is token-inefficient and inflexible for documentation. Instead, `lovely-docs` installs hierarchically summarized documentation directly into your project. AI agents access it using their native file reading and summarization tools—more efficient, more flexible.
 
 ## Installation
 
 ```bash
-npm install -g lovely-docs
-# or
-npx lovely-docs
+npx -y lovely-docs init
+npx -y lovely-docs add sveltejs_svelte
 ```
 
-## Quick Start
+## File Structure
 
-### As a CLI Tool
+Documentation is installed in `.lovely-docs/`:
+
+```
+.lovely-docs/
+├── sveltejs_svelte.md           # Library overview (digest)
+├── sveltejs_svelte.orig.md      # Full library docs
+└── sveltejs_svelte/
+    ├── LLM_MAP.md               # Hierarchical essence tree
+    ├── runes.md                 # Section digest
+    ├── runes.orig.md            # Section fulltext
+    └── runes/
+        ├── $derived.md          # Page digest
+        └── $derived.orig.md     # Page fulltext
+```
+
+**LLM_MAP.md** provides a hierarchical overview with essence summaries at each level. Agents read this first to understand structure, then drill down to specific pages as needed.
+
+Example LLM_MAP.md format:
+
+```
+# sveltejs/svelte
+
+Cybernetically enhanced web apps
+
+  ./introduction.md: Introduction to Svelte and its core concepts
+  ./runes.md: Svelte 5's reactivity primitives for state and effects
+    ./runes/$state.md: Reactive state declaration
+    ./runes/$derived.md: Computed values that update automatically
+```
+
+## Usage
 
 ```bash
-# Initialize in your project
-npx lovely-docs init
+# Initialize
+npx -y lovely-docs init           # Interactive setup
+npx -y lovely-docs init -y        # Skip prompts
 
-# List available libraries
-npx lovely-docs list
+# Manage libraries
+npx -y lovely-docs list           # Show available docs
+npx -y lovely-docs add <library>  # Add documentation
+npx -y lovely-docs remove <library> # Remove documentation
+npx -y lovely-docs update         # Update installed docs
 
-# Add a library
-npx lovely-docs add sveltejs_svelte
-
-# Remove a library
-npx lovely-docs remove sveltejs_svelte
-
-# Interactive mode (default)
-npx lovely-docs
-```
-
-### As an MCP Server
-
-#### Stdio Mode (for Claude Desktop, Cursor, etc.)
-
-Add to your MCP client configuration:
-
-```json
-{
-  "mcpServers": {
-    "lovely-docs": {
-      "command": "npx",
-      "args": ["-y", "lovely-docs", "mcp"]
-    }
-  }
-}
-```
-
-#### HTTP Mode
-
-```bash
-# Start HTTP server
-npx lovely-docs mcp --transport http --port 3000
-
-# With library filtering
-npx lovely-docs mcp --transport http --include-ecosystems svelte
-```
-
-## Commands
-
-### `init`
-
-Initialize lovely-docs in your project.
-
-```bash
-npx lovely-docs init
-npx lovely-docs init -y  # Skip prompts
-npx lovely-docs init --repo https://github.com/xl0/lovely-docs --branch master
-```
-
-### `list`
-
-List available documentation libraries.
-
-```bash
-npx lovely-docs list
-```
-
-### `add <library>`
-
-Add a documentation library to your project.
-
-```bash
-npx lovely-docs add sveltejs_svelte
-```
-
-### `remove <library>`
-
-Remove a documentation library from your project.
-
-```bash
-npx lovely-docs remove sveltejs_svelte
-```
-
-### `mcp`
-
-Run the MCP server.
-
-```bash
-# Stdio mode (default)
-npx lovely-docs mcp
-
-# HTTP mode
-npx lovely-docs mcp --transport http --port 3000
-
-# With filtering
-npx lovely-docs mcp --include-ecosystems svelte webdev
-npx lovely-docs mcp --exclude-libs neverthrow
+# Interactive mode
+npx -y lovely-docs                # Select ecosystems & libraries
 ```
 
 ## Configuration
 
-Configuration is stored in `.lovely-docs.yaml`:
+Stored in `.lovely-docs.yaml`:
 
 ```yaml
-repo: https://github.com/xl0/lovely-docs
-branch: master
+source:
+  type: git
+  repo: https://github.com/xl0/lovely-docs
+  branch: master
+  gitCacheDir: ~/.cache/lovely-docs/git
+installDir: .lovely-docs
+ecosystems:
+  - svelte
+  - webdev
 installed:
   - sveltejs_svelte
   - sveltejs_sveltekit
 ```
 
-## Documentation Structure
+## MCP Server (Optional)
 
-Documentation is installed in `.lovely-docs/` with the following structure:
+For web-based AI services (Claude Chat, etc.) that can't access local files:
 
-```
-.lovely-docs/
-├── sveltejs_svelte.md           # Library digest
-├── sveltejs_svelte.md.fulltext  # Library fulltext
-└── sveltejs_svelte/
-    ├── LLM_MAP.md               # Essence tree (global index)
-    ├── runes.md                 # Section digest
-    ├── runes.md.fulltext        # Section fulltext
-    └── runes/
-        ├── $derived.md          # Page digest
-        └── $derived.md.fulltext # Page fulltext
+```bash
+# Stdio mode
+npx -y lovely-docs mcp
+
+# HTTP mode
+npx -y lovely-docs mcp --transport http --port 3000
 ```
 
-## MCP Server Features
+### MCP Configuration
 
-### Tools
+Add to your MCP client config:
 
-- `listLibraries` - List available documentation libraries
+```json
+{
+	"mcpServers": {
+		"lovely-docs": {
+			"command": "npx",
+			"args": ["-y", "lovely-docs", "mcp"]
+		}
+	}
+}
+```
+
+### MCP Tools
+
+- `listLibraries` - List available libraries
 - `listPages` - Get page tree for a library
-- `getPage` - Retrieve documentation page content
+- `getPage` - Retrieve page content
 
-### Resources
+### MCP Resources
 
-- `lovely-docs://doc-index/{ecosystem}` - List of library names
-- `lovely-docs://doc-index-verbose/{ecosystem}` - Libraries with descriptions
-- `lovely-docs://index/{name}` - Page index for a library
-- `lovely-docs://page/{path}/{level}` - Page content at specific detail level
+- `lovely-docs://doc-index/{ecosystem}?verbose=true`
+- `lovely-docs://index/{library}?verbose=true`
+- `lovely-docs://page/{library}/{path}?level=digest`
 
 ## Environment Variables
 
-- `BETTERSTACK_SOURCE_TOKEN` - BetterStack logging token (HTTP mode only)
-- `BETTERSTACK_ENDPOINT` - BetterStack endpoint (default: `https://in.logs.betterstack.com`)
+- `LOVELY_DOCS_REPO` - Git repository URL
+- `LOVELY_DOCS_BRANCH` - Git branch
+- `LOVELY_DOCS_DOC_DIR` - Direct path to doc_db (skips git)
+- `BETTERSTACK_SOURCE_TOKEN` - Logging token (HTTP mode)
 
 ## License
 
