@@ -45,12 +45,16 @@ export async function getDocPageData(libraryKey: string, pathSegments: string[])
 		clientNode.children[key] = stripMarkdown(child);
 	}
 
+	// Create a stripped version of the full tree for the sidebar
+	const fullTree = stripMarkdown(library.tree);
+
 	// Extract library info (excluding the full tree)
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { tree, ...libraryInfo } = library;
 
 	return {
 		libraryInfo,
-		currentNode: clientNode
+		currentNode: clientNode,
+		fullTree
 	};
 }

@@ -9,6 +9,7 @@
 	import type { Snippet } from 'svelte';
 	import { SquareArrowLeft, User } from '@lucide/svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
 	const { data, children } = $props<{ data: LayoutData; children: Snippet }>();
 
@@ -28,9 +29,9 @@
 	);
 </script>
 
-<div class="mcp-theme min-h-fit bg-background text-foreground font-mono">
-	<div class="w-full px-4 py-8 space-y-2">
-		<header class="border-b border-border pb-4 mb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="mcp-theme bg-background text-foreground min-h-fit font-mono">
+	<div class="w-full space-y-2 px-4 py-8">
+		<header class="border-border mb-4 flex flex-col justify-between gap-4 border-b pb-4 md:flex-row md:items-end">
 			<div class="flex items-center gap-3">
 				<a href={resolve('/')} aria-label="Go back">
 					<Button variant="ghost" size="icon" class="size-8">
@@ -39,7 +40,7 @@
 				</a>
 				<h1 class="text-2xl tracking-widest uppercase">lovely-docs</h1>
 			</div>
-			<div role="tablist" aria-label="MCP data views" class="flex gap-2 items-center">
+			<div role="tablist" aria-label="MCP data views" class="flex items-center gap-2">
 				<a href={resolve('/human')} class="">
 					<Button variant="outline" size="sm">
 						<User size={16} />
@@ -47,12 +48,12 @@
 				</a>
 				<ThemeToggle class="size-8" />
 
-				<div role="tablist" aria-label="MCP data views" class="flex gap-2 items-center">
+				<div role="tablist" aria-label="MCP data views" class="flex items-center gap-2">
 					{#each tabs as tab}
 						<Button
 							variant={mode === tab.id ? 'default' : 'outline'}
 							size="sm"
-							class="uppercase tracking-wide font-mono"
+							class="font-mono tracking-wide uppercase"
 							id={`tab-${tab.id}`}
 							role="tab"
 							aria-selected={mode === tab.id}
@@ -93,4 +94,6 @@
 			<a href={resolve(`/mcp/resources/page-index/${lib.key}`)}>page-index {lib.key}</a>
 		{/each}
 	</div>
+
+	<Footer />
 </div>
