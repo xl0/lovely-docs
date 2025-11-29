@@ -249,7 +249,7 @@ args = ${json(args)}`,
 		if (!env) return { snippet: '', instructions: '' };
 
 		const isWeb = toolId === 'web';
-		const command = `${toolCmd} ${toolArgs} ${PACKAGE_NAME}`.trim();
+		const command = `${toolCmd} ${toolArgs} ${PACKAGE_NAME} mcp`.trim();
 		const cmdParts = command.split(' ');
 		const cmd = cmdParts[0];
 		const args = cmdParts.slice(1);
