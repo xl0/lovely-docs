@@ -1,0 +1,1 @@
+Enable dynamic mode with `.$dynamic()` to invoke query builder methods multiple times; use dialect-specific generic types (PgSelect, MySqlSelect, SQLiteSelect) for functions that enhance queries dynamically.

@@ -1,0 +1,1 @@
+Headless TypeScript ORM with SQL-like and relational query APIs, automatic migrations, full type safety, and zero dependencies for PostgreSQL, MySQL, and SQLite.

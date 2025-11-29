@@ -1,0 +1,1 @@
+Handle foreign key columns during seeding when referenced tables aren't exposed: remove not-null constraint, expose the table, or refine the column generator with specific values.

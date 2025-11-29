@@ -1,0 +1,1 @@
+Landing page for new users with navigation links to getting started resources and setup guides for different databases and environments.

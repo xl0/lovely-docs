@@ -1,0 +1,1 @@
+Setup Drizzle with Xata PostgreSQL: configure connection string, create schema with tables and type inference, generate/apply migrations, perform CRUD operations with examples for insert/select/update/delete queries.

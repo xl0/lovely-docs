@@ -1,0 +1,1 @@
+Step-by-step migration from Prisma to Drizzle: install packages, configure drizzle.config.ts, introspect database, setup connection, replace queries (insert/select/update/delete/transactions with type-safe equivalents).

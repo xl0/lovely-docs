@@ -1,0 +1,1 @@
+v0.30.4 adds native xata-http driver support for Xata Postgres platform; use drizzle-orm/xata-http with @xata.io/client or standard pg/postgres.js drivers

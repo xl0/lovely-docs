@@ -1,0 +1,1 @@
+Set default timestamp values in PostgreSQL/MySQL/SQLite using `defaultNow()`, `sql`now()``, `sql`extract(epoch from now())`` (PG), `sql`(unix_timestamp())`` (MySQL), or `sql`(current_timestamp/unixepoch())`` (SQLite); control application-level handling with `mode` option.

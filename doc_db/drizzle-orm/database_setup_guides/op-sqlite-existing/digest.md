@@ -1,0 +1,1 @@
+This page is a stub that acknowledges the lack of a dedicated guide for integrating OP-SQLite into an existing project. It redirects users to the general OP-SQLite getting started guide, suggesting that the information there covers the necessary setup steps for both new and existing projects.

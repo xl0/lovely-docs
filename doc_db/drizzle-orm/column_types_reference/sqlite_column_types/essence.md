@@ -1,0 +1,1 @@
+SQLite column types: integer/real/text/blob/numeric with modes (boolean, timestamp, json, bigint); customization via .$type<T>(), notNull(), default(), $defaultFn(), $onUpdateFn()

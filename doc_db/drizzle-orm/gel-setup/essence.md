@@ -1,0 +1,1 @@
+Install drizzle-orm and gel, initialize driver with connection string/options/client, execute queries via db.execute().

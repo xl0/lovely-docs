@@ -1,0 +1,1 @@
+**OP-SQLite driver support added** - Initialize with `open({ name: 'myDB' })` and pass to `drizzle()` from `drizzle-orm/op-sqlite`. **Expo driver migration hook fixed.**

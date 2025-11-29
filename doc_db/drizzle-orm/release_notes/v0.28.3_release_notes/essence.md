@@ -1,0 +1,1 @@
+v0.28.3: SQLite query API, column `.$defaultFn()` for runtime defaults, `$inferSelect`/`$inferInsert` table type inference, deprecated `InferModel`, fixed sqlite-proxy/SQL.js `.get()` empty results

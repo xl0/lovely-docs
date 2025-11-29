@@ -1,0 +1,1 @@
+Connect to Prisma Postgres serverless database using node-postgres or postgres.js driver with connection string.

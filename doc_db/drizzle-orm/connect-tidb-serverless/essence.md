@@ -1,0 +1,1 @@
+Connect to TiDB Serverless via HTTP driver: install @tidbcloud/serverless, initialize with drizzle({ connection: { url } }) or pass existing client to drizzle({ client }).

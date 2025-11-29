@@ -1,0 +1,1 @@
+AWS Data API for MySQL is not currently implemented in Drizzle ORM. This page serves as a placeholder indicating that support for this database connection method is not yet available.

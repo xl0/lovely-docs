@@ -1,0 +1,1 @@
+Implement PostgreSQL full-text search using generated tsvector columns with optional weighted search across multiple fields using setweight() and GIN indexes.

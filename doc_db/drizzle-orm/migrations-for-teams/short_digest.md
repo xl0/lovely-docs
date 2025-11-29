@@ -1,0 +1,1 @@
+Placeholder for upcoming documentation on team migrations. Updates coming with next version release. See GitHub discussion #2832 for current details.

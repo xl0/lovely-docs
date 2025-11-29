@@ -1,0 +1,1 @@
+Integrate Drizzle ORM with Turso Cloud SQLite in existing project: install @libsql/client, configure credentials in .env, create drizzle.config.ts with turso dialect, introspect existing database, initialize connection with drizzle({ connection: { url, authToken } }) or drizzle({ client }), query with db instance.

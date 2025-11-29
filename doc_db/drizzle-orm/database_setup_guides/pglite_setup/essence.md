@@ -1,0 +1,1 @@
+Step-by-step setup for Drizzle ORM with PGlite: install @electric-sql/pglite, configure DATABASE_URL, connect Drizzle, define schema, setup drizzle.config.ts with PostgreSQL dialect, apply migrations, seed/query, run with tsx.

@@ -1,0 +1,1 @@
+Tutorial for using Drizzle ORM with Netlify Edge Functions and Neon Postgres: setup import maps and netlify.toml, define schema, configure drizzle.config.ts, connect via neon-http client in Edge Functions using Netlify.env.get("DATABASE_URL"), test locally with netlify dev, deploy with netlify deploy --prod.

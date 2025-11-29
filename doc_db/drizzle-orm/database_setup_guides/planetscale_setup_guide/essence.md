@@ -1,0 +1,1 @@
+Step-by-step setup for Drizzle ORM with PlanetScale using HTTP-based database-js driver: install @planetscale/database, configure .env with credentials, connect Drizzle, define schema, setup config with MySQL dialect, apply migrations, seed/query data.

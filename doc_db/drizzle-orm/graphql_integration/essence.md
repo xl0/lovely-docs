@@ -1,0 +1,1 @@
+Auto-generate GraphQL server from Drizzle schema with buildSchema(), customize via entities object containing queries, mutations, types, and inputs.

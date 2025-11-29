@@ -1,0 +1,1 @@
+Define TypeScript database schemas with dialect-specific table functions, organize in single or multiple files, use column aliases or casing option for name mapping, reuse common columns, and leverage PostgreSQL schemas.

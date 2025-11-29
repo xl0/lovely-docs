@@ -1,0 +1,1 @@
+Complete Next.js todo app with Drizzle ORM, Neon Postgres, server actions, and client components for CRUD operations with inline editing.

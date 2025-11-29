@@ -1,0 +1,1 @@
+The page documents type limitations for the third parameter in seeding operations. This is a technical constraint that developers need to be aware of when implementing database seeding functionality. The specific limitations affect how the third parameter can be typed and used in seed functions, which may impact the design of seed scripts and data initialization routines.

@@ -1,0 +1,1 @@
+DrizzleORM v0.31.4 release marks the prisma clients package as optional, reducing unnecessary dependencies for users who don't use Prisma integration.

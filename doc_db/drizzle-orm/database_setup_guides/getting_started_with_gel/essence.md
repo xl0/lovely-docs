@@ -1,0 +1,1 @@
+Initialize Gel project with schema, install drizzle-orm and drizzle-kit, configure dialect, pull schema types, connect with createClient(), perform CRUD operations.

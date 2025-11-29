@@ -1,0 +1,1 @@
+v0.31.2: TiDB Cloud Serverless driver support via @tidbcloud/serverless and drizzle-orm/tidb-serverless

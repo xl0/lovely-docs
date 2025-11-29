@@ -1,0 +1,1 @@
+All MySQL column types with configuration options: integers (int, bigint with mode/unsigned), floats (real, decimal, double, float), strings (char, varchar, text with enum), binary types, date/time (datetime, timestamp with fsp), json with .$type<T>(), and modifiers (.notNull(), .default(), .$defaultFn(), .$onUpdateFn(), .primaryKey(), .autoincrement())

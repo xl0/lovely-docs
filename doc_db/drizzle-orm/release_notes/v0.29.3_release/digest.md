@@ -1,0 +1,1 @@
+DrizzleORM v0.29.3 fixes expo peer dependencies by making them optional. This resolves issues where expo was being treated as a required dependency. The fix is relevant for projects using Expo SQLite with Drizzle, allowing the library to work properly in Expo environments without forcing expo as a hard dependency.

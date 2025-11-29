@@ -1,0 +1,1 @@
+v0.30.3: raw query batching for Neon HTTP, fixed serverless types and sqlite-proxy .run() result

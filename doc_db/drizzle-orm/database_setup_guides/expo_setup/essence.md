@@ -1,0 +1,1 @@
+Step-by-step guide to integrate Drizzle ORM with Expo SQLite: project setup, database connection, schema definition, configuration files (drizzle, metro, babel), migration generation, CRUD operations with useMigrations hook, and running the app.

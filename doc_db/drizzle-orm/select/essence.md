@@ -1,0 +1,1 @@
+Type-safe SQL SELECT with column selection, filtering, pagination, CTEs, subqueries, aggregations, and MySQL index hints.

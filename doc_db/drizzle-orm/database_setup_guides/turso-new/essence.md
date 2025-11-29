@@ -1,0 +1,1 @@
+Setup Drizzle with Turso/LibSQL: install @libsql/client, set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN env vars, initialize drizzle({ connection: { url, authToken } }) or drizzle({ client }), configure drizzle.config.ts with dialect 'turso'.

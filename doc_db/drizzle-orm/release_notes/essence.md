@@ -1,0 +1,1 @@
+Comprehensive release notes tracking DrizzleORM evolution from v0.11.0 through v0.32.2, covering query performance improvements, new database drivers, schema features, and bug fixes.

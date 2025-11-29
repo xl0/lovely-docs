@@ -1,0 +1,1 @@
+Integrate Drizzle ORM into existing MySQL project: install mysql2, set DATABASE_URL env var, configure drizzle.config.ts, introspect database, transfer schema, connect with mysql2 driver, query with Drizzle, run with tsx, optionally update schema and apply migrations.

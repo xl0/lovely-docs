@@ -1,0 +1,1 @@
+Toggle boolean columns with update().set() and not() operator across PostgreSQL, MySQL, SQLite.

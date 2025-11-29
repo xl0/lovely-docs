@@ -1,0 +1,1 @@
+Type inference helpers, logging configuration, multi-project schema namespacing, SQL query inspection, raw SQL execution, standalone query builder, table introspection utilities, type-safe instanceof alternative, and mock driver for testing.

@@ -1,0 +1,1 @@
+WITH clauses for INSERT/UPDATE/DELETE, custom migrations table/schema configuration, SQLite proxy batch and relational query support

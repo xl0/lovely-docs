@@ -1,0 +1,1 @@
+Setup Drizzle with SQLite Cloud in existing project: install packages, set connection string env var, configure drizzle.config.ts, introspect database, then use drizzle() to insert/select/update/delete records.

@@ -1,0 +1,1 @@
+Navigation/index page for guides section; renders Guides component

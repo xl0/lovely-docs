@@ -1,0 +1,1 @@
+Step-by-step setup for Drizzle ORM with Neon serverless Postgres: install @neondatabase/serverless, configure DATABASE_URL, connect driver, define schema, setup drizzle.config.ts with postgresql dialect, apply migrations, seed/query, run with tsx.

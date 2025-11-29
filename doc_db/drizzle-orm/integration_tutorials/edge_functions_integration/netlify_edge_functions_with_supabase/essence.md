@@ -1,0 +1,1 @@
+Using Drizzle ORM with Netlify Edge Functions and Supabase: configure import_map.json for ESM imports, define PostgreSQL schema, use postgres client with Netlify.env.get() for DATABASE_URL, deploy with netlify CLI.

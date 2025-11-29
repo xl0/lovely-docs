@@ -1,0 +1,1 @@
+Select all/specific/extra columns or exclude columns using `.select()` with `getTableColumns()`, or use relational queries with `columns`/`extras`/`with` options; supports conditional selection via spread operator.

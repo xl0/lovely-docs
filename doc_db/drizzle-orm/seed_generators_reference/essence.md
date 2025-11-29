@@ -1,0 +1,1 @@
+30+ generator functions for test data: numeric (int, number), temporal (date, time, timestamp, datetime, year, interval), person (name, email, phone), location (country, city, address, state, postcode), business (job, company, lorem), data (json, string, uuid), geometric (point, line); most support isUnique and arraySize parameters.

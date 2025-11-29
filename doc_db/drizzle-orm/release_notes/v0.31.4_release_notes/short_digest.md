@@ -1,0 +1,1 @@
+v0.31.4 marks prisma clients package as optional dependency.

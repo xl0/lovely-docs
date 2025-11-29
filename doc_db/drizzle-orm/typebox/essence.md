@@ -1,0 +1,1 @@
+Plugin generating Typebox validation schemas from Drizzle ORM table/view/enum definitions; supports select/insert/update schemas with field refinements and factory functions for extended Typebox instances; comprehensive type mappings for all database column types.

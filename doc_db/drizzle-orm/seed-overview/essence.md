@@ -1,0 +1,1 @@
+Deterministic fake data generation with seedable pRNG, database reset strategies, column/entity refinements, and weighted random distributions for realistic test data.

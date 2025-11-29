@@ -1,0 +1,1 @@
+v0.29.1 adds aggregate function helpers (count, avg, sum, max, min with distinct variants), enhanced JSDoc for all query builders, fixes withReplica and selectDistinctOn, and introduces eslint-plugin-drizzle with enforce-delete-with-where and enforce-update-with-where rules.

@@ -1,0 +1,1 @@
+Drizzle Kit data seeding functionality is currently under development. This documentation page is a placeholder indicating that the `drizzle-seed` package will be released in the future to provide data seeding capabilities for Drizzle ORM projects. The actual implementation details, API, and usage examples are not yet available.

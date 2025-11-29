@@ -1,0 +1,1 @@
+Create unique case-insensitive email indexes using lower() function in uniqueIndex() for PostgreSQL/MySQL/SQLite; query with eq(lower(column), value.toLowerCase())

@@ -1,0 +1,1 @@
+Prisma extension adding Drizzle query builder to Prisma client; install drizzle-orm and drizzle-prisma-generator, add generator to schema, run prisma generate, extend client with $extends(drizzle()), use via prisma.$drizzle; limitations: no relational queries, SQLite .values() unsupported, prepared statements limited.

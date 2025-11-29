@@ -1,0 +1,1 @@
+v0.29.0 adds MySQL unsigned bigint, strict query builder types with dynamic mode, custom constraint names, read replicas, set operators (UNION/INTERSECT/EXCEPT), MySQL/PostgreSQL proxy drivers, and D1 Batch API support; requires Kit 0.20.0.

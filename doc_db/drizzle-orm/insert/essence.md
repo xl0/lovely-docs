@@ -1,0 +1,1 @@
+INSERT operations: single/multiple rows, RETURNING (PostgreSQL/SQLite), $returningId (MySQL/SingleStore), ON CONFLICT DO NOTHING/UPDATE with targetWhere/setWhere, ON DUPLICATE KEY UPDATE, WITH clauses, INSERT ... SELECT.

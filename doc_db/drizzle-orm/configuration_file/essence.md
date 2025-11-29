@@ -1,0 +1,1 @@
+TypeScript/JavaScript config file for Drizzle Kit with dialect, schema paths, database credentials, filtering, migrations, introspection, role management, and command behavior options.

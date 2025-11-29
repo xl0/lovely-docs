@@ -1,0 +1,1 @@
+Step-by-step setup for MySQL with Drizzle: install mysql2, configure DATABASE_URL, connect via drizzle-orm/mysql2, define schema, create config with dialect='mysql', migrate, seed/query, run.

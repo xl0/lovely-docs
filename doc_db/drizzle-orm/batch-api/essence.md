@@ -1,0 +1,1 @@
+Batch API executes multiple SQL statements in single call with implicit transaction (all-or-nothing); supports LibSQL, Neon, D1; returns tuple of results; all query builders supported.

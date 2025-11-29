@@ -1,0 +1,1 @@
+Step-by-step integration of Drizzle ORM with PGLite driver for existing projects: install @electric-sql/pglite, configure DATABASE_URL and drizzle.config.ts, introspect existing database, connect via PGLite driver, query with Drizzle ORM, optionally update schema and apply migrations.

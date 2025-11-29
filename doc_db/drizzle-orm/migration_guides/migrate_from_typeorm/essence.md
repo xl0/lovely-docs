@@ -1,0 +1,1 @@
+Step-by-step migration from TypeORM to Drizzle with introspection, schema setup, relational definitions, and query pattern replacements (insert/select/update/delete/transactions) with type-safety guarantees and aggregation support via sql templates.

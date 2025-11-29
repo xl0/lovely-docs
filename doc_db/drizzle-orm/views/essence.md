@@ -1,0 +1,1 @@
+Declare views via inline/standalone query builders (auto-inferred schema) or raw SQL (explicit schema); use `.existing()` for read-only views; PostgreSQL supports materialized views with refresh operations and advanced configuration options.

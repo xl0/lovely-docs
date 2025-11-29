@@ -1,0 +1,1 @@
+SQL constraints (DEFAULT, NOT NULL, UNIQUE, CHECK, PRIMARY KEY, FOREIGN KEY) and indexes (index, uniqueIndex) with database-specific options and advanced parameters for PostgreSQL, MySQL, SQLite, SingleStore.

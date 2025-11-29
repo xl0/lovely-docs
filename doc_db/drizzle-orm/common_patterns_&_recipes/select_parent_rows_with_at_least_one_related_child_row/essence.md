@@ -1,0 +1,1 @@
+Two methods to filter parent rows by existence of related children: innerJoin() returns both parent and child data with parent repetition; exists() subquery returns parent rows only, each appearing once.

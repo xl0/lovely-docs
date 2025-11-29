@@ -1,0 +1,1 @@
+To use Drizzle ORM with React Native, use Expo SQLite. The popular react-native-sqlite-storage library does not support the Hermes JavaScript runtime, which is now the standard runtime for React Native and Expo by default. Expo SQLite is the recommended solution for React Native SQLite integration with Drizzle ORM.

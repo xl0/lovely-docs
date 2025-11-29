@@ -1,0 +1,1 @@
+v0.29.4 adds Neon HTTP batch queries and deprecates PlanetScale connect() in favor of Client instance (breaking in v0.30.0).

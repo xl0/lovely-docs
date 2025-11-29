@@ -1,0 +1,1 @@
+Integrate Drizzle ORM into existing PostgreSQL project: install pg/@types/pg, set DATABASE_URL, configure drizzle.config.ts, introspect existing database, transfer schema, connect driver, query database.

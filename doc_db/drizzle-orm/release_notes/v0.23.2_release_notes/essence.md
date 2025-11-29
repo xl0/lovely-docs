@@ -1,0 +1,1 @@
+v0.23.2 fixes PostgreSQL schemaFilter enum detection bug and drizzle-kit up command

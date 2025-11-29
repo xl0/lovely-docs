@@ -1,0 +1,1 @@
+Configure Drizzle ORM with edge-compatible drivers (Neon, Vercel Postgres, PlanetScale, Turso) for Vercel Edge Functions; set schema, config, migrations, and API routes with `export const runtime = 'edge'`.

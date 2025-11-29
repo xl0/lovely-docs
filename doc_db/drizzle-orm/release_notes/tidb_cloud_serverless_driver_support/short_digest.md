@@ -1,0 +1,1 @@
+TiDB Cloud Serverless driver support added in v0.31.2. Import connect from @tidbcloud/serverless and drizzle from drizzle-orm/tidb-serverless, then initialize with `const db = drizzle(connect({ url: '...' }))` to execute queries.

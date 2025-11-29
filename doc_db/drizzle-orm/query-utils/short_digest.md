@@ -1,0 +1,1 @@
+Query utility functions including `$count` for counting query results.

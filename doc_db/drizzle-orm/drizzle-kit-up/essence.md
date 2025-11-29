@@ -1,0 +1,1 @@
+Command to upgrade schema snapshots to newer versions; requires dialect and database credentials via config or CLI flags.

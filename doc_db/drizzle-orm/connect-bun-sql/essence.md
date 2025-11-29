@@ -1,0 +1,1 @@
+Setup Drizzle with Bun SQL for PostgreSQL: install packages, import from 'drizzle-orm/bun-sql', initialize with DATABASE_URL or existing SQL client instance.

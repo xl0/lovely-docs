@@ -1,0 +1,1 @@
+Typed relational query API generating single SQL statements with lateral joins; supports nested relations, partial field selection, filtering, ordering, limit/offset, computed fields via extras, and prepared statements with placeholders.

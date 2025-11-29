@@ -1,0 +1,1 @@
+Configure `drizzle.config.ts` with `driver: 'd1-http'` and provide `accountId`, `databaseId`, and `token` from Cloudflare dashboard. Requires Drizzle Kit 0.21.3+. Supports migrate, push, introspect, and studio commands. Optional: use Drizzle Chrome Extension for browser-based database browsing.

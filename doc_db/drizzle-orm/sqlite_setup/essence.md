@@ -1,0 +1,1 @@
+Setup SQLite with libsql (local/Turso, more features) or better-sqlite3 (standard); install driver packages, import from drizzle-orm/[driver], initialize with URL or client instance.

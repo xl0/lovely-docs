@@ -1,0 +1,1 @@
+**v0.28.5:** Fixed runtime error caused by incorrect OpenTelemetry type import syntax. Used `import { type ... }` instead of `import type { ... }`, causing the OpenTelemetry import to leak into runtime. OpenTelemetry feature is currently disabled and non-functional.

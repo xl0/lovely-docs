@@ -1,0 +1,1 @@
+Migrations for web and mobile environments are under development. For Expo SQLite, OP SQLite, and React Native migrations, see the Expo Get Started guide.

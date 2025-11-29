@@ -1,0 +1,1 @@
+v0.32.0 adds MySQL $returningId(), PostgreSQL sequences/identity columns, and generated columns (PostgreSQL/MySQL/SQLite) with Drizzle Kit migrations support and configurable migration file prefixes.

@@ -1,0 +1,1 @@
+SingleStore setup with mysql2 driver: install packages, initialize with `drizzle(url)` or pass existing connection, supports client/pool; limitations include no foreign keys, no nested transactions, no relational API, incomplete MySQL compatibility.

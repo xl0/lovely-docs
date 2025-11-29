@@ -1,0 +1,1 @@
+Upsert with `.onConflictDoUpdate()` (PostgreSQL/SQLite, use `excluded` for proposed values) or `.onDuplicateKeyUpdate()` (MySQL, use `values()` function); support composite keys, conditional updates via `setWhere`, and column exclusion.

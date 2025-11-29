@@ -1,0 +1,1 @@
+Implement semantic search in PostgreSQL using pgvector extension: create vector column with HNSW index, generate embeddings via OpenAI, query similar records with cosineDistance function.

@@ -1,0 +1,1 @@
+Connect to Xata PostgreSQL database using postgres driver; install drizzle-orm and postgres, initialize with DATABASE_URL or existing postgres client.

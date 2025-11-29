@@ -1,0 +1,1 @@
+Complete setup guide for Vercel Postgres: connection initialization, schema definition with foreign keys and timestamps, migration generation/execution, and CRUD query examples with joins and pagination.

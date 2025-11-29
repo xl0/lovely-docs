@@ -1,0 +1,1 @@
+v0.28.4 fixes ESM imports and Postgres table type errors; @opentelemetry/api issue resolved in v0.28.5

@@ -1,0 +1,1 @@
+Applies generated SQL migrations to database; reads migration files, checks migration log table, runs unapplied migrations; configure via drizzle.config.ts or CLI flags; tracks applied migrations in __drizzle_migrations table; supports multiple config files per project.

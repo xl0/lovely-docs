@@ -1,0 +1,1 @@
+PostgreSQL `point` datatype stores (x, y) coordinates. Define with `point('location', { mode: 'xy' })`. Insert via object `{ x, y }`, tuple `[x, y]`, or raw SQL. Use `<->` operator for distance queries and `<@` for boundary filtering within a box.

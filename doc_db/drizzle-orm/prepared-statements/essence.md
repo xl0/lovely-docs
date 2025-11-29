@@ -1,0 +1,1 @@
+Prepared statements API for query performance optimization: concatenate SQL once, reuse precompiled binary; use `.prepare()` with optional statement name (PostgreSQL), execute with `.execute()` (PostgreSQL/MySQL/SingleStore) or `.all()/.get()` (SQLite), embed dynamic values with `sql.placeholder(name)`.

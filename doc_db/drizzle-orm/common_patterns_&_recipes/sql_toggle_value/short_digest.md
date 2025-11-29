@@ -1,0 +1,1 @@
+Toggle a boolean column using `update().set({ field: not(table.field) })` with the `not()` operator. Works on PostgreSQL, MySQL, and SQLite.

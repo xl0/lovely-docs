@@ -1,0 +1,1 @@
+**v0.28.1** - Patch release fixing Postgres array issues introduced in 0.28.0 (#983, #992)

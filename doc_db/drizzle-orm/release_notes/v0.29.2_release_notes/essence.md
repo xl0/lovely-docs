@@ -1,0 +1,1 @@
+v0.29.2 release: bug fixes for PgArray, SQLite exists, AWS Data API dates; ESLint plugin v0.2.3 with function support; new Expo SQLite driver with migration support via babel/metro config and useMigrations hook.

@@ -1,0 +1,1 @@
+Integrate Drizzle ORM into existing SQLite project: install @libsql/client, set DB_FILE_NAME env var with file: prefix, configure Drizzle dialect, introspect database, transfer schema, connect via LibSQL, query with ORM.

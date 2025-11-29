@@ -1,0 +1,1 @@
+drizzle-seed versioning maintains deterministic outputs while allowing generator improvements; v2 fixes unique interval normalization and improves string generation for length-constrained columns.

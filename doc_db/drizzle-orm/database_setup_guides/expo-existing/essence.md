@@ -1,0 +1,1 @@
+No dedicated guide for Expo existing projects; refer to the general Expo getting started guide.

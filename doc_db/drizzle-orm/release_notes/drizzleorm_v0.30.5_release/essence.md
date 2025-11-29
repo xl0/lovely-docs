@@ -1,0 +1,1 @@
+v0.30.5: Added $onUpdate() for dynamic column values on updates (PostgreSQL/MySQL/SQLite); fixed smallserial insertion optionality

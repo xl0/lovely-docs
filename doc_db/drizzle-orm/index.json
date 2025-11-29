@@ -1,0 +1,3615 @@
+{
+  "map": {
+    "origPath": ".",
+    "displayName": "",
+    "relevant": true,
+    "usage": {
+      "input": 85847,
+      "output": 1987,
+      "details": null
+    },
+    "token_counts": {
+      "fulltext": 83724,
+      "digest": 1255,
+      "short_digest": 602
+    },
+    "children": {
+      "column_types_reference": {
+        "origPath": "column-types",
+        "displayName": "Column Types Reference",
+        "relevant": true,
+        "usage": {
+          "input": 6296,
+          "output": 1323,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5182,
+          "digest": 960,
+          "short_digest": 251
+        },
+        "children": {
+          "mysql_column_types": {
+            "origPath": "column-types/mysql.mdx",
+            "displayName": "MySQL column types",
+            "relevant": true,
+            "usage": {
+              "input": 5702,
+              "output": 1617,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 4534,
+              "digest": 1172,
+              "short_digest": 261
+            },
+            "children": {}
+          },
+          "postgresql_column_types": {
+            "origPath": "column-types/pg.mdx",
+            "displayName": "PostgreSQL column types",
+            "relevant": true,
+            "usage": {
+              "input": 8849,
+              "output": 2678,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 7681,
+              "digest": 1962,
+              "short_digest": 515
+            },
+            "children": {}
+          },
+          "singlestore_column_types": {
+            "origPath": "column-types/singlestore.mdx",
+            "displayName": "SingleStore column types",
+            "relevant": true,
+            "usage": {
+              "input": 5495,
+              "output": 1407,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 4325,
+              "digest": 855,
+              "short_digest": 360
+            },
+            "children": {}
+          },
+          "sqlite_column_types": {
+            "origPath": "column-types/sqlite.mdx",
+            "displayName": "SQLite column types",
+            "relevant": true,
+            "usage": {
+              "input": 3932,
+              "output": 1282,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2764,
+              "digest": 811,
+              "short_digest": 329
+            },
+            "children": {}
+          }
+        }
+      },
+      "postgresql_extensions": {
+        "origPath": "extensions/pg.mdx",
+        "displayName": "PostgreSQL extensions",
+        "relevant": true,
+        "usage": {
+          "input": 3323,
+          "output": 1490,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2159,
+          "digest": 1053,
+          "short_digest": 317
+        },
+        "children": {}
+      },
+      "database_setup_guides": {
+        "origPath": "get-started",
+        "displayName": "Database Setup Guides",
+        "relevant": true,
+        "usage": {
+          "input": 22900,
+          "output": 2201,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 21378,
+          "digest": 1569,
+          "short_digest": 495
+        },
+        "children": {
+          "bun-sql-existing": {
+            "origPath": "get-started/bun-sql-existing.mdx",
+            "displayName": "bun-sql-existing",
+            "relevant": true,
+            "usage": {
+              "input": 2132,
+              "output": 839,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 959,
+              "digest": 447,
+              "short_digest": 204
+            },
+            "children": {}
+          },
+          "getting_started_with_bun:sqlite": {
+            "origPath": "get-started/bun-sql-new.mdx",
+            "displayName": "Getting Started with Bun:SQLite",
+            "relevant": true,
+            "usage": {
+              "input": 1981,
+              "output": 533,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 808,
+              "digest": 253,
+              "short_digest": 134
+            },
+            "children": {}
+          },
+          "bun-sqlite-existing": {
+            "origPath": "get-started/bun-sqlite-existing.mdx",
+            "displayName": "bun-sqlite-existing",
+            "relevant": true,
+            "usage": {
+              "input": 2132,
+              "output": 597,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 959,
+              "digest": 297,
+              "short_digest": 160
+            },
+            "children": {}
+          },
+          "bun_sqlite_setup": {
+            "origPath": "get-started/bun-sqlite-new.mdx",
+            "displayName": "Bun SQLite Setup",
+            "relevant": true,
+            "usage": {
+              "input": 1955,
+              "output": 500,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 782,
+              "digest": 258,
+              "short_digest": 89
+            },
+            "children": {}
+          },
+          "d1_setup_guide": {
+            "origPath": "get-started/d1-new.mdx",
+            "displayName": "D1 Setup Guide",
+            "relevant": true,
+            "usage": {
+              "input": 2446,
+              "output": 1017,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1275,
+              "digest": 692,
+              "short_digest": 150
+            },
+            "children": {}
+          },
+          "sqlite_durable_objects_setup": {
+            "origPath": "get-started/do-new.mdx",
+            "displayName": "SQLite Durable Objects Setup",
+            "relevant": true,
+            "usage": {
+              "input": 3689,
+              "output": 1781,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2519,
+              "digest": 1256,
+              "short_digest": 356
+            },
+            "children": {}
+          },
+          "expo-existing": {
+            "origPath": "get-started/expo-existing.mdx",
+            "displayName": "expo-existing",
+            "relevant": false,
+            "usage": {
+              "input": 1267,
+              "output": 214,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 97,
+              "digest": 75,
+              "short_digest": 33
+            },
+            "children": {}
+          },
+          "expo_setup": {
+            "origPath": "get-started/expo-new.mdx",
+            "displayName": "Expo Setup",
+            "relevant": true,
+            "usage": {
+              "input": 3304,
+              "output": 1584,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2134,
+              "digest": 1174,
+              "short_digest": 263
+            },
+            "children": {}
+          },
+          "gel_in_existing_project": {
+            "origPath": "get-started/gel-existing.mdx",
+            "displayName": "Gel in Existing Project",
+            "relevant": true,
+            "usage": {
+              "input": 2702,
+              "output": 1010,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1532,
+              "digest": 728,
+              "short_digest": 147
+            },
+            "children": {}
+          },
+          "getting_started_with_gel": {
+            "origPath": "get-started/gel-new.mdx",
+            "displayName": "Getting Started with Gel",
+            "relevant": true,
+            "usage": {
+              "input": 2947,
+              "output": 1113,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1777,
+              "digest": 715,
+              "short_digest": 270
+            },
+            "children": {}
+          },
+          "mysql_existing_project_setup": {
+            "origPath": "get-started/mysql-existing.mdx",
+            "displayName": "MySQL Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 1975,
+              "output": 609,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 805,
+              "digest": 344,
+              "short_digest": 107
+            },
+            "children": {}
+          },
+          "mysql_setup": {
+            "origPath": "get-started/mysql-new.mdx",
+            "displayName": "MySQL Setup",
+            "relevant": true,
+            "usage": {
+              "input": 1974,
+              "output": 559,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 804,
+              "digest": 306,
+              "short_digest": 115
+            },
+            "children": {}
+          },
+          "neon-existing": {
+            "origPath": "get-started/neon-existing.mdx",
+            "displayName": "neon-existing",
+            "relevant": true,
+            "usage": {
+              "input": 2004,
+              "output": 699,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 833,
+              "digest": 417,
+              "short_digest": 143
+            },
+            "children": {}
+          },
+          "getting_started_with_neon": {
+            "origPath": "get-started/neon-new.mdx",
+            "displayName": "Getting Started with Neon",
+            "relevant": true,
+            "usage": {
+              "input": 2012,
+              "output": 609,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 841,
+              "digest": 328,
+              "short_digest": 126
+            },
+            "children": {}
+          },
+          "nile_existing_project_setup": {
+            "origPath": "get-started/nile-existing.mdx",
+            "displayName": "Nile Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2916,
+              "output": 799,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1745,
+              "digest": 529,
+              "short_digest": 124
+            },
+            "children": {}
+          },
+          "getting_started_with_nile": {
+            "origPath": "get-started/nile-new.mdx",
+            "displayName": "Getting Started with Nile",
+            "relevant": true,
+            "usage": {
+              "input": 2150,
+              "output": 1081,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 979,
+              "digest": 610,
+              "short_digest": 326
+            },
+            "children": {}
+          },
+          "op-sqlite-existing": {
+            "origPath": "get-started/op-sqlite-existing.mdx",
+            "displayName": "op-sqlite-existing",
+            "relevant": false,
+            "usage": {
+              "input": 1277,
+              "output": 205,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 105,
+              "digest": 67,
+              "short_digest": 28
+            },
+            "children": {}
+          },
+          "op-sqlite_setup_guide": {
+            "origPath": "get-started/op-sqlite-new.mdx",
+            "displayName": "OP-SQLite Setup Guide",
+            "relevant": true,
+            "usage": {
+              "input": 3296,
+              "output": 1680,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2124,
+              "digest": 1288,
+              "short_digest": 242
+            },
+            "children": {}
+          },
+          "pglite-existing": {
+            "origPath": "get-started/pglite-existing.mdx",
+            "displayName": "pglite-existing",
+            "relevant": true,
+            "usage": {
+              "input": 2034,
+              "output": 725,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 862,
+              "digest": 430,
+              "short_digest": 128
+            },
+            "children": {}
+          },
+          "pglite_setup": {
+            "origPath": "get-started/pglite-new.mdx",
+            "displayName": "PGlite Setup",
+            "relevant": true,
+            "usage": {
+              "input": 1868,
+              "output": 536,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 696,
+              "digest": 304,
+              "short_digest": 76
+            },
+            "children": {}
+          },
+          "planetscale_existing_project_setup": {
+            "origPath": "get-started/planetscale-existing.mdx",
+            "displayName": "PlanetScale Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2444,
+              "output": 1015,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1272,
+              "digest": 651,
+              "short_digest": 219
+            },
+            "children": {}
+          },
+          "planetscale_setup_guide": {
+            "origPath": "get-started/planetscale-new.mdx",
+            "displayName": "PlanetScale Setup Guide",
+            "relevant": true,
+            "usage": {
+              "input": 2022,
+              "output": 610,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 850,
+              "digest": 355,
+              "short_digest": 100
+            },
+            "children": {}
+          },
+          "postgresql_existing_project_setup": {
+            "origPath": "get-started/postgresql-existing.mdx",
+            "displayName": "PostgreSQL Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2094,
+              "output": 570,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 924,
+              "digest": 349,
+              "short_digest": 81
+            },
+            "children": {}
+          },
+          "postgresql_new_project_setup": {
+            "origPath": "get-started/postgresql-new.mdx",
+            "displayName": "PostgreSQL New Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2000,
+              "output": 656,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 830,
+              "digest": 370,
+              "short_digest": 137
+            },
+            "children": {}
+          },
+          "singlestore-existing-project": {
+            "origPath": "get-started/singlestore-existing.mdx",
+            "displayName": "singlestore-existing-project",
+            "relevant": true,
+            "usage": {
+              "input": 1974,
+              "output": 631,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 802,
+              "digest": 353,
+              "short_digest": 132
+            },
+            "children": {}
+          },
+          "singlestore_setup": {
+            "origPath": "get-started/singlestore-new.mdx",
+            "displayName": "SingleStore Setup",
+            "relevant": true,
+            "usage": {
+              "input": 1916,
+              "output": 650,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 744,
+              "digest": 400,
+              "short_digest": 95
+            },
+            "children": {}
+          },
+          "sqlite_cloud_existing_project_setup": {
+            "origPath": "get-started/sqlite-cloud-existing.mdx",
+            "displayName": "SQLite Cloud Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2706,
+              "output": 911,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1534,
+              "digest": 518,
+              "short_digest": 250
+            },
+            "children": {}
+          },
+          "sqlite_cloud_setup": {
+            "origPath": "get-started/sqlite-cloud-new.mdx",
+            "displayName": "SQLite Cloud Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2221,
+              "output": 726,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1049,
+              "digest": 357,
+              "short_digest": 236
+            },
+            "children": {}
+          },
+          "sqlite-existing-project": {
+            "origPath": "get-started/sqlite-existing.mdx",
+            "displayName": "sqlite-existing-project",
+            "relevant": true,
+            "usage": {
+              "input": 2123,
+              "output": 703,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 953,
+              "digest": 410,
+              "short_digest": 143
+            },
+            "children": {}
+          },
+          "sqlite_new_project_setup": {
+            "origPath": "get-started/sqlite-new.mdx",
+            "displayName": "SQLite New Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2075,
+              "output": 612,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 905,
+              "digest": 341,
+              "short_digest": 118
+            },
+            "children": {}
+          },
+          "supabase-existing": {
+            "origPath": "get-started/supabase-existing.mdx",
+            "displayName": "supabase-existing",
+            "relevant": true,
+            "usage": {
+              "input": 1992,
+              "output": 665,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 820,
+              "digest": 409,
+              "short_digest": 109
+            },
+            "children": {}
+          },
+          "supabase_setup": {
+            "origPath": "get-started/supabase-new.mdx",
+            "displayName": "Supabase Setup",
+            "relevant": false,
+            "usage": {
+              "input": 1826,
+              "output": 502,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 654,
+              "digest": 296,
+              "short_digest": 70
+            },
+            "children": {}
+          },
+          "tidb_existing_project_setup": {
+            "origPath": "get-started/tidb-existing.mdx",
+            "displayName": "TiDB Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2038,
+              "output": 638,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 867,
+              "digest": 400,
+              "short_digest": 80
+            },
+            "children": {}
+          },
+          "tidb_setup_guide": {
+            "origPath": "get-started/tidb-new.mdx",
+            "displayName": "TiDB Setup Guide",
+            "relevant": true,
+            "usage": {
+              "input": 1931,
+              "output": 548,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 760,
+              "digest": 319,
+              "short_digest": 86
+            },
+            "children": {}
+          },
+          "turso_database_existing_project_setup": {
+            "origPath": "get-started/turso-database-existing.mdx",
+            "displayName": "Turso Database Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2768,
+              "output": 963,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1595,
+              "digest": 528,
+              "short_digest": 276
+            },
+            "children": {}
+          },
+          "getting_started_with_turso_database": {
+            "origPath": "get-started/turso-database-new.mdx",
+            "displayName": "Getting Started with Turso Database",
+            "relevant": true,
+            "usage": {
+              "input": 2280,
+              "output": 671,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1107,
+              "digest": 409,
+              "short_digest": 129
+            },
+            "children": {}
+          },
+          "turso-existing": {
+            "origPath": "get-started/turso-existing.mdx",
+            "displayName": "turso-existing",
+            "relevant": true,
+            "usage": {
+              "input": 2659,
+              "output": 1209,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1488,
+              "digest": 655,
+              "short_digest": 384
+            },
+            "children": {}
+          },
+          "turso-new": {
+            "origPath": "get-started/turso-new.mdx",
+            "displayName": "turso-new",
+            "relevant": true,
+            "usage": {
+              "input": 2504,
+              "output": 1007,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1333,
+              "digest": 621,
+              "short_digest": 219
+            },
+            "children": {}
+          },
+          "vercel_postgres_existing_project_setup": {
+            "origPath": "get-started/vercel-existing.mdx",
+            "displayName": "Vercel Postgres Existing Project Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2745,
+              "output": 739,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1574,
+              "digest": 409,
+              "short_digest": 176
+            },
+            "children": {}
+          },
+          "vercel_postgres_setup": {
+            "origPath": "get-started/vercel-new.mdx",
+            "displayName": "Vercel Postgres Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2259,
+              "output": 706,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1088,
+              "digest": 362,
+              "short_digest": 182
+            },
+            "children": {}
+          },
+          "xata-existing": {
+            "origPath": "get-started/xata-existing.mdx",
+            "displayName": "xata-existing",
+            "relevant": true,
+            "usage": {
+              "input": 2014,
+              "output": 602,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 843,
+              "digest": 344,
+              "short_digest": 109
+            },
+            "children": {}
+          },
+          "getting_started_with_xata": {
+            "origPath": "get-started/xata-new.mdx",
+            "displayName": "Getting Started with Xata",
+            "relevant": false,
+            "usage": {
+              "input": 1848,
+              "output": 547,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 677,
+              "digest": 284,
+              "short_digest": 114
+            },
+            "children": {}
+          }
+        }
+      },
+      "common_patterns_&_recipes": {
+        "origPath": "guides",
+        "displayName": "Common Patterns & Recipes",
+        "relevant": true,
+        "usage": {
+          "input": 18848,
+          "output": 1839,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 17484,
+          "digest": 1190,
+          "short_digest": 529
+        },
+        "children": {
+          "conditional_filters_in_query": {
+            "origPath": "guides/conditional-filters-in-query.mdx",
+            "displayName": "Conditional filters in query",
+            "relevant": true,
+            "usage": {
+              "input": 2297,
+              "output": 862,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1127,
+              "digest": 525,
+              "short_digest": 218
+            },
+            "children": {}
+          },
+          "count_rows": {
+            "origPath": "guides/count-rows.mdx",
+            "displayName": "Count rows",
+            "relevant": true,
+            "usage": {
+              "input": 2813,
+              "output": 1101,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1647,
+              "digest": 675,
+              "short_digest": 301
+            },
+            "children": {}
+          },
+          "cursor-based_pagination": {
+            "origPath": "guides/cursor-based-pagination.mdx",
+            "displayName": "Cursor-based pagination",
+            "relevant": true,
+            "usage": {
+              "input": 4040,
+              "output": 1484,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2872,
+              "digest": 1100,
+              "short_digest": 247
+            },
+            "children": {}
+          },
+          "cloudflare_d1_http_api_with_drizzle_kit": {
+            "origPath": "guides/d1-http-with-drizzle-kit.mdx",
+            "displayName": "Cloudflare D1 HTTP API with Drizzle Kit",
+            "relevant": true,
+            "usage": {
+              "input": 1830,
+              "output": 607,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 655,
+              "digest": 367,
+              "short_digest": 96
+            },
+            "children": {}
+          },
+          "sql_decrement_value": {
+            "origPath": "guides/decrementing-a-value.mdx",
+            "displayName": "SQL Decrement Value",
+            "relevant": true,
+            "usage": {
+              "input": 1647,
+              "output": 501,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 477,
+              "digest": 285,
+              "short_digest": 100
+            },
+            "children": {}
+          },
+          "empty_array_as_a_default_value": {
+            "origPath": "guides/empty-array-default-value.mdx",
+            "displayName": "Empty array as a default value",
+            "relevant": true,
+            "usage": {
+              "input": 2400,
+              "output": 984,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1230,
+              "digest": 659,
+              "short_digest": 160
+            },
+            "children": {}
+          },
+          "full-text-search-with-generated-columns": {
+            "origPath": "guides/full-text-search-with-generated-columns.mdx",
+            "displayName": "full-text-search-with-generated-columns",
+            "relevant": true,
+            "usage": {
+              "input": 2830,
+              "output": 1361,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1656,
+              "digest": 876,
+              "short_digest": 359
+            },
+            "children": {}
+          },
+          "gel_auth_extension": {
+            "origPath": "guides/gel-ext-auth.mdx",
+            "displayName": "Gel auth extension",
+            "relevant": true,
+            "usage": {
+              "input": 2198,
+              "output": 1120,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1030,
+              "digest": 811,
+              "short_digest": 170
+            },
+            "children": {}
+          },
+          "include_or_exclude_columns_in_query": {
+            "origPath": "guides/include-or-exclude-columns.mdx",
+            "displayName": "Include or Exclude Columns in Query",
+            "relevant": true,
+            "usage": {
+              "input": 4294,
+              "output": 1377,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3124,
+              "digest": 913,
+              "short_digest": 323
+            },
+            "children": {}
+          },
+          "sql_increment_value": {
+            "origPath": "guides/incrementing-a-value.mdx",
+            "displayName": "SQL Increment value",
+            "relevant": true,
+            "usage": {
+              "input": 1639,
+              "output": 477,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 470,
+              "digest": 274,
+              "short_digest": 82
+            },
+            "children": {}
+          },
+          "limit_offset_pagination": {
+            "origPath": "guides/limit-offset-pagination.mdx",
+            "displayName": "Limit/Offset Pagination",
+            "relevant": true,
+            "usage": {
+              "input": 3910,
+              "output": 1214,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2742,
+              "digest": 783,
+              "short_digest": 309
+            },
+            "children": {}
+          },
+          "mysql_local_setup": {
+            "origPath": "guides/mysql-local-setup.mdx",
+            "displayName": "MySQL Local Setup",
+            "relevant": true,
+            "usage": {
+              "input": 1996,
+              "output": 584,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 828,
+              "digest": 371,
+              "short_digest": 95
+            },
+            "children": {}
+          },
+          "point_datatype_in_postgresql": {
+            "origPath": "guides/point-datatype-psql.mdx",
+            "displayName": "Point datatype in PostgreSQL",
+            "relevant": true,
+            "usage": {
+              "input": 2215,
+              "output": 723,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1045,
+              "digest": 513,
+              "short_digest": 81
+            },
+            "children": {}
+          },
+          "postgis_geometry_point": {
+            "origPath": "guides/postgis-geometry-point.mdx",
+            "displayName": "PostGIS geometry point",
+            "relevant": true,
+            "usage": {
+              "input": 2569,
+              "output": 683,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1400,
+              "digest": 373,
+              "short_digest": 154
+            },
+            "children": {}
+          },
+          "postgresql_full-text_search": {
+            "origPath": "guides/postgresql-full-text-search.mdx",
+            "displayName": "PostgreSQL full-text search",
+            "relevant": true,
+            "usage": {
+              "input": 5108,
+              "output": 1603,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3938,
+              "digest": 1208,
+              "short_digest": 261
+            },
+            "children": {}
+          },
+          "postgresql_local_setup": {
+            "origPath": "guides/postgresql-local-setup.mdx",
+            "displayName": "PostgreSQL Local Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2014,
+              "output": 617,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 846,
+              "digest": 345,
+              "short_digest": 122
+            },
+            "children": {}
+          },
+          "seeding_with_one-to-many_relations": {
+            "origPath": "guides/seeding-using-with-option.mdx",
+            "displayName": "Seeding with One-to-Many Relations",
+            "relevant": true,
+            "usage": {
+              "input": 4385,
+              "output": 1180,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3214,
+              "digest": 728,
+              "short_digest": 322
+            },
+            "children": {}
+          },
+          "seeding_partially_exposed_tables_with_foreign_keys": {
+            "origPath": "guides/seeding-with-partially-exposed-schema.mdx",
+            "displayName": "Seeding Partially Exposed Tables with Foreign Keys",
+            "relevant": true,
+            "usage": {
+              "input": 2512,
+              "output": 694,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1339,
+              "digest": 385,
+              "short_digest": 179
+            },
+            "children": {}
+          },
+          "select_parent_rows_with_at_least_one_related_child_row": {
+            "origPath": "guides/select-parent-rows-with-at-least-one-related-child-row.mdx",
+            "displayName": "Select parent rows with at least one related child row",
+            "relevant": true,
+            "usage": {
+              "input": 2665,
+              "output": 859,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1483,
+              "digest": 547,
+              "short_digest": 176
+            },
+            "children": {}
+          },
+          "sql_timestamp_as_default_value": {
+            "origPath": "guides/timestamp-default-value.mdx",
+            "displayName": "SQL Timestamp as Default Value",
+            "relevant": true,
+            "usage": {
+              "input": 3943,
+              "output": 1262,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2775,
+              "digest": 903,
+              "short_digest": 186
+            },
+            "children": {}
+          },
+          "sql_toggle_value": {
+            "origPath": "guides/toggling-a-boolean-field.mdx",
+            "displayName": "SQL Toggle value",
+            "relevant": true,
+            "usage": {
+              "input": 1568,
+              "output": 329,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 397,
+              "digest": 174,
+              "short_digest": 46
+            },
+            "children": {}
+          },
+          "unique_and_case-insensitive_email_handling": {
+            "origPath": "guides/unique-case-insensitive-email.mdx",
+            "displayName": "Unique and Case-Insensitive Email Handling",
+            "relevant": true,
+            "usage": {
+              "input": 3225,
+              "output": 1361,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2053,
+              "digest": 982,
+              "short_digest": 242
+            },
+            "children": {}
+          },
+          "update_many_with_different_values_for_each_row": {
+            "origPath": "guides/update-many-with-different-value.mdx",
+            "displayName": "Update many with different values for each row",
+            "relevant": true,
+            "usage": {
+              "input": 1784,
+              "output": 853,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 612,
+              "digest": 473,
+              "short_digest": 267
+            },
+            "children": {}
+          },
+          "upsert_query": {
+            "origPath": "guides/upsert.mdx",
+            "displayName": "Upsert Query",
+            "relevant": true,
+            "usage": {
+              "input": 5375,
+              "output": 1783,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 4209,
+              "digest": 1215,
+              "short_digest": 410
+            },
+            "children": {}
+          },
+          "vector_similarity_search_with_pgvector": {
+            "origPath": "guides/vector-similarity-search.mdx",
+            "displayName": "Vector similarity search with pgvector",
+            "relevant": true,
+            "usage": {
+              "input": 2699,
+              "output": 1252,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1531,
+              "digest": 781,
+              "short_digest": 338
+            },
+            "children": {}
+          }
+        }
+      },
+      "release_notes": {
+        "origPath": "latest-releases",
+        "displayName": "Release Notes",
+        "relevant": true,
+        "usage": {
+          "input": 18507,
+          "output": 1536,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 17009,
+          "digest": 1072,
+          "short_digest": 333
+        },
+        "children": {
+          "v0.23.2_release_notes": {
+            "origPath": "latest-releases/drizzle-kit-v0232.mdx",
+            "displayName": "v0.23.2 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1285,
+              "output": 272,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 109,
+              "digest": 95,
+              "short_digest": 58
+            },
+            "children": {}
+          },
+          "drizzleorm_v0.11.0_release": {
+            "origPath": "latest-releases/drizzle-orm-v0110.mdx",
+            "displayName": "DrizzleORM v0.11.0 Release",
+            "relevant": true,
+            "usage": {
+              "input": 3180,
+              "output": 1826,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2004,
+              "digest": 1115,
+              "short_digest": 585
+            },
+            "children": {}
+          },
+          "v0.16.2_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0162.mdx",
+            "displayName": "v0.16.2 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 3380,
+              "output": 1153,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2204,
+              "digest": 684,
+              "short_digest": 344
+            },
+            "children": {}
+          },
+          "unique_constraints_support": {
+            "origPath": "latest-releases/drizzle-orm-v0272.mdx",
+            "displayName": "UNIQUE constraints support",
+            "relevant": true,
+            "usage": {
+              "input": 2006,
+              "output": 1154,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 830,
+              "digest": 769,
+              "short_digest": 250
+            },
+            "children": {}
+          },
+          "v0.28.0_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0280.mdx",
+            "displayName": "v0.28.0 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 3234,
+              "output": 973,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2058,
+              "digest": 639,
+              "short_digest": 176
+            },
+            "children": {}
+          },
+          "v0.28.1_release": {
+            "origPath": "latest-releases/drizzle-orm-v0281.mdx",
+            "displayName": "v0.28.1 release",
+            "relevant": true,
+            "usage": {
+              "input": 1306,
+              "output": 234,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 130,
+              "digest": 80,
+              "short_digest": 39
+            },
+            "children": {}
+          },
+          "v0.28.2_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0282.mdx",
+            "displayName": "v0.28.2 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1464,
+              "output": 301,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 288,
+              "digest": 124,
+              "short_digest": 47
+            },
+            "children": {}
+          },
+          "v0.28.3_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0283.mdx",
+            "displayName": "v0.28.3 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1826,
+              "output": 826,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 650,
+              "digest": 524,
+              "short_digest": 146
+            },
+            "children": {}
+          },
+          "v0.28.4_release": {
+            "origPath": "latest-releases/drizzle-orm-v0284.mdx",
+            "displayName": "v0.28.4 release",
+            "relevant": true,
+            "usage": {
+              "input": 1355,
+              "output": 287,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 179,
+              "digest": 97,
+              "short_digest": 62
+            },
+            "children": {}
+          },
+          "v0.28.5_release_-_opentelemetry_type_import_fix": {
+            "origPath": "latest-releases/drizzle-orm-v0285.mdx",
+            "displayName": "v0.28.5 Release - OpenTelemetry Type Import Fix",
+            "relevant": true,
+            "usage": {
+              "input": 1539,
+              "output": 461,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 363,
+              "digest": 241,
+              "short_digest": 74
+            },
+            "children": {}
+          },
+          "v0.28.6_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0286.mdx",
+            "displayName": "v0.28.6 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 2746,
+              "output": 1076,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1570,
+              "digest": 718,
+              "short_digest": 208
+            },
+            "children": {}
+          },
+          "v0.29.0_release": {
+            "origPath": "latest-releases/drizzle-orm-v0290.mdx",
+            "displayName": "v0.29.0 Release",
+            "relevant": true,
+            "usage": {
+              "input": 4842,
+              "output": 1773,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3666,
+              "digest": 1356,
+              "short_digest": 258
+            },
+            "children": {}
+          },
+          "v0.29.1_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0291.mdx",
+            "displayName": "v0.29.1 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 3598,
+              "output": 1073,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2422,
+              "digest": 688,
+              "short_digest": 218
+            },
+            "children": {}
+          },
+          "v0.29.2_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0292.mdx",
+            "displayName": "v0.29.2 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 2359,
+              "output": 1062,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1183,
+              "digest": 675,
+              "short_digest": 232
+            },
+            "children": {}
+          },
+          "v0.29.3_release": {
+            "origPath": "latest-releases/drizzle-orm-v0293.mdx",
+            "displayName": "v0.29.3 Release",
+            "relevant": true,
+            "usage": {
+              "input": 1307,
+              "output": 219,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 131,
+              "digest": 77,
+              "short_digest": 30
+            },
+            "children": {}
+          },
+          "v0.29.4_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0294.mdx",
+            "displayName": "v0.29.4 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 2101,
+              "output": 645,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 925,
+              "digest": 424,
+              "short_digest": 89
+            },
+            "children": {}
+          },
+          "v0.29.5_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0295.mdx",
+            "displayName": "v0.29.5 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 2198,
+              "output": 898,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1022,
+              "digest": 531,
+              "short_digest": 245
+            },
+            "children": {}
+          },
+          "v0.30.0_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0300.mdx",
+            "displayName": "v0.30.0 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 2159,
+              "output": 603,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 983,
+              "digest": 374,
+              "short_digest": 86
+            },
+            "children": {}
+          },
+          "v0.30.1_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0301.mdx",
+            "displayName": "v0.30.1 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1399,
+              "output": 335,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 223,
+              "digest": 156,
+              "short_digest": 61
+            },
+            "children": {}
+          },
+          "v0.30.10_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v03010.mdx",
+            "displayName": "v0.30.10 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1393,
+              "output": 329,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 217,
+              "digest": 137,
+              "short_digest": 77
+            },
+            "children": {}
+          },
+          "v0.30.2_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0302.mdx",
+            "displayName": "v0.30.2 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1439,
+              "output": 232,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 263,
+              "digest": 81,
+              "short_digest": 35
+            },
+            "children": {}
+          },
+          "v0.30.3_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0303.mdx",
+            "displayName": "v0.30.3 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1429,
+              "output": 286,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 253,
+              "digest": 97,
+              "short_digest": 64
+            },
+            "children": {}
+          },
+          "xata_driver_support": {
+            "origPath": "latest-releases/drizzle-orm-v0304.mdx",
+            "displayName": "Xata driver support",
+            "relevant": true,
+            "usage": {
+              "input": 1591,
+              "output": 524,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 415,
+              "digest": 239,
+              "short_digest": 145
+            },
+            "children": {}
+          },
+          "drizzleorm_v0.30.5_release": {
+            "origPath": "latest-releases/drizzle-orm-v0305.mdx",
+            "displayName": "DrizzleORM v0.30.5 release",
+            "relevant": true,
+            "usage": {
+              "input": 1578,
+              "output": 585,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 402,
+              "digest": 313,
+              "short_digest": 138
+            },
+            "children": {}
+          },
+          "pglite_driver_support": {
+            "origPath": "latest-releases/drizzle-orm-v0306.mdx",
+            "displayName": "PGlite Driver Support",
+            "relevant": true,
+            "usage": {
+              "input": 1513,
+              "output": 498,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 337,
+              "digest": 240,
+              "short_digest": 125
+            },
+            "children": {}
+          },
+          "v0.30.7_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0307.mdx",
+            "displayName": "v0.30.7 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1400,
+              "output": 281,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 224,
+              "digest": 108,
+              "short_digest": 54
+            },
+            "children": {}
+          },
+          "v0.30.8_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0308.mdx",
+            "displayName": "v0.30.8 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 2246,
+              "output": 741,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1070,
+              "digest": 388,
+              "short_digest": 204
+            },
+            "children": {}
+          },
+          "v0.30.9_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0309.mdx",
+            "displayName": "v0.30.9 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1589,
+              "output": 599,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 413,
+              "digest": 319,
+              "short_digest": 133
+            },
+            "children": {}
+          },
+          "v0.31.0_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0310.mdx",
+            "displayName": "v0.31.0 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 5089,
+              "output": 2243,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3913,
+              "digest": 1615,
+              "short_digest": 468
+            },
+            "children": {}
+          },
+          "live_queries_with_expo_sqlite": {
+            "origPath": "latest-releases/drizzle-orm-v0311.mdx",
+            "displayName": "Live Queries with Expo SQLite",
+            "relevant": true,
+            "usage": {
+              "input": 1680,
+              "output": 673,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 504,
+              "digest": 390,
+              "short_digest": 160
+            },
+            "children": {}
+          },
+          "tidb_cloud_serverless_driver_support": {
+            "origPath": "latest-releases/drizzle-orm-v0312.mdx",
+            "displayName": "TiDB Cloud Serverless driver support",
+            "relevant": true,
+            "usage": {
+              "input": 1318,
+              "output": 388,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 142,
+              "digest": 180,
+              "short_digest": 77
+            },
+            "children": {}
+          },
+          "v0.31.3_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0313.mdx",
+            "displayName": "v0.31.3 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1395,
+              "output": 465,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 219,
+              "digest": 230,
+              "short_digest": 103
+            },
+            "children": {}
+          },
+          "v0.31.4_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0314.mdx",
+            "displayName": "v0.31.4 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1236,
+              "output": 173,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 60,
+              "digest": 43,
+              "short_digest": 23
+            },
+            "children": {}
+          },
+          "v0.32.0_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0320.mdx",
+            "displayName": "v0.32.0 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 3712,
+              "output": 1818,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2536,
+              "digest": 1286,
+              "short_digest": 388
+            },
+            "children": {}
+          },
+          "v0.32.1_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0321.mdx",
+            "displayName": "v0.32.1 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1343,
+              "output": 344,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 167,
+              "digest": 142,
+              "short_digest": 68
+            },
+            "children": {}
+          },
+          "v0.32.2_release_notes": {
+            "origPath": "latest-releases/drizzle-orm-v0322.mdx",
+            "displayName": "v0.32.2 Release Notes",
+            "relevant": true,
+            "usage": {
+              "input": 1298,
+              "output": 345,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 122,
+              "digest": 144,
+              "short_digest": 73
+            },
+            "children": {}
+          }
+        }
+      },
+      "migration_guides": {
+        "origPath": "migrate",
+        "displayName": "Migration Guides",
+        "relevant": true,
+        "usage": {
+          "input": 6371,
+          "output": 1204,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5271,
+          "digest": 878,
+          "short_digest": 197
+        },
+        "children": {
+          "documentation_components_reference": {
+            "origPath": "migrate/components.mdx",
+            "displayName": "Documentation Components Reference",
+            "relevant": false,
+            "usage": {
+              "input": 3657,
+              "output": 1023,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2493,
+              "digest": 576,
+              "short_digest": 292
+            },
+            "children": {}
+          },
+          "migrate_from_prisma": {
+            "origPath": "migrate/migrate-from-prisma.mdx",
+            "displayName": "Migrate from Prisma",
+            "relevant": true,
+            "usage": {
+              "input": 8921,
+              "output": 1748,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 7752,
+              "digest": 1275,
+              "short_digest": 325
+            },
+            "children": {}
+          },
+          "migrate_from_sequelize_to_drizzle": {
+            "origPath": "migrate/migrate-from-sequelize.mdx",
+            "displayName": "Migrate from Sequelize to Drizzle",
+            "relevant": true,
+            "usage": {
+              "input": 10065,
+              "output": 3196,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 8896,
+              "digest": 2292,
+              "short_digest": 755
+            },
+            "children": {}
+          },
+          "migrate_from_typeorm": {
+            "origPath": "migrate/migrate-from-typeorm.mdx",
+            "displayName": "Migrate from TypeORM",
+            "relevant": true,
+            "usage": {
+              "input": 9928,
+              "output": 1987,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 8759,
+              "digest": 1515,
+              "short_digest": 323
+            },
+            "children": {}
+          }
+        }
+      },
+      "integration_tutorials": {
+        "origPath": "tutorials",
+        "displayName": "Integration Tutorials",
+        "relevant": true,
+        "usage": {
+          "input": 5415,
+          "output": 1864,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4310,
+          "digest": 1573,
+          "short_digest": 183
+        },
+        "children": {
+          "edge_functions_integration": {
+            "origPath": "tutorials/drizzle-on-the-edge",
+            "displayName": "Edge Functions Integration",
+            "relevant": true,
+            "usage": {
+              "input": 5302,
+              "output": 1244,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 4181,
+              "digest": 764,
+              "short_digest": 355
+            },
+            "children": {
+              "netlify_edge_functions_with_neon_postgres": {
+                "origPath": "tutorials/drizzle-on-the-edge/drizzle-with-netlify-edge-functions-neon.mdx",
+                "displayName": "Netlify Edge Functions with Neon Postgres",
+                "relevant": true,
+                "usage": {
+                  "input": 3581,
+                  "output": 1336,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2383,
+                  "digest": 895,
+                  "short_digest": 263
+                },
+                "children": {}
+              },
+              "netlify_edge_functions_with_supabase": {
+                "origPath": "tutorials/drizzle-on-the-edge/drizzle-with-netlify-edge-functions-supabase.mdx",
+                "displayName": "Netlify Edge Functions with Supabase",
+                "relevant": true,
+                "usage": {
+                  "input": 3535,
+                  "output": 1348,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2336,
+                  "digest": 865,
+                  "short_digest": 330
+                },
+                "children": {}
+              },
+              "drizzle_with_supabase_edge_functions": {
+                "origPath": "tutorials/drizzle-on-the-edge/drizzle-with-supabase-edge-functions.mdx",
+                "displayName": "Drizzle with Supabase Edge Functions",
+                "relevant": true,
+                "usage": {
+                  "input": 3884,
+                  "output": 1508,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2688,
+                  "digest": 967,
+                  "short_digest": 390
+                },
+                "children": {}
+              },
+              "drizzle_with_vercel_edge_functions": {
+                "origPath": "tutorials/drizzle-on-the-edge/drizzle-with-vercel-edge-functions.mdx",
+                "displayName": "Drizzle with Vercel Edge Functions",
+                "relevant": true,
+                "usage": {
+                  "input": 7706,
+                  "output": 1730,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 6511,
+                  "digest": 1151,
+                  "short_digest": 422
+                },
+                "children": {}
+              }
+            }
+          },
+          "database_integration_tutorials": {
+            "origPath": "tutorials/drizzle-with-db",
+            "displayName": "Database Integration Tutorials",
+            "relevant": true,
+            "usage": {
+              "input": 10887,
+              "output": 1270,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 9744,
+              "digest": 759,
+              "short_digest": 373
+            },
+            "children": {
+              "drizzle_with_neon_postgres": {
+                "origPath": "tutorials/drizzle-with-db/drizzle-with-neon.mdx",
+                "displayName": "Drizzle with Neon Postgres",
+                "relevant": true,
+                "usage": {
+                  "input": 4962,
+                  "output": 1901,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 3775,
+                  "digest": 1304,
+                  "short_digest": 448
+                },
+                "children": {}
+              },
+              "drizzle_with_nile_database": {
+                "origPath": "tutorials/drizzle-with-db/drizzle-with-nile.mdx",
+                "displayName": "Drizzle with Nile Database",
+                "relevant": true,
+                "usage": {
+                  "input": 5187,
+                  "output": 2706,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 4000,
+                  "digest": 2007,
+                  "short_digest": 570
+                },
+                "children": {}
+              },
+              "drizzle_with_supabase": {
+                "origPath": "tutorials/drizzle-with-db/drizzle-with-supabase.mdx",
+                "displayName": "Drizzle with Supabase",
+                "relevant": true,
+                "usage": {
+                  "input": 5049,
+                  "output": 1949,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 3861,
+                  "digest": 1327,
+                  "short_digest": 479
+                },
+                "children": {}
+              },
+              "drizzle_with_turso": {
+                "origPath": "tutorials/drizzle-with-db/drizzle-with-turso.mdx",
+                "displayName": "Drizzle with Turso",
+                "relevant": true,
+                "usage": {
+                  "input": 5289,
+                  "output": 2259,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 4102,
+                  "digest": 1753,
+                  "short_digest": 372
+                },
+                "children": {}
+              },
+              "drizzle_with_vercel_postgres": {
+                "origPath": "tutorials/drizzle-with-db/drizzle-with-vercel.mdx",
+                "displayName": "Drizzle with Vercel Postgres",
+                "relevant": true,
+                "usage": {
+                  "input": 4535,
+                  "output": 2154,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 3348,
+                  "digest": 1545,
+                  "short_digest": 477
+                },
+                "children": {}
+              },
+              "drizzle_with_xata": {
+                "origPath": "tutorials/drizzle-with-db/drizzle-with-xata.mdx",
+                "displayName": "Drizzle with Xata",
+                "relevant": true,
+                "usage": {
+                  "input": 4971,
+                  "output": 2095,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 3784,
+                  "digest": 1504,
+                  "short_digest": 453
+                },
+                "children": {}
+              }
+            }
+          },
+          "todo_app_with_neon_postgres": {
+            "origPath": "tutorials/drizzle-with-frameworks/drizzle-nextjs-neon.mdx",
+            "displayName": "Todo App with Neon Postgres",
+            "relevant": true,
+            "usage": {
+              "input": 7455,
+              "output": 3499,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 6267,
+              "digest": 2644,
+              "short_digest": 728
+            },
+            "children": {}
+          }
+        }
+      },
+      "arktype": {
+        "origPath": "arktype.mdx",
+        "displayName": "arktype",
+        "relevant": true,
+        "usage": {
+          "input": 4830,
+          "output": 3152,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3667,
+          "digest": 2629,
+          "short_digest": 389
+        },
+        "children": {}
+      },
+      "batch-api": {
+        "origPath": "batch-api.mdx",
+        "displayName": "batch-api",
+        "relevant": true,
+        "usage": {
+          "input": 2208,
+          "output": 785,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1044,
+          "digest": 482,
+          "short_digest": 174
+        },
+        "children": {}
+      },
+      "cache": {
+        "origPath": "cache.mdx",
+        "displayName": "cache",
+        "relevant": true,
+        "usage": {
+          "input": 4393,
+          "output": 2326,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3231,
+          "digest": 1752,
+          "short_digest": 437
+        },
+        "children": {}
+      },
+      "aws_data_api_mysql": {
+        "origPath": "connect-aws-data-api-mysql.mdx",
+        "displayName": "AWS Data API MySQL",
+        "relevant": false,
+        "usage": {
+          "input": 1236,
+          "output": 164,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 66,
+          "digest": 43,
+          "short_digest": 24
+        },
+        "children": {}
+      },
+      "connect-aws-data-api-pg": {
+        "origPath": "connect-aws-data-api-pg.mdx",
+        "displayName": "connect-aws-data-api-pg",
+        "relevant": true,
+        "usage": {
+          "input": 1774,
+          "output": 703,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 604,
+          "digest": 415,
+          "short_digest": 156
+        },
+        "children": {}
+      },
+      "connect-bun-sql": {
+        "origPath": "connect-bun-sql.mdx",
+        "displayName": "connect-bun-sql",
+        "relevant": true,
+        "usage": {
+          "input": 1666,
+          "output": 553,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 499,
+          "digest": 295,
+          "short_digest": 123
+        },
+        "children": {}
+      },
+      "connect-bun-sqlite": {
+        "origPath": "connect-bun-sqlite.mdx",
+        "displayName": "connect-bun-sqlite",
+        "relevant": true,
+        "usage": {
+          "input": 1845,
+          "output": 569,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 678,
+          "digest": 340,
+          "short_digest": 91
+        },
+        "children": {}
+      },
+      "connect-cloudflare-d1": {
+        "origPath": "connect-cloudflare-d1.mdx",
+        "displayName": "connect-cloudflare-d1",
+        "relevant": true,
+        "usage": {
+          "input": 2027,
+          "output": 828,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 858,
+          "digest": 534,
+          "short_digest": 152
+        },
+        "children": {}
+      },
+      "connect-cloudflare-do": {
+        "origPath": "connect-cloudflare-do.mdx",
+        "displayName": "connect-cloudflare-do",
+        "relevant": true,
+        "usage": {
+          "input": 2740,
+          "output": 1422,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1572,
+          "digest": 954,
+          "short_digest": 308
+        },
+        "children": {}
+      },
+      "http_proxy_driver": {
+        "origPath": "connect-drizzle-proxy.mdx",
+        "displayName": "HTTP Proxy Driver",
+        "relevant": true,
+        "usage": {
+          "input": 3438,
+          "output": 2046,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2270,
+          "digest": 1510,
+          "short_digest": 410
+        },
+        "children": {}
+      },
+      "expo_sqlite_integration": {
+        "origPath": "connect-expo-sqlite.mdx",
+        "displayName": "Expo SQLite Integration",
+        "relevant": true,
+        "usage": {
+          "input": 2473,
+          "output": 1331,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1307,
+          "digest": 910,
+          "short_digest": 298
+        },
+        "children": {}
+      },
+      "connect-neon": {
+        "origPath": "connect-neon.mdx",
+        "displayName": "connect-neon",
+        "relevant": true,
+        "usage": {
+          "input": 2916,
+          "output": 1086,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1751,
+          "digest": 673,
+          "short_digest": 285
+        },
+        "children": {}
+      },
+      "connect-nile": {
+        "origPath": "connect-nile.mdx",
+        "displayName": "connect-nile",
+        "relevant": true,
+        "usage": {
+          "input": 2729,
+          "output": 1288,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1564,
+          "digest": 884,
+          "short_digest": 264
+        },
+        "children": {}
+      },
+      "op_sqlite_integration": {
+        "origPath": "connect-op-sqlite.mdx",
+        "displayName": "OP SQLite Integration",
+        "relevant": true,
+        "usage": {
+          "input": 2144,
+          "output": 996,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 978,
+          "digest": 645,
+          "short_digest": 222
+        },
+        "children": {}
+      },
+      "database-connection": {
+        "origPath": "connect-overview.mdx",
+        "displayName": "database-connection",
+        "relevant": true,
+        "usage": {
+          "input": 3028,
+          "output": 1086,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1864,
+          "digest": 745,
+          "short_digest": 197
+        },
+        "children": {}
+      },
+      "connect-pglite": {
+        "origPath": "connect-pglite.mdx",
+        "displayName": "connect-pglite",
+        "relevant": true,
+        "usage": {
+          "input": 1923,
+          "output": 669,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 757,
+          "digest": 392,
+          "short_digest": 150
+        },
+        "children": {}
+      },
+      "connect-planetscale": {
+        "origPath": "connect-planetscale.mdx",
+        "displayName": "connect-planetscale",
+        "relevant": true,
+        "usage": {
+          "input": 1858,
+          "output": 681,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 692,
+          "digest": 371,
+          "short_digest": 180
+        },
+        "children": {}
+      },
+      "connect-prisma-postgres": {
+        "origPath": "connect-prisma-postgres.mdx",
+        "displayName": "connect-prisma-postgres",
+        "relevant": true,
+        "usage": {
+          "input": 1961,
+          "output": 640,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 794,
+          "digest": 349,
+          "short_digest": 177
+        },
+        "children": {}
+      },
+      "react-native-sqlite-setup": {
+        "origPath": "connect-react-native-sqlite.mdx",
+        "displayName": "react-native-sqlite-setup",
+        "relevant": true,
+        "usage": {
+          "input": 1337,
+          "output": 248,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 169,
+          "digest": 82,
+          "short_digest": 52
+        },
+        "children": {}
+      },
+      "connect-sqlite-cloud": {
+        "origPath": "connect-sqlite-cloud.mdx",
+        "displayName": "connect-sqlite-cloud",
+        "relevant": true,
+        "usage": {
+          "input": 1718,
+          "output": 572,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 552,
+          "digest": 306,
+          "short_digest": 144
+        },
+        "children": {}
+      },
+      "connect-supabase": {
+        "origPath": "connect-supabase.mdx",
+        "displayName": "connect-supabase",
+        "relevant": true,
+        "usage": {
+          "input": 1858,
+          "output": 561,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 692,
+          "digest": 353,
+          "short_digest": 79
+        },
+        "children": {}
+      },
+      "connect-tidb-serverless": {
+        "origPath": "connect-tidb.mdx",
+        "displayName": "connect-tidb-serverless",
+        "relevant": true,
+        "usage": {
+          "input": 1813,
+          "output": 660,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 648,
+          "digest": 323,
+          "short_digest": 200
+        },
+        "children": {}
+      },
+      "connect-turso-database": {
+        "origPath": "connect-turso-database.mdx",
+        "displayName": "connect-turso-database",
+        "relevant": true,
+        "usage": {
+          "input": 1695,
+          "output": 557,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 528,
+          "digest": 280,
+          "short_digest": 138
+        },
+        "children": {}
+      },
+      "connect-turso": {
+        "origPath": "connect-turso.mdx",
+        "displayName": "connect-turso",
+        "relevant": true,
+        "usage": {
+          "input": 2033,
+          "output": 792,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 868,
+          "digest": 468,
+          "short_digest": 191
+        },
+        "children": {}
+      },
+      "connect-vercel-postgres": {
+        "origPath": "connect-vercel-postgres.mdx",
+        "displayName": "connect-vercel-postgres",
+        "relevant": true,
+        "usage": {
+          "input": 2007,
+          "output": 665,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 840,
+          "digest": 380,
+          "short_digest": 154
+        },
+        "children": {}
+      },
+      "connect-xata": {
+        "origPath": "connect-xata.mdx",
+        "displayName": "connect-xata",
+        "relevant": true,
+        "usage": {
+          "input": 1695,
+          "output": 546,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 530,
+          "digest": 283,
+          "short_digest": 143
+        },
+        "children": {}
+      },
+      "custom-types": {
+        "origPath": "custom-types.mdx",
+        "displayName": "custom-types",
+        "relevant": true,
+        "usage": {
+          "input": 3406,
+          "output": 1996,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2242,
+          "digest": 1254,
+          "short_digest": 600
+        },
+        "children": {}
+      },
+      "queries_and_crud_operations": {
+        "origPath": "data-querying.mdx",
+        "displayName": "Queries and CRUD Operations",
+        "relevant": true,
+        "usage": {
+          "input": 2575,
+          "output": 541,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1410,
+          "digest": 359,
+          "short_digest": 69
+        },
+        "children": {}
+      },
+      "delete": {
+        "origPath": "delete.mdx",
+        "displayName": "delete",
+        "relevant": true,
+        "usage": {
+          "input": 2143,
+          "output": 985,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 981,
+          "digest": 553,
+          "short_digest": 316
+        },
+        "children": {}
+      },
+      "configuration_file": {
+        "origPath": "drizzle-config-file.mdx",
+        "displayName": "Configuration File",
+        "relevant": true,
+        "usage": {
+          "input": 6930,
+          "output": 1959,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5762,
+          "digest": 1395,
+          "short_digest": 439
+        },
+        "children": {}
+      },
+      "check": {
+        "origPath": "drizzle-kit-check.mdx",
+        "displayName": "check",
+        "relevant": true,
+        "usage": {
+          "input": 2138,
+          "output": 659,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 970,
+          "digest": 361,
+          "short_digest": 182
+        },
+        "children": {}
+      },
+      "export": {
+        "origPath": "drizzle-kit-export.mdx",
+        "displayName": "export",
+        "relevant": true,
+        "usage": {
+          "input": 2847,
+          "output": 1013,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1679,
+          "digest": 603,
+          "short_digest": 285
+        },
+        "children": {}
+      },
+      "generate": {
+        "origPath": "drizzle-kit-generate.mdx",
+        "displayName": "generate",
+        "relevant": true,
+        "usage": {
+          "input": 3693,
+          "output": 1203,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2525,
+          "digest": 791,
+          "short_digest": 295
+        },
+        "children": {}
+      },
+      "migrate": {
+        "origPath": "drizzle-kit-migrate.mdx",
+        "displayName": "migrate",
+        "relevant": true,
+        "usage": {
+          "input": 3003,
+          "output": 1071,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1835,
+          "digest": 651,
+          "short_digest": 277
+        },
+        "children": {}
+      },
+      "drizzle-kit_pull": {
+        "origPath": "drizzle-kit-pull.mdx",
+        "displayName": "drizzle-kit pull",
+        "relevant": true,
+        "usage": {
+          "input": 3765,
+          "output": 1389,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2597,
+          "digest": 863,
+          "short_digest": 384
+        },
+        "children": {}
+      },
+      "drizzle-kit-push": {
+        "origPath": "drizzle-kit-push.mdx",
+        "displayName": "drizzle-kit-push",
+        "relevant": true,
+        "usage": {
+          "input": 4200,
+          "output": 1780,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3032,
+          "digest": 1293,
+          "short_digest": 360
+        },
+        "children": {}
+      },
+      "studio": {
+        "origPath": "drizzle-kit-studio.mdx",
+        "displayName": "studio",
+        "relevant": true,
+        "usage": {
+          "input": 2594,
+          "output": 967,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1426,
+          "digest": 571,
+          "short_digest": 267
+        },
+        "children": {}
+      },
+      "drizzle-kit-up": {
+        "origPath": "drizzle-kit-up.mdx",
+        "displayName": "drizzle-kit-up",
+        "relevant": true,
+        "usage": {
+          "input": 2123,
+          "output": 802,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 955,
+          "digest": 474,
+          "short_digest": 214
+        },
+        "children": {}
+      },
+      "dynamic-query-building": {
+        "origPath": "dynamic-query-building.mdx",
+        "displayName": "dynamic-query-building",
+        "relevant": true,
+        "usage": {
+          "input": 2727,
+          "output": 957,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1561,
+          "digest": 592,
+          "short_digest": 231
+        },
+        "children": {}
+      },
+      "eslint-plugin": {
+        "origPath": "eslint-plugin.mdx",
+        "displayName": "eslint-plugin",
+        "relevant": true,
+        "usage": {
+          "input": 2437,
+          "output": 969,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1272,
+          "digest": 605,
+          "short_digest": 241
+        },
+        "children": {}
+      },
+      "faq": {
+        "origPath": "faq.mdx",
+        "displayName": "faq",
+        "relevant": true,
+        "usage": {
+          "input": 1660,
+          "output": 492,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 497,
+          "digest": 287,
+          "short_digest": 90
+        },
+        "children": {}
+      },
+      "generated-columns": {
+        "origPath": "generated-columns.mdx",
+        "displayName": "generated-columns",
+        "relevant": true,
+        "usage": {
+          "input": 4820,
+          "output": 1498,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3656,
+          "digest": 1120,
+          "short_digest": 227
+        },
+        "children": {}
+      },
+      "gel-setup": {
+        "origPath": "get-started-gel.mdx",
+        "displayName": "gel-setup",
+        "relevant": true,
+        "usage": {
+          "input": 1740,
+          "output": 584,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 574,
+          "digest": 316,
+          "short_digest": 152
+        },
+        "children": {}
+      },
+      "mysql_setup": {
+        "origPath": "get-started-mysql.mdx",
+        "displayName": "MySQL Setup",
+        "relevant": true,
+        "usage": {
+          "input": 1860,
+          "output": 791,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 694,
+          "digest": 451,
+          "short_digest": 215
+        },
+        "children": {}
+      },
+      "postgresql_setup": {
+        "origPath": "get-started-postgresql.mdx",
+        "displayName": "PostgreSQL Setup",
+        "relevant": true,
+        "usage": {
+          "input": 2348,
+          "output": 1021,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1182,
+          "digest": 616,
+          "short_digest": 291
+        },
+        "children": {}
+      },
+      "singlestore_setup": {
+        "origPath": "get-started-singlestore.mdx",
+        "displayName": "SingleStore Setup",
+        "relevant": true,
+        "usage": {
+          "input": 2094,
+          "output": 733,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 926,
+          "digest": 416,
+          "short_digest": 178
+        },
+        "children": {}
+      },
+      "sqlite_setup": {
+        "origPath": "get-started-sqlite.mdx",
+        "displayName": "SQLite Setup",
+        "relevant": true,
+        "usage": {
+          "input": 2261,
+          "output": 1000,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1095,
+          "digest": 626,
+          "short_digest": 237
+        },
+        "children": {}
+      },
+      "get_started": {
+        "origPath": "get-started.mdx",
+        "displayName": "Get started",
+        "relevant": false,
+        "usage": {
+          "input": 1260,
+          "output": 214,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 96,
+          "digest": 86,
+          "short_digest": 28
+        },
+        "children": {}
+      },
+      "goodies": {
+        "origPath": "goodies.mdx",
+        "displayName": "Goodies",
+        "relevant": true,
+        "usage": {
+          "input": 5460,
+          "output": 1309,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4299,
+          "digest": 845,
+          "short_digest": 330
+        },
+        "children": {}
+      },
+      "gotchas": {
+        "origPath": "gotchas.mdx",
+        "displayName": "gotchas",
+        "relevant": false,
+        "usage": {
+          "input": 1288,
+          "output": 258,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 124,
+          "digest": 117,
+          "short_digest": 41
+        },
+        "children": {}
+      },
+      "graphql_integration": {
+        "origPath": "graphql.mdx",
+        "displayName": "GraphQL Integration",
+        "relevant": true,
+        "usage": {
+          "input": 3033,
+          "output": 1251,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1870,
+          "digest": 792,
+          "short_digest": 342
+        },
+        "children": {}
+      },
+      "guides": {
+        "origPath": "guides.mdx",
+        "displayName": "guides",
+        "relevant": false,
+        "usage": {
+          "input": 1187,
+          "output": 213,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 25,
+          "digest": 88,
+          "short_digest": 27
+        },
+        "children": {}
+      },
+      "indexes-constraints": {
+        "origPath": "indexes-constraints.mdx",
+        "displayName": "indexes-constraints",
+        "relevant": true,
+        "usage": {
+          "input": 10732,
+          "output": 1860,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 9568,
+          "digest": 1333,
+          "short_digest": 391
+        },
+        "children": {}
+      },
+      "insert": {
+        "origPath": "insert.mdx",
+        "displayName": "insert",
+        "relevant": true,
+        "usage": {
+          "input": 4300,
+          "output": 2079,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3138,
+          "digest": 1380,
+          "short_digest": 556
+        },
+        "children": {}
+      },
+      "joins": {
+        "origPath": "joins.mdx",
+        "displayName": "joins",
+        "relevant": true,
+        "usage": {
+          "input": 4467,
+          "output": 2642,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3305,
+          "digest": 1794,
+          "short_digest": 701
+        },
+        "children": {}
+      },
+      "custom_migrations": {
+        "origPath": "kit-custom-migrations.mdx",
+        "displayName": "Custom Migrations",
+        "relevant": true,
+        "usage": {
+          "input": 1814,
+          "output": 477,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 648,
+          "digest": 282,
+          "short_digest": 66
+        },
+        "children": {}
+      },
+      "migrations-for-teams": {
+        "origPath": "kit-migrations-for-teams.mdx",
+        "displayName": "migrations-for-teams",
+        "relevant": false,
+        "usage": {
+          "input": 1242,
+          "output": 213,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 74,
+          "digest": 68,
+          "short_digest": 34
+        },
+        "children": {}
+      },
+      "kit_overview": {
+        "origPath": "kit-overview.mdx",
+        "displayName": "Kit Overview",
+        "relevant": true,
+        "usage": {
+          "input": 2696,
+          "output": 890,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1532,
+          "digest": 587,
+          "short_digest": 179
+        },
+        "children": {}
+      },
+      "data_seeding": {
+        "origPath": "kit-seed-data.mdx",
+        "displayName": "Data Seeding",
+        "relevant": false,
+        "usage": {
+          "input": 1350,
+          "output": 207,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 184,
+          "digest": 74,
+          "short_digest": 29
+        },
+        "children": {}
+      },
+      "migrations_in_web_and_mobile_environments": {
+        "origPath": "kit-web-mobile.mdx",
+        "displayName": "Migrations in Web and Mobile Environments",
+        "relevant": false,
+        "usage": {
+          "input": 1384,
+          "output": 232,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 218,
+          "digest": 72,
+          "short_digest": 42
+        },
+        "children": {}
+      },
+      "latest-releases": {
+        "origPath": "latest-releases.mdx",
+        "displayName": "latest-releases",
+        "relevant": false,
+        "usage": {
+          "input": 1201,
+          "output": 186,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 37,
+          "digest": 66,
+          "short_digest": 25
+        },
+        "children": {}
+      },
+      "migrations-fundamentals": {
+        "origPath": "migrations.mdx",
+        "displayName": "migrations-fundamentals",
+        "relevant": true,
+        "usage": {
+          "input": 5589,
+          "output": 980,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4427,
+          "digest": 622,
+          "short_digest": 233
+        },
+        "children": {}
+      },
+      "operators": {
+        "origPath": "operators.mdx",
+        "displayName": "operators",
+        "relevant": true,
+        "usage": {
+          "input": 4973,
+          "output": 2349,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3811,
+          "digest": 1718,
+          "short_digest": 447
+        },
+        "children": {}
+      },
+      "overview": {
+        "origPath": "overview.mdx",
+        "displayName": "overview",
+        "relevant": true,
+        "usage": {
+          "input": 4179,
+          "output": 969,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3017,
+          "digest": 601,
+          "short_digest": 243
+        },
+        "children": {}
+      },
+      "prepared-statements": {
+        "origPath": "perf-queries.mdx",
+        "displayName": "prepared-statements",
+        "relevant": true,
+        "usage": {
+          "input": 2705,
+          "output": 1187,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1540,
+          "digest": 764,
+          "short_digest": 261
+        },
+        "children": {}
+      },
+      "serverless-performance": {
+        "origPath": "perf-serverless.mdx",
+        "displayName": "serverless-performance",
+        "relevant": true,
+        "usage": {
+          "input": 1357,
+          "output": 430,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 191,
+          "digest": 213,
+          "short_digest": 103
+        },
+        "children": {}
+      },
+      "prisma-extension": {
+        "origPath": "prisma.mdx",
+        "displayName": "prisma-extension",
+        "relevant": true,
+        "usage": {
+          "input": 2172,
+          "output": 915,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1009,
+          "digest": 487,
+          "short_digest": 256
+        },
+        "children": {}
+      },
+      "query-utils": {
+        "origPath": "query-utils.mdx",
+        "displayName": "query-utils",
+        "relevant": false,
+        "usage": {
+          "input": 1284,
+          "output": 203,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 120,
+          "digest": 86,
+          "short_digest": 20
+        },
+        "children": {}
+      },
+      "quick-start": {
+        "origPath": "quick.mdx",
+        "displayName": "quick-start",
+        "relevant": false,
+        "usage": {
+          "input": 1886,
+          "output": 811,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 724,
+          "digest": 391,
+          "short_digest": 293
+        },
+        "children": {}
+      },
+      "read-replicas": {
+        "origPath": "read-replicas.mdx",
+        "displayName": "read-replicas",
+        "relevant": true,
+        "usage": {
+          "input": 2831,
+          "output": 1590,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1666,
+          "digest": 1199,
+          "short_digest": 274
+        },
+        "children": {}
+      },
+      "relations": {
+        "origPath": "relations.mdx",
+        "displayName": "relations",
+        "relevant": true,
+        "usage": {
+          "input": 4931,
+          "output": 2287,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3769,
+          "digest": 1733,
+          "short_digest": 408
+        },
+        "children": {}
+      },
+      "row-level_security": {
+        "origPath": "rls.mdx",
+        "displayName": "Row-Level Security",
+        "relevant": true,
+        "usage": {
+          "input": 5818,
+          "output": 3638,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4655,
+          "digest": 2968,
+          "short_digest": 462
+        },
+        "children": {}
+      },
+      "relational_queries": {
+        "origPath": "rqb.mdx",
+        "displayName": "Relational Queries",
+        "relevant": true,
+        "usage": {
+          "input": 7788,
+          "output": 2406,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 6624,
+          "digest": 1979,
+          "short_digest": 295
+        },
+        "children": {}
+      },
+      "table_schemas": {
+        "origPath": "schemas.mdx",
+        "displayName": "Table Schemas",
+        "relevant": true,
+        "usage": {
+          "input": 2046,
+          "output": 884,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 884,
+          "digest": 522,
+          "short_digest": 240
+        },
+        "children": {}
+      },
+      "seed_generators_reference": {
+        "origPath": "seed-functions.mdx",
+        "displayName": "Seed Generators Reference",
+        "relevant": true,
+        "usage": {
+          "input": 9176,
+          "output": 1669,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 8012,
+          "digest": 1289,
+          "short_digest": 209
+        },
+        "children": {}
+      },
+      "seed-limitations": {
+        "origPath": "seed-limitations.mdx",
+        "displayName": "seed-limitations",
+        "relevant": true,
+        "usage": {
+          "input": 1177,
+          "output": 194,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 13,
+          "digest": 71,
+          "short_digest": 28
+        },
+        "children": {}
+      },
+      "seed-overview": {
+        "origPath": "seed-overview.mdx",
+        "displayName": "seed-overview",
+        "relevant": true,
+        "usage": {
+          "input": 7248,
+          "output": 1951,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 6084,
+          "digest": 1430,
+          "short_digest": 402
+        },
+        "children": {}
+      },
+      "versioning": {
+        "origPath": "seed-versioning.mdx",
+        "displayName": "Versioning",
+        "relevant": true,
+        "usage": {
+          "input": 5215,
+          "output": 1014,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4050,
+          "digest": 712,
+          "short_digest": 178
+        },
+        "children": {}
+      },
+      "select": {
+        "origPath": "select.mdx",
+        "displayName": "select",
+        "relevant": true,
+        "usage": {
+          "input": 9734,
+          "output": 4687,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 8572,
+          "digest": 3644,
+          "short_digest": 928
+        },
+        "children": {}
+      },
+      "sequences": {
+        "origPath": "sequences.mdx",
+        "displayName": "sequences",
+        "relevant": true,
+        "usage": {
+          "input": 1940,
+          "output": 886,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 778,
+          "digest": 525,
+          "short_digest": 224
+        },
+        "children": {}
+      },
+      "set-operations": {
+        "origPath": "set-operations.mdx",
+        "displayName": "set-operations",
+        "relevant": true,
+        "usage": {
+          "input": 13125,
+          "output": 2100,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 11961,
+          "digest": 1392,
+          "short_digest": 569
+        },
+        "children": {}
+      },
+      "schema-declaration": {
+        "origPath": "sql-schema-declaration.mdx",
+        "displayName": "schema-declaration",
+        "relevant": true,
+        "usage": {
+          "input": 5808,
+          "output": 1827,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4642,
+          "digest": 1455,
+          "short_digest": 243
+        },
+        "children": {}
+      },
+      "sql": {
+        "origPath": "sql.mdx",
+        "displayName": "sql",
+        "relevant": true,
+        "usage": {
+          "input": 5781,
+          "output": 2597,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4619,
+          "digest": 1976,
+          "short_digest": 501
+        },
+        "children": {}
+      },
+      "transactions": {
+        "origPath": "transactions.mdx",
+        "displayName": "transactions",
+        "relevant": true,
+        "usage": {
+          "input": 2825,
+          "output": 1102,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1663,
+          "digest": 844,
+          "short_digest": 137
+        },
+        "children": {}
+      },
+      "tutorials": {
+        "origPath": "tutorials.mdx",
+        "displayName": "tutorials",
+        "relevant": false,
+        "usage": {
+          "input": 1187,
+          "output": 214,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 25,
+          "digest": 84,
+          "short_digest": 32
+        },
+        "children": {}
+      },
+      "typebox": {
+        "origPath": "typebox.mdx",
+        "displayName": "typebox",
+        "relevant": true,
+        "usage": {
+          "input": 5139,
+          "output": 2180,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3976,
+          "digest": 1716,
+          "short_digest": 325
+        },
+        "children": {}
+      },
+      "update": {
+        "origPath": "update.mdx",
+        "displayName": "update",
+        "relevant": true,
+        "usage": {
+          "input": 2794,
+          "output": 1119,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1632,
+          "digest": 805,
+          "short_digest": 192
+        },
+        "children": {}
+      },
+      "migrate_to_0.21.0": {
+        "origPath": "upgrade-21.mdx",
+        "displayName": "Migrate to 0.21.0",
+        "relevant": true,
+        "usage": {
+          "input": 2588,
+          "output": 1090,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1424,
+          "digest": 583,
+          "short_digest": 343
+        },
+        "children": {}
+      },
+      "valibot": {
+        "origPath": "valibot.mdx",
+        "displayName": "valibot",
+        "relevant": true,
+        "usage": {
+          "input": 4740,
+          "output": 2036,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3576,
+          "digest": 1704,
+          "short_digest": 200
+        },
+        "children": {}
+      },
+      "views": {
+        "origPath": "views.mdx",
+        "displayName": "views",
+        "relevant": true,
+        "usage": {
+          "input": 4628,
+          "output": 1712,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3466,
+          "digest": 1014,
+          "short_digest": 563
+        },
+        "children": {}
+      },
+      "introduction": {
+        "origPath": "why-drizzle.mdx",
+        "displayName": "introduction",
+        "relevant": true,
+        "usage": {
+          "input": 4148,
+          "output": 1029,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2982,
+          "digest": 724,
+          "short_digest": 177
+        },
+        "children": {}
+      },
+      "zod": {
+        "origPath": "zod.mdx",
+        "displayName": "zod",
+        "relevant": true,
+        "usage": {
+          "input": 5092,
+          "output": 1837,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3929,
+          "digest": 1320,
+          "short_digest": 368
+        },
+        "children": {}
+      }
+    }
+  },
+  "name": "drizzle-orm",
+  "ecosystems": [
+    "js"
+  ],
+  "source_type": "git",
+  "source": {
+    "name": "drizzle-orm",
+    "comment": null,
+    "ecosystems": [
+      "js"
+    ],
+    "include": null,
+    "exclude": null,
+    "doc_dir": "src/content/docs",
+    "repo": "https://github.com/drizzle-team/drizzle-orm-docs",
+    "commit": "11695b74b84979f2ba9641009608d38fe0efbbe8"
+  },
+  "date": "2025-11-29T19:09:39.053225+00:00",
+  "model": "claude-haiku-4.5",
+  "commit": "252261cef6ad355e020592d6750e7412344373ea-dirty"
+}

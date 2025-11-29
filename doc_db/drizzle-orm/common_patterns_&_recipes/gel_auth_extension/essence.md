@@ -1,0 +1,1 @@
+Integrate Gel's auth extension: define schema with auth extension and User type, apply migrations, configure drizzle.config.ts with gel dialect and auth schema filter, run drizzle-kit pull to generate typed Identity and User tables.

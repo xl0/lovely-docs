@@ -1,0 +1,1 @@
+Push schema changes directly to database without SQL files; code-first migrations with config file or CLI options for dialect, schema paths, connection details, filtering, and approval modes.

@@ -1,0 +1,1 @@
+PGlite driver support: WASM Postgres for browser/Node.js/Bun with in-memory or persistent storage, integrated via drizzle-orm/pglite

@@ -1,0 +1,1 @@
+SQL join types (INNER, LEFT, RIGHT, FULL, CROSS, LATERAL variants) with type-safe syntax, partial select with field-level type inference, table aliases for self-joins, and aggregation patterns for many-to-one/many-to-many relationships.

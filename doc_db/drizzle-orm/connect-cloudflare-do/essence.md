@@ -1,0 +1,1 @@
+Setup Drizzle with Cloudflare Durable Objects SQLite: install packages, configure wrangler.toml with DO bindings/migrations, initialize db with drizzle(storage) in DO constructor with blockConcurrencyWhile for migrations, expose query methods, call from Worker via DO stub.

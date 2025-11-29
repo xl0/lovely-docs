@@ -1,0 +1,1 @@
+Setup Drizzle with Gel: install packages, configure dialect as 'gel', pull schema with drizzle-kit, create client and drizzle instance, query with standard ORM methods.

@@ -1,0 +1,1 @@
+Connect to Nile (multi-tenant PostgreSQL) using any Drizzle PostgreSQL driver; set tenant context via `nile.tenant_id` in transactions to isolate queries per tenant, optionally using AsyncLocalStorage middleware.

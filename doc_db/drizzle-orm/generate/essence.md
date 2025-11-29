@@ -1,0 +1,1 @@
+Generate SQL migrations from Drizzle schema by comparing current schema snapshot against previous migrations; supports custom names, multiple configs, and custom SQL migrations.

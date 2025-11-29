@@ -1,0 +1,1 @@
+Setup Drizzle with Vercel Postgres in existing project: install @vercel/postgres, set POSTGRES_URL env var, configure drizzle.config.ts, introspect database, use drizzle() for insert/select/update/delete operations.

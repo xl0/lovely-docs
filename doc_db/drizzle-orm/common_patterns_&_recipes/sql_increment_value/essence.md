@@ -1,0 +1,1 @@
+Increment columns with sql`${column} + value` in update().set(), or create a reusable increment(column, value) helper function.

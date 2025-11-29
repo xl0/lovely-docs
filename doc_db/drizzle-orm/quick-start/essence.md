@@ -1,0 +1,1 @@
+PostgreSQL setup: install drizzle-orm + drizzle-kit, define schema with pgTable, configure drizzle.config.ts, run generate then migrate commands

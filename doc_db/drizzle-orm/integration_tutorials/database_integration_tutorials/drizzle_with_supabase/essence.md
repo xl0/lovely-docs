@@ -1,0 +1,1 @@
+Complete setup guide for Drizzle ORM with Supabase Postgres: connection pooling, schema definition with foreign keys, migrations via drizzle-kit or Supabase CLI, and CRUD query examples.

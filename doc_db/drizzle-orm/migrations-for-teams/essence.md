@@ -1,0 +1,1 @@
+Upcoming documentation on team-based migrations structure; currently a placeholder with reference to GitHub discussion #2832.

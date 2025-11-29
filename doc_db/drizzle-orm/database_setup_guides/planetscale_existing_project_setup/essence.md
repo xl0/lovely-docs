@@ -1,0 +1,1 @@
+Integrate Drizzle ORM with PlanetScale using database-js driver: install package, set DATABASE_URL env vars, create MySQL config, introspect existing schema, connect with host/username/password, perform CRUD operations.

@@ -1,0 +1,1 @@
+Tutorial index page that renders aggregated tutorial content through a component.

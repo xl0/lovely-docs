@@ -1,0 +1,1 @@
+withReplicas() automatically routes SELECT queries to read replicas and write operations to primary; supports custom replica selection logic via callback function.

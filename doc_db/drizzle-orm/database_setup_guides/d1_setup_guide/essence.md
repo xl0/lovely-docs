@@ -1,0 +1,1 @@
+Step-by-step setup for Drizzle with Cloudflare D1: install packages, configure wrangler.toml with D1 binding, connect via drizzle(env.DB), define schema, setup drizzle.config.ts with d1-http driver and Cloudflare credentials, apply migrations, query with db.select().from(table).all().

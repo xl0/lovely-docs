@@ -1,0 +1,1 @@
+Connect Drizzle to Supabase Postgres: install drizzle-orm and postgres, initialize with DATABASE_URL or custom client, disable prepare statements for Transaction pool mode.

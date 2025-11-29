@@ -1,0 +1,1 @@
+count() function and sql operator for row counting; database-specific type casting (PostgreSQL/MySQL need integer cast, SQLite native); supports conditions, joins, and aggregations.

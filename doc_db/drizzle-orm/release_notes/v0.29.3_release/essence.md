@@ -1,0 +1,1 @@
+v0.29.3 makes expo peer dependencies optional to fix Expo SQLite integration.

@@ -1,0 +1,1 @@
+v0.32.1 bug fixes: index typings for 3+ columns, limit 0 support, empty array handling in inArray/notInArray, doc corrections

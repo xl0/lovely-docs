@@ -1,0 +1,1 @@
+Setup Drizzle ORM with Supabase PostgreSQL: install postgres package, set DATABASE_URL env variable, connect Drizzle, define tables, configure drizzle.config.ts with PostgreSQL dialect, apply migrations, seed/query database with TypeScript, run with tsx.

@@ -1,0 +1,1 @@
+v0.16.2 adds PostgreSQL/MySQL schemas, database introspection, postgres.js driver support, and custom type definitions.

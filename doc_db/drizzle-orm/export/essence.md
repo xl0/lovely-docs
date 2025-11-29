@@ -1,0 +1,1 @@
+Export command generates SQL DDL from Drizzle schema; requires dialect and schema path via config or CLI; supports glob patterns for multiple schema files and multiple config files per database stage.

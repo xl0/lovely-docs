@@ -1,0 +1,1 @@
+v0.28.6: LibSQL batch API, SQLite JSON text mode, Relational Query .toSQL(), PostgreSQL array operators (arrayContains/arrayContained/arrayOverlaps), relational query where filter operators, MySQL datetime UTC fix.

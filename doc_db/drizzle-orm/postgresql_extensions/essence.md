@@ -1,0 +1,1 @@
+pg_vector and PostGIS extensions: vector columns with distance-based indexes and queries; geometry columns with GIST indexes and xy/tuple modes.

@@ -1,0 +1,1 @@
+Initialize Drizzle with driver-specific imports (node-postgres, neon-http, vercel-postgres, planetscale, d1, bun-sqlite, expo-sqlite, etc.) and connection URL; access underlying driver via db.$client.

@@ -1,0 +1,1 @@
+Step-by-step setup: install postgres package, configure DATABASE_URL env var, connect via postgres driver, define schema, create drizzle.config.ts with postgresql dialect, push schema with drizzle-kit, seed/query with ORM, run with tsx.

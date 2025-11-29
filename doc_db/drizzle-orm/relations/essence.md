@@ -1,0 +1,1 @@
+Define one-to-one, one-to-many, and many-to-many relations between tables using `one()`, `many()` operators; configure foreign key actions (cascade, restrict, no action, set null, set default); disambiguate multiple relations with relationName.

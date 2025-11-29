@@ -1,0 +1,1 @@
+ESLint plugin with enforce-delete-with-where and enforce-update-with-where rules; supports drizzleObjectName config to target specific objects.

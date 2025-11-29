@@ -1,0 +1,1 @@
+Connect Drizzle to AWS RDS Aurora PostgreSQL via Data API using database, secretArn, and resourceArn; supports both inline config and existing RDSDataClient.

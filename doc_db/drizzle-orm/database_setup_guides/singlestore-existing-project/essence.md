@@ -1,0 +1,1 @@
+11-step integration guide for Drizzle ORM with SingleStore in existing projects: install mysql2, configure DATABASE_URL and drizzle.config.ts, introspect database, connect client, query, with optional schema updates and migrations.

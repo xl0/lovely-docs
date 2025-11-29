@@ -1,0 +1,1 @@
+v0.28.5 fixed runtime error from incorrect OpenTelemetry type import syntax (`import { type }` vs `import type`), causing disabled OpenTelemetry code to leak into runtime.

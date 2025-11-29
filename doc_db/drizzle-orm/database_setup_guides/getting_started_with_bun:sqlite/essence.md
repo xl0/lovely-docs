@@ -1,0 +1,1 @@
+Step-by-step setup guide for Drizzle ORM with Bun:SQLite including package installation, environment configuration, schema creation, migrations, and database querying; Bun 1.2.0 has concurrent query limitations.

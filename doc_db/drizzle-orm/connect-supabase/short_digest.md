@@ -1,0 +1,1 @@
+Install `drizzle-orm postgres` and `-D drizzle-kit`. Initialize with `drizzle(process.env.DATABASE_URL)` or provide your own postgres client. For Supabase's Connection Pooler in "Transaction" mode, disable prepared statements: `postgres(url, { prepare: false })`.

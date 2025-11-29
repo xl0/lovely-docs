@@ -1,0 +1,1 @@
+UPDATE queries with .set(), .where(), optional .limit()/.orderBy()/.returning()/.with()/.from() clauses; database-specific feature support varies.

@@ -1,0 +1,1 @@
+Setup Drizzle ORM with Bun's native SQLite driver for existing projects: install packages, configure environment and drizzle.config.ts, introspect database, connect, and query via bun CLI.

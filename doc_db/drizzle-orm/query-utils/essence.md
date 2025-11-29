@@ -1,0 +1,1 @@
+Query utility functions: $count for result counting

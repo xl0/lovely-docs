@@ -1,0 +1,1 @@
+Install node-postgres and @types/pg. Set DATABASE_URL in .env. Create drizzle.config.ts with postgresql dialect. Run introspection to generate schema from existing database. Transfer schema to src/schema.ts. Connect using node-postgres driver. Query database and run index.ts. Optionally update schema and apply migrations.

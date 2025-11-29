@@ -1,0 +1,1 @@
+This page is a placeholder for upcoming documentation about team-based migrations. The section will be updated following the release of the next version with an improved migrations folder structure. For current information and discussion about this feature, refer to the GitHub discussion thread #2832 in the drizzle-orm repository.

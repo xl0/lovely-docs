@@ -1,0 +1,1 @@
+v0.30.8: Postgres enum schema support, D1 batch API migration, split onConflictDoUpdate where clauses (setWhere/targetWhere), onConflictDoNothing where fix, AWS Data API array fixes.

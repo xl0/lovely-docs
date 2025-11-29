@@ -1,0 +1,1 @@
+Step-by-step setup for Drizzle ORM with Supabase: install postgres, configure DATABASE_URL, connect Drizzle, define schema, setup config, apply migrations, seed/query data.

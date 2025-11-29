@@ -1,0 +1,1 @@
+Six migration strategies: pull database schema to TypeScript, push TypeScript schema directly to DB, generate SQL migrations for CLI or runtime application, or export SQL for external tools like Atlas.

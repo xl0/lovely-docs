@@ -1,0 +1,1 @@
+This page documents migrations for web and mobile environments in Drizzle ORM. Currently, the section is marked as incomplete and will be updated in the next release. For specific migration guidance on Expo SQLite, OP SQLite, and React Native, developers should refer to the Get Started guide for Expo.

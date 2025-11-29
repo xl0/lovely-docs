@@ -1,0 +1,1 @@
+UNIQUE constraints for PostgreSQL (with NULLS NOT DISTINCT), MySQL, and SQLite via `.unique()` at column level or `unique('name').on(cols)` for multi-column constraints.

@@ -1,0 +1,1 @@
+Step-by-step integration of Drizzle ORM with Supabase Edge Functions: schema definition, migration generation, local function development with postgres-js driver using SUPABASE_DB_URL, and deployment with DATABASE_URL environment variable.

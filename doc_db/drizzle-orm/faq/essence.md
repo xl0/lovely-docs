@@ -1,0 +1,1 @@
+generate creates migrations, push syncs schema; PostgreSQL indexes with expressions need manual names, push can't detect expression/where/operator changes.

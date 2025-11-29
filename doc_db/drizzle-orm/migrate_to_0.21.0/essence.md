@@ -1,0 +1,1 @@
+Migration guide for drizzle-orm 0.21.0: remove CLI dialect prefixes, add mandatory `dialect` and optional `driver` to config, replace `connectionString`/`uri` with `url`, run snapshot upgrade, new driver auto-selection strategy, relations extraction, custom migration names, and direct migrate command.

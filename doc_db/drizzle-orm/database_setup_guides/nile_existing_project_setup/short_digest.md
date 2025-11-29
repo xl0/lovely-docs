@@ -1,0 +1,3 @@
+Integrate Drizzle ORM with Nile PostgreSQL in existing project: install `pg` package, set `NILEDB_URL` env variable, run `npx drizzle-kit pull` to introspect and generate schema, connect to database, and query. Nile's built-in tables like `tenants` are automatically included. Update schema by modifying `schema.ts` and applying changes to database.
+
+Example schema with `tenants` and `todos` tables using UUID, timestamps, and vector types.

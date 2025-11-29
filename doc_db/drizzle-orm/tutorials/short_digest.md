@@ -1,0 +1,1 @@
+Index page that displays a collection of tutorials via the Tutorials component. Serves as a navigation hub for accessing tutorial content.

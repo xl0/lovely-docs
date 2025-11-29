@@ -1,0 +1,1 @@
+Generate Zod validation schemas from Drizzle ORM tables with createSelectSchema/createInsertSchema/createUpdateSchema, support field refinements and type coercion via createSchemaFactory, comprehensive data type mappings across PostgreSQL/MySQL/SQLite with bit-limit constraints.

@@ -1,0 +1,1 @@
+v0.30.7: Added Vercel Postgres mappings, fixed Neon driver interval type mapping

@@ -1,0 +1,1 @@
+Use Expo SQLite for React Native + Drizzle ORM integration. The popular react-native-sqlite-storage library lacks Hermes runtime support, which is now standard in React Native/Expo.

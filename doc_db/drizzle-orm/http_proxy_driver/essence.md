@@ -1,0 +1,1 @@
+HTTP proxy driver for custom database communication: pass async callback receiving (sql, params, method) returning {rows}, with examples for PostgreSQL, MySQL, SQLite including batch support.

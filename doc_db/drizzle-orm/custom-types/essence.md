@@ -1,0 +1,1 @@
+Define custom database types with TypeScript type safety using `customType` function with `dataType()`, optional `toDriver()` and `fromDriver()` mapping functions, and generic `CustomTypeValues` for data/driverData/config types.

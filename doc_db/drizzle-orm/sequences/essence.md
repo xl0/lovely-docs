@@ -1,0 +1,1 @@
+PostgreSQL sequences: thread-safe unique identifier generation with nextval/currval/setval/lastval functions, configurable start/increment/min/max/cycle/cache, creates gaps on transaction abort, no rollback semantics.

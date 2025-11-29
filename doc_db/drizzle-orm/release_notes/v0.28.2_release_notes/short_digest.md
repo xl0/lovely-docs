@@ -1,0 +1,1 @@
+**v0.28.2 Release** - Bug fixes for MySQL timestamps, SQLite `.get()` method typing, and sqlite-proxy double execution. Added Typebox package support.

@@ -1,0 +1,1 @@
+Web and mobile migration documentation pending; refer to Expo guide for Expo SQLite, OP SQLite, React Native.

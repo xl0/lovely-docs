@@ -1,0 +1,1 @@
+Connect Drizzle ORM to Vercel Postgres: install @vercel/postgres, set POSTGRES_URL env var, use drizzle() from drizzle-orm/vercel-postgres, configure drizzle.config.ts with postgresql dialect, then insert/select/update/delete via db methods.

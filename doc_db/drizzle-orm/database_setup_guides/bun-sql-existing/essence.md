@@ -1,0 +1,1 @@
+Integrate Drizzle ORM with Bun SQL for existing PostgreSQL: install drizzle-orm/dotenv/drizzle-kit, set DATABASE_URL env var, configure drizzle.config.ts with postgresql dialect, introspect existing database, transfer schema, connect via Bun SQL, query with bun src/index.ts (note: Bun 1.2.0 has concurrent query issues).

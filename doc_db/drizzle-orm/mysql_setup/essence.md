@@ -1,0 +1,1 @@
+Install mysql2 and drizzle-orm, initialize drizzle with connection URL or existing mysql2 client/pool connection; use single client for migrations, either for queries.

@@ -1,0 +1,1 @@
+Reuse database connections and prepared statements in serverless by declaring them outside handler scope; edge functions don't support this.
