@@ -50,12 +50,7 @@
 	<div class="flex w-full max-w-md gap-4">
 		<Button href={resolve('/human')} variant="default" size="lg" class="flex-1">
 			<BookOpen class="mr-2" size={20} />
-			Human View
-		</Button>
-
-		<Button href={resolve('/mcp')} variant="outline" size="lg" class="flex-1">
-			<Bot class="mr-2" size={20} />
-			Agent View
+			Read the docs
 		</Button>
 	</div>
 
@@ -78,12 +73,6 @@
 					Your coding agent should have an easy time searching and reading the documentation using its built-in tools,
 					and you can also directly point it to any particular file using
 					<code>@.lovely-docs/...</code> or equivalent mechanism.
-				</p>
-
-				<p>
-					Actually, even some humans prefer the high-signal style of Lovely Docs: <a
-						class="text-primary hover:text-foreground transition-colors"
-						href={resolve('/human')}>Human view</a>
 				</p>
 				<p>
 					You can also use Lovely Docs <a class="text-primary hover:text-foreground transition-colors" href="#mcp"
@@ -229,9 +218,15 @@ Complete reference for Svelte 5 framework covering runes-based reactivity, templ
 			<div class="text-muted-foreground">
 				<p>You can run a Lovely Docs MCP server locally. Or you can access the one I'm running publicly.</p>
 			</div>
+			<div class="mx-auto w-full max-w-md gap-4">
+				<Button href={resolve('/mcp')} variant="default" size="lg" class="flex-1">
+					<Bot class="mr-2" size={20} />
+					Read the docs the way your agent sees them over MCP
+				</Button>
+			</div>
+
 			<UsageInstructions />
 		</section>
 	</div>
 </div>
 <Footer />
-
