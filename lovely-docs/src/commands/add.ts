@@ -96,7 +96,7 @@ export const addCommand = new Command('add')
 			}
 
 			// Only prompt for LLM Map if not specified via flags
-			if (options.llmsMap === undefined) {
+			if (options.llmsMap === undefined && options.noLlmsMap == undefined ) {
 				const llmsMapSelection = await p.confirm({
 					message: 'Generate LLM_MAP.md?',
 					initialValue: includeLlmMap
