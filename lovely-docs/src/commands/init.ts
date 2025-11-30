@@ -128,6 +128,7 @@ export const initCommand = new Command('init')
 		let installDir = existingConfig?.installDir || '.lovely-docs';
 		let installMode: 'digest' | 'fulltext' | 'both' = existingConfig?.installs || 'digest';
 		let includeSummaries = existingConfig?.summaries || false;
+		let includeLlmMap = existingConfig?.llms_map ?? true;
 
 		if (!options.quiet) {
 			const choice = await p.text({
@@ -170,10 +171,22 @@ export const initCommand = new Command('init')
 				process.exit(0);
 			}
 			includeSummaries = summariesSelection;
+
+			// Ask for LLM Map
+			const llmsMapSelection = await p.confirm({
+				message: 'Generate LLM_MAP.md by default?',
+				initialValue: existingConfig?.llms_map ?? true
+			});
+
+			if (p.isCancel(llmsMapSelection)) {
+				p.cancel('Operation cancelled.');
+				process.exit(0);
+			}
+			includeLlmMap = llmsMapSelection;
 		}
 
 		// Save configuration
-		const config =
+		const configToSave =
 			sourceType === 'local'
 				? {
 						source: {
@@ -184,6 +197,7 @@ export const initCommand = new Command('init')
 						installed: existingConfig?.installed || [],
 						installs: installMode,
 						summaries: includeSummaries,
+						llms_map: includeLlmMap,
 						installDir
 					}
 				: {
@@ -197,10 +211,11 @@ export const initCommand = new Command('init')
 						installed: existingConfig?.installed || [],
 						installs: installMode,
 						summaries: includeSummaries,
+						llms_map: includeLlmMap,
 						installDir
 					};
 
-		await configManager.save(config);
+		await configManager.save(configToSave);
 
 		// Update .gitignore
 		// 		const gitignorePath = join(process.cwd(), '.gitignore');

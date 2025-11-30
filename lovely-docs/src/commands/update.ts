@@ -74,7 +74,7 @@ export const updateCommand = new Command('update')
 					continue;
 				}
 
-				await installer.install(libId);
+				await installer.install(libId, config.installs || 'digest', config.summaries || false, config.llms_map ?? true);
 				successCount++;
 			} catch (e) {
 				console.error(pc.red(`\nFailed to update ${libName}:`), e);

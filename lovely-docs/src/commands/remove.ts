@@ -135,10 +135,12 @@ export const removeCommand = new Command('remove')
 				const targetLibDir = join(targetDir, libraryId);
 				const targetLibFile = join(targetDir, `${libraryId}.md`);
 				const targetLibOrigFile = join(targetDir, `${libraryId}.orig.md`);
+				const targetLibSummaryFile = join(targetDir, `${libraryId}.summary.md`);
 
 				await fs.remove(targetLibDir);
 				await fs.remove(targetLibFile);
 				await fs.remove(targetLibOrigFile);
+				await fs.remove(targetLibSummaryFile);
 
 				console.log(pc.green(`✓ Removed ${libraryName}`));
 			} catch (e) {

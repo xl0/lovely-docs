@@ -18,8 +18,9 @@ const ConfigSchema = v.object({
 	]),
 	ecosystems: v.optional(v.array(v.string())),
 	installed: v.array(v.string()),
-	installs: v.optional(v.picklist(['digest', 'fulltext', 'both']), 'both'),
+	installs: v.optional(v.picklist(['digest', 'fulltext', 'both']), 'digest'),
 	summaries: v.optional(v.boolean(), false),
+	llms_map: v.optional(v.boolean(), true),
 	installDir: v.optional(v.string(), '.lovely-docs')
 });
 

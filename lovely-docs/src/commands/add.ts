@@ -23,6 +23,7 @@ export const addCommand = new Command('add')
 	.option('--both', 'Install both digest and fulltext files')
 	.option('--summaries', 'Install directory summaries')
 	.option('--no-summaries', 'Do not install directory summaries')
+	.option('--no-llms-map', 'Do not generate LLM_MAP.md')
 	.option('-q, --quiet', 'Skip prompts and use defaults')
 	.action(async (libraryInput, options) => {
 		const configManager = new ConfigManager();
@@ -34,8 +35,9 @@ export const addCommand = new Command('add')
 		}
 
 		// Determine install mode
-		let installMode: 'digest' | 'fulltext' | 'both' = config.installs || 'both';
+		let installMode: 'digest' | 'fulltext' | 'both' = config.installs || 'digest';
 		let includeSummaries = config.summaries || false;
+		let includeLlmMap = config.llms_map ?? true;
 
 		// Handle CLI overrides
 		const modeSpecified = options.digest || options.fulltext || options.both;
@@ -50,6 +52,10 @@ export const addCommand = new Command('add')
 			includeSummaries = !!options.summaries;
 		}
 
+		if (options.llmsMap === false) {
+			includeLlmMap = false;
+		}
+
 		// Interactive prompts for settings
 		if (!options.quiet) {
 			// Only prompt for mode if not specified via flags
@@ -57,7 +63,7 @@ export const addCommand = new Command('add')
 				const modeSelection = await p.select({
 					message: 'Select installation mode:',
 					options: [
-						{ value: 'both', label: 'Both (Digest + Fulltext)', hint: 'Recommended' },
+						{ value: 'both', label: 'Both (Digest + Fulltext)', hint: '.md and .fulltext.md' },
 						{ value: 'digest', label: 'Digest Only', hint: '.md files' },
 						{ value: 'fulltext', label: 'Fulltext Only', hint: '.md files (original)' }
 					],
@@ -83,6 +89,20 @@ export const addCommand = new Command('add')
 					process.exit(0);
 				}
 				includeSummaries = summariesSelection;
+			}
+
+			// Only prompt for LLM Map if not specified via flags
+			if (options.llmsMap === undefined) {
+				const llmsMapSelection = await p.confirm({
+					message: 'Generate LLM_MAP.md?',
+					initialValue: includeLlmMap
+				});
+
+				if (p.isCancel(llmsMapSelection)) {
+					p.cancel('Operation cancelled.');
+					process.exit(0);
+				}
+				includeLlmMap = llmsMapSelection;
 			}
 		}
 
@@ -246,7 +266,7 @@ export const addCommand = new Command('add')
 
 			try {
 				const installer = new Installer(docDbPath, targetDir);
-				await installer.install(libraryId, installMode, includeSummaries);
+				await installer.install(libraryId, installMode, includeSummaries, includeLlmMap);
 
 				// Update config
 				if (!config.installed.includes(libraryId)) {

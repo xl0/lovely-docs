@@ -21,7 +21,12 @@ export class Installer {
 		private targetDir: string
 	) {}
 
-	async install(libraryName: string, installs: 'digest' | 'fulltext' | 'both' = 'both', includeSummaries: boolean = false): Promise<void> {
+	async install(
+		libraryName: string,
+		installs: 'digest' | 'fulltext' | 'both' = 'both',
+		includeSummaries: boolean = false,
+		includeLlmMap: boolean = true
+	): Promise<void> {
 		const libPath = join(this.docDbPath, libraryName);
 		const indexPath = join(libPath, 'index.json');
 
@@ -55,9 +60,11 @@ export class Installer {
 		}
 
 		// 2. Generate LLM_MAP.md
-		const essenceTree = await this.buildEssenceTree(libPath, index.map, '', index.name);
-		const llmMapContent = this.renderEssenceTree(essenceTree, libTargetDir);
-		await fs.outputFile(join(libTargetDir, 'LLM_MAP.md'), llmMapContent);
+		if (includeLlmMap) {
+			const essenceTree = await this.buildEssenceTree(libPath, index.map, '', index.name);
+			const llmMapContent = this.renderEssenceTree(essenceTree, libTargetDir);
+			await fs.outputFile(join(libTargetDir, 'LLM_MAP.md'), llmMapContent);
+		}
 
 		// 3. Traverse and copy children
 		await this.processNode(libPath, libTargetDir, index.map, '', installs, includeSummaries);
@@ -94,19 +101,25 @@ export class Installer {
 			const childTargetFullFile = join(targetPath, fulltextName);
 			const childTargetDir = join(targetPath, key);
 
+			const isDirectory = Object.keys(child.children).length > 0;
+			const shouldInstallContent = child.relevant && (!isDirectory || includeSummaries);
+
 			// Copy files
-			if (installs === 'digest' || installs === 'both') {
-				await this.copyVariant(childSourcePath, childTargetFile, 'digest');
+			if (shouldInstallContent) {
+				if (installs === 'digest' || installs === 'both') {
+					await this.copyVariant(childSourcePath, childTargetFile, 'digest');
+				}
+				if (installs === 'fulltext' || installs === 'both') {
+					await this.copyVariant(childSourcePath, childTargetFullFile, 'fulltext');
+				}
 			}
-			if (installs === 'fulltext' || installs === 'both') {
-				await this.copyVariant(childSourcePath, childTargetFullFile, 'fulltext');
-			}
-			if (includeSummaries) {
+
+			if (includeSummaries && child.relevant) {
 				await this.copyVariant(childSourcePath, join(targetPath, `${key}.summary.md`), 'short_digest');
 			}
 
 			// Recurse if there are children
-			if (Object.keys(child.children).length > 0) {
+			if (isDirectory) {
 				await fs.ensureDir(childTargetDir);
 				await this.processNode(childSourcePath, childTargetDir, child, childRelativePath, installs, includeSummaries);
 			}
