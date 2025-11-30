@@ -1,7 +1,7 @@
-import dbg from 'debug';
 import { err, ok, type Result } from 'neverthrow';
 import type { LibrarySummary, LibraryDBItem } from './doc-cache.js';
 import { getNodeMarkdown, getRelevantEssenceSubTree, type MarkdownLevel, getEcosystems, type EssenceDocNode } from './doc-cache.js';
+import dbg from 'debug';
 const debug = dbg('app:lib:handlers');
 
 export function libraryIndex(libraries: Map<string, LibrarySummary>, ecosystem: string) {

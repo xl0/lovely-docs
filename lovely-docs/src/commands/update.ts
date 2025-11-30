@@ -4,8 +4,8 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
-import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
-import { DocRepo, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
+import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
+import { DocRepo, getRepoPath } from '../lib/doc-repo.js';
 import { Installer } from '../lib/installer.js';
 
 interface LibraryInfo {

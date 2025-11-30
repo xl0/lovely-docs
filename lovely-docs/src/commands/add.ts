@@ -1,12 +1,12 @@
-import { Command } from 'commander';
 import * as p from '@clack/prompts';
+import { Command } from 'commander';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
-import { DocRepo, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
-import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
+import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
+import { DocRepo, getRepoPath } from '../lib/doc-repo.js';
 import { Installer } from '../lib/installer.js';
-import { join } from 'path';
-import { existsSync } from 'fs';
 interface LibraryInfo {
 	id: string;
 	name: string;
@@ -18,6 +18,12 @@ export const addCommand = new Command('add')
 	.argument('[library]', 'Library name or ID to add')
 	.alias('a')
 	.option('--all', 'Add all available libraries')
+	.option('--digest', 'Install only digest files')
+	.option('--fulltext', 'Install only fulltext files')
+	.option('--both', 'Install both digest and fulltext files')
+	.option('--summaries', 'Install directory summaries')
+	.option('--no-summaries', 'Do not install directory summaries')
+	.option('-q, --quiet', 'Skip prompts and use defaults')
 	.action(async (libraryInput, options) => {
 		const configManager = new ConfigManager();
 		const config = await configManager.load();
@@ -25,6 +31,59 @@ export const addCommand = new Command('add')
 		if (!config) {
 			console.error(pc.red('Project not initialized. Run `npx lovely-docs init` first.'));
 			process.exit(1);
+		}
+
+		// Determine install mode
+		let installMode: 'digest' | 'fulltext' | 'both' = config.installs || 'both';
+		let includeSummaries = config.summaries || false;
+
+		// Handle CLI overrides
+		const modeSpecified = options.digest || options.fulltext || options.both;
+		if (modeSpecified) {
+			if (options.digest && options.fulltext) installMode = 'both';
+			else if (options.digest) installMode = 'digest';
+			else if (options.fulltext) installMode = 'fulltext';
+			else if (options.both) installMode = 'both';
+		}
+
+		if (options.summaries !== undefined) {
+			includeSummaries = !!options.summaries;
+		}
+
+		// Interactive prompts for settings
+		if (!options.quiet) {
+			// Only prompt for mode if not specified via flags
+			if (!modeSpecified) {
+				const modeSelection = await p.select({
+					message: 'Select installation mode:',
+					options: [
+						{ value: 'both', label: 'Both (Digest + Fulltext)', hint: 'Recommended' },
+						{ value: 'digest', label: 'Digest Only', hint: '.md files' },
+						{ value: 'fulltext', label: 'Fulltext Only', hint: '.md files (original)' }
+					],
+					initialValue: installMode
+				});
+
+				if (p.isCancel(modeSelection)) {
+					p.cancel('Operation cancelled.');
+					process.exit(0);
+				}
+				installMode = modeSelection as 'digest' | 'fulltext' | 'both';
+			}
+
+			// Only prompt for summaries if not specified via flags
+			if (options.summaries === undefined) {
+				const summariesSelection = await p.confirm({
+					message: 'Install directory summaries?',
+					initialValue: includeSummaries
+				});
+
+				if (p.isCancel(summariesSelection)) {
+					p.cancel('Operation cancelled.');
+					process.exit(0);
+				}
+				includeSummaries = summariesSelection;
+			}
 		}
 
 		// Determine doc_db path from config
@@ -145,6 +204,8 @@ export const addCommand = new Command('add')
 			return;
 		}
 
+		let overwriteAll = false;
+
 		// Install libraries
 		for (const libraryId of librariesToAdd) {
 			const library = libraries.find((l: LibraryInfo) => l.id === libraryId);
@@ -159,15 +220,24 @@ export const addCommand = new Command('add')
 
 			// Check if already installed
 			const targetLibDir = join(targetDir, libraryId);
-			if (existsSync(targetLibDir)) {
-				const shouldOverwrite = await p.confirm({
+			if (existsSync(targetLibDir) && !overwriteAll) {
+				const choice = await p.select({
 					message: `Library '${library.name}' is already installed. Overwrite?`,
-					initialValue: false
+					options: [
+						{ value: 'no', label: 'No' },
+						{ value: 'yes', label: 'Yes' },
+						{ value: 'all', label: 'Yes, all' }
+					],
+					initialValue: 'no'
 				});
 
-				if (p.isCancel(shouldOverwrite) || !shouldOverwrite) {
+				if (p.isCancel(choice) || choice === 'no') {
 					console.log(pc.yellow(`Skipped ${library.name}`));
 					continue;
+				}
+
+				if (choice === 'all') {
+					overwriteAll = true;
 				}
 			}
 
@@ -176,7 +246,7 @@ export const addCommand = new Command('add')
 
 			try {
 				const installer = new Installer(docDbPath, targetDir);
-				await installer.install(libraryId);
+				await installer.install(libraryId, installMode, includeSummaries);
 
 				// Update config
 				if (!config.installed.includes(libraryId)) {

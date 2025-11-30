@@ -1,8 +1,8 @@
 import { Command } from 'commander';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
-import { DocRepo, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
-import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
+import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
+import { DocRepo, getRepoPath } from '../lib/doc-repo.js';
 
 export const listCommand = new Command('list')
 	.description('List available documentation libraries')
