@@ -1,6 +1,7 @@
 import * as p from '@clack/prompts';
 import { Command } from 'commander';
 import { existsSync } from 'fs';
+import fs from 'fs-extra';
 import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
@@ -23,6 +24,7 @@ export const addCommand = new Command('add')
 	.option('--both', 'Install both digest and fulltext files')
 	.option('--summaries', 'Install directory summaries')
 	.option('--no-summaries', 'Do not install directory summaries')
+	.option('--llms-map', 'Generate LLM_MAP.md')
 	.option('--no-llms-map', 'Do not generate LLM_MAP.md')
 	.option('-q, --quiet', 'Skip prompts and use defaults')
 	.action(async (libraryInput, options) => {
@@ -52,7 +54,9 @@ export const addCommand = new Command('add')
 			includeSummaries = !!options.summaries;
 		}
 
-		if (options.llmsMap === false) {
+		if (options.llmsMap) {
+			includeLlmMap = true;
+		} else if (options.noLlmsMap) {
 			includeLlmMap = false;
 		}
 
@@ -265,6 +269,12 @@ export const addCommand = new Command('add')
 			s.start(`Installing ${library.name}...`);
 
 			try {
+				// Clean up existing installation artifacts
+				await fs.remove(targetLibDir);
+				await fs.remove(join(targetDir, `${libraryId}.md`));
+				await fs.remove(join(targetDir, `${libraryId}.orig.md`));
+				await fs.remove(join(targetDir, `${libraryId}.summary.md`));
+
 				const installer = new Installer(docDbPath, targetDir);
 				await installer.install(libraryId, installMode, includeSummaries, includeLlmMap);
 
