@@ -83,7 +83,7 @@
 		// Introduction Directory
 		items.push({ name: 'introduction/', type: 'folder', level: 1, link: 'sveltejs_svelte/introduction#digest' });
 
-		const introFiles = ['getting_started', 'index'];
+		const introFiles = ['getting_started', 'svelte_files'];
 		for (const name of introFiles) {
 			if (installMode === 'digest' || installMode === 'both') {
 				items.push({ name: `${name}.md`, type: 'file', desc: 'Page digest', level: 2, link: `sveltejs_svelte/introduction/${name}#digest` });

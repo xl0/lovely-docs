@@ -2,23 +2,7 @@
 	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import {
-		Accordion,
-		AccordionContent,
-		AccordionItem,
-		AccordionTrigger
-	} from '$lib/components/ui/accordion';
-	import {
-		Github,
-		Bot,
-		SquareArrowLeft,
-		BookOpen,
-		Diamond,
-		Circle,
-		CheckCircle,
-		CircleDot,
-		Minus
-	} from '@lucide/svelte';
+	import { Github, Bot, SquareArrowLeft, BookOpen } from '@lucide/svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Search from '$lib/components/Search.svelte';
@@ -98,77 +82,6 @@
 				<WideModeToggle />
 			</div>
 		</div>
-
-		<Accordion type="single" collapsible class="mb-8 w-full max-w-2xl">
-			<AccordionItem value="init-options">
-				<AccordionTrigger>Initialization Options</AccordionTrigger>
-				<AccordionContent>
-					<div class="bg-muted/50 rounded-md p-4 font-mono text-sm">
-						<div class="space-y-4">
-							<div class="flex items-center gap-2">
-								<Diamond class="size-3 text-blue-500 fill-current" />
-								<span>Documentation repository synced</span>
-							</div>
-
-							<div class="space-y-1">
-								<div class="flex items-center gap-2">
-									<Diamond class="size-3 text-blue-500 fill-current" />
-									<span>Installation directory:</span>
-								</div>
-								<div class="ml-5 text-muted-foreground">.lovely-docs</div>
-							</div>
-
-							<div class="space-y-2">
-								<div class="flex items-center gap-2">
-									<Diamond class="size-3 text-purple-500 fill-current" />
-									<span>Default installation mode:</span>
-								</div>
-								<div class="ml-5 space-y-1">
-									<div class="flex items-center gap-2">
-										<Circle class="size-3 text-muted-foreground" />
-										<span>Both (Digest + Fulltext)</span>
-									</div>
-									<div class="flex items-center gap-2">
-										<CircleDot class="size-3 text-green-500" />
-										<span>Digest Only</span>
-									</div>
-									<div class="flex items-center gap-2">
-										<Circle class="size-3 text-muted-foreground" />
-										<span>Fulltext Only</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="space-y-1">
-								<div class="flex items-center gap-2">
-									<Diamond class="size-3 text-purple-500 fill-current" />
-									<span>Install directory summaries by default?</span>
-								</div>
-								<div class="ml-5 flex items-center gap-2">
-									<Circle class="size-3 text-muted-foreground" />
-									<span>Yes / </span>
-									<CircleDot class="size-3 text-green-500" />
-									<span>No</span>
-								</div>
-							</div>
-
-							<div class="space-y-1">
-								<div class="flex items-center gap-2">
-									<Diamond class="size-3 text-purple-500 fill-current" />
-									<span>Generate LLM_MAP.md by default?</span>
-								</div>
-								<div class="ml-5 flex items-center gap-2">
-									<Circle class="size-3 text-muted-foreground" />
-									<span>Yes / </span>
-									<CircleDot class="size-3 text-green-500" />
-									<span>No</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</AccordionContent>
-			</AccordionItem>
-		</Accordion>
 
 		<!-- Ecosystem Filters -->
 		{#if allEcosystems.length}
