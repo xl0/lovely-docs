@@ -21,7 +21,7 @@ export class Installer {
 		private targetDir: string
 	) {}
 
-	async install(libraryName: string): Promise<void> {
+	async install(libraryName: string, installs: 'digest' | 'fulltext' | 'both' = 'both', includeSummaries: boolean = false): Promise<void> {
 		const libPath = join(this.docDbPath, libraryName);
 		const indexPath = join(libPath, 'index.json');
 
@@ -36,8 +36,23 @@ export class Installer {
 		await fs.ensureDir(libTargetDir);
 
 		// 1. Copy Library Level Files
-		await this.copyVariant(libPath, join(this.targetDir, `${libraryName}.md`), 'digest');
-		await this.copyVariant(libPath, join(this.targetDir, `${libraryName}.orig.md`), 'fulltext');
+		if (includeSummaries) {
+			let digestName = `${libraryName}.md`;
+			let fulltextName = `${libraryName}.orig.md`;
+
+			if (installs === 'fulltext') {
+				fulltextName = `${libraryName}.md`;
+			}
+
+			if (installs === 'digest' || installs === 'both') {
+				await this.copyVariant(libPath, join(this.targetDir, digestName), 'digest');
+			}
+			if (installs === 'fulltext' || installs === 'both') {
+				await this.copyVariant(libPath, join(this.targetDir, fulltextName), 'fulltext');
+			}
+
+			await this.copyVariant(libPath, join(this.targetDir, `${libraryName}.summary.md`), 'short_digest');
+		}
 
 		// 2. Generate LLM_MAP.md
 		const essenceTree = await this.buildEssenceTree(libPath, index.map, '', index.name);
@@ -45,7 +60,7 @@ export class Installer {
 		await fs.outputFile(join(libTargetDir, 'LLM_MAP.md'), llmMapContent);
 
 		// 3. Traverse and copy children
-		await this.processNode(libPath, libTargetDir, index.map, '');
+		await this.processNode(libPath, libTargetDir, index.map, '', installs, includeSummaries);
 	}
 
 	private async copyVariant(sourceDir: string, targetPath: string, variant: 'digest' | 'fulltext' | 'short_digest') {
@@ -55,24 +70,45 @@ export class Installer {
 		}
 	}
 
-	private async processNode(sourcePath: string, targetPath: string, node: IndexNode, relativePath: string) {
+	private async processNode(
+		sourcePath: string,
+		targetPath: string,
+		node: IndexNode,
+		relativePath: string,
+		installs: 'digest' | 'fulltext' | 'both',
+		includeSummaries: boolean
+	) {
 		// Process children
 		for (const [key, child] of Object.entries(node.children)) {
 			const childSourcePath = join(sourcePath, key);
 			const childRelativePath = relativePath ? `${relativePath}/${key}` : key;
 
-			const childTargetFile = join(targetPath, `${key}.md`);
-			const childTargetFullFile = join(targetPath, `${key}.orig.md`);
+			let digestName = `${key}.md`;
+			let fulltextName = `${key}.orig.md`;
+
+			if (installs === 'fulltext') {
+				fulltextName = `${key}.md`;
+			}
+
+			const childTargetFile = join(targetPath, digestName);
+			const childTargetFullFile = join(targetPath, fulltextName);
 			const childTargetDir = join(targetPath, key);
 
 			// Copy files
-			await this.copyVariant(childSourcePath, childTargetFile, 'digest');
-			await this.copyVariant(childSourcePath, childTargetFullFile, 'fulltext');
+			if (installs === 'digest' || installs === 'both') {
+				await this.copyVariant(childSourcePath, childTargetFile, 'digest');
+			}
+			if (installs === 'fulltext' || installs === 'both') {
+				await this.copyVariant(childSourcePath, childTargetFullFile, 'fulltext');
+			}
+			if (includeSummaries) {
+				await this.copyVariant(childSourcePath, join(targetPath, `${key}.summary.md`), 'short_digest');
+			}
 
 			// Recurse if there are children
 			if (Object.keys(child.children).length > 0) {
 				await fs.ensureDir(childTargetDir);
-				await this.processNode(childSourcePath, childTargetDir, child, childRelativePath);
+				await this.processNode(childSourcePath, childTargetDir, child, childRelativePath, installs, includeSummaries);
 			}
 		}
 	}

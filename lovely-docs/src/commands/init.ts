@@ -121,11 +121,14 @@ export const initCommand = new Command('init')
 					process.exit(0);
 				}
 
-        docDir = choice;
+				docDir = choice;
 			}
 		}
 
 		let installDir = existingConfig?.installDir || '.lovely-docs';
+		let installMode: 'digest' | 'fulltext' | 'both' = existingConfig?.installs || 'digest';
+		let includeSummaries = existingConfig?.summaries || false;
+
 		if (!options.quiet) {
 			const choice = await p.text({
 				message: 'Installation directory:',
@@ -138,6 +141,35 @@ export const initCommand = new Command('init')
 				process.exit(0);
 			}
 			installDir = choice;
+
+			// Ask for default installation mode
+			const modeSelection = await p.select({
+				message: 'Default installation mode:',
+				options: [
+					{ value: 'both', label: 'Both (Digest + Fulltext)', hint: '.md and .fulltext.md' },
+					{ value: 'digest', label: 'Digest Only' },
+					{ value: 'fulltext', label: 'Fulltext Only' }
+				],
+				initialValue: installMode
+			});
+
+			if (p.isCancel(modeSelection)) {
+				p.cancel('Operation cancelled.');
+				process.exit(0);
+			}
+			installMode = modeSelection as 'digest' | 'fulltext' | 'both';
+
+			// Ask for summaries
+			const summariesSelection = await p.confirm({
+				message: 'Install directory summaries by default?',
+				initialValue: includeSummaries
+			});
+
+			if (p.isCancel(summariesSelection)) {
+				p.cancel('Operation cancelled.');
+				process.exit(0);
+			}
+			includeSummaries = summariesSelection;
 		}
 
 		// Save configuration
@@ -150,6 +182,8 @@ export const initCommand = new Command('init')
 						},
 						ecosystems: existingConfig?.ecosystems,
 						installed: existingConfig?.installed || [],
+						installs: installMode,
+						summaries: includeSummaries,
 						installDir
 					}
 				: {
@@ -161,6 +195,8 @@ export const initCommand = new Command('init')
 						},
 						ecosystems: existingConfig?.ecosystems,
 						installed: existingConfig?.installed || [],
+						installs: installMode,
+						summaries: includeSummaries,
 						installDir
 					};
 
@@ -183,7 +219,7 @@ export const initCommand = new Command('init')
 		// 			console.error(pc.yellow('Failed to update .gitignore'), e);
 		// 		}
 
-				// Generate Rules
+		// Generate Rules
 		// 		if (!options.quiet) {
 		// 			const ruleTargets = [
 		// 				{ label: 'Cursor', value: 'cursor', path: '.cursor/rules/lovely-docs.mdc' },

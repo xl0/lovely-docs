@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
-import { loadLibrariesFromJson, getLibrarySummaries } from '../lib/doc-cache.js';
+import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
 import { getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
 
 interface LibraryInfo {

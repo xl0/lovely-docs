@@ -1,16 +1,14 @@
-import { Command } from 'commander';
+import { Logtail } from '@logtail/node';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+import { Command } from 'commander';
 import cors from 'cors';
-import express, { type Request, type Response } from 'express';
-import { Logtail } from '@logtail/node';
 import dbg from 'debug';
-import pc from 'picocolors';
+import express, { type Request, type Response } from 'express';
 import { join } from 'path';
-import { ConfigManager } from '../lib/config.js';
+import { loadLibrariesFromJson, type LibraryFilterOptions } from '../lib/doc-cache.js';
 import { DocRepo, getCacheDir, getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
 import { getServer, ResourceResponseError } from '../lib/server.js';
-import { loadLibrariesFromJson, getLibrarySummaries, type LibraryFilterOptions } from '../lib/doc-cache.js';
 
 const debug = dbg('app:mcp');
 

@@ -1,6 +1,6 @@
 {
   "name": "lovely-docs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "CLI tool to add curated documentation to your project",
   "main": "dist/index.js",
