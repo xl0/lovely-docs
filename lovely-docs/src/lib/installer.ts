@@ -55,8 +55,6 @@ export class Installer {
 			if (installs === 'fulltext' || installs === 'both') {
 				await this.copyVariant(libPath, join(this.targetDir, fulltextName), 'fulltext');
 			}
-
-			await this.copyVariant(libPath, join(this.targetDir, `${libraryName}.summary.md`), 'short_digest');
 		}
 
 		// 2. Generate LLM_MAP.md
@@ -112,10 +110,6 @@ export class Installer {
 				if (installs === 'fulltext' || installs === 'both') {
 					await this.copyVariant(childSourcePath, childTargetFullFile, 'fulltext');
 				}
-			}
-
-			if (includeSummaries && child.relevant) {
-				await this.copyVariant(childSourcePath, join(targetPath, `${key}.summary.md`), 'short_digest');
 			}
 
 			// Recurse if there are children
