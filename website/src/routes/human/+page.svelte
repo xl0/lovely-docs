@@ -45,7 +45,7 @@
 	});
 </script>
 
-<div class="from-background to-muted/20 min-h-screen bg-gradient-to-b">
+<div class="from-background to-muted/20 min-h-screen bg-linear-to-b">
 	<div class="container mx-auto px-4 py-8">
 		<!-- Header -->
 		<div class="mb-12 flex items-center justify-between">
@@ -57,7 +57,7 @@
 				</a>
 				<div>
 					<h1
-						class="from-foreground to-foreground/70 bg-gradient-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent">
+						class="from-foreground to-foreground/70 bg-linear-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent">
 						Lovely Docs
 					</h1>
 					<p class="text-muted-foreground mt-2">Browse documentation libraries</p>
