@@ -1,13 +1,19 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { BookOpen, Bot, Terminal, FileText } from '@lucide/svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
-	import UsageInstructions from '$lib/components/UsageInstructions.svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Tabs, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
+	import UsageInstructions from '$lib/components/UsageInstructions.svelte';
+	import {
+		BookOpen,
+		Bot,
+		File,
+		Folder,
+		Terminal
+	} from '@lucide/svelte';
 
-	// Package manager state
+	// Package Manager State
 	type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
 	let selectedPm = $state<PackageManager>('npm');
 
@@ -33,9 +39,122 @@
 			list: 'bunx lovely-docs list'
 		}
 	};
+
+	// Installation Options State
+	let installMode = $state<'digest' | 'both' | 'fulltext'>('digest');
+	let includeSummaries = $state(false);
+	let includeLlmMap = $state(false);
+	let installDir = $state('.lovely-docs');
+
+	const installCommand = $derived.by(() => {
+		const baseCmd = pmCommands[selectedPm].add;
+		const parts = [baseCmd, 'sveltejs/svelte'];
+		if (installMode === 'fulltext') parts.push('--fulltext');
+		if (installMode === 'both') parts.push('--both');
+		if (includeSummaries) parts.push('--summaries');
+		if (!includeLlmMap) parts.push('--no-llms-map');
+		return parts.join(' ');
+	});
+
+	const treeStructure = $derived.by(() => {
+		const items = [];
+
+		// Library level content (Root siblings)
+		if (includeSummaries) {
+			if (installMode === 'digest') {
+				items.push({ name: 'sveltejs_svelte.md', type: 'file', desc: 'Library overview (digest)', level: 0, link: 'sveltejs_svelte#digest' });
+			} else if (installMode === 'fulltext') {
+				items.push({ name: 'sveltejs_svelte.md', type: 'file', desc: 'Full library docs', level: 0, link: 'sveltejs_svelte#fulltext' });
+			} else {
+				// both
+				items.push({ name: 'sveltejs_svelte.md', type: 'file', desc: 'Library overview (digest)', level: 0, link: 'sveltejs_svelte#digest' });
+				items.push({ name: 'sveltejs_svelte.orig.md', type: 'file', desc: 'Full library docs', level: 0, link: 'sveltejs_svelte#fulltext' });
+			}
+		}
+
+		// Library Directory
+		items.push({ name: 'sveltejs_svelte/', type: 'folder', level: 0, link: 'sveltejs_svelte#digest' });
+
+		// LLM Map (Inside library directory)
+		if (includeLlmMap) {
+			items.push({ name: 'LLM_MAP.md', type: 'file', desc: 'Hierarchical essence tree', level: 1 });
+		}
+
+		// Introduction Directory
+		items.push({ name: 'introduction/', type: 'folder', level: 1, link: 'sveltejs_svelte/introduction#digest' });
+
+		const introFiles = ['getting_started', 'index'];
+		for (const name of introFiles) {
+			if (installMode === 'digest' || installMode === 'both') {
+				items.push({ name: `${name}.md`, type: 'file', desc: 'Page digest', level: 2, link: `sveltejs_svelte/introduction/${name}#digest` });
+			}
+			if (installMode === 'fulltext') {
+				items.push({ name: `${name}.md`, type: 'file', desc: 'Page fulltext', level: 2, link: `sveltejs_svelte/introduction/${name}#fulltext` });
+			} else if (installMode === 'both') {
+				items.push({ name: `${name}.orig.md`, type: 'file', desc: 'Page fulltext', level: 2, link: `sveltejs_svelte/introduction/${name}#fulltext` });
+			}
+		}
+
+		// Subdirectory content (summaries) - Siblings of the subdirectory
+		if (includeSummaries) {
+			if (installMode === 'digest') {
+				items.push({ name: 'runes.md', type: 'file', desc: 'Section digest', level: 1, link: 'sveltejs_svelte/runes#digest' });
+			} else if (installMode === 'fulltext') {
+				items.push({ name: 'runes.md', type: 'file', desc: 'Section fulltext', level: 1, link: 'sveltejs_svelte/runes#fulltext' });
+			} else {
+				// both
+				items.push({ name: 'runes.md', type: 'file', desc: 'Section digest', level: 1, link: 'sveltejs_svelte/runes#digest' });
+				items.push({ name: 'runes.orig.md', type: 'file', desc: 'Section fulltext', level: 1, link: 'sveltejs_svelte/runes#fulltext' });
+			}
+		}
+
+		// Subdirectory
+		items.push({ name: 'runes/', type: 'folder', level: 1, link: 'sveltejs_svelte/runes#digest' });
+
+		// Leaf file - Inside subdirectory
+		const runeFiles = ['$derived', '$effect', '$state', 'what_are_runes'];
+		for (const name of runeFiles) {
+			if (installMode === 'digest' || installMode === 'both') {
+				items.push({ name: `${name}.md`, type: 'file', desc: 'Page digest', level: 2, link: `sveltejs_svelte/runes/${name}#digest` });
+			}
+			if (installMode === 'fulltext') {
+				items.push({ name: `${name}.md`, type: 'file', desc: 'Page fulltext', level: 2, link: `sveltejs_svelte/runes/${name}#fulltext` });
+			} else if (installMode === 'both') {
+				items.push({ name: `${name}.orig.md`, type: 'file', desc: 'Page fulltext', level: 2, link: `sveltejs_svelte/runes/${name}#fulltext` });
+			}
+		}
+
+		return items;
+	});
+
+	const simpleRule = $derived.by(() => {
+		const type = installMode === 'fulltext' ? 'documentation' : 'dehydrated documentation';
+		let text = `We have ${type} in ${installDir}/. When you start a new session, check what's available. Refer to the docs first time you use a feature of a documented library.`;
+		if (includeLlmMap) {
+			text += ` Each library has an LLM_MAP.md with short summaries for all available pages and directories.`;
+		}
+		if (includeSummaries) {
+			text += ` Directories often have summary files (e.g. directory.md) that provide an overview.`;
+		}
+		return text;
+	});
+
+	const aggressiveRule = $derived.by(() => {
+		const type = installMode === 'fulltext' ? 'curated documentation' : 'curated, dehydrated documentation';
+		let text = `We have ${type} in ${installDir}/\n\nWORKFLOW:\n1. At the START of EVERY session, run: list_dir on ${installDir}/`;
+		let step = 2;
+		if (includeLlmMap) {
+			text += `\n${step++}. Check the LLM_MAP.md for each relevant library BEFORE using it. Make a mental note on new features that you might not know about.`;
+		}
+		if (includeSummaries) {
+			text += `\n${step++}. Check directory summaries (e.g. folder.md) to understand the structure of the module.`;
+		}
+		text += `\n${step++}. If documentation exists for a library you're about to use, read the relevant sections before using a feature for the first time.`;
+		return text;
+	});
 </script>
 
-<div class="mx-auto flex max-w-4xl flex-col items-center justify-start space-y-16 p-8">
+<div class="mx-auto flex max-w-5xl flex-col items-center justify-start space-y-16 p-8">
 	<div class="absolute top-4 right-4">
 		<ThemeToggle />
 	</div>
@@ -88,127 +207,213 @@
 			<p class="text-muted-foreground text-lg leading-relaxed">
 				Note: The Lovely Docs CLI is written in TypeScript, but your project can be written in any language
 			</p>
-			<figure class="bg-card relative rounded-lg border">
-				<Tabs bind:value={selectedPm}>
-					<!-- Package Manager Tabs -->
-					<div class="flex items-center gap-2 border-b px-4 py-2">
-						<div class="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70">
-							<Terminal class="text-background size-3" />
-						</div>
-						<TabsList class="h-auto gap-1 rounded-none bg-transparent p-0">
-							<TabsTrigger
-								value="npm"
-								class="data-[state=active]:border-input data-[state=active]:bg-accent h-7 rounded-md border border-transparent px-3 py-1 text-sm"
-								>npm</TabsTrigger>
-							<TabsTrigger
-								value="pnpm"
-								class="data-[state=active]:border-input data-[state=active]:bg-accent h-7 rounded-md border border-transparent px-3 py-1 text-sm"
-								>pnpm</TabsTrigger>
-							<TabsTrigger
-								value="yarn"
-								class="data-[state=active]:border-input data-[state=active]:bg-accent h-7 rounded-md border border-transparent px-3 py-1 text-sm"
-								>yarn</TabsTrigger>
-							<TabsTrigger
-								value="bun"
-								class="data-[state=active]:border-input data-[state=active]:bg-accent h-7 rounded-md border border-transparent px-3 py-1 text-sm"
-								>bun</TabsTrigger>
-						</TabsList>
-					</div>
 
-					<!-- Code Content -->
-					<div class="overflow-x-auto">
-						<TabsContent value="npm" class="m-0 space-y-3 p-4">
-							<pre class="overflow-x-auto"><code class="font-mono text-sm">{pmCommands.npm.init}</code></pre>
-							<pre class="overflow-x-auto"><code class="font-mono text-sm"
-									>{pmCommands.npm.add} sveltejs_svelte</code></pre>
-						</TabsContent>
-						<TabsContent value="pnpm" class="m-0 space-y-3 p-4">
-							<pre class="overflow-x-auto"><code class="font-mono text-sm">{pmCommands.pnpm.init}</code></pre>
-							<pre class="overflow-x-auto"><code class="font-mono text-sm"
-									>{pmCommands.pnpm.add} sveltejs_svelte</code></pre>
-						</TabsContent>
-						<TabsContent value="yarn" class="m-0 space-y-3 p-4">
-							<pre class="overflow-x-auto"><code class="font-mono text-sm">{pmCommands.yarn.init}</code></pre>
-							<pre class="overflow-x-auto"><code class="font-mono text-sm"
-									>{pmCommands.yarn.add} sveltejs_svelte</code></pre>
-						</TabsContent>
-						<TabsContent value="bun" class="m-0 space-y-3 p-4">
-							<pre class="overflow-x-auto"><code class="font-mono text-sm">{pmCommands.bun.init}</code></pre>
-							<pre class="overflow-x-auto"><code class="font-mono text-sm"
-									>{pmCommands.bun.add} sveltejs_svelte</code></pre>
-						</TabsContent>
-					</div>
+			<!-- Package Manager Selection -->
+			<div class="bg-card rounded-lg border p-1">
+				<Tabs bind:value={selectedPm} class="w-full">
+					<TabsList class="w-full justify-start bg-transparent p-0 h-auto">
+						<TabsTrigger value="npm" class="data-[state=active]:bg-muted px-4 py-2 rounded-md">npm</TabsTrigger>
+						<TabsTrigger value="pnpm" class="data-[state=active]:bg-muted px-4 py-2 rounded-md">pnpm</TabsTrigger>
+						<TabsTrigger value="yarn" class="data-[state=active]:bg-muted px-4 py-2 rounded-md">yarn</TabsTrigger>
+						<TabsTrigger value="bun" class="data-[state=active]:bg-muted px-4 py-2 rounded-md">bun</TabsTrigger>
+					</TabsList>
 				</Tabs>
-			</figure>
+			</div>
+
+			<!-- Basic Commands -->
+			<div class="grid gap-4 md:grid-cols-2">
+				<div class="bg-muted rounded-lg p-4 space-y-2">
+					<div class="text-sm font-semibold text-foreground flex items-center gap-2">
+						<Terminal class="size-4" /> Initialize
+					</div>
+					<code class="block font-mono text-sm text-muted-foreground">{pmCommands[selectedPm].init}</code>
+				</div>
+				<div class="bg-muted rounded-lg p-4 space-y-2">
+					<div class="text-sm font-semibold text-foreground flex items-center gap-2">
+						<BookOpen class="size-4" /> List Libraries
+					</div>
+					<code class="block font-mono text-sm text-muted-foreground">{pmCommands[selectedPm].list}</code>
+				</div>
+			</div>
 		</section>
 
-		<!-- File Structure -->
-		<section class="space-y-4">
-			<h2 class="flex items-center gap-2 text-3xl font-bold">
-				<FileText size={28} />
-				File Structure
-			</h2>
-			<p class="text-muted-foreground">
-				Documentation is installed in <code class="bg-muted rounded px-1.5 py-0.5 text-sm">.lovely-docs/</code>:
-			</p>
-			<pre class="bg-muted overflow-x-auto rounded-lg p-4 text-sm"><code
-					>├── sveltejs_svelte.md           # Library overview (digest)
-├── sveltejs_svelte.orig.md      # Full library docs
-└── sveltejs_svelte/
-    ├── LLM_MAP.md               # Hierarchical essence tree
-    ├── runes.md                 # Section digest
-    ├── runes.orig.md            # Section fulltext
-    └── runes/
-        ├── $derived.md          # Page digest
-        └── $derived.orig.md     # Page fulltext</code></pre>
-			<p class="text-muted-foreground">
-				<strong>LLM_MAP.md</strong> provides a hierarchical overview with essence summaries at each level. Agents read this
-				first to understand structure, then drill down to specific pages as needed.
-			</p>
+		<!-- Installation & Configuration -->
+		<section class="space-y-8">
+			<h2 class="text-3xl font-bold">Directory structure</h2>
 
-			<!-- Example LLM_MAP.md -->
-			<details class="mt-4">
-				<summary
-					class="text-muted-foreground hover:text-foreground cursor-pointer text-sm font-semibold transition-colors"
-					>Example LLM_MAP.md</summary>
-				<pre class="bg-muted mt-3 overflow-x-auto rounded-lg p-4 text-sm"><code
-						># sveltejs/svelte
+			<p>You can experiment with the installed. So far I found that "Diegst only" without directory summaries and llm map works best in Windsurf and Antigravity, but give it a try and let me know how it goes.</p>
+			<div class="grid gap-4 lg:grid-cols-2">
+				<!-- Interactive Configurator -->
+				<div class="rounded-lg border bg-card text-card-foreground shadow-sm font-mono text-sm">
+					<div class="p-6">
 
-Complete reference for Svelte 5 framework covering runes-based reactivity, template syntax, styling, component lifecycle, state management, animations, and migration from legacy mode.
+						<!-- Installation Directory -->
+						<div class="flex gap-3">
+							<div class="flex flex-col items-center shrink-0">
+								<span class="text-cyan-500">◇</span>
+								<div class="flex-1 w-px bg-border min-h-4 my-1"></div>
+							</div>
+							<div class="pb-6 w-full">
+								<div>Installation directory:</div>
+								<div class="flex items-center gap-2 mt-1 text-muted-foreground">
+									<input
+										type="text"
+										bind:value={installDir}
+										class="bg-transparent border-none outline-none p-0 h-auto font-mono text-sm w-full placeholder:text-muted-foreground/50 focus:ring-0"
+									/>
+								</div>
+							</div>
+						</div>
 
-  ./introduction.md: Svelte is a compiler framework for building UIs with components that combine HTML, CSS, and JavaScript, with setup via SvelteKit or Vite.
-    ./introduction/overview.md: Svelte is a compiler-based framework for building web UIs by transforming declarative components into optimized JavaScript.
-    ./introduction/getting_started.md: Instructions for setting up a new Svelte project using SvelteKit or Vite, with editor tooling and support resources.
-    ./introduction/svelte_files.md: Svelte components are written in .svelte files with optional script, style, and markup sections; script blocks run per-instance while script module blocks run once at module load.
-    ./introduction/.svelte.js_and_.svelte.ts_files.md: Svelte modules (.svelte.js/.svelte.ts) enable runes for reactive logic and state sharing.
-    ./introduction/introduction.md: Documentation introduction page with no visible content in the provided excerpt.
-  ./runes.md: Compiler-controlled `$`-prefixed keywords that manage reactive state, derived values, side effects, component inputs, and debugging in Svelte.
-    ./runes/what_are_runes.md: Runes are $ -prefixed keywords in Svelte that control the compiler and are part of the language syntax.
-    ./runes/$state.md: The $state rune creates reactive state in Svelte; arrays and objects become deeply reactive proxies, with variants for raw non-reactive state, snapshots, and eager updates.
-    ./runes/$derived.md: The $derived rune creates reactive computed values that automatically update when their dependencies change, with support for complex derivations via $derived.by and temporary value overrides.
-    ./runes/$effect.md: Effects run side effects when state updates, automatically tracking synchronous dependencies and re-running on changes, with variants for pre-DOM execution, tracking context detection, and manual control.
-[...]
-</code></pre>
-			</details>
-		</section>
+						<!-- Installation Mode -->
+						<div class="flex gap-3">
+							<div class="flex flex-col items-center shrink-0">
+								<span class="text-cyan-500">◇</span>
+								<div class="flex-1 w-px bg-border min-h-4 my-1"></div>
+							</div>
+							<div class="pb-6 w-full">
+								<div class="mb-2">Installation mode</div>
+								<div class="flex flex-col items-start gap-1">
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => installMode = 'both'}
+									>
+										<span class={installMode === 'both' ? 'text-green-500' : 'text-muted-foreground'}>
+											{installMode === 'both' ? '●' : '○'}
+										</span>
+										<span>Both (Digest + Fulltext)</span>
+									</button>
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => installMode = 'digest'}
+									>
+										<span class={installMode === 'digest' ? 'text-green-500' : 'text-muted-foreground'}>
+											{installMode === 'digest' ? '●' : '○'}
+										</span>
+										<span>Digest Only</span>
+									</button>
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => installMode = 'fulltext'}
+									>
+										<span class={installMode === 'fulltext' ? 'text-green-500' : 'text-muted-foreground'}>
+											{installMode === 'fulltext' ? '●' : '○'}
+										</span>
+										<span>Fulltext Only</span>
+									</button>
+								</div>
+							</div>
+						</div>
 
-		<!-- CLI Usage -->
-		<section class="space-y-4">
-			<h2 class="text-3xl font-bold">CLI Usage</h2>
-			<div class="grid gap-3">
-				<div class="space-y-2">
-					<div class="text-muted-foreground text-sm font-semibold">Initialize</div>
-					<code class="bg-muted block rounded px-4 py-2 font-mono text-sm">{pmCommands[selectedPm].init}</code>
+						<!-- Summaries -->
+						<div class="flex gap-3">
+							<div class="flex flex-col items-center shrink-0">
+								<span class="text-cyan-500">◇</span>
+								<div class="flex-1 w-px bg-border min-h-4 my-1"></div>
+							</div>
+							<div class="pb-6 w-full">
+								<div class="mb-2">Install directory summaries?</div>
+								<div class="flex items-center gap-4">
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => includeSummaries = true}
+									>
+										<span class={includeSummaries ? 'text-green-500' : 'text-muted-foreground'}>
+											{includeSummaries ? '●' : '○'}
+										</span>
+										<span>Yes</span>
+									</button>
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => includeSummaries = false}
+									>
+										<span class={!includeSummaries ? 'text-green-500' : 'text-muted-foreground'}>
+											{!includeSummaries ? '●' : '○'}
+										</span>
+										<span>No</span>
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- LLM Map -->
+						<div class="flex gap-3">
+							<div class="flex flex-col items-center shrink-0">
+								<span class="text-cyan-500">◇</span>
+							</div>
+							<div class="w-full">
+								<div class="mb-2">Generate LLM_MAP.md?</div>
+								<div class="flex items-center gap-4">
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => includeLlmMap = true}
+									>
+										<span class={includeLlmMap ? 'text-green-500' : 'text-muted-foreground'}>
+											{includeLlmMap ? '●' : '○'}
+										</span>
+										<span>Yes</span>
+									</button>
+									<button
+										class="flex items-center gap-2 hover:text-primary transition-colors"
+										onclick={() => includeLlmMap = false}
+									>
+										<span class={!includeLlmMap ? 'text-green-500' : 'text-muted-foreground'}>
+											{!includeLlmMap ? '●' : '○'}
+										</span>
+										<span>No</span>
+									</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
 				</div>
-				<div class="space-y-2">
-					<div class="text-muted-foreground text-sm font-semibold">List available libraries</div>
-					<code class="bg-muted block rounded px-4 py-2 font-mono text-sm">{pmCommands[selectedPm].list}</code>
+
+				<!-- Dynamic File Structure -->
+				<div class="space-y-4">
+					<div class="bg-muted rounded-lg p-6 font-mono text-sm h-full">
+						<div class="text-muted-foreground mb-2 flex items-center gap-2">
+							<Folder class="size-4 text-blue-500 fill-blue-500/20" />
+							{installDir}/
+						</div>
+						{#each treeStructure as item}
+							<div class="flex items-center gap-2 py-0.5" style="padding-left: {(item.level + 1) * 1.5}rem">
+								{#if item.type === 'folder'}
+									<Folder class="size-4 text-blue-500 fill-blue-500/20" />
+								{:else}
+									<File class="size-4 text-muted-foreground" />
+								{/if}
+								{#if item.link}
+									<a href={resolve(`/human/${item.link}`)} class="hover:underline decoration-primary/50 underline-offset-4 transition-all">
+										<span class={item.type === 'folder' ? 'font-bold text-foreground' : 'text-foreground'}>
+											{item.name}
+										</span>
+									</a>
+								{:else}
+									<span class={item.type === 'folder' ? 'font-bold text-foreground' : 'text-foreground'}>
+										{item.name}
+									</span>
+								{/if}
+								{#if item.desc}
+									<span class="text-muted-foreground opacity-50 text-xs ml-2"># {item.desc}</span>
+								{/if}
+							</div>
+						{/each}
+					</div>
 				</div>
-				<div class="space-y-2">
-					<div class="text-muted-foreground text-sm font-semibold">Add documentation</div>
-					<code class="bg-muted block rounded px-4 py-2 font-mono text-sm"
-						>{pmCommands[selectedPm].add} &lt;library&gt;</code>
+			</div>
+
+			<div class="space-y-4">
+				<h3 class="text-xl font-bold">Example rules</h3>
+				<p class="text-muted-foreground">
+					You can add the following rule to your <code>.cursorrules</code> or similar configuration to help your AI agent use the documentation effectively:
+				</p>
+				<div class="bg-muted rounded-lg p-4 font-mono text-sm">
+					{simpleRule}
 				</div>
+
+				<p class="text-muted-foreground">Or a more agressive</p>
+				<div class="bg-muted rounded-lg p-4 font-mono text-sm whitespace-pre-wrap">{aggressiveRule}</div>
 			</div>
 		</section>
 
