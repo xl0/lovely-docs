@@ -41,8 +41,8 @@
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
 		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-primary">URL: </span>
-			<span class="text-foreground">lovely-docs://</span>
+			<span class="text-primary hidden sm:inline">URL: </span>
+			<span class="text-foreground hidden sm:inline">lovely-docs://</span>
 
 			<Select.Root
 				type="single"
@@ -82,31 +82,29 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<Card.Root class="border-border bg-card">
-		<Card.Content class="overflow-auto min-h-[320px]">
-			{#if activeResource}
-				<div class="font-mono text-sm">
-					{#if verbose}
-						{#each Object.entries(activeResource.verbose) as [lib, summary]}
-							<a
-								href={resolve(`/mcp/resources/page-index/${lib}`)}
-								class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-								{lib}<span class="text-muted-foreground">: {summary}</span>
-							</a>
-						{/each}
-					{:else}
-						{#each activeResource.index as lib}
-							<a
-								href={resolve(`/mcp/resources/page-index/${lib}`)}
-								class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-								<span class="text-muted-foreground">- </span>{lib}
-							</a>
-						{/each}
-					{/if}
-				</div>
-			{:else}
-				<p class="text-xs text-muted-foreground"># no resources for ecosystem {selectedEcosystem}</p>
-			{/if}
-		</Card.Content>
-	</Card.Root>
+	<div class="overflow-auto min-h-[320px] p-4">
+		{#if activeResource}
+			<div class="font-mono text-sm">
+				{#if verbose}
+					{#each Object.entries(activeResource.verbose) as [lib, summary]}
+						<a
+							href={resolve(`/mcp/resources/page-index/${lib}`)}
+							class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
+							{lib}<span class="text-muted-foreground">: {summary}</span>
+						</a>
+					{/each}
+				{:else}
+					{#each activeResource.index as lib}
+						<a
+							href={resolve(`/mcp/resources/page-index/${lib}`)}
+							class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
+							<span class="text-muted-foreground">- </span>{lib}
+						</a>
+					{/each}
+				{/if}
+			</div>
+		{:else}
+			<p class="text-xs text-muted-foreground"># no resources for ecosystem {selectedEcosystem}</p>
+		{/if}
+	</div>
 </div>

@@ -86,35 +86,33 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<Card.Root class="border-border bg-card">
-		<Card.Content class="overflow-auto min-h-[320px]">
-			{#if currentTools.length === 0}
-				<p class="text-xs text-muted-foreground"># no tools for this ecosystem</p>
-			{:else}
-				{#each currentTools as t}
-					<div class="mb-4">
-						<div class="font-mono text-xs">
-							{#if verbose}
-								{#each Object.entries(t.verbose) as [lib, summary]}
-									<a
-										href={resolve(`/mcp/tools/list-pages/${lib}`)}
-										class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-										{lib}<span class="text-muted-foreground">: {summary}</span>
-									</a>
-								{/each}
-							{:else}
-								{#each t.payload as lib}
-									<a
-										href={resolve(`/mcp/tools/list-pages/${lib}`)}
-										class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-										<span class="text-muted-foreground">- </span>{lib}
-									</a>
-								{/each}
-							{/if}
-						</div>
+	<div class="overflow-auto min-h-[320px] p-4">
+		{#if currentTools.length === 0}
+			<p class="text-xs text-muted-foreground"># no tools for this ecosystem</p>
+		{:else}
+			{#each currentTools as t}
+				<div class="mb-4">
+					<div class="font-mono text-xs">
+						{#if verbose}
+							{#each Object.entries(t.verbose) as [lib, summary]}
+								<a
+									href={resolve(`/mcp/tools/list-pages/${lib}`)}
+									class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
+									{lib}<span class="text-muted-foreground">: {summary}</span>
+								</a>
+							{/each}
+						{:else}
+							{#each t.payload as lib}
+								<a
+									href={resolve(`/mcp/tools/list-pages/${lib}`)}
+									class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
+									<span class="text-muted-foreground">- </span>{lib}
+								</a>
+							{/each}
+						{/if}
 					</div>
-				{/each}
-			{/if}
-		</Card.Content>
-	</Card.Root>
+				</div>
+			{/each}
+		{/if}
+	</div>
 </div>

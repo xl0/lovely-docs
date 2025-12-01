@@ -81,25 +81,27 @@
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
 		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-foreground/70">$</span>
-			<div class="flex items-center">
-				<Select.Root
-					type="single"
-					value={resourceRoot}
-					onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
-					<Select.Trigger
-						size="sm"
-						class="bg-background border-border text-foreground px-2 h-7"
-						aria-label="Tool command">
-						<span>GetPage</span>
-					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground">
-						{#each toolCommands as cmd}
-							<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
-						{/each}
-					</Select.Content>
-				</Select.Root>
-				<span class="text-foreground ml-2">(</span>
+			<div class="flex items-center gap-2">
+				<span class="text-foreground/70">$</span>
+				<div class="flex items-center">
+					<Select.Root
+						type="single"
+						value={resourceRoot}
+						onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
+						<Select.Trigger
+							size="sm"
+							class="bg-background border-border text-foreground px-2 h-7"
+							aria-label="Tool command">
+							<span>GetPage</span>
+						</Select.Trigger>
+						<Select.Content class="bg-popover border border-border text-popover-foreground">
+							{#each toolCommands as cmd}
+								<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
+					<span class="text-foreground ml-2">(</span>
+				</div>
 			</div>
 
 			<div class="flex items-center gap-1">
@@ -124,7 +126,7 @@
 					type="single"
 					value={selectedPath}
 					onValueChange={(v) => updateUrl(selectedLibrary, v, selectedLevel)}>
-					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Page">
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7 w-full sm:w-auto sm:min-w-[200px]" aria-label="Page">
 						<span>{pathOptions.find((o) => o.value === selectedPath)?.label ?? (selectedPath || '/')}</span>
 					</Select.Trigger>
 					<Select.Content class="bg-popover border border-border text-popover-foreground max-h-[80dvh]">
@@ -159,33 +161,31 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<Card.Root class="border-border bg-card">
-		<Card.Content class="overflow-auto min-h-[320px]">
-			{#if content}
-				{#if mcpState.renderMarkdown}
-					<Markdown content={content.text} />
-					{#if content.children && Array.isArray(content.children) && content.children.length > 0}
-						<Card.Root class="border-border bg-card mt-4">
-							<Card.Content class="font-mono text-xs">
-								<div class="text-foreground/70 mb-2">Available sub-pages:</div>
-								{@render childNode(content.children, selectedPath)}
-							</Card.Content>
-						</Card.Root>
-					{/if}
-				{:else}
-					<div class="font-mono text-xs">
-						<pre class="whitespace-pre-wrap text-foreground">{content.text}</pre>
-						{#if content.children && Array.isArray(content.children) && content.children.length > 0}
-							<div class="mt-4 border-t border-border pt-4">
-								<div class="text-foreground/70 mb-2">Available sub-pages:</div>
-								{@render childNode(content.children, selectedPath)}
-							</div>
-						{/if}
-					</div>
+	<div class="overflow-auto min-h-[320px] p-4">
+		{#if content}
+			{#if mcpState.renderMarkdown}
+				<Markdown content={content.text} />
+				{#if content.children && Array.isArray(content.children) && content.children.length > 0}
+					<Card.Root class="border-border bg-card mt-4">
+						<Card.Content class="font-mono text-xs overflow-x-auto">
+							<div class="text-foreground/70 mb-2">Available sub-pages:</div>
+							{@render childNode(content.children, selectedPath)}
+						</Card.Content>
+					</Card.Root>
 				{/if}
 			{:else}
-				<p class="text-xs text-muted-foreground"># select library and page to view content</p>
+				<div class="font-mono text-xs">
+					<pre class="whitespace-pre-wrap text-foreground">{content.text}</pre>
+					{#if content.children && Array.isArray(content.children) && content.children.length > 0}
+						<div class="mt-4 border-t border-border pt-4 overflow-x-auto">
+							<div class="text-foreground/70 mb-2">Available sub-pages:</div>
+							{@render childNode(content.children, selectedPath)}
+						</div>
+					{/if}
+				</div>
 			{/if}
-		</Card.Content>
-	</Card.Root>
+		{:else}
+			<p class="text-xs text-muted-foreground"># select library and page to view content</p>
+		{/if}
+	</div>
 </div>

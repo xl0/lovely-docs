@@ -39,15 +39,15 @@
 				</a>
 				<h1 class="text-2xl tracking-widest uppercase">lovely-docs</h1>
 			</div>
-			<div role="tablist" aria-label="MCP data views" class="flex items-center gap-2">
+			<div role="tablist" aria-label="MCP data views" class="flex flex-wrap items-center gap-2">
 				<a href={resolve('/human')} class="">
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="sm" class="px-2">
 						<User size={16} />
 					</Button>
 				</a>
 				<ThemeToggle class="size-8" />
 
-				<div role="tablist" aria-label="MCP data views" class="flex items-center gap-2">
+				<div role="tablist" aria-label="MCP data views" class="flex flex-wrap items-center gap-2">
 					{#each tabs as tab}
 						<Button
 							variant={mode === tab.id ? 'default' : 'outline'}
@@ -70,7 +70,8 @@
 							class="ml-2 font-mono"
 							onclick={() => (mcpState.renderMarkdown = !mcpState.renderMarkdown)}
 							aria-label="Toggle markdown rendering">
-							{mcpState.renderMarkdown ? 'MD: ON' : 'MD: OFF'}
+							<span class="hidden sm:inline">{mcpState.renderMarkdown ? 'MD: ON' : 'MD: OFF'}</span>
+							<span class="sm:hidden">{mcpState.renderMarkdown ? 'MD' : 'TXT'}</span>
 						</Button>
 					{/if}
 				</div>

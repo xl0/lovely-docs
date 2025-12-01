@@ -19,25 +19,26 @@
 	}
 </script>
 
-<div class="flex flex-wrap gap-2">
+<div class="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar">
 	{#each available as variant}
 		<Button
 			variant={selected === variant ? 'default' : 'outline'}
 			size="sm"
+			class="shrink-0"
 			onclick={() => {
 				goto('#' + variant, {noScroll: true});
 			}}>
 			{labels[variant]}
 			{#if tokenCounts}
 				{#if variant === 'fulltext' && tokenCounts.fulltext}
-					<span class="ml-1 text-xs opacity-70">({tokenCounts.fulltext.toLocaleString()} tok)</span>
+					<span class="ml-1 text-xs opacity-70 hidden sm:inline">({tokenCounts.fulltext.toLocaleString()} tok)</span>
 				{:else if variant === 'digest'}
 					{#if tokenCounts.digest && tokenCounts.fulltext}
-						<span class="ml-1 text-xs opacity-70">({formatPercent(tokenCounts.digest, tokenCounts.fulltext)})</span>
+						<span class="ml-1 text-xs opacity-70 hidden sm:inline">({formatPercent(tokenCounts.digest, tokenCounts.fulltext)})</span>
 					{/if}
 				{:else if variant === 'short_digest'}
 					{#if tokenCounts.short_digest && tokenCounts.fulltext}
-						<span class="ml-1 text-xs opacity-70"
+						<span class="ml-1 text-xs opacity-70 hidden sm:inline"
 							>({formatPercent(tokenCounts.short_digest, tokenCounts.fulltext)})</span>
 					{/if}
 				{/if}

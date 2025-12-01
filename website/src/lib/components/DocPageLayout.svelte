@@ -69,7 +69,7 @@
 		<!-- Header -->
 		<header
 			class="border-border bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-10 border-b backdrop-blur">
-			<div class="flex items-center justify-between px-4 py-3">
+			<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-3">
 				<div class="flex items-center gap-3">
 					<!-- Mobile Menu Button -->
 					<Button variant="ghost" size="icon" class="lg:hidden" onclick={() => (mobileMenuOpen = true)}>
@@ -77,7 +77,7 @@
 					</Button>
 
 					<!-- Breadcrumbs -->
-					<nav class="text-muted-foreground flex items-center gap-2 text-sm">
+					<nav class="text-muted-foreground flex flex-wrap items-center gap-2 text-sm">
 						<a href={resolve('/human')} class="hover:text-foreground transition-colors">Home</a>
 						<span>/</span>
 						<a href={resolve(`/human/${libraryKey}`)} class="hover:text-foreground transition-colors">{lib.name}</a>
@@ -95,9 +95,9 @@
 				</div>
 
 				<!-- Header Actions -->
-				<div class="flex items-center gap-2">
+				<div class="flex items-center gap-2 self-end sm:self-auto">
 					<Search libraryFilter={libraryKey} placeholder="Search in {lib.name}..." />
-					<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view">
+					<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view" class="hidden sm:block">
 						<Button
 							variant="outline"
 							size="icon"
@@ -111,7 +111,9 @@
 						</Button>
 					</a>
 					<ThemeToggle />
-					<WideModeToggle />
+					<div class="hidden lg:block">
+						<WideModeToggle />
+					</div>
 				</div>
 			</div>
 		</header>
@@ -119,7 +121,7 @@
 		<!-- Page Content -->
 		<main class="container mx-auto px-4 py-8" class:max-w-4xl={!wideMode.value}>
 			{#if currentNode}
-				<div class="mb-6">
+				<div class="mb-4">
 					<div class="mb-3 flex items-center justify-between">
 						<h1 class="text-4xl font-bold tracking-tight">
 							{titleText}
@@ -150,12 +152,15 @@
 		<Sheet.Content side="left" class="w-80 overflow-y-auto p-0">
 			<Sheet.Header class="border-border border-b p-4">
 				<Sheet.Title>
-					<a href={resolve('/human')} class="hover:text-primary text-lg font-semibold transition-colors">
+					<a
+						href={resolve('/human')}
+						class="hover:text-primary text-lg font-semibold transition-colors"
+						onclick={() => (mobileMenuOpen = false)}>
 						{lib.name}
 					</a>
 				</Sheet.Title>
 			</Sheet.Header>
-			<div class="p-4">
+			<div class="p-4" onclick={() => (mobileMenuOpen = false)} onkeydown={() => (mobileMenuOpen = false)} role="button" tabindex="0">
 				<DocSidebar tree={fullTree} {libraryKey} />
 			</div>
 		</Sheet.Content>

@@ -443,9 +443,8 @@
 				<p>You can run a Lovely Docs MCP server locally. Or you can access the one I'm running publicly.</p>
 			</div>
 			<div class="mx-auto w-full max-w-md gap-4">
-				<Button href={resolve('/mcp')} variant="default" size="lg" class="flex-1">
-					<Bot class="mr-2" size={20} />
-					Read the docs the way your agent sees them over MCP
+				<Button href={resolve('/mcp')} variant="default" size="lg" class="flex-1 text-wrap w-full whitespace-pre-wrap text-center">
+					<Bot class="mr-2" size={20} />Read the docs the way your agent sees them over MCP
 				</Button>
 			</div>
 

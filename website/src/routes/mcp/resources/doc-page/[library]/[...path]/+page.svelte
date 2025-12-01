@@ -80,8 +80,8 @@
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
 		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-primary">URL: </span>
-			<span class="text-foreground">lovely-docs://</span>
+			<span class="text-primary hidden sm:inline">URL: </span>
+			<span class="text-foreground hidden sm:inline">lovely-docs://</span>
 
 			<Select.Root
 				type="single"
@@ -115,7 +115,7 @@
 			<span class="text-foreground">/</span>
 
 			<Select.Root type="single" value={selectedPath} onValueChange={handlePathChange}>
-				<Select.Trigger size="sm" class="bg-background border-border text-foreground min-w-[200px]" aria-label="Path">
+				<Select.Trigger size="sm" class="bg-background border-border text-foreground w-full sm:w-auto sm:min-w-[200px]" aria-label="Path">
 					<span>{pathOptions.find((o) => o.value === selectedPath)?.label ?? (selectedPath || '/')}</span>
 				</Select.Trigger>
 				<Select.Content class="bg-popover border border-border text-popover-foreground max-h-[80dvh]">
@@ -141,34 +141,32 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<Card.Root class="border-border bg-card">
-		<Card.Content class="overflow-auto min-h-[320px]">
-			{#if mcpState.renderMarkdown && content}
-				<Markdown content={content.text} />
+	<div class="overflow-auto min-h-[320px] p-4">
+		{#if mcpState.renderMarkdown && content}
+			<Markdown content={content.text} />
 
-				{#if content.children && Array.isArray(content.children) && content.children.length > 0}
-					<Card.Root class="border-border bg-card mt-4">
-						<Card.Content class="font-mono text-xs">
+			{#if content.children && Array.isArray(content.children) && content.children.length > 0}
+				<Card.Root class="border-border bg-card mt-4">
+					<Card.Content class="font-mono text-xs overflow-x-auto">
+						<div class="text-foreground/70 mb-2">Available sub-pages:</div>
+						{@render childNode(content.children, selectedPath)}
+					</Card.Content>
+				</Card.Root>
+			{/if}
+		{:else}
+			<div class="font-mono text-xs">
+				{#if content}
+					<pre class="whitespace-pre-wrap text-foreground">{content.text}</pre>
+					{#if content.children && Array.isArray(content.children) && content.children.length > 0}
+						<div class="mt-4 border-t border-border pt-4 overflow-x-auto">
 							<div class="text-foreground/70 mb-2">Available sub-pages:</div>
 							{@render childNode(content.children, selectedPath)}
-						</Card.Content>
-					</Card.Root>
-				{/if}
-			{:else}
-				<div class="font-mono text-xs">
-					{#if content}
-						<pre class="whitespace-pre-wrap text-foreground">{content.text}</pre>
-						{#if content.children && Array.isArray(content.children) && content.children.length > 0}
-							<div class="mt-4 border-t border-border pt-4">
-								<div class="text-foreground/70 mb-2">Available sub-pages:</div>
-								{@render childNode(content.children, selectedPath)}
-							</div>
-						{/if}
-					{:else}
-						<div class="text-destructive"># Content not available for level: {level}</div>
+						</div>
 					{/if}
-				</div>
-			{/if}
-		</Card.Content>
-	</Card.Root>
+				{:else}
+					<div class="text-destructive"># Content not available for level: {level}</div>
+				{/if}
+			</div>
+		{/if}
+	</div>
 </div>

@@ -10,11 +10,30 @@
 	};
 
 	let { markdown, selected, labels, showRaw }: Props = $props();
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (showRaw && (event.ctrlKey || event.metaKey) && event.key === 'a') {
+			event.preventDefault();
+			const pre = document.querySelector('.raw-content');
+			if (pre) {
+				const range = document.createRange();
+				range.selectNodeContents(pre);
+				const selection = window.getSelection();
+				if (selection) {
+					selection.removeAllRanges();
+					selection.addRange(range);
+				}
+			}
+		}
+	}
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 {#if markdown[selected]}
 	{#if showRaw}
-		<pre class="whitespace-pre-wrap font-mono text-sm bg-muted p-4 rounded-lg overflow-auto">{markdown[selected]}</pre>
+		<pre
+			class="raw-content whitespace-pre-wrap font-mono text-sm bg-muted p-4 rounded-lg overflow-auto">{markdown[selected]}</pre>
 	{:else}
 		<Markdown content={markdown[selected]!} />
 	{/if}

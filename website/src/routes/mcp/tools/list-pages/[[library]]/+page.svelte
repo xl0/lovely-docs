@@ -97,26 +97,27 @@
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
 		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-foreground/70">$</span>
-
-			<div class="flex items-center">
-				<Select.Root
-					type="single"
-					value={resourceRoot}
-					onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
-					<Select.Trigger
-						size="sm"
-						class="bg-background border-border text-foreground px-2 h-7"
-						aria-label="Tool command">
-						<span>ListPages</span>
-					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground">
-						{#each toolCommands as cmd}
-							<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
-						{/each}
-					</Select.Content>
-				</Select.Root>
-				<span class="text-foreground ml-2">(</span>
+			<div class="flex items-center gap-2">
+				<span class="text-foreground/70">$</span>
+				<div class="flex items-center">
+					<Select.Root
+						type="single"
+						value={resourceRoot}
+						onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
+						<Select.Trigger
+							size="sm"
+							class="bg-background border-border text-foreground px-2 h-7"
+							aria-label="Tool command">
+							<span>ListPages</span>
+						</Select.Trigger>
+						<Select.Content class="bg-popover border border-border text-popover-foreground">
+							{#each toolCommands as cmd}
+								<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
+					<span class="text-foreground ml-2">(</span>
+				</div>
 			</div>
 
 			<div class="flex items-center gap-1">
@@ -151,19 +152,17 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<Card.Root class="border-border bg-card">
-		<Card.Content class="overflow-auto min-h-[320px]">
-			{#if pageIndex}
-				<div class="font-mono text-xs">
-					{#if verbose}
-						{@render verboseTreeNode(pageIndex?.verboseTree, '')}
-					{:else}
-						{@render treeNode(pageIndex?.tree, '')}
-					{/if}
-				</div>
-			{:else}
-				<p class="text-xs text-muted-foreground"># select a library to view pages</p>
-			{/if}
-		</Card.Content>
-	</Card.Root>
+	<div class="overflow-auto min-h-[320px] p-4">
+		{#if pageIndex}
+			<div class="font-mono text-xs">
+				{#if verbose}
+					{@render verboseTreeNode(pageIndex?.verboseTree, '')}
+				{:else}
+					{@render treeNode(pageIndex?.tree, '')}
+				{/if}
+			</div>
+		{:else}
+			<p class="text-xs text-muted-foreground"># select a library to view pages</p>
+		{/if}
+	</div>
 </div>

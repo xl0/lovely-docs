@@ -6,6 +6,7 @@
 	import type { MarkdownVariant } from '$lib/markdown';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
+	import { MediaQuery } from 'svelte/reactivity';
 
 	type TokenCounts = { fulltext?: number; digest?: number; short_digest?: number } | undefined;
 	type Props = {
@@ -15,6 +16,14 @@
 
 	let { markdown, tokenCounts}: Props = $props();
     let showRaw = $state(false);
+	const isMobile = new MediaQuery('(max-width: 640px)');
+
+    // Force markdown view on mobile since the toggle button is hidden
+    $effect(() => {
+        if (isMobile.current) {
+            showRaw = false;
+        }
+    });
 
 
 	const variantLabels: Record<MarkdownVariant, string> = {
@@ -35,27 +44,29 @@
 
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
 	<!-- Variant selector card -->
-	<Card class="py-2">
-		<CardContent class="py-3">
+	<Card class="py-0 gap-0">
+		<CardContent class="p-2">
 			<div class="flex items-center justify-between gap-4">
 				<MarkdownVariantSelector
 					available={availableVariants}
 					selected={selectedVariant}
 					labels={variantLabels}
 					{tokenCounts} />
-				<Button variant={showRaw ? 'default' : 'outline'} size="sm" onclick={() => (showRaw = !showRaw)}>
+				<Button
+					variant={showRaw ? 'default' : 'outline'}
+					size="sm"
+					class="hidden sm:inline-flex"
+					onclick={() => (showRaw = !showRaw)}>
 					{showRaw ? 'Raw' : 'Markdown'}
 				</Button>
 			</div>
 		</CardContent>
 	</Card>
 
-	<!-- Markdown content card -->
-	<Card>
-		<CardContent>
-			<MarkdownDisplay {markdown} selected={selectedVariant} labels={variantLabels} {showRaw} />
-		</CardContent>
-	</Card>
+	<!-- Markdown content -->
+	<div>
+		<MarkdownDisplay {markdown} selected={selectedVariant} labels={variantLabels} {showRaw} />
+	</div>
 </div>
