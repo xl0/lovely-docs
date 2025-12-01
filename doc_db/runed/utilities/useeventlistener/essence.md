@@ -1,0 +1,1 @@
+Automatically disposed event listener function accepting target element getter, event name, and callback with automatic cleanup on component destruction or element reference changes.

@@ -1,0 +1,1 @@
+Tracks currently pressed keyboard keys. Check individual keys with `has("ArrowDown")` or combinations with `has("Control", "a")`. Get all pressed keys via `all` property. Register callbacks for key combinations with `onKeys(["meta", "k"], callback)`.

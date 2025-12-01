@@ -1,0 +1,1 @@
+Reactive document visibility tracker using Page Visibility API; exposes boolean `current` property that updates on visibility changes.

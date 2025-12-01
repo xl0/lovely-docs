@@ -1,0 +1,1 @@
+boolAttr(value: unknown): "" | undefined - converts values to empty string (truthy) or undefined (falsy) for proper HTML boolean attribute rendering

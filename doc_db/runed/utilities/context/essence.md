@@ -1,0 +1,1 @@
+Type-safe Svelte Context API wrapper with get/set/exists methods; define with type parameter, set during component initialization, retrieve in children with fallback support.

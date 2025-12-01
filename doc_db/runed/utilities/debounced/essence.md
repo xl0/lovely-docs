@@ -1,0 +1,1 @@
+Debounced state wrapper with delay; access via `.current`, control with `.cancel()`, `.setImmediately()`, `.updateImmediately()`

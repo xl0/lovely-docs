@@ -1,0 +1,1 @@
+Attaches an automatically disposed event listener to DOM elements. Accepts a target element getter function, event name, and callback. Automatically cleans up on component destruction or element reference changes. Useful for listening to document, window, or externally-provided element references.

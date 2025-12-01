@@ -1,0 +1,1 @@
+Collection of reactive utilities for DOM tracking, state management, async operations, event handling, and user interaction in Svelte.

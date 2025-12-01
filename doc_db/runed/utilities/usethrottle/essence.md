@@ -1,0 +1,1 @@
+Higher-order function that throttles callback execution to at most once per specified duration interval.

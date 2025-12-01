@@ -1,0 +1,632 @@
+{
+  "map": {
+    "origPath": ".",
+    "displayName": "",
+    "relevant": true,
+    "usage": {
+      "input": 2183,
+      "output": 1122,
+      "details": null
+    },
+    "token_counts": {
+      "fulltext": 1098,
+      "digest": 721,
+      "short_digest": 286
+    },
+    "children": {
+      "utilities": {
+        "origPath": "utilities",
+        "displayName": "Utilities",
+        "relevant": true,
+        "usage": {
+          "input": 17552,
+          "output": 1169,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 16086,
+          "digest": 811,
+          "short_digest": 245
+        },
+        "children": {
+          "activeelement": {
+            "origPath": "utilities/active-element.md",
+            "displayName": "activeElement",
+            "relevant": true,
+            "usage": {
+              "input": 1489,
+              "output": 463,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 330,
+              "digest": 289,
+              "short_digest": 66
+            },
+            "children": {}
+          },
+          "animationframes": {
+            "origPath": "utilities/animation-frames.md",
+            "displayName": "AnimationFrames",
+            "relevant": true,
+            "usage": {
+              "input": 1605,
+              "output": 550,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 446,
+              "digest": 315,
+              "short_digest": 122
+            },
+            "children": {}
+          },
+          "boolattr": {
+            "origPath": "utilities/bool-attr.md",
+            "displayName": "boolAttr",
+            "relevant": true,
+            "usage": {
+              "input": 1617,
+              "output": 604,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 458,
+              "digest": 367,
+              "short_digest": 112
+            },
+            "children": {}
+          },
+          "context": {
+            "origPath": "utilities/context.md",
+            "displayName": "Context",
+            "relevant": true,
+            "usage": {
+              "input": 2157,
+              "output": 665,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1000,
+              "digest": 440,
+              "short_digest": 105
+            },
+            "children": {}
+          },
+          "debounced": {
+            "origPath": "utilities/debounced.md",
+            "displayName": "Debounced",
+            "relevant": true,
+            "usage": {
+              "input": 1568,
+              "output": 610,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 409,
+              "digest": 364,
+              "short_digest": 120
+            },
+            "children": {}
+          },
+          "elementrect": {
+            "origPath": "utilities/element-rect.md",
+            "displayName": "ElementRect",
+            "relevant": true,
+            "usage": {
+              "input": 1504,
+              "output": 559,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 345,
+              "digest": 367,
+              "short_digest": 88
+            },
+            "children": {}
+          },
+          "elementsize": {
+            "origPath": "utilities/element-size.md",
+            "displayName": "ElementSize",
+            "relevant": true,
+            "usage": {
+              "input": 1377,
+              "output": 398,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 218,
+              "digest": 217,
+              "short_digest": 69
+            },
+            "children": {}
+          },
+          "extract": {
+            "origPath": "utilities/extract.md",
+            "displayName": "extract",
+            "relevant": true,
+            "usage": {
+              "input": 1796,
+              "output": 614,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 639,
+              "digest": 300,
+              "short_digest": 194
+            },
+            "children": {}
+          },
+          "finitestatemachine": {
+            "origPath": "utilities/finite-state-machine.md",
+            "displayName": "FiniteStateMachine",
+            "relevant": true,
+            "usage": {
+              "input": 3066,
+              "output": 1179,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1905,
+              "digest": 825,
+              "short_digest": 230
+            },
+            "children": {}
+          },
+          "isdocumentvisible": {
+            "origPath": "utilities/is-document-visible.md",
+            "displayName": "IsDocumentVisible",
+            "relevant": true,
+            "usage": {
+              "input": 1450,
+              "output": 385,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 289,
+              "digest": 232,
+              "short_digest": 40
+            },
+            "children": {}
+          },
+          "isfocuswithin": {
+            "origPath": "utilities/is-focus-within.md",
+            "displayName": "IsFocusWithin",
+            "relevant": true,
+            "usage": {
+              "input": 1440,
+              "output": 439,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 279,
+              "digest": 232,
+              "short_digest": 86
+            },
+            "children": {}
+          },
+          "isidle": {
+            "origPath": "utilities/is-idle.md",
+            "displayName": "IsIdle",
+            "relevant": true,
+            "usage": {
+              "input": 1638,
+              "output": 613,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 479,
+              "digest": 403,
+              "short_digest": 99
+            },
+            "children": {}
+          },
+          "isinviewport": {
+            "origPath": "utilities/is-in-viewport.md",
+            "displayName": "IsInViewport",
+            "relevant": true,
+            "usage": {
+              "input": 1540,
+              "output": 488,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 379,
+              "digest": 304,
+              "short_digest": 72
+            },
+            "children": {}
+          },
+          "ismounted": {
+            "origPath": "utilities/is-mounted.md",
+            "displayName": "IsMounted",
+            "relevant": true,
+            "usage": {
+              "input": 1420,
+              "output": 493,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 261,
+              "digest": 291,
+              "short_digest": 92
+            },
+            "children": {}
+          },
+          "oncleanup": {
+            "origPath": "utilities/on-cleanup.md",
+            "displayName": "onCleanup",
+            "relevant": true,
+            "usage": {
+              "input": 1434,
+              "output": 462,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 275,
+              "digest": 248,
+              "short_digest": 94
+            },
+            "children": {}
+          },
+          "onclickoutside": {
+            "origPath": "utilities/on-click-outside.md",
+            "displayName": "onClickOutside",
+            "relevant": true,
+            "usage": {
+              "input": 2462,
+              "output": 728,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1301,
+              "digest": 486,
+              "short_digest": 123
+            },
+            "children": {}
+          },
+          "persistedstate": {
+            "origPath": "utilities/persisted-state.md",
+            "displayName": "PersistedState",
+            "relevant": true,
+            "usage": {
+              "input": 2288,
+              "output": 1021,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1128,
+              "digest": 712,
+              "short_digest": 194
+            },
+            "children": {}
+          },
+          "pressedkeys": {
+            "origPath": "utilities/pressed-keys.md",
+            "displayName": "PressedKeys",
+            "relevant": true,
+            "usage": {
+              "input": 1391,
+              "output": 395,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 232,
+              "digest": 214,
+              "short_digest": 67
+            },
+            "children": {}
+          },
+          "previous": {
+            "origPath": "utilities/previous.md",
+            "displayName": "previous",
+            "relevant": true,
+            "usage": {
+              "input": 1397,
+              "output": 371,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 240,
+              "digest": 211,
+              "short_digest": 53
+            },
+            "children": {}
+          },
+          "resource": {
+            "origPath": "utilities/resource.md",
+            "displayName": "resource",
+            "relevant": true,
+            "usage": {
+              "input": 3125,
+              "output": 1310,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1968,
+              "digest": 900,
+              "short_digest": 292
+            },
+            "children": {}
+          },
+          "scrollstate": {
+            "origPath": "utilities/scroll-state.md",
+            "displayName": "ScrollState",
+            "relevant": true,
+            "usage": {
+              "input": 2045,
+              "output": 1075,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 886,
+              "digest": 723,
+              "short_digest": 232
+            },
+            "children": {}
+          },
+          "statehistory": {
+            "origPath": "utilities/state-history.md",
+            "displayName": "StateHistory",
+            "relevant": true,
+            "usage": {
+              "input": 1928,
+              "output": 892,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 769,
+              "digest": 590,
+              "short_digest": 165
+            },
+            "children": {}
+          },
+          "textareaautosize": {
+            "origPath": "utilities/textarea-autosize.md",
+            "displayName": "TextareaAutosize",
+            "relevant": true,
+            "usage": {
+              "input": 1817,
+              "output": 743,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 657,
+              "digest": 444,
+              "short_digest": 176
+            },
+            "children": {}
+          },
+          "throttled": {
+            "origPath": "utilities/throttled.md",
+            "displayName": "Throttled",
+            "relevant": true,
+            "usage": {
+              "input": 1499,
+              "output": 533,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 341,
+              "digest": 297,
+              "short_digest": 119
+            },
+            "children": {}
+          },
+          "usedebounce": {
+            "origPath": "utilities/use-debounce.md",
+            "displayName": "useDebounce",
+            "relevant": true,
+            "usage": {
+              "input": 1585,
+              "output": 675,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 424,
+              "digest": 430,
+              "short_digest": 126
+            },
+            "children": {}
+          },
+          "useeventlistener": {
+            "origPath": "utilities/use-event-listener.md",
+            "displayName": "useEventListener",
+            "relevant": true,
+            "usage": {
+              "input": 1669,
+              "output": 555,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 508,
+              "digest": 378,
+              "short_digest": 63
+            },
+            "children": {}
+          },
+          "usegeolocation": {
+            "origPath": "utilities/use-geolocation.md",
+            "displayName": "useGeolocation",
+            "relevant": true,
+            "usage": {
+              "input": 1626,
+              "output": 599,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 465,
+              "digest": 370,
+              "short_digest": 115
+            },
+            "children": {}
+          },
+          "useintersectionobserver": {
+            "origPath": "utilities/use-intersection-observer.md",
+            "displayName": "useIntersectionObserver",
+            "relevant": true,
+            "usage": {
+              "input": 1737,
+              "output": 542,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 576,
+              "digest": 369,
+              "short_digest": 58
+            },
+            "children": {}
+          },
+          "useinterval": {
+            "origPath": "utilities/use-interval.md",
+            "displayName": "useInterval",
+            "relevant": true,
+            "usage": {
+              "input": 1950,
+              "output": 579,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 791,
+              "digest": 331,
+              "short_digest": 138
+            },
+            "children": {}
+          },
+          "usemutationobserver": {
+            "origPath": "utilities/use-mutation-observer.md",
+            "displayName": "useMutationObserver",
+            "relevant": true,
+            "usage": {
+              "input": 1563,
+              "output": 457,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 402,
+              "digest": 249,
+              "short_digest": 82
+            },
+            "children": {}
+          },
+          "useresizeobserver": {
+            "origPath": "utilities/use-resize-observer.md",
+            "displayName": "useResizeObserver",
+            "relevant": true,
+            "usage": {
+              "input": 1456,
+              "output": 416,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 295,
+              "digest": 256,
+              "short_digest": 53
+            },
+            "children": {}
+          },
+          "usesearchparams": {
+            "origPath": "utilities/use-search-params.md",
+            "displayName": "useSearchParams",
+            "relevant": true,
+            "usage": {
+              "input": 8468,
+              "output": 2829,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 7307,
+              "digest": 2247,
+              "short_digest": 454
+            },
+            "children": {}
+          },
+          "usethrottle": {
+            "origPath": "utilities/use-throttle.md",
+            "displayName": "useThrottle",
+            "relevant": true,
+            "usage": {
+              "input": 1407,
+              "output": 515,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 247,
+              "digest": 294,
+              "short_digest": 115
+            },
+            "children": {}
+          },
+          "watch": {
+            "origPath": "utilities/watch.md",
+            "displayName": "watch",
+            "relevant": true,
+            "usage": {
+              "input": 1866,
+              "output": 601,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 709,
+              "digest": 409,
+              "short_digest": 70
+            },
+            "children": {}
+          }
+        }
+      },
+      "getting_started": {
+        "origPath": "getting-started.md",
+        "displayName": "Getting Started",
+        "relevant": true,
+        "usage": {
+          "input": 1406,
+          "output": 467,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 249,
+          "digest": 219,
+          "short_digest": 131
+        },
+        "children": {}
+      },
+      "introduction": {
+        "origPath": "index.md",
+        "displayName": "Introduction",
+        "relevant": false,
+        "usage": {
+          "input": 1724,
+          "output": 440,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 569,
+          "digest": 244,
+          "short_digest": 64
+        },
+        "children": {}
+      }
+    }
+  },
+  "name": "runed",
+  "ecosystems": [
+    "svelte"
+  ],
+  "source_type": "git",
+  "source": {
+    "name": "runed",
+    "comment": null,
+    "ecosystems": [
+      "svelte"
+    ],
+    "include": null,
+    "exclude": null,
+    "doc_dir": "sites/docs/src/content",
+    "repo": "https://github.com/svecosystem/runed",
+    "commit": "77ea2f6ecfc2f6578d749f75331625b933e362f5"
+  },
+  "date": "2025-12-01T20:08:55.101041+00:00",
+  "model": "claude-haiku-4.5",
+  "commit": "e0cdc35361ab42fb908a2a2dcc8f18c513a78225-dirty"
+}

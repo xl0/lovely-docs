@@ -1,0 +1,1 @@
+Observes element size changes. Pass a function returning the element and a callback receiving resize entries with `contentRect.width` and `contentRect.height`. Call the returned `stop()` method to stop observing.

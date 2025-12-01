@@ -1,0 +1,1 @@
+Reactive async data fetcher with automatic cancellation, loading/error states, debounce/throttle, cleanup hooks, and pre-render support.

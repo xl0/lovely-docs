@@ -1,0 +1,1 @@
+StateHistory utility for tracking state changes with undo/redo via getter/setter functions; provides log array with snapshots/timestamps, undo/redo/clear methods, and canUndo/canRedo booleans.

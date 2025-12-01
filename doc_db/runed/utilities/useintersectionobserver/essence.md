@@ -1,0 +1,1 @@
+useIntersectionObserver: observe element visibility changes with pause/resume/stop control and isActive getter

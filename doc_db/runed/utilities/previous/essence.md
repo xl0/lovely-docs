@@ -1,0 +1,1 @@
+Reactive utility tracking previous getter values for state comparisons and transitions; access via `current` property.

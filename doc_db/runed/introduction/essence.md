@@ -1,0 +1,1 @@
+Svelte 5 utility library extending Runes with powerful, consistent, type-safe utilities for reactive state and side effects; community-driven, MIT licensed, enhances rather than replaces core Svelte.

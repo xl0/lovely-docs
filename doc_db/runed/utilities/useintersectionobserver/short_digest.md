@@ -1,0 +1,1 @@
+Watch element intersection with the Intersection Observer API. Pass a target element getter, callback for entries, and optional config. Control with `pause()`, `resume()`, `stop()`. Check `isActive` property (getter, cannot destructure).

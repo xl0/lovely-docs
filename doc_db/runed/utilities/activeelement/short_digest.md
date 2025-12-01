@@ -1,0 +1,1 @@
+Reactive access to the currently focused DOM element. Returns `null` when nothing is focused. Searches through Shadow DOM boundaries. Can be scoped to a custom document or shadow root via `new ActiveElement({ document: shadowRoot })`. Access the element via the `current` property.

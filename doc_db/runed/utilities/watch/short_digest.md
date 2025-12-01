@@ -1,0 +1,1 @@
+Manually specify which reactive values trigger a callback. Accepts getter function returning dependencies, array of sources, or single source. Callback receives current and previous values. Options: `lazy` to defer first run. Variants: `watch.pre`, `watchOnce`, `watchOnce.pre`.

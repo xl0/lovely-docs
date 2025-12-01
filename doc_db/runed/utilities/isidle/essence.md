@@ -1,0 +1,1 @@
+IsIdle sensor tracks user activity with configurable timeout and events, exposing idle state and last activity timestamp.

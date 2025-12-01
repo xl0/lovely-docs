@@ -1,0 +1,1 @@
+Detects clicks outside an element; returns start/stop/enabled for control; supports immediate/detectIframe/custom document/window options.

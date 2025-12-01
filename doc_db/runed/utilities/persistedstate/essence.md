@@ -1,0 +1,1 @@
+Reactive state container with automatic browser storage persistence, cross-tab synchronization, connection control, and custom serialization support.

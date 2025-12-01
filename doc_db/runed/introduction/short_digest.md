@@ -1,0 +1,1 @@
+Runed extends Svelte 5 Runes with utility functions and classes that reduce boilerplate and provide consistent APIs. Features include reactive state handling, type safety, and community-driven development. Designed to enhance rather than replace Svelte's core functionality.

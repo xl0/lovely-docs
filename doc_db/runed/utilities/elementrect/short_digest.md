@@ -1,0 +1,1 @@
+Reactive element dimensions and position tracking. Pass a getter returning an HTMLElement to constructor, access via `rect.width`, `rect.height`, `rect.top`, `rect.left`, `rect.right`, `rect.bottom`, `rect.x`, `rect.y`, or `rect.current` (full DOMRect). Supports optional `initialRect` option.

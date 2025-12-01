@@ -1,0 +1,1 @@
+Debounce utility that delays callback execution until after specified inactivity duration; supports dynamic duration via function, immediate execution, and cancellation.

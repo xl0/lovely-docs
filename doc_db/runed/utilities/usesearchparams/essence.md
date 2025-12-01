@@ -1,0 +1,1 @@
+Reactive, schema-validated URL search params with type safety, compression, debouncing, date formatting, custom codecs, and server-side validation; top-level reactivity only.

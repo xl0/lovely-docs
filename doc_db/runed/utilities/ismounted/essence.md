@@ -1,0 +1,1 @@
+IsMounted class provides mounted state tracking via .current property; shorthand for onMount or $effect patterns

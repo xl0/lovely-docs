@@ -1,0 +1,1 @@
+IsFocusWithin class tracks whether any descendant has focus in a container; constructor takes element getter, exposes readonly current boolean property.
