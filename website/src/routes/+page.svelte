@@ -234,7 +234,7 @@
 			</div>
 
 			<!-- Basic Commands -->
-			<div class="grid gap-4 md:grid-cols-2">
+			<div class="grid gap-4 md:grid-cols-[1fr_1fr_auto]">
 				<div class="bg-muted rounded-lg p-4 space-y-2">
 					<div class="text-sm font-semibold text-foreground flex items-center gap-2">
 						<Terminal class="size-4" /> Initialize
@@ -246,6 +246,12 @@
 						<BookOpen class="size-4" /> List Libraries
 					</div>
 					<code class="block font-mono text-sm text-muted-foreground">{pmCommands[selectedPm].list}</code>
+				</div>
+				<div class="bg-muted rounded-lg p-4 space-y-2">
+					<div class="text-sm font-semibold text-foreground flex items-center gap-2">
+						<File class="size-4" /> Add Library
+					</div>
+					<code class="block font-mono text-sm text-muted-foreground">{pmCommands[selectedPm].add} sveltejs/svelte</code>
 				</div>
 			</div>
 		</section>
@@ -397,7 +403,7 @@
 									<File class="size-4 text-muted-foreground" />
 								{/if}
 								{#if item.link}
-									<a href={item.link.startsWith('/') ? resolve(item.link) : resolve(`/human/${item.link}`)} class="hover:underline decoration-primary/50 underline-offset-4 transition-all">
+									<a href={item.link.startsWith('/') ? resolve(item.link as any) : resolve(`/human/${item.link}`)} class="hover:underline decoration-primary/50 underline-offset-4 transition-all">
 										<span class={item.type === 'folder' ? 'font-bold text-foreground' : 'text-foreground'}>
 											{item.name}
 										</span>
