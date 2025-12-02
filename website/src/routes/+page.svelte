@@ -282,6 +282,7 @@
 						</svg>
 						Discord
 					</a>
+					or
 					<a
 						class="text-primary hover:text-foreground inline-flex items-baseline gap-1 transition-colors"
 						href="https://x.com/xl0xl0xl0"
