@@ -3,6 +3,7 @@
 	import { isElement } from 'hast-util-is-element';
 	import rehypeExternalLinks from 'rehype-external-links';
 	import rehypeHighlight from 'rehype-highlight';
+	import rehypeSlug from 'rehype-slug';
 	import rehypeStringify from 'rehype-stringify';
 	import remarkBreaks from 'remark-breaks';
 	import remarkGfm from 'remark-gfm';
@@ -12,126 +13,98 @@
 	import { unified } from 'unified';
 	import type { Element, Root } from 'hast';
 	import { h, s } from 'hastscript';
+	import { toString } from 'hast-util-to-string';
 
-	let { content = '' }: { content: string } = $props();
+	let { content = '', variant = '' }: { content: string; variant?: string } = $props();
 
-	// SVG for copy icon (converted from lucide)
-	const copySVG = s(
-		'svg',
-		{
-			xmlns: 'http://www.w3.org/2000/svg',
-			viewBox: '0 0 24 24',
-			fill: 'none',
-			stroke: 'currentColor',
-			'stroke-width': '2',
-			'stroke-linecap': 'round',
-			'stroke-linejoin': 'round',
-			class: 'w-4 h-4'
-		},
-		[
-			s('rect', { width: '14', height: '14', x: '8', y: '8', rx: '2', ry: '2' }),
-			s('path', { d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' })
-		]
-	);
+	// SVG paths for copy and check icons
+	const copyIconPaths = [
+		s('rect', { width: '14', height: '14', x: '8', y: '8', rx: '2', ry: '2' }),
+		s('path', { d: 'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' })
+	];
 
-	function nodeCopyButton(node: Element): Element | Element[] {
-		if (node.tagName !== 'pre') return node;
-		if (node.children.length !== 1) return node;
+	function createCopyButton(): Element {
+		const svg = s(
+			'svg',
+			{
+				xmlns: 'http://www.w3.org/2000/svg',
+				viewBox: '0 0 24 24',
+				fill: 'none',
+				stroke: 'currentColor',
+				'stroke-width': '2',
+				'stroke-linecap': 'round',
+				'stroke-linejoin': 'round',
+				class: 'copy-icon w-4 h-4'
+			},
+			copyIconPaths.map((p) => ({ ...p, properties: { ...p.properties } }))
+		);
 
-		const child = node.children[0] as Element;
-		if (child.tagName !== 'code') return node;
-
-		const cl = classList(child);
-		let language = 'text';
-
-		cl.forEach((c: string) => {
-			if (c.startsWith('language-')) {
-				language = c.slice(9);
-			}
-		});
-
-		const copyButton: Element = h(
+		return h(
 			'button',
 			{
 				className: [
-					'inline-flex',
-					'items-center',
-					'justify-center',
-					'rounded-md',
-					'text-sm',
-					'font-medium',
+					'copy-code-btn',
+					'absolute',
+					'top-2',
+					'right-2',
+					'p-1.5',
+					'rounded',
+					'hover:bg-muted/50',
+					'text-muted-foreground/50',
+					'hover:text-foreground',
 					'transition-colors',
-					'hover:bg-accent',
-					'hover:text-accent-foreground',
-					'h-8',
-					'w-8',
-					'p-0'
+					'opacity-10',
+					'group-hover:opacity-100'
 				],
 				title: 'Copy to clipboard',
-				type: 'button',
-				onClick: `
-					const preElement = this.parentElement.nextElementSibling;
-					if (preElement) {
-						const text = preElement.childNodes[0].textContent;
-						navigator.clipboard.writeText(text.trim());
-					}`
+				type: 'button'
 			},
-			[copySVG]
+			[svg]
 		);
-
-		const header = h(
-			'div',
-			{
-				className: [
-					'flex',
-					'justify-between',
-					'items-center',
-					'bg-muted',
-					'px-4',
-					'py-2',
-					'rounded-t-lg',
-					'border',
-					'border-b-0'
-				]
-			},
-			[h('span', { class: 'text-xs text-muted-foreground font-mono' }, language), copyButton]
-		);
-
-		const childCopy = { ...child };
-		childCopy.properties = {
-			...childCopy.properties,
-			style: undefined
-		};
-
-		const newPreWithCode = h('pre', { className: ['whitespace-pre-wrap', 'm-0', 'rounded-t-none'] }, [childCopy]);
-
-		child.tagName = 'div';
-		child.children = [header, newPreWithCode];
-
-		node.tagName = 'div';
-		node.properties.className = ['rounded-lg', 'my-4', 'overflow-hidden'];
-
-		return newPreWithCode;
 	}
 
-	function rehypeApplyMods() {
+	function wrapCodeBlockWithCopyButton(node: Element): void {
+		if (node.tagName !== 'pre') return;
+		if (node.children.length !== 1) return;
+		const codeChild = node.children[0];
+		if (!isElement(codeChild, 'code')) return;
+
+		// Wrap pre in a relative container with the copy button
+		const copyButton = createCopyButton();
+		const wrapper = h('div', { className: ['relative', 'group', 'my-4'] }, [
+			{ ...node, properties: { ...node.properties, className: [...((node.properties.className as string[]) || []), 'pr-10'] } },
+			copyButton
+		]);
+
+		// Replace node contents with wrapper contents
+		node.tagName = 'div';
+		node.properties = wrapper.properties;
+		node.children = wrapper.children;
+	}
+
+	function createRehypeApplyMods(currentVariant: string) {
 		return function (tree: Root) {
 			let preWithCode: Element[] = [];
 
-			// Find all pre elements with code children
 			function visit(node: any) {
 				if (node.type === 'element') {
+					// Add copy buttons to code blocks
 					if (isElement(node, 'pre') && node.children.length === 1 && isElement(node.children[0], 'code')) {
 						preWithCode.push(node);
 					}
-					if (node.children) {
-						node.children.forEach(visit);
+					// Prefix heading IDs with variant
+					if (currentVariant && isElement(node, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']) && node.properties?.id) {
+						node.properties.id = `${currentVariant}-${node.properties.id}`;
 					}
+				}
+				// Recurse into children for all node types (root, element, etc.)
+				if (node.children) {
+					node.children.forEach(visit);
 				}
 			}
 
 			visit(tree);
-			preWithCode = preWithCode.flatMap(nodeCopyButton);
+			preWithCode.forEach(wrapCodeBlockWithCopyButton);
 		};
 	}
 
@@ -143,7 +116,8 @@
 			.use(remarkBreaks)
 			.use(remarkGfm)
 			.use(remarkRehype, { allowDangerousHtml: true })
-			.use(rehypeApplyMods)
+			.use(rehypeSlug)
+			.use(createRehypeApplyMods, variant)
 			.use(rehypeHighlight, { detect: true, languages: { ...common }, aliases: { typescript: ['ts', 'svelte'] } })
 			.use(rehypeExternalLinks, { target: '_blank' })
 			.use(rehypeStringify)
@@ -151,8 +125,34 @@
 
 		markdownHtml = res.toString();
 	});
+
+	// Handle copy button clicks via event delegation
+	function handleClick(e: MouseEvent) {
+		const btn = (e.target as HTMLElement).closest('.copy-code-btn') as HTMLButtonElement | null;
+		if (!btn) return;
+		const wrapper = btn.closest('.group');
+		const pre = wrapper?.querySelector('pre');
+		if (pre) {
+			const text = pre.textContent ?? '';
+			navigator.clipboard.writeText(text.trim());
+
+			// Show checkmark feedback
+			const svg = btn.querySelector('svg');
+			if (svg) {
+				const originalHTML = svg.innerHTML;
+				svg.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+				btn.classList.add('opacity-100');
+				setTimeout(() => {
+					svg.innerHTML = originalHTML;
+					btn.classList.remove('opacity-100');
+				}, 2000);
+			}
+		}
+	}
 </script>
 
-<div class="prose prose-slate dark:prose-invert max-w-none">
+<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div class="prose prose-slate dark:prose-invert max-w-none" onclick={handleClick}>
 	{@html markdownHtml}
 </div>

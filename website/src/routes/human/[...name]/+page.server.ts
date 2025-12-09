@@ -11,13 +11,14 @@ export const load: PageServerLoad = async ({ params }) => {
 	const libraryKey = segments[0];
 	const pathSegments = segments.slice(1);
 
-	const { libraryInfo, currentNode, fullTree } = await getDocPageData(libraryKey, pathSegments);
+	const { libraryInfo, currentNode, fullTree, allLibraries } = await getDocPageData(libraryKey, pathSegments);
 
 	return {
 		libraryInfo,
 		libraryKey,
 		pathSegments,
 		currentNode,
-		fullTree
+		fullTree,
+		allLibraries
 	};
 };

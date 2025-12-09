@@ -1,15 +1,13 @@
 <script lang="ts">
 	import Markdown from '$lib/components/Markdown.svelte';
-	import type { MarkdownVariant } from '$lib/markdown';
 
 	type Props = {
-		markdown: Partial<Record<MarkdownVariant, string>>;
-		selected: MarkdownVariant;
-		labels: Record<MarkdownVariant, string>;
+		markdown: string;
 		showRaw: boolean;
+		variant?: string;
 	};
 
-	let { markdown, selected, labels, showRaw }: Props = $props();
+	let { markdown, showRaw, variant = '' }: Props = $props();
 
 	function handleKeyDown(event: KeyboardEvent) {
 		if (showRaw && (event.ctrlKey || event.metaKey) && event.key === 'a') {
@@ -30,16 +28,15 @@
 
 <svelte:window onkeydown={handleKeyDown} />
 
-{#if markdown[selected]}
+{#if markdown}
 	{#if showRaw}
-		<pre
-			class="raw-content whitespace-pre-wrap font-mono text-sm bg-muted p-4 rounded-lg overflow-auto">{markdown[selected]}</pre>
+		<pre class="raw-content bg-muted overflow-auto rounded-lg p-4 font-mono text-sm whitespace-pre-wrap">{markdown}</pre>
 	{:else}
-		<Markdown content={markdown[selected]!} />
+		<Markdown content={markdown} {variant} />
 	{/if}
 {:else}
-	<div class="rounded-lg bg-destructive/10 p-4 text-destructive">
-		<p class="font-semibold">Variant not available</p>
-		<p class="text-sm mt-1">{labels[selected]} is not available for this document.</p>
+	<div class="bg-destructive/10 text-destructive rounded-lg p-4">
+		<p class="font-semibold">Content not available</p>
+		<p class="mt-1 text-sm">This variant is not available for this document.</p>
 	</div>
 {/if}
