@@ -7,10 +7,9 @@ function stripMarkdown(node: DocItem): DocItem {
 	for (const [key, child] of Object.entries(node.children)) {
 		newChildren[key] = stripMarkdown(child);
 	}
-
 	return {
 		...node,
-		markdown: { essence: node.markdown.essence }, // Remove markdown content
+		markdown: { essence: node.markdown.essence },
 		children: newChildren
 	};
 }
@@ -33,8 +32,6 @@ export async function getDocPageData(libraryKey: string, pathSegments: string[])
 	}
 
 	// Prepare the node for the client
-	// We want to keep the markdown for the CURRENT node, but strip it for all descendants
-	// to save bandwidth/memory.
 	const clientNode: DocItem = {
 		...currentNode,
 		children: {}
@@ -48,13 +45,16 @@ export async function getDocPageData(libraryKey: string, pathSegments: string[])
 	// Create a stripped version of the full tree for the sidebar
 	const fullTree = stripMarkdown(library.tree);
 
-	// Extract library info (excluding the full tree)
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const { tree, ...libraryInfo } = library;
+
+	// All libraries for dropdown (include current)
+	const allLibraries = Array.from(libraries.entries()).map(([key, lib]) => ({ key, displayName: lib.name }));
 
 	return {
 		libraryInfo,
 		currentNode: clientNode,
-		fullTree
+		fullTree,
+		allLibraries
 	};
 }
