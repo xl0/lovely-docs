@@ -12,8 +12,6 @@
 
 	const { data, children } = $props<{ data: LayoutData; children: Snippet }>();
 
-	const libraries = data.mcp.libraries;
-
 	const tabs = [
 		{ id: 'tools', label: '$ tools', description: 'listLibraries', href: '/mcp/tools/list-libraries' },
 		{ id: 'resources', label: '$ resources', description: 'doc-index', href: '/mcp/resources/doc-index' }
@@ -90,7 +88,7 @@
 		<a href={resolve('/mcp/resources/doc-index')}>doc-index</a>
 
 		<!-- Page index for each library -->
-		{#each libraries as lib}
+		{#each data.mcp.libraries as lib}
 			<a href={resolve(`/mcp/resources/page-index/${lib.key}`)}>page-index {lib.key}</a>
 		{/each}
 	</div>
