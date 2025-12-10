@@ -1,1 +1,1 @@
-Initial setup, project structure, deployment options, and standard Web APIs available in SvelteKit.
+Initial setup, project structure, rendering modes, and standard web APIs available in SvelteKit.

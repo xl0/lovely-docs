@@ -1,21 +1,32 @@
 ## Expected vs Unexpected Errors
 
-Expected errors use `error(status, message)` helper, caught by SvelteKit to render `+error.svelte` with `page.error`. Unexpected errors are generic `{ message: "Internal Error" }` for security, passed to `handleError` hook.
+**Expected errors** use `error(status, message)` helper, caught by SvelteKit to render `+error.svelte`:
 
-## Error Responses
+```js
+import { error } from '@sveltejs/kit';
+export async function load({ params }) {
+	if (!post) error(404, 'Not found');
+}
+```
 
-Errors in `handle`/`+server.js` use fallback page or JSON. Customize with `src/error.html` using `%sveltekit.status%` and `%sveltekit.error.message%` placeholders. Errors in `load` render nearest `+error.svelte`; root layout errors use fallback.
+**Unexpected errors** are unhandled exceptions; only generic `{ message: "Internal Error" }` exposed to users. Pass through `handleError` hook for custom handling.
 
-## Type Safety
+## Error Shape & Responses
 
-Define `App.Error` interface in `src/app.d.ts` to add custom properties (always includes `message: string`):
+Default error object: `{ message: string }`. Extend with custom properties via TypeScript:
+
 ```ts
 declare global {
 	namespace App {
 		interface Error {
+			message: string;
 			code: string;
 			id: string;
 		}
 	}
 }
 ```
+
+Customize fallback error page with `src/error.html` using `%sveltekit.status%` and `%sveltekit.error.message%` placeholders.
+
+Error in `load` renders nearest `+error.svelte`; error in root layout uses fallback page.

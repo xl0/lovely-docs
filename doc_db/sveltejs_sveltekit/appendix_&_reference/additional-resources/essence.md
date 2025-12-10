@@ -1,1 +1,0 @@
-Links to FAQs, official example projects (realworld, HN clone, svelte.dev), community examples on GitHub/Svelte Society, and support channels (Discord, StackOverflow).

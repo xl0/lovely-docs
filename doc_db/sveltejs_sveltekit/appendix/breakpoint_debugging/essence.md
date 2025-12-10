@@ -1,0 +1,1 @@
+Debug Svelte/SvelteKit with breakpoints in VSCode (debug terminal or launch.json), other editors, or browser DevTools via Node.js --inspect flag

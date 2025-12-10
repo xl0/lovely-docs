@@ -1,1 +1,0 @@
-Build happens in two stages: Vite optimizes code/service worker, then an adapter tunes for the target environment. Skip build-time code execution by checking `building` from `$app/environment`. Preview with `vite preview` (runs in Node, not identical to deployed app).

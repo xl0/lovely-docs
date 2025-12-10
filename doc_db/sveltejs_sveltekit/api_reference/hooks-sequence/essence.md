@@ -1,0 +1,1 @@
+sequence() chains handle hooks with different ordering rules: transformPageChunk reversed, preload/filterSerializedResponseHeaders forward with first-wins semantics

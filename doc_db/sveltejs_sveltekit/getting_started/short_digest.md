@@ -1,7 +1,7 @@
-**Project setup**: `npx sv create my-app && npm run dev` (localhost:5173). Pages are Svelte components in `src/routes`, server-rendered then client-side takeover.
+**Project Creation**: `npx sv create my-app`, pages as Svelte components in `src/routes`, SSR then CSR.
 
-**Deployment options**: SSR+CSR (default), SSG (`adapter-static`), SPA, MPA, separate backend, serverless (`adapter-auto`/`adapter-vercel`/`adapter-netlify`/`adapter-cloudflare`), Node (`adapter-node`), containers, libraries, PWA, mobile (Tauri/Capacitor), desktop (Tauri/Wails/Electron), browser extensions, embedded devices. Use `bundleStrategy: 'single'` for limited connections.
+**Structure**: `src/lib/` (with `server/` subdirectory), `src/routes/`, `src/app.html` (placeholders: `%sveltekit.head%`, `%sveltekit.body%`, `%sveltekit.assets%`, `%sveltekit.nonce%`, `%sveltekit.env.[NAME]%`, `%sveltekit.version%`), `src/error.html`, hooks, service-worker, `static/`, `tests/`, config files.
 
-**Directory structure**: `src/{lib,lib/server,params,routes,app.html,error.html,hooks.client.js,hooks.server.js,service-worker.js,instrumentation.server.js}`, `static/`, `tests/`, config files (`package.json`, `svelte.config.js`, `tsconfig.json`, `vite.config.js`). `.svelte-kit/` auto-generated.
+**Rendering**: Hybrid SSR+CSR default; `adapter-static` for SSG; CSR-only for SPA; `adapter-node` for own server; `adapter-vercel`/`adapter-netlify`/`adapter-cloudflare` for serverless; `bundleStrategy: 'single'` for mobile/embedded.
 
-**Web APIs**: `fetch` (SSR-optimized in `load`/hooks/routes), Request/Response/Headers, FormData, Streams, URL/URLSearchParams, Web Crypto available in hooks, server routes, and browser.
+**Web APIs**: Standard `fetch`, `Request`/`Response`/`Headers`, `FormData`, Streams, `URL`/`URLSearchParams`, Web Crypto. Special `fetch` in `load`/server hooks/API routes invokes endpoints directly during SSR without HTTP.

@@ -1,1 +1,1 @@
-SEO techniques for SvelteKit: leverage default SSR and performance, normalize URLs, set page titles/descriptions from load functions, create XML sitemaps via endpoints, optionally support AMP with style inlining and HTML transformation.
+SSR enabled by default, use unique titles/meta tags, create sitemaps via endpoints, support AMP with inlineStyleThreshold and transformPageChunk hook.

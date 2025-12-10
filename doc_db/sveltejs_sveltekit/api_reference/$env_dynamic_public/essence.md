@@ -1,1 +1,1 @@
-Dynamic public environment variables (prefixed with PUBLIC_ by default) sent to client; prefer static variant for smaller payloads.
+Dynamic public environment variables (PUBLIC_ prefix) accessible on client; larger network overhead than static variant.

@@ -1,1 +1,0 @@
-adapter-auto automatically selects and installs the correct deployment adapter based on platform detection; supports Cloudflare, Netlify, Vercel, Azure, AWS/SST, Google Cloud; install specific adapter for config options and CI optimization.

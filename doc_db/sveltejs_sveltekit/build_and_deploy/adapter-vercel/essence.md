@@ -1,0 +1,1 @@
+Vercel adapter for SvelteKit with config for runtime, regions, memory, ISR, image optimization, and file access via $app/server.

@@ -1,0 +1,1 @@
+Create projects with `npx sv create my-app`. Pages are Svelte components in `src/routes`, server-rendered initially then client-side. Use VS Code with Svelte extension.

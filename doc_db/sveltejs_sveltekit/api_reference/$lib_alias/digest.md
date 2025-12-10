@@ -1,13 +1,18 @@
-The `$lib` import alias automatically points to the `src/lib` directory, allowing you to import reusable components and utilities from anywhere in your project without relative paths.
+## $lib Import Alias
 
-The alias can be customized via the config file's `files` option.
+SvelteKit automatically makes files under `src/lib` available using the `$lib` import alias.
 
-Example:
+The alias can be customized to point to a different directory via the config file (see configuration#files).
+
+### Example
+
 ```svelte
-// src/lib/Component.svelte
+<!--- file: src/lib/Component.svelte --->
 A reusable component
+```
 
-// src/routes/+page.svelte
+```svelte
+<!--- file: src/routes/+page.svelte --->
 <script>
     import Component from '$lib/Component.svelte';
 </script>

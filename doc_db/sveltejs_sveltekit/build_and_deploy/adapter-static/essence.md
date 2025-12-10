@@ -1,0 +1,1 @@
+Static site generator adapter for SvelteKit; prerender entire site with `adapter-static`, configure output directories, fallback page for SPA mode, compression, and strict checking; GitHub Pages support with base path configuration and automated Actions workflow.

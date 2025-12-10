@@ -1,0 +1,1 @@
+This page serves as a documentation index for build and deployment topics in SvelteKit. It contains no substantive content—only a title and a note indicating the file is auto-generated from a documentation sync script.

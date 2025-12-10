@@ -1,0 +1,1 @@
+Common questions: package compatibility (check publint.dev, use ESM), client-side libraries (browser check/onMount), database (server routes + singleton), backend API (proxy or event.fetch), middleware (Vite plugin), view transitions (onNavigate), Yarn (nodeLinker: node-modules).

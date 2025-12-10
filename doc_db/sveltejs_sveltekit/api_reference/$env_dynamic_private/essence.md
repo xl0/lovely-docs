@@ -1,1 +1,1 @@
-Server-side runtime environment variable access module; filters by publicPrefix/privatePrefix config; dev includes .env automatically.
+$env/dynamic/private module provides server-side access to filtered runtime environment variables based on prefix configuration.

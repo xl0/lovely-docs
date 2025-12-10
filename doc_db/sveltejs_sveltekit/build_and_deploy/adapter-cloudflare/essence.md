@@ -1,0 +1,1 @@
+Adapter for deploying SvelteKit to Cloudflare Workers/Pages with configuration options, runtime API access to bindings, local emulation, and migration guide from deprecated Workers Sites.

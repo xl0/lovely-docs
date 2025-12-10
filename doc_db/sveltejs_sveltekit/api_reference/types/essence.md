@@ -1,1 +1,1 @@
-Auto-generated route type definitions ($types module), app.d.ts ambient types (Error, Locals, PageData, PageState, Platform), $lib aliases, tsconfig configuration.
+Auto-generated route type definitions ($types.d.ts), $lib alias, and App namespace interfaces (Error, Locals, PageData, PageState, Platform) for ambient typing.

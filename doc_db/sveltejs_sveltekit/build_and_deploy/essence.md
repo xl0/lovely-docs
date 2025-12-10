@@ -1,0 +1,1 @@
+Build process, deployment adapters (official and custom), and platform-specific configuration for Cloudflare, Netlify, Node, static sites, and Vercel.

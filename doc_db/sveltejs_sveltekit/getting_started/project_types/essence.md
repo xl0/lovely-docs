@@ -1,1 +1,1 @@
-SvelteKit deployment options: SSR+CSR (default), SSG (adapter-static/ISR), SPA, MPA, separate backend, serverless (adapter-auto/vercel/netlify/cloudflare), node, containers, libraries, PWA, mobile (Tauri/Capacitor), desktop (Tauri/Wails/Electron), browser extensions, embedded devices; use bundleStrategy: 'single' for limited connections.
+SvelteKit supports multiple rendering modes (SSR/CSR hybrid default, SSG, SPA, MPA) and deployment targets (serverless, own server, containers, mobile/desktop apps, browser extensions, embedded devices) via configurable adapters.

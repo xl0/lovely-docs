@@ -1,0 +1,1 @@
+Configure SvelteKit as a client-rendered SPA using adapter-static with fallback page; disable SSR globally, selectively prerender pages, understand performance/SEO tradeoffs, configure host-specific routing (Apache .htaccess example).

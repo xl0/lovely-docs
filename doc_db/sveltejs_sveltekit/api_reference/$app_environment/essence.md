@@ -1,1 +1,1 @@
-$app/environment exports boolean flags (browser, building, dev) and version string to detect runtime context.
+Four environment constants: browser (client-side), building (build/prerender), dev (dev server), version (from config)

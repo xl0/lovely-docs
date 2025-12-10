@@ -1,1 +1,1 @@
-Auto-generated documentation index page with no substantive content.
+Main documentation index page (auto-generated).

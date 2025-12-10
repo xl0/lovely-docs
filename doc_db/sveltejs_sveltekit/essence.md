@@ -1,1 +1,1 @@
-Complete SvelteKit framework documentation covering setup, routing, load functions, form actions, adapters, hooks, advanced features, best practices, and full API reference.
+Complete reference for SvelteKit framework: routing, data loading, forms, deployment adapters, hooks, performance, accessibility, SEO, and API.

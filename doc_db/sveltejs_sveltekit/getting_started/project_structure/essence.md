@@ -1,1 +1,1 @@
-Standard SvelteKit directory layout: src/{lib,params,routes,app.html,error.html,hooks.{client,server}.js,service-worker.js,instrumentation.server.js}, static/, tests/, plus config files (package.json, svelte.config.js, tsconfig.json, vite.config.js); .svelte-kit/ auto-generated.
+Standard directory layout: src/ (lib/, server/, params/, routes/, app.html, error.html, hooks, service-worker, tracing), static/, tests/, config files (package.json with ES modules, svelte.config.js, tsconfig.json, vite.config.js)

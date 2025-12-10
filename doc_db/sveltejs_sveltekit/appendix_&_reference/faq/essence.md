@@ -1,1 +1,0 @@
-Common SvelteKit patterns: package compatibility (publint, exports field, ESM), client-side library access (browser check/onMount), database setup (server routes + singleton), view transitions (onNavigate + startViewTransition), external APIs (event.fetch or proxy), middleware (Vite plugin or adapter-node), Yarn compatibility (nodeLinker workaround).

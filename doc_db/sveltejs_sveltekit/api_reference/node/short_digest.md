@@ -1,1 +1,0 @@
-Node.js adapter utilities: `createReadableStream(file)` converts files to streams, `getRequest(request, base, bodySizeLimit)` converts IncomingMessage to Request, `setResponse(res, response)` writes Response to ServerResponse.

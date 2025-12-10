@@ -1,19 +1,31 @@
-Server-side utilities: `command`, `form`, `query`, `prerender` for remote function execution; `getRequestEvent` to access current request context; `read` to load imported assets. All remote functions support optional schema validation and unchecked inputs.
+## Remote Functions
 
+**command**: Server-side function callable from browser via fetch
 ```js
-import { command, form, query, prerender, getRequestEvent, read } from '$app/server';
+const cmd = command(schema, (input) => result);
+```
 
-// Remote functions execute on server when called from browser
-const cmd = command(() => 'result');
-const frm = form('unchecked', (data, invalid) => handleForm(data));
-const qry = query(schema, (arg) => fetchData(arg));
-const pre = prerender(() => generatePage(), { dynamic: true });
-const batch = query.batch(schema, (args) => (arg, idx) => process(arg));
+**query**: Server-side data fetcher callable from browser
+```js
+const q = query(schema, (input) => data);
+const batch = query.batch(schema, (args) => (arg, idx) => result);
+```
 
-// Access request context
-const event = getRequestEvent();
+**form**: Form handler with validation
+```js
+const f = form(schema, (data, issue) => handleSubmit(data));
+```
 
-// Read imported assets
-const asset = read(importedFile);
-const text = await asset.text();
+**prerender**: Server function for build-time execution with input generation
+```js
+const p = prerender(schema, (input) => data, { inputs: generator, dynamic: true });
+```
+
+## Utilities
+
+**getRequestEvent**: Access current RequestEvent in server context (must call synchronously)
+
+**read**: Read imported asset contents from filesystem
+```js
+const text = await read(asset).text();
 ```

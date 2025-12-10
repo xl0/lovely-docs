@@ -1,1 +1,0 @@
-This is an appendix section of the SvelteKit documentation. The page itself is a generated index file that serves as a container for additional reference materials and supplementary information related to SvelteKit. The actual content of the appendix would be populated by other pages linked from this index.

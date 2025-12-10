@@ -1,1 +1,1 @@
-Documentation index page for SvelteKit core concepts.
+Index page for core concepts documentation with no actual content.

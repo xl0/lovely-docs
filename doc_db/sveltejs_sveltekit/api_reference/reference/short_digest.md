@@ -1,1 +1,1 @@
-Documentation index page for SvelteKit reference materials.
+Documentation index page for SvelteKit reference section (auto-generated).

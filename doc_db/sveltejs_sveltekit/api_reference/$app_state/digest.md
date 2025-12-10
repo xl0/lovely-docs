@@ -1,15 +1,30 @@
 ## Overview
-SvelteKit provides three read-only state objects via the `$app/state` module (added in v2.12): `page`, `navigating`, and `updated`. These replace the older `$app/stores` module.
 
-## navigating
-A read-only object representing an in-progress navigation with properties: `from`, `to`, `type`, and optionally `delta` (when `type === 'popstate'`). All values are `null` when no navigation is occurring or during server rendering.
+SvelteKit provides three read-only state objects via the `$app/state` module: `page`, `navigating`, and `updated`. Available since SvelteKit 2.12 (use `$app/stores` for earlier versions).
 
 ```js
-import { navigating } from '$app/state';
-// navigating.from, navigating.to, navigating.type, navigating.delta
+import { navigating, page, updated } from '$app/state';
+```
+
+## navigating
+
+Represents an in-progress navigation with properties: `from`, `to`, `type`, and `delta` (if `type === 'popstate'`). All values are `null` when no navigation is occurring or during server rendering.
+
+```ts
+const navigating:
+	| import('@sveltejs/kit').Navigation
+	| {
+			from: null;
+			to: null;
+			type: null;
+			willUnload: null;
+			delta: null;
+			complete: null;
+	  };
 ```
 
 ## page
+
 A read-only reactive object containing current page information:
 - Combined `data` from all pages/layouts
 - Current `form` prop value
@@ -19,26 +34,30 @@ A read-only reactive object containing current page information:
 ```svelte
 <script>
 	import { page } from '$app/state';
+	const id = $derived(page.params.id); // Reactive with runes
 </script>
 
 <p>Currently at {page.url.pathname}</p>
-
 {#if page.error}
 	<span class="red">Problem detected</span>
-{:else}
-	<span class="small">All systems operational</span>
 {/if}
 ```
 
-**Important:** Changes to `page` are only reactive with runes (`$derived`), not with legacy reactivity syntax (`$:`). Use `const id = $derived(page.params.id)` instead of `$: badId = page.params.id`.
+**Important:** Changes to `page` only work with runes (`$derived`). Legacy reactivity syntax (`$:`) will not reflect updates after initial load.
 
-On the server, values can only be read during rendering (not in `load` functions). In the browser, values can be read anytime.
+On the server, values can only be read during rendering (not in `load` functions). In the browser, values can be read at any time.
+
+```ts
+const page: import('@sveltejs/kit').Page;
+```
 
 ## updated
+
 A read-only reactive value initially `false`. When `version.pollInterval` is non-zero, SvelteKit polls for new app versions and sets `updated.current` to `true` when detected. Call `updated.check()` to force an immediate check.
 
-```js
-import { updated } from '$app/state';
-// updated.current (boolean)
-// updated.check() (Promise<boolean>)
+```ts
+const updated: {
+	get current(): boolean;
+	check(): Promise<boolean>;
+};
 ```

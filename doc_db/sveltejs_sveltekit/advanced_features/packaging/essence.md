@@ -1,1 +1,1 @@
-Building Svelte component libraries: use @sveltejs/package with src/lib as public API, configure package.json exports with types/svelte conditions, auto-generate type definitions, avoid SvelteKit-specific modules, use typesVersions for non-root exports, require fully-specified imports with extensions.
+Build component libraries with @sveltejs/package; configure exports, types, sideEffects in package.json; auto-generate type definitions; avoid $app modules; use typesVersions or moduleResolution for non-root export types; all imports need extensions.

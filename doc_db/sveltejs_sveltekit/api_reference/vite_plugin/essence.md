@@ -1,0 +1,1 @@
+sveltekit() async function exports Vite plugins array from @sveltejs/kit/vite

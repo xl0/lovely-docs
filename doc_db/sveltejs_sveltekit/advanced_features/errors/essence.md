@@ -1,1 +1,1 @@
-Expected errors via error(status, message) render +error.svelte; unexpected errors show generic message and go through handleError hook; customize fallback with src/error.html; define App.Error interface for type-safe custom properties.
+Expected errors via error() helper render +error.svelte; unexpected errors expose generic message and pass through handleError hook; customize error shape with App.Error interface and fallback page with src/error.html.

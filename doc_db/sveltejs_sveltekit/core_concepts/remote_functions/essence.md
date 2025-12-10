@@ -1,0 +1,1 @@
+Type-safe client-server communication: query (read), form (write+progressive enhancement), command (write anywhere), prerender (build-time); validate with Standard Schema; single-flight mutations; progressive enhancement; getRequestEvent for auth.

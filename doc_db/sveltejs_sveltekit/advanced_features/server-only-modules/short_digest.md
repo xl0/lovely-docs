@@ -1,1 +1,0 @@
-SvelteKit prevents sensitive data leaks by enforcing server-only modules. Mark modules as server-only with `.server` filename suffix or `$lib/server/` directory. SvelteKit errors if browser code imports server-only modules (directly or indirectly), even if only unused exports are imported. Works with dynamic imports. Disabled during tests when `process.env.TEST === 'true'`.

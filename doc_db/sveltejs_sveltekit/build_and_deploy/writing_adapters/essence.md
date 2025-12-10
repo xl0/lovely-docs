@@ -1,0 +1,1 @@
+Adapter API: export function returning object with name, adapt(builder), optional emulate() and supports; adapt() must write output, generate manifest, handle requests via server.respond(), shim fetch, bundle, and place files correctly.

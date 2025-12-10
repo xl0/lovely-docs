@@ -1,1 +1,0 @@
-SPA mode via fallback page: disable SSR in root layout, use adapter-static with fallback option, selectively prerender pages; includes Apache .htaccess config and performance warnings.

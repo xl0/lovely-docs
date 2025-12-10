@@ -1,1 +1,0 @@
-Service workers proxy requests for offline support and precaching; auto-register from `src/service-worker.js`, access build/static paths via `$service-worker`, implement install/activate/fetch handlers for cache management with network fallback.

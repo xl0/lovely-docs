@@ -1,11 +1,13 @@
-**Routing**: `src/routes` directory structure with `+` prefix files (`+page.svelte`, `+page.js/.server.js`, `+layout.svelte/.js/.server.js`, `+server.js`, `+error.svelte`). Pages SSR/CSR, layouts persist, `+server.js` handles HTTP verbs with content negotiation, `+error.svelte` walks tree for boundaries, `$types.d.ts` for type safety.
+# Core Concepts
 
-**Load Functions**: Universal (`+page.js`, `+layout.js`) runs server+browser any type; server (`+page.server.js`, `+layout.server.js`) runs server-only serializable data. Receive `url`, `params`, `fetch` (inherits cookies, inlines responses), `cookies`, `setHeaders()`, `parent()`, `depends()`. Throw `error()` or `redirect()`. Dependency tracking with `invalidate()`/`invalidateAll()`.
+**Routing**: Filesystem-based in `src/routes`. Files with `+` prefix: `+page.svelte` (component), `+page.js`/`+page.server.js` (load), `+layout.*` (layouts), `+error.svelte` (errors), `+server.js` (API routes with GET/POST/etc handlers).
 
-**Form Actions**: `actions` object in `+page.server.js` with default/named actions. POST only, work without JS. Return data as `form` prop. Use `fail(status, data)` for validation, `redirect()` for success. `use:enhance` for progressive enhancement with `SubmitFunction` callback. `applyAction()` for manual handling.
+**Load functions**: Return data to components. Universal (`+page.js`, `+layout.js`) run server+browser, can return any values. Server (`+page.server.js`, `+layout.server.js`) run server-only, must return serializable data. Receive `params`, `url`, `fetch`, `parent()`, `depends()`. Throw `error()` or `redirect()`. Rerun on param/url changes or `invalidate()` calls. Support streaming promises.
 
-**Page Options**: `prerender` (true/false/'auto'), `ssr` (disable server render), `csr` (disable client render), `trailingSlash` ('never'/'always'/'ignore'), `config` (adapter-specific), `entries()` (prerender params).
+**Form actions**: Export `actions` from `+page.server.js` to handle POST. Default or named actions. Return data as `form` prop. Use `fail(status, data)` for validation, `redirect()` for redirects. Progressive enhancement with `use:enhance` directive and `applyAction()`.
 
-**State Management**: No shared server state. Load functions pure. Use context API instead of globals. `$derived` for reactivity. URL for persistent state, snapshots for ephemeral UI state.
+**Page options**: `prerender` (build-time static), `ssr` (client-only), `csr` (no JS), `trailingSlash`, `config` (adapter-specific). Set per-page or inherit from layouts.
 
-**Remote Functions**: Type-safe RPC from `.remote.js`. `query` (read, cached, `.refresh()`, `.batch()`), `form` (write, progressive, `.updates()`, `.for(id)`), `command` (write, anywhere), `prerender` (build-time). Standard Schema validation. `getRequestEvent()` for auth/cookies.
+**State**: Never use shared server variables. Load functions must be pure. Use context API for per-request state. Component state preserved on navigation - use `$derived` for reactivity. Store URL-affecting state in search params.
+
+**Remote functions**: Type-safe client-server via `.remote.js`. `query(schema, fn)` reads data with caching/refresh. `form(schema, fn)` writes with progressive enhancement, field validation, single-flight mutations. `command(schema, fn)` writes from anywhere. `prerender(schema, fn, options)` for build-time static data. Validate with Standard Schema, serialize via devalue.

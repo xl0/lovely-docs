@@ -9,16 +9,18 @@ Based on the page above, in this order:
     - Keep the original if it's good already. Use the title from frontmatter if present, unless it's too long.
     - Don't include the name of the library in the name.
     - If the original starts with a number, don't include it.
-- Create a digest of the page.
+- Create a digest of the page (markdown).
+    - The digest contains all information in the page, but removes water.
+    - IMPORTANT: Keep all examples, especially ones for corner cases and advanced fearures.
+        - Combine 2 or more simple examples into one demonstrating the 2 simple features.
+        - Consdense verbose examples, keep the essential code.
+        - Don't repeat boilerplate and imports. Include it in the first example but compress the rest.
     - Extract all bits that are important to a programmer who does not know how to use the library.
     - Include both high-level purpose and low-level details.
-    - IMPORTANT: Include all examples.
-        - You can combine 2 or more simple examples into one.
-        - You can consdense verbose examples to their essence.
-    - Don't repeat boilerplate and imports. Include it in the first example but compress the rest.
     - Avoid markdown links, describe the target instead of linking.
+    - Use markdown headings for sections.
     - Don't include any extra notes. Be concise, no "guide to" or "documentation for", no water.
-    - If a page has a lot of information, the digest can be proportionally long.
+    - If a page has a lot of information, the digest shouldkeep all relevant information. It can be long.
     - For short pages, or pages that don't have anything important, the digest can also be very short, down to 1 word in extreme cases.
 
 - More condensed digest (should be useful without reading the full digest).

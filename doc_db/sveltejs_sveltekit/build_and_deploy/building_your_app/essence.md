@@ -1,0 +1,1 @@
+Two-stage build process: Vite optimizes code and runs prerendering, then adapter tunes for deployment; skip build-time code execution with `building` flag from `$app/environment`; preview with `vite preview`.

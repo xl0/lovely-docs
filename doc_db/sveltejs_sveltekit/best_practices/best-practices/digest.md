@@ -1,1 +1,0 @@
-This page serves as an index/overview for best practices documentation in SvelteKit. The page itself contains no substantive content - it only has a title in the frontmatter and a note indicating it is auto-generated from a documentation sync script. The actual best practices content would be found in child pages within this directory.

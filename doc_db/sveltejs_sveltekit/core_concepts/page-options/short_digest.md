@@ -1,15 +1,43 @@
-## Page Options
+## prerender
 
-Export options from `+page.js`, `+page.server.js`, `+layout.js`, `+layout.server.js` to control rendering per-page/layout. Child values override parent values.
+```js
+export const prerender = true | false | 'auto';
+```
 
-**prerender**: Generate static HTML at build time. `true`/`false`/`'auto'`. Crawls links from entry points; specify additional routes via `entries()` function or config. Cannot prerender pages with form actions or that access `url.searchParams`.
+Render pages at build time as static HTML. Set in layouts to apply to children. Prerenderer crawls from root following links; specify additional pages via `entries()` function or `config.kit.prerender.entries`. Pages must return identical content for all users. Cannot prerender pages with form actions or that access `url.searchParams`. Use file extensions to avoid route conflicts (`foo.json`, `foo/bar.json`).
 
-**ssr**: Disable server rendering (`export const ssr = false`). Renders empty shell; useful for browser-only code but not recommended. Setting in root layout makes entire app SPA.
+## entries
 
-**csr**: Disable client-side rendering (`export const csr = false`). No JavaScript shipped; works HTML/CSS only. Can conditionally enable in dev: `export const csr = dev`.
+```js
+export function entries() {
+	return [{ slug: 'hello-world' }, { slug: 'another-blog-post' }];
+}
+export const prerender = true;
+```
 
-**trailingSlash**: `'never'` (default), `'always'`, or `'ignore'`. Affects prerendering output structure.
+Tell prerenderer which parameter values to prerender for dynamic routes. Can be async.
 
-**config**: Adapter-specific configuration object. Top-level keys merged from layouts to pages.
+## ssr / csr
 
-**entries**: Export async function from dynamic route to specify prerender parameter combinations.
+```js
+export const ssr = false;  // render only on client
+export const csr = false;  // no JavaScript, HTML/CSS only
+```
+
+Control where rendering happens. Both false = nothing renders.
+
+## trailingSlash
+
+```js
+export const trailingSlash = 'never' | 'always' | 'ignore';
+```
+
+Default `'never'` removes trailing slashes. Affects prerendering output format.
+
+## config
+
+```js
+export const config = { runtime: 'edge', regions: 'all' };
+```
+
+Adapter-specific settings. Top-level keys merge with parent layouts; nested objects replace.

@@ -1,1 +1,1 @@
-$app/server exports remote function creators (command, form, query, prerender, query.batch) for server execution from browser, getRequestEvent for request context access, and read for asset loading; all support optional schema validation.
+Server-side remote functions (command, query, form, prerender) with optional schema validation, plus getRequestEvent and read utilities for asset access.

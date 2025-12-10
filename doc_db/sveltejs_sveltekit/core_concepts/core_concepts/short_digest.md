@@ -1,1 +1,1 @@
-Index page for core concepts documentation section.
+Documentation index page for core concepts (no content).

@@ -1,1 +1,0 @@
-Default adapter that auto-detects deployment platform (Cloudflare, Netlify, Vercel, Azure, AWS, Google Cloud) and installs the appropriate adapter. Install specific adapter for environment-specific config options and better CI performance.

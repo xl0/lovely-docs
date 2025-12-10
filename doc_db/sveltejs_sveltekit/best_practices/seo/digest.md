@@ -1,34 +1,33 @@
-## SEO Best Practices for SvelteKit
+## Out of the box
 
-### Out of the Box Features
+### SSR
+Server-side rendering is enabled by default and should be kept on for better search engine indexing. SvelteKit supports dynamic rendering if needed, though SSR has benefits beyond SEO.
 
-**SSR (Server-Side Rendering)**
-- SvelteKit uses SSR by default, which is more reliably indexed by search engines than client-side rendering
-- Can be disabled in `handle` hook but not recommended unless necessary
-- Dynamic rendering is possible if needed but not generally recommended
+### Performance
+Core Web Vitals impact search rankings. Svelte/SvelteKit's minimal overhead helps build fast sites. Use Google PageSpeed Insights or Lighthouse to test. Hybrid rendering mode and image optimization significantly improve speed.
 
-**Performance**
-- Core Web Vitals impact search engine ranking
-- Svelte/SvelteKit have minimal overhead, making high-performance sites easier to build
-- Test with Google PageSpeed Insights or Lighthouse
-- Use hybrid rendering mode and optimize images to improve speed
+### Normalized URLs
+SvelteKit automatically redirects trailing slash variants to maintain consistent URLs, preventing SEO penalties from duplicates.
 
-**Normalized URLs**
-- SvelteKit automatically redirects trailing slash variants to maintain canonical URLs (configurable via `trailingSlash` option)
+## Manual setup
 
-### Manual Setup
+### Title and Meta Tags
+Every page needs unique `<title>` and `<meta name="description">` in `<svelte:head>`. Common pattern: return SEO data from page `load` functions and use it in root layout's `<svelte:head>`.
 
-**Title and Meta Tags**
-- Every page needs unique `<title>` and `<meta name="description">` in `<svelte:head>`
-- Common pattern: return SEO data from page `load` functions, use in root layout's `<svelte:head>` via `page.data`
+### Sitemaps
+Create dynamic sitemaps via endpoints:
 
-**Sitemaps**
-- Create dynamically using an endpoint at `src/routes/sitemap.xml/+server.js`:
 ```js
+/// file: src/routes/sitemap.xml/+server.js
 export async function GET() {
 	return new Response(
 		`<?xml version="1.0" encoding="UTF-8" ?>
-		<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" ...>
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+			xmlns:xhtml="http://www.w3.org/1999/xhtml"
+			xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+			xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+			xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+			xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 			<!-- <url> elements go here -->
 		</urlset>`.trim(),
 		{ headers: { 'Content-Type': 'application/xml' } }
@@ -36,11 +35,14 @@ export async function GET() {
 }
 ```
 
-**AMP (Accelerated Mobile Pages)**
-- Set `inlineStyleThreshold: Infinity` in `svelte.config.js` to inline all styles (since `<link rel="stylesheet">` isn't allowed in AMP)
-- Disable CSR in root layout: `export const csr = false;`
-- Add `amp` attribute to `<html>` in `app.html`
-- Transform HTML in `src/hooks.server.js`:
+### AMP
+To create Accelerated Mobile Pages versions:
+
+1. Set `inlineStyleThreshold: Infinity` in `svelte.config.js` (inline all styles since `<link rel="stylesheet">` isn't allowed)
+2. Disable CSR in root `+layout.server.js`: `export const csr = false;`
+3. Add `amp` attribute to `<html>` in `app.html`
+4. Transform HTML in `src/hooks.server.js`:
+
 ```js
 import * as amp from '@sveltejs/amp';
 
@@ -54,7 +56,9 @@ export async function handle({ event, resolve }) {
 	});
 }
 ```
-- Optionally use `dropcss` to remove unused CSS after AMP transformation:
+
+Optional: Remove unused CSS with `dropcss`:
+
 ```js
 import * as amp from '@sveltejs/amp';
 import dropcss from 'dropcss';
@@ -79,4 +83,5 @@ export async function handle({ event, resolve }) {
 	});
 }
 ```
-- Validate transformed HTML with `amphtml-validator` in `handle` hook (only for prerendered pages due to performance)
+
+Validate transformed HTML with `amphtml-validator` in the handle hook (only for prerendered pages due to performance).

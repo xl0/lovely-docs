@@ -1,66 +1,94 @@
-SvelteKit uses standard `<a>` elements for navigation. Customize link behavior with `data-sveltekit-*` attributes applied to the link or parent element. These attributes also work on `<form method="GET">`.
+## data-sveltekit-preload-data
 
-**data-sveltekit-preload-data**: Preload page data on user interaction to improve perceived performance.
-- `"hover"` (default): Start preloading on mouse hover (desktop) or `touchstart` (mobile)
-- `"tap"`: Start preloading only on `touchstart` or `mousedown`
-- Respects `navigator.connection.saveData` (won't preload if user has reduced data usage enabled)
-- Can be programmatically invoked via `preloadData` from `$app/navigation`
+Preload page code and data before navigation based on user interaction:
 
-Example:
+- `"hover"` - preload on mouse hover (desktop) or `touchstart` (mobile)
+- `"tap"` - preload on `touchstart` or `mousedown` only
+
+Default in template: `<body data-sveltekit-preload-data="hover">`
+
 ```html
-<body data-sveltekit-preload-data="hover">
-	<div style="display: contents">%sveltekit.body%</div>
-</body>
-
 <a data-sveltekit-preload-data="tap" href="/stonks">
 	Get current stonk values
 </a>
 ```
 
-**data-sveltekit-preload-code**: Preload page code with four eagerness levels (only affects code, not data).
-- `"eager"`: Preload immediately
-- `"viewport"`: Preload when link enters viewport
-- `"hover"`: Preload on hover (code only)
-- `"tap"`: Preload on tap/click (code only)
-- Only applies to links in DOM immediately after navigation; dynamically added links use `hover`/`tap`
-- Ignored if user has reduced data usage enabled
-- Only has effect if more eager than any `data-sveltekit-preload-data` attribute
+Preloading is skipped if `navigator.connection.saveData` is `true`.
 
-**data-sveltekit-reload**: Force full-page browser navigation instead of SvelteKit client-side navigation.
+Can be invoked programmatically via `preloadData` from `$app/navigation`.
+
+## data-sveltekit-preload-code
+
+Preload only page code (not data) with four eagerness levels:
+
+- `"eager"` - preload immediately
+- `"viewport"` - preload when link enters viewport
+- `"hover"` - preload on hover
+- `"tap"` - preload on tap/click
+
+Only applies to links in DOM immediately after navigation. Links added later (e.g., in `{#if}` blocks) preload only on `hover`/`tap`.
+
+Has no effect if a `data-sveltekit-preload-data` attribute specifies a more eager value. Respects `navigator.connection.saveData`.
+
+## data-sveltekit-reload
+
+Force full-page browser navigation instead of SvelteKit client-side navigation:
+
 ```html
 <a data-sveltekit-reload href="/path">Path</a>
 ```
-Also applied automatically to links with `rel="external"` (which are also ignored during prerendering).
 
-**data-sveltekit-replacestate**: Replace current history entry instead of creating new one with `pushState`.
+Links with `rel="external"` receive the same treatment and are ignored during prerendering.
+
+## data-sveltekit-replacestate
+
+Replace current history entry instead of creating new one:
+
 ```html
 <a data-sveltekit-replacestate href="/path">Path</a>
 ```
 
-**data-sveltekit-keepfocus**: Retain focus on currently focused element after navigation (useful for search forms that submit while typing).
+Uses `replaceState` instead of `pushState`.
+
+## data-sveltekit-keepfocus
+
+Retain focus on currently focused element after navigation:
+
 ```html
 <form data-sveltekit-keepfocus>
 	<input type="text" name="query">
 </form>
 ```
-Avoid on links since focus would be on the `<a>` tag itself. Only use on elements that persist after navigation.
 
-**data-sveltekit-noscroll**: Prevent automatic scroll to top (or to `#hash` target) after navigation.
+Useful for search forms that submit while typing. Avoid on links since focus would be on the `<a>` tag itself. Only use on elements that persist after navigation.
+
+## data-sveltekit-noscroll
+
+Prevent automatic scroll to top (0,0) after navigation:
+
 ```html
 <a href="path" data-sveltekit-noscroll>Path</a>
 ```
 
-**Disabling options**: Use `"false"` value to disable inherited attributes:
+Default behavior scrolls to top unless link has `#hash` (scrolls to matching element ID).
+
+## Disabling options
+
+Disable inherited options with `"false"` value:
+
 ```html
-<div data-sveltekit-preload-data>
-	<a href="/a">a</a>
+<div data-sveltekit-preload-data="hover">
+	<a href="/a">preloaded</a>
 	<div data-sveltekit-preload-data="false">
-		<a href="/d">d</a>
+		<a href="/b">NOT preloaded</a>
 	</div>
 </div>
 ```
 
-Conditional application:
+Conditionally apply attributes:
+
 ```svelte
 <div data-sveltekit-preload-data={condition ? 'hover' : false}>
 ```
+
+These attributes also apply to `<form method="GET">` elements.

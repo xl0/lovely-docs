@@ -1,21 +1,31 @@
 ## Shallow Routing
 
-Create history entries without navigating using `pushState` (new entry) or `replaceState` (no entry). Access state via `page.state`.
+Create history entries without navigating using `pushState` and `replaceState`. Useful for modals where back/forward dismisses the overlay.
 
 ```svelte
-import { pushState } from '$app/navigation';
-import { page } from '$app/state';
+<script>
+	import { pushState, preloadData, goto } from '$app/navigation';
+	import { page } from '$app/state';
 
-pushState('', { showModal: true }); // relative URL, state object
+	function showModal() {
+		pushState('', { showModal: true });
+	}
+
+	async function handlePhotoClick(e) {
+		if (shouldNavigateNormally(e)) return;
+		e.preventDefault();
+		const result = await preloadData(e.currentTarget.href);
+		if (result.type === 'loaded' && result.status === 200) {
+			pushState(e.currentTarget.href, { selected: result.data });
+		} else {
+			goto(e.currentTarget.href);
+		}
+	}
+</script>
+
+{#if page.state.showModal}
+	<Modal close={() => history.back()} />
+{/if}
 ```
 
-For loading data: use `preloadData` to fetch `+page.svelte` data before rendering in modal.
-
-```svelte
-const result = await preloadData(href);
-if (result.type === 'loaded' && result.status === 200) {
-  pushState(href, { selected: result.data });
-}
-```
-
-Type-safe state with `App.PageState` interface. Requires JavaScript; `page.state` is empty during SSR and on initial page load.
+First argument to `pushState` is relative URL (`''` for current). Second is page state accessible via `page.state`. Use `replaceState` to avoid creating history entry. Requires JavaScript; `page.state` is empty during SSR and on initial page load.

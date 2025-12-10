@@ -1,1 +1,1 @@
-Documentation root/index page; auto-generated, no content.
+Documentation root/index page with no content; auto-generated from sync script.

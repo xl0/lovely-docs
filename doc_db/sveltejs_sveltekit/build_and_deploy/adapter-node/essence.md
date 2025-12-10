@@ -1,0 +1,1 @@
+Node.js adapter for SvelteKit: build standalone servers, configure via environment variables (ORIGIN, PORT, HOST, PROTOCOL_HEADER, ADDRESS_HEADER, etc.), graceful shutdown with sveltekit:shutdown event, systemd socket activation support, custom server via handler.js middleware.

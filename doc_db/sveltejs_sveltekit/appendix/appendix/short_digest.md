@@ -1,0 +1,1 @@
+Appendix section container for supplementary SvelteKit documentation.

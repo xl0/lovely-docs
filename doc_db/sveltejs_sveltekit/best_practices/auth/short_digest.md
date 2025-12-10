@@ -1,1 +1,9 @@
-**Sessions vs Tokens**: Session IDs (database-stored, immediately revocable, higher latency) vs JWT (not revocable, better latency). **Integration**: Check auth cookies in server hooks, store user info in `locals`. **Implementation**: Use Lucia with `npx sv add lucia` for session-based auth.
+## Sessions vs Tokens
+
+**Sessions**: Database-stored, immediately revocable, requires per-request DB query.
+
+**JWT**: Not checked against datastore, cannot be revoked, better latency/performance.
+
+## SvelteKit Implementation
+
+Check auth cookies in server hooks, store user info in `locals`. Use Lucia for session-based auth (`npx sv add lucia`).

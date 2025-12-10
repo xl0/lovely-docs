@@ -1,1 +1,1 @@
-App-wide hooks for request handling, error management, initialization, URL routing, and type serialization across server/client boundary.
+App-wide hooks for request handling (handle), error handling (handleError), initialization (init), URL routing (reroute), fetch interception (handleFetch), custom data (locals), validation errors (handleValidationError), and type serialization (transport) across server/client boundaries.

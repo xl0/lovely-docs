@@ -1,53 +1,57 @@
-## Filesystem-based routing
+# Routing
 
-Routes are defined by directory structure in `src/routes`:
-- `src/routes` → root route
-- `src/routes/about` → `/about` route
-- `src/routes/blog/[slug]` → `/blog/:slug` with dynamic parameter
+SvelteKit uses a filesystem-based router where routes are defined by directory structure in `src/routes`:
+- `src/routes` is the root route
+- `src/routes/about` creates `/about`
+- `src/routes/blog/[slug]` creates a parameterized route
 
-Can change root directory via project config.
-
-## Route files (identified by `+` prefix)
-
-Rules:
-- All files can run on server
-- All files run on client except `+server` files
+Route directories contain files with `+` prefix. Key rules:
+- All files can run on the server
+- All files run on the client except `+server` files
 - `+layout` and `+error` files apply to subdirectories and their own directory
 
-## +page.svelte
+## +page.svelte and +page.js
 
-Defines a page component. Rendered on server (SSR) for initial request, in browser (CSR) for navigation.
+`+page.svelte` defines a page component, rendered on server (SSR) initially and in browser (CSR) for navigation. Pages receive data via `data` prop from `load` functions.
 
 ```svelte
-<!--- src/routes/+page.svelte --->
+<!--- +page.svelte --->
 <script>
 	let { data } = $props();
 </script>
 <h1>{data.title}</h1>
 ```
 
-Uses `<a>` elements for navigation, not framework-specific components.
-
-## +page.js / +page.server.js
-
-`+page.js` exports `load()` function that runs on server during SSR and in browser during navigation:
+`+page.js` exports a `load` function that runs on server during SSR and in browser during navigation:
 
 ```js
 export function load({ params }) {
 	if (params.slug === 'hello-world') {
-		return { title: 'Hello world!', content: '...' };
+		return { title: 'Hello world!', content: 'Welcome...' };
 	}
 	error(404, 'Not found');
 }
 ```
 
-Can also export page options: `prerender`, `ssr`, `csr`.
+`+page.js` can also export page options: `prerender`, `ssr`, `csr`.
 
-`+page.server.js` - load function runs only on server (for database access, private env vars). Data must be serializable. Can also export _actions_ for form submissions.
+## +page.server.js
+
+For server-only load functions (database access, private environment variables), use `+page.server.js` with `PageServerLoad` type. Data is serialized via devalue for client-side navigation.
+
+```js
+export async function load({ params }) {
+	const post = await getPostFromDatabase(params.slug);
+	if (post) return post;
+	error(404, 'Not found');
+}
+```
+
+`+page.server.js` can also export `actions` for form submissions using `<form>` elements.
 
 ## +error.svelte
 
-Customizes error page. SvelteKit walks up tree to find closest error boundary:
+Customize error pages per-route with `+error.svelte`:
 
 ```svelte
 <script>
@@ -56,11 +60,13 @@ Customizes error page. SvelteKit walks up tree to find closest error boundary:
 <h1>{page.status}: {page.error.message}</h1>
 ```
 
-Falls back to `src/routes/+error.svelte`, then `src/routes/+error.svelte`, then static `src/error.html`. Not used for errors in `handle` hook or `+server.js`.
+SvelteKit walks up the tree to find the closest error boundary. If none exists, renders default error page. If error occurs in root `+layout` load, renders static fallback (`src/error.html`). 404s use `src/routes/+error.svelte` or default.
 
-## +layout.svelte / +layout.js / +layout.server.js
+Note: `+error.svelte` is not used for errors in `handle` hook or `+server.js` handlers.
 
-Layouts wrap pages and persist across navigation. Default layout:
+## +layout.svelte and +layout.js
+
+Layouts apply to every page in their directory and subdirectories. Default layout:
 
 ```svelte
 <script>
@@ -69,10 +75,9 @@ Layouts wrap pages and persist across navigation. Default layout:
 {@render children()}
 ```
 
-Example with nav:
+Custom layout with navigation:
 
 ```svelte
-<!--- src/routes/+layout.svelte --->
 <script>
 	let { children } = $props();
 </script>
@@ -83,7 +88,9 @@ Example with nav:
 {@render children()}
 ```
 
-Layouts can be nested. `+layout.js` exports `load()` function:
+Layouts can be nested. Child layouts inherit parent layouts.
+
+`+layout.js` exports a `load` function providing data to the layout and all child pages:
 
 ```js
 export function load() {
@@ -96,11 +103,24 @@ export function load() {
 }
 ```
 
-Data from parent layout's load is available to child pages. `+layout.server.js` runs load only on server. Both can export page options.
+Child pages access layout data:
+
+```svelte
+<script>
+	let { data } = $props();
+	console.log(data.sections); // from parent layout
+</script>
+```
+
+`+layout.js` can export page options (`prerender`, `ssr`, `csr`) as defaults for child pages. SvelteKit intelligently reruns load functions only when necessary.
+
+## +layout.server.js
+
+For server-only layout load functions, use `+layout.server.js` with `LayoutServerLoad` type. Can export page options like `+layout.js`.
 
 ## +server.js
 
-API routes. Export functions for HTTP verbs (GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD) that take `RequestEvent` and return `Response`:
+API routes defined with `+server.js` export HTTP verb handlers (`GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `OPTIONS`, `HEAD`) taking `RequestEvent` and returning `Response`:
 
 ```js
 export function GET({ url }) {
@@ -114,13 +134,18 @@ export function GET({ url }) {
 }
 ```
 
-Can use `error()`, `redirect()`, `json()` helpers. Response can be `ReadableStream` for streaming/server-sent events.
+Response first argument can be `ReadableStream` for streaming large data or server-sent events.
 
-Receiving data with POST/PUT/PATCH/DELETE:
+Use `error()`, `redirect()`, `json()` from `@sveltejs/kit` for convenience. Errors return JSON or fallback error page (customizable via `src/error.html`) based on `Accept` header. `+error.svelte` is not rendered for `+server.js` errors.
+
+### Receiving data
+
+`+server.js` can handle `POST`/`PUT`/`PATCH`/`DELETE`/`OPTIONS`/`HEAD` for complete APIs:
 
 ```svelte
-<!--- src/routes/add/+page.svelte --->
+<!--- +page.svelte --->
 <script>
+	let a = $state(0), b = $state(0), total = $state(0);
 	async function add() {
 		const response = await fetch('/api/add', {
 			method: 'POST',
@@ -130,29 +155,61 @@ Receiving data with POST/PUT/PATCH/DELETE:
 		total = await response.json();
 	}
 </script>
+<input type="number" bind:value={a}> +
+<input type="number" bind:value={b}> = {total}
+<button onclick={add}>Calculate</button>
 ```
 
 ```js
+/// +server.js
 export async function POST({ request }) {
 	const { a, b } = await request.json();
 	return json(a + b);
 }
 ```
 
-Fallback handler matches unhandled methods:
+Form actions are preferred for browser-to-server data submission.
+
+If `GET` handler exists, `HEAD` request returns `content-length` of GET response body.
+
+### Fallback method handler
+
+Export `fallback` handler to match unhandled HTTP methods:
 
 ```js
+export async function POST({ request }) {
+	const { a, b } = await request.json();
+	return json(a + b);
+}
+
 export async function fallback({ request }) {
 	return text(`I caught your ${request.method} request!`);
 }
 ```
 
-Content negotiation: PUT/PATCH/DELETE/OPTIONS always use `+server.js`. GET/POST/HEAD treated as page requests if `accept` header prioritizes `text/html`, else use `+server.js`. GET responses include `Vary: Accept` header.
+For `HEAD` requests, `GET` handler takes precedence over `fallback`.
+
+### Content negotiation
+
+`+server.js` can coexist with `+page` files in same directory:
+- `PUT`/`PATCH`/`DELETE`/`OPTIONS` always handled by `+server.js`
+- `GET`/`POST`/`HEAD` treated as page requests if `accept` header prioritizes `text/html`, else handled by `+server.js`
+- `GET` responses include `Vary: Accept` header for separate caching
 
 ## $types
 
-SvelteKit generates `$types.d.ts` for type safety. Use `PageProps`/`LayoutProps` to type component props, `PageLoad`/`PageServerLoad`/`LayoutLoad`/`LayoutServerLoad` to type load functions. IDE tooling can auto-insert types.
+SvelteKit generates `$types.d.ts` for type safety. Annotate components with `PageProps` or `LayoutProps` to type the `data` prop:
+
+```svelte
+<script>
+	let { data } = $props();
+</script>
+```
+
+Annotate load functions with `PageLoad`, `PageServerLoad`, `LayoutLoad`, or `LayoutServerLoad` to type `params` and return values.
+
+VS Code and IDEs with TypeScript plugins can omit these types entirely—Svelte's IDE tooling inserts correct types automatically.
 
 ## Other files
 
-Files in route directories not matching `+` pattern are ignored, allowing colocating components/utilities with routes. For multi-route use, put in `$lib`.
+Files in route directories without `+` prefix are ignored, allowing colocating components and utilities with routes. For multi-route usage, place in `$lib`.

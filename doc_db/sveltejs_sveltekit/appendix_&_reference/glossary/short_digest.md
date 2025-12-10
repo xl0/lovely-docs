@@ -1,3 +1,0 @@
-**Rendering modes**: CSR (client-side, default), SSR (server-side, default), Hybrid (SSR initial + CSR navigation), SPA (single shell), MPA (traditional multi-page), SSG (all prerendered), ISR (on-demand prerendering).
-
-**Key concepts**: Hydration (server data + client initialization), Prerendering (build-time HTML generation, not for dynamic/action pages), Routing (client-side navigation interception), Edge (CDN rendering), PWA (installable web app with offline support via service workers).

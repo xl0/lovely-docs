@@ -1,1 +1,1 @@
-Emit and collect OpenTelemetry spans for server-side observability (handle, load, actions, remote functions); configure via experimental flags, set up instrumentation in src/instrumentation.server.ts, annotate spans with custom attributes via event.tracing.
+Server-side OpenTelemetry tracing for handle hooks, load functions, form actions, and remote functions; enable via experimental config flags, set up with NodeSDK and Jaeger, augment spans with custom attributes via event.tracing.

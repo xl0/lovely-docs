@@ -1,8 +1,8 @@
 ## Generated types
 
-SvelteKit automatically generates `.d.ts` files for each endpoint and page, providing typed `RequestHandler` and `Load` functions with route parameters.
+SvelteKit automatically generates `.d.ts` files for each endpoint and page, allowing you to type the `params` object without manual boilerplate.
 
-Instead of manually typing params:
+Instead of manually typing `RequestHandler` and `Load` with params:
 ```js
 /** @type {import('@sveltejs/kit').RequestHandler<{
     foo: string;
@@ -12,28 +12,37 @@ Instead of manually typing params:
 export async function GET({ params }) {}
 ```
 
-SvelteKit generates `.svelte-kit/types/src/routes/[foo]/[bar]/[baz]/$types.d.ts`:
+SvelteKit generates `$types.d.ts` files that can be imported as siblings:
 ```ts
+// .svelte-kit/types/src/routes/[foo]/[bar]/[baz]/$types.d.ts
 import type * as Kit from '@sveltejs/kit';
-type RouteParams = { foo: string; bar: string; baz: string; };
+
+type RouteParams = {
+	foo: string;
+	bar: string;
+	baz: string;
+};
+
 export type RequestHandler = Kit.RequestHandler<RouteParams>;
 export type PageLoad = Kit.Load<RouteParams>;
 ```
 
-Import via `$types` module (enabled by `rootDirs` in tsconfig):
+Use in endpoints and pages:
 ```js
-// +server.js
+// src/routes/[foo]/[bar]/[baz]/+server.js
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ params }) {}
+```
 
-// +page.js
+```js
+// src/routes/[foo]/[bar]/[baz]/+page.js
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {}
 ```
 
-Return types available as `PageData` and `LayoutData` from `$types`. Union of all `Actions` available as `ActionData`.
+Return types of load functions are available as `PageData` and `LayoutData` through `$types`, while the union of all `Actions` return values is available as `ActionData`.
 
-Since v2.16.0, helper types `PageProps` (includes `data: PageData` and `form: ActionData`) and `LayoutProps` (includes `data: LayoutData` and `children: Snippet`):
+Starting with version 2.16.0, helper types `PageProps` and `LayoutProps` are provided:
 ```svelte
 <script>
 	/** @type {import('./$types').PageProps} */
@@ -41,77 +50,125 @@ Since v2.16.0, helper types `PageProps` (includes `data: PageData` and `form: Ac
 </script>
 ```
 
-Legacy (pre-2.16.0 or Svelte 4):
+For versions before 2.16.0 or Svelte 4:
 ```svelte
 <script>
 	/** @type {{ data: import('./$types').PageData, form: import('./$types').ActionData }} */
 	let { data, form } = $props();
-	// or with Svelte 4:
-	export let data; // @type {import('./$types').PageData}
-	export let form; // @type {import('./$types').ActionData}
 </script>
 ```
 
-Requires `tsconfig.json` to extend `.svelte-kit/tsconfig.json`: `{ "extends": "./.svelte-kit/tsconfig.json" }`
+Your `tsconfig.json` or `jsconfig.json` must extend from the generated `.svelte-kit/tsconfig.json`:
+```json
+{ "extends": "./.svelte-kit/tsconfig.json" }
+```
 
 ## Default tsconfig.json
 
-Generated `.svelte-kit/tsconfig.json` contains programmatically-generated options (paths, rootDirs) and required options for SvelteKit:
-- `verbatimModuleSyntax: true` - ensures types imported with `import type`
-- `isolatedModules: true` - Vite compiles one module at a time
-- `noEmit: true` - type-checking only
-- `lib: ["esnext", "DOM", "DOM.Iterable"]`
-- `moduleResolution: "bundler"`
-- `module: "esnext"`
-- `target: "esnext"`
+The generated `.svelte-kit/tsconfig.json` contains:
 
-Extend or modify via `typescript.config` in `svelte.config.js`.
+**Programmatically generated options** (can be overridden with caution):
+```json
+{
+	"compilerOptions": {
+		"paths": {
+			"$lib": ["../src/lib"],
+			"$lib/*": ["../src/lib/*"]
+		},
+		"rootDirs": ["..", "./types"]
+	},
+	"include": [
+		"ambient.d.ts",
+		"non-ambient.d.ts",
+		"./types/**/$types.d.ts",
+		"../vite.config.js",
+		"../vite.config.ts",
+		"../src/**/*.js",
+		"../src/**/*.ts",
+		"../src/**/*.svelte",
+		"../tests/**/*.js",
+		"../tests/**/*.ts",
+		"../tests/**/*.svelte"
+	],
+	"exclude": [
+		"../node_modules/**",
+		"../src/service-worker.js",
+		"../src/service-worker/**/*.js",
+		"../src/service-worker.ts",
+		"../src/service-worker/**/*.ts",
+		"../src/service-worker.d.ts",
+		"../src/service-worker/**/*.d.ts"
+	]
+}
+```
+
+**Required options** (should not be modified):
+```json
+{
+	"compilerOptions": {
+		"verbatimModuleSyntax": true,  // Ensures types imported with `import type`
+		"isolatedModules": true,        // Vite compiles one module at a time
+		"noEmit": true,                 // Type-checking only
+		"lib": ["esnext", "DOM", "DOM.Iterable"],
+		"moduleResolution": "bundler",
+		"module": "esnext",
+		"target": "esnext"
+	}
+}
+```
+
+Extend or modify using the `typescript.config` setting in `svelte.config.js`.
 
 ## $lib
 
-Alias to `src/lib` (or configured `config.kit.files.lib`). Avoids relative path imports.
+Alias to `src/lib` (or configured `config.kit.files.lib`). Allows importing common components and utilities without relative path traversal.
 
 ### $lib/server
 
-Subdirectory of `$lib`. SvelteKit prevents importing `$lib/server` modules into client-side code (server-only modules).
+Subdirectory of `$lib`. SvelteKit prevents importing modules from `$lib/server` into client-side code (see server-only modules).
 
 ## app.d.ts
 
-Contains ambient types available without explicit imports. Includes `App` namespace with types influencing SvelteKit features.
+Home to ambient types available without explicit imports. Contains the `App` namespace with types influencing SvelteKit features.
 
 ### App.Error
 
-Shape of expected/unexpected errors. Expected errors thrown via `error()` function. Unexpected errors handled by `handleError` hooks.
-```ts
+Defines the shape of expected and unexpected errors. Expected errors are thrown using the `error` function; unexpected errors are handled by `handleError` hooks.
+
+```dts
 interface Error {
-  message: string;
+	message: string;
 }
 ```
 
 ### App.Locals
 
 Interface defining `event.locals`, accessible in server hooks (`handle`, `handleError`), server-only `load` functions, and `+server.js` files.
-```ts
+
+```dts
 interface Locals {}
 ```
 
 ### App.PageData
 
-Shape of `page.data` state and `$page.data` store (data shared between all pages). `Load` and `ServerLoad` functions narrowed accordingly. Use optional properties for page-specific data; avoid index signatures.
-```ts
+Defines the shape of `page.data` state and `$page.data` store (data shared between all pages). The `Load` and `ServerLoad` functions in `./$types` are narrowed accordingly. Use optional properties for page-specific data; do not add index signatures.
+
+```dts
 interface PageData {}
 ```
 
 ### App.PageState
 
-Shape of `page.state` object, manipulated via `pushState()` and `replaceState()` from `$app/navigation`.
-```ts
+Shape of the `page.state` object, manipulated using `pushState` and `replaceState` from `$app/navigation`.
+
+```dts
 interface PageState {}
 ```
 
 ### App.Platform
 
-Platform-specific context from adapter via `event.platform`.
-```ts
+For adapters providing platform-specific context via `event.platform`.
+
+```dts
 interface Platform {}
 ```

@@ -1,1 +1,0 @@
-Comprehensive migration guide from Sapper to SvelteKit covering package.json, config files, routing (index.svelte→+page.svelte, _layout→+layout), data loading (preload→load with event arg), stores (direct imports from $app/stores), imports (@sapper/* → $app/*), link attributes, and environment-agnostic endpoints.

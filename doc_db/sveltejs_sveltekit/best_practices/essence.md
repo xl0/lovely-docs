@@ -1,1 +1,1 @@
-Production-ready patterns for authentication, performance optimization, accessibility, SEO, and asset handling in SvelteKit applications.
+Comprehensive best practices covering authentication (sessions vs JWT), performance optimization (built-in features, asset optimization, code reduction, waterfall prevention), icons (CSS vs Svelte libraries), image handling (Vite, enhanced-img, CDN), accessibility (announcements, focus, lang), and SEO (SSR, titles, sitemaps, AMP).

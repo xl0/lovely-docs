@@ -1,0 +1,1 @@
+Initialize SvelteKit projects with `npx sv create`, organize pages as Svelte components in `src/routes` with server-side rendering, use VS Code + Svelte extension.

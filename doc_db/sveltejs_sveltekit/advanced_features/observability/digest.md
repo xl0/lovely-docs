@@ -1,16 +1,12 @@
 ## Overview
-SvelteKit can emit server-side OpenTelemetry spans for observability. Available since version 2.31. Experimental feature requiring opt-in via `kit.experimental.tracing.server` and `kit.experimental.instrumentation.server` in `svelte.config.js`.
 
-## What Gets Traced
-- `handle` hook and `handle` functions in `sequence` (shown as parent-child relationships)
+SvelteKit can emit server-side OpenTelemetry spans (available since 2.31) for:
+- `handle` hook and `handle` functions in `sequence`
 - Server and universal `load` functions (when run on server)
 - Form actions
 - Remote functions
 
-## Setup
-Create `src/instrumentation.server.ts` for tracing setup. This file runs before application code is imported.
-
-Enable in config:
+Requires opt-in via `svelte.config.js`:
 ```js
 const config = {
 	kit: {
@@ -22,38 +18,52 @@ const config = {
 };
 ```
 
-## Augmenting Spans
-Access `root` span and `current` span via `event.tracing`. Add custom attributes:
+Both features are experimental and subject to change. Tracing can have nontrivial overhead—consider enabling only in development/preview.
+
+## Augmenting Built-in Tracing
+
+Access `root` span and `current` span via `event.tracing`:
 ```js
 import { getRequestEvent } from '$app/server';
-const event = getRequestEvent();
-event.tracing.root.setAttribute('userId', user.id);
+
+async function authenticate() {
+	const user = await getAuthenticatedUser();
+	const event = getRequestEvent();
+	event.tracing.root.setAttribute('userId', user.id);
+}
 ```
+
+The root span is associated with the root `handle` function. The current span depends on context (handle, load, form action, or remote function).
 
 ## Development Quickstart with Jaeger
-1. Install dependencies: `npm i @opentelemetry/sdk-node @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-proto import-in-the-middle`
-2. Create `src/instrumentation.server.js`:
-```js
-import { NodeSDK } from '@opentelemetry/sdk-node';
-import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
-import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
-import { createAddHookMessageChannel } from 'import-in-the-middle';
-import { register } from 'node:module';
 
-const { registerOptions } = createAddHookMessageChannel();
-register('import-in-the-middle/hook.mjs', import.meta.url, registerOptions);
+1. Enable experimental flags in `svelte.config.js`
+2. Install dependencies:
+   ```sh
+   npm i @opentelemetry/sdk-node @opentelemetry/auto-instrumentations-node @opentelemetry/exporter-trace-otlp-proto import-in-the-middle
+   ```
+3. Create `src/instrumentation.server.js`:
+   ```js
+   import { NodeSDK } from '@opentelemetry/sdk-node';
+   import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+   import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
+   import { createAddHookMessageChannel } from 'import-in-the-middle';
+   import { register } from 'node:module';
 
-const sdk = new NodeSDK({
-	serviceName: 'test-sveltekit-tracing',
-	traceExporter: new OTLPTraceExporter(),
-	instrumentations: [getNodeAutoInstrumentations()]
-});
-sdk.start();
-```
-3. View traces at localhost:16686
+   const { registerOptions } = createAddHookMessageChannel();
+   register('import-in-the-middle/hook.mjs', import.meta.url, registerOptions);
 
-## Dependencies
-`@opentelemetry/api` is an optional peer dependency. Usually satisfied by `@opentelemetry/sdk-node` or similar. Install manually if needed.
+   const sdk = new NodeSDK({
+   	serviceName: 'test-sveltekit-tracing',
+   	traceExporter: new OTLPTraceExporter(),
+   	instrumentations: [getNodeAutoInstrumentations()]
+   });
 
-## Performance Note
-Tracing and instrumentation have non-trivial overhead. Consider enabling only in development/preview environments.
+   sdk.start();
+   ```
+
+4. Run Jaeger locally and view traces at localhost:16686
+
+## @opentelemetry/api
+
+SvelteKit uses `@opentelemetry/api` as an optional peer dependency. If you install trace collection libraries like `@opentelemetry/sdk-node` or `@vercel/otel`, they'll satisfy this dependency. If you see a missing dependency error after setting up trace collection, install `@opentelemetry/api` manually.

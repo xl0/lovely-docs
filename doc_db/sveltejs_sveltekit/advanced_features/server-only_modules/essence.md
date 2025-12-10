@@ -1,0 +1,1 @@
+Prevent sensitive data leakage to browser: mark modules as server-only via `.server` suffix or `$lib/server/` directory; SvelteKit validates entire import chains to prevent indirect exposure.

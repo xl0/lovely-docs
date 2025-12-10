@@ -1,1 +1,0 @@
-Adapters are deployment plugins configured in svelte.config.js; official ones target Cloudflare, Netlify, Node, static, Vercel; platform context passed via RequestEvent.platform.

@@ -1,1 +1,1 @@
-Three read-only state objects: navigating (navigation state), page (current page data/form/state/metadata, rune-reactive only), updated (version polling with current flag and check method).
+Three read-only state objects ($app/state): navigating (in-progress navigation), page (current page data/form/state/metadata, reactive with runes only), updated (app version check with polling).

@@ -1,28 +1,50 @@
-## svelte.config.js Configuration
+## svelte.config.js Structure
+```js
+import adapter from '@sveltejs/adapter-auto';
 
-Main config file at project root with `kit` property for SvelteKit settings.
+const config = {
+	kit: {
+		adapter: adapter(),
+		alias: { 'my-file': 'path/to/my-file.js' },
+		appDir: '_app',
+		csp: { directives: { 'script-src': ['self'] } },
+		csrf: { checkOrigin: true, trustedOrigins: [] },
+		embedded: false,
+		env: { dir: '.', publicPrefix: 'PUBLIC_', privatePrefix: '' },
+		experimental: { tracing: {}, instrumentation: {}, remoteFunctions: false },
+		inlineStyleThreshold: 0,
+		moduleExtensions: ['.js', '.ts'],
+		outDir: '.svelte-kit',
+		output: { preloadStrategy: 'modulepreload', bundleStrategy: 'split' },
+		paths: { assets: '', base: '', relative: true },
+		prerender: { concurrency: 1, crawl: true, entries: ['*'], origin: 'http://sveltekit-prerender' },
+		router: { type: 'pathname', resolution: 'client' },
+		typescript: { config: (cfg) => cfg },
+		version: { name: 'timestamp', pollInterval: 0 }
+	}
+};
 
-**Core options:**
-- `adapter` - Converts build output for different platforms
-- `alias` - Map import paths to files/directories
-- `appDir` - Directory for static assets and internal routes (default: `"_app"`)
-- `csp` - Content Security Policy with `mode` (hash/nonce/auto), `directives`, `reportOnly`
-- `csrf` - CSRF protection: `checkOrigin` (default true), `trustedOrigins` array
-- `embedded` - If true, app embedded in larger app
-- `env` - Environment variables: `dir`, `publicPrefix` (default `"PUBLIC_"`), `privatePrefix`
-- `experimental` - Unstable features: `tracing`, `instrumentation`, `remoteFunctions`
-- `files` - File locations (deprecated): `src`, `assets`, `hooks.*`, `lib`, `params`, `routes`, `serviceWorker`, `appTemplate`, `errorTemplate`
-- `inlineStyleThreshold` - Max CSS size to inline in HTML head
-- `moduleExtensions` - File extensions treated as modules (default: `[".js", ".ts"]`)
-- `outDir` - Build output directory (default: `".svelte-kit"`)
-- `output.preloadStrategy` - Module preloading: `modulepreload` (default), `preload-js`, `preload-mjs`
-- `output.bundleStrategy` - Bundle format: `split` (default, lazy load), `single`, `inline`
-- `paths.assets` - Absolute path for asset serving
-- `paths.base` - Root-relative app path (e.g., `/base-path`)
-- `paths.relative` - Use relative asset paths (default: true)
-- `prerender` - Prerendering: `concurrency`, `crawl`, `entries`, `handleHttpError`, `handleMissingId`, `handleEntryGeneratorMismatch`, `handleUnseenRoutes`, `origin`
-- `router.type` - `pathname` (default) or `hash`
-- `router.resolution` - `client` (default) or `server` route determination
-- `typescript.config` - Function to modify generated `tsconfig.json`
-- `version.name` - Deterministic version string for deployment detection
-- `version.pollInterval` - Poll interval for version changes (default: 0)
+export default config;
+```
+
+## Key Options
+
+**adapter** - Converts build output for target platform
+
+**alias** - Import path aliases (auto-passed to Vite/TypeScript)
+
+**csp** - Content Security Policy with `mode: 'hash'|'nonce'|'auto'`, `directives`, `reportOnly`
+
+**csrf** - CSRF protection: `checkOrigin` (deprecated), `trustedOrigins` array
+
+**env** - Environment variables: `dir`, `publicPrefix` (PUBLIC_), `privatePrefix`
+
+**output** - `preloadStrategy` (modulepreload/preload-js/preload-mjs), `bundleStrategy` (split/single/inline)
+
+**paths** - `assets` (CDN URL), `base` (root path), `relative` (use relative paths in SSR)
+
+**prerender** - `concurrency`, `crawl`, `entries`, error handlers (`handleHttpError`, `handleMissingId`, `handleEntryGeneratorMismatch`, `handleUnseenRoutes`), `origin`
+
+**router** - `type` (pathname/hash), `resolution` (client/server)
+
+**version** - `name` (deterministic version string), `pollInterval` (ms) for detecting deployments

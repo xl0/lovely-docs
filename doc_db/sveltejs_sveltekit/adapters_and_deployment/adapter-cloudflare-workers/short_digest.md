@@ -1,3 +1,0 @@
-**DEPRECATED** in favor of `adapter-cloudflare`.
-
-Deploy to Cloudflare Workers with Workers Sites. Install `@sveltejs/adapter-cloudflare-workers`, configure Wrangler with service name, account ID, and build settings. Access Cloudflare bindings (KV, Durable Objects) via `platform.env` in endpoints/hooks. Bindings are emulated locally. Deploy with `wrangler deploy`. Troubleshoot size limits by moving large libraries client-side; prerender routes that need file system access.

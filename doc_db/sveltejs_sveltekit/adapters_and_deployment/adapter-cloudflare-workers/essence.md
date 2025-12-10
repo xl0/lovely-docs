@@ -1,1 +1,0 @@
-Deprecated adapter for deploying SvelteKit to Cloudflare Workers with Workers Sites; configure Wrangler, access bindings via platform.env, deploy with wrangler deploy.

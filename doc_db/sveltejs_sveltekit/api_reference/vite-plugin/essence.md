@@ -1,1 +1,0 @@
-sveltekit() async function exports Vite plugins array for SvelteKit integration

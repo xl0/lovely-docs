@@ -2,69 +2,96 @@
 
 ## Pages
 
-### creating-a-project
-Initialize project with `npx sv create my-app`, run `npm run dev` on localhost:5173; pages are Svelte components in src/routes with server-side rendering then client-side takeover; VS Code + Svelte extension recommended.
+### creating_a_project
+Initialize SvelteKit projects with `npx sv create`, organize pages as Svelte components in `src/routes` with server-side rendering, use VS Code + Svelte extension.
 
-## Creating a Project
+## Quick Start
 
-Start a new SvelteKit app with:
+Create a new SvelteKit project:
+
 ```sh
 npx sv create my-app
 cd my-app
 npm run dev
 ```
 
-The CLI scaffolds a new project and optionally sets up TypeScript and other tooling. See CLI docs for options and integrations page for additional tooling setup.
+The CLI scaffolds a new project and optionally sets up TypeScript and other tooling. Development server runs on localhost:5173.
 
-`npm run dev` starts the development server on localhost:5173 (install dependencies first if not done during creation).
-
-### Core Concepts
+## Core Concepts
 
 - Each page is a Svelte component
-- Create pages by adding files to `src/routes` directory
-- Pages are server-rendered on first visit for speed, then client-side app takes over
+- Pages are created by adding files to `src/routes` directory
+- Pages are server-rendered on first visit for performance, then client-side app takes over
 
-### Editor Setup
+## Editor Setup
 
-Recommended: Visual Studio Code with the Svelte extension. Other editors also supported via sveltesociety.dev resources.
+Recommended: Visual Studio Code with the Svelte extension. Other editors are also supported via the Svelte Society editor support collection.
 
 ### project_types
-SvelteKit deployment options: SSR+CSR (default), SSG (adapter-static/ISR), SPA, MPA, separate backend, serverless (adapter-auto/vercel/netlify/cloudflare), node, containers, libraries, PWA, mobile (Tauri/Capacitor), desktop (Tauri/Wails/Electron), browser extensions, embedded devices; use bundleStrategy: 'single' for limited connections.
+SvelteKit supports multiple rendering modes (SSR/CSR hybrid default, SSG, SPA, MPA) and deployment targets (serverless, own server, containers, mobile/desktop apps, browser extensions, embedded devices) via configurable adapters.
 
-SvelteKit supports multiple rendering and deployment configurations:
+## Default rendering
 
-**Default rendering**: Server-side rendering (SSR) for initial page load (improves SEO and perceived performance), then client-side rendering (CSR) for subsequent pages (faster navigation, no flash). Called transitional apps.
+SvelteKit uses hybrid rendering by default: server-side rendering (SSR) for the initial page load (improves SEO and perceived performance), then client-side rendering (CSR) for subsequent pages (faster navigation without re-rendering common components). This approach is called transitional apps.
 
-**Static site generation (SSG)**: Use `adapter-static` to fully prerender your site. Can prerender only some pages with the prerender option and use a different adapter for dynamic rendering of others. For very large sites, use Incremental Static Regeneration (ISR) with `adapter-vercel` to avoid long build times.
+## Static site generation
 
-**Single-page app (SPA)**: Exclusively use client-side rendering. Can write backend in SvelteKit or another language. Skip server file documentation if using no backend or separate backend.
+Use `adapter-static` to fully prerender your site as a static site generator (SSG). Alternatively, use the `prerender` page option to prerender only specific pages while dynamically server-rendering others with a different adapter. For very large statically generated sites, use `adapter-vercel` with Incremental Static Regeneration (ISR) to avoid long build times. SvelteKit allows mixing different rendering types on different pages.
 
-**Multi-page app (MPA)**: Not typical for SvelteKit, but can remove JavaScript with `csr = false` to render subsequent links on server, or use `data-sveltekit-reload` for specific links.
+## Single-page app
 
-**Separate backend**: Deploy SvelteKit frontend separately from backend (Go, Java, PHP, Ruby, Rust, C#, etc.) using `adapter-node` or serverless adapters. Can also deploy as SPA served by backend (worse SEO/performance). Skip server file documentation.
+Build SPAs with SvelteKit using exclusive client-side rendering (CSR). Write your backend in SvelteKit or another language/framework. If using a separate backend, ignore `server` files in the docs.
 
-**Serverless app**: Use `adapter-auto` (zero config), `adapter-vercel`, `adapter-netlify`, or `adapter-cloudflare`. Some adapters offer edge option for edge rendering and improved latency.
+## Multi-page app
 
-**Own server/VPS**: Use `adapter-node`.
+SvelteKit isn't typically used for traditional MPAs, but you can:
+- Remove all JavaScript on a page with `csr = false` to render subsequent links on the server
+- Use `data-sveltekit-reload` to render specific links on the server
 
-**Container**: Use `adapter-node` with Docker or LXC.
+## Separate backend
 
-**Library**: Use `@sveltejs/package` add-on with `sv create` library option.
+Deploy your SvelteKit frontend separately from a backend written in Go, Java, PHP, Ruby, Rust, or C#. Recommended approach: use `adapter-node` or a serverless adapter. Alternative: deploy as an SPA served by your backend server (but has worse SEO and performance). Ignore `server` files in the docs. Reference the FAQ for making calls to a separate backend.
 
-**Offline/PWA**: Full service worker support.
+## Serverless app
 
-**Mobile app**: Convert SPA to mobile app with Tauri or Capacitor. Use `bundleStrategy: 'single'` to limit concurrent requests (e.g., Capacitor uses HTTP/1).
+Use `adapter-auto` for zero-config deployment to supported platforms, or use platform-specific adapters: `adapter-vercel`, `adapter-netlify`, `adapter-cloudflare`. Community adapters support almost any serverless environment. Some adapters offer an `edge` option for edge rendering to improve latency.
 
-**Desktop app**: Convert SPA to desktop app with Tauri, Wails, or Electron.
+## Your own server
 
-**Browser extension**: Use `adapter-static` or community adapters for browser extensions.
+Deploy to your own server or VPS using `adapter-node`.
 
-**Embedded device**: Use `bundleStrategy: 'single'` to reduce concurrent requests on low-power devices with limited connections.
+## Container
+
+Run SvelteKit apps in containers (Docker, LXC) using `adapter-node`.
+
+## Library
+
+Create a library for other Svelte apps using the `@sveltejs/package` add-on by choosing the library option when running `sv create`.
+
+## Offline app
+
+SvelteKit has full service worker support for building offline apps and progressive web apps (PWAs).
+
+## Mobile app
+
+Turn a SvelteKit SPA into a mobile app with Tauri or Capacitor. Mobile features (camera, geolocation, push notifications) available via plugins. These platforms start a local web server and serve your app like a static host on your phone. Use `bundleStrategy: 'single'` to limit concurrent requests (e.g., Capacitor's HTTP/1 local server limits concurrent connections).
+
+## Desktop app
+
+Turn a SvelteKit SPA into a desktop app with Tauri, Wails, or Electron.
+
+## Browser extension
+
+Build browser extensions using `adapter-static` or community adapters tailored for browser extensions.
+
+## Embedded device
+
+Svelte's efficient rendering runs on low-power devices. Microcontrollers and TVs may limit concurrent connections. Use `bundleStrategy: 'single'` to reduce concurrent requests.
 
 ### project_structure
-Standard SvelteKit directory layout: src/{lib,params,routes,app.html,error.html,hooks.{client,server}.js,service-worker.js,instrumentation.server.js}, static/, tests/, plus config files (package.json, svelte.config.js, tsconfig.json, vite.config.js); .svelte-kit/ auto-generated.
+Standard directory layout: src/ (lib/, server/, params/, routes/, app.html, error.html, hooks, service-worker, tracing), static/, tests/, config files (package.json with ES modules, svelte.config.js, tsconfig.json, vite.config.js)
 
-## Directory Structure
+## Directory structure
 
 A typical SvelteKit project has this layout:
 
@@ -90,12 +117,12 @@ my-project/
 └ vite.config.js
 ```
 
-## src Directory
+## src directory
 
 The `src` directory contains the project core. Everything except `src/routes` and `src/app.html` is optional.
 
-- **lib**: Library code (utilities, components). Import via `$lib` alias or package with `svelte-package`
-  - **server**: Server-only code. Import via `$lib/server` alias. SvelteKit prevents client-side imports
+- **lib**: Library code (utilities, components). Imported via `$lib` alias or packaged with `svelte-package`
+  - **server**: Server-only code. Imported via `$lib/server` alias. SvelteKit prevents importing in client code
 - **params**: Param matchers for advanced routing
 - **routes**: Application routes. Can colocate route-specific components here
 - **app.html**: Page template with placeholders:
@@ -103,7 +130,7 @@ The `src` directory contains the project core. Everything except `src/routes` an
   - `%sveltekit.body%` — rendered page markup (should be inside a `<div>` or similar, not directly in `<body>`)
   - `%sveltekit.assets%` — either `paths.assets` or relative path to `paths.base`
   - `%sveltekit.nonce%` — CSP nonce for manually included links/scripts
-  - `%sveltekit.env.[NAME]%` — replaced at render time with environment variable (must start with `publicPrefix`, usually `PUBLIC_`). Fallback: `''`
+  - `%sveltekit.env.[NAME]%` — replaced at render time with environment variable (must start with `publicPrefix`, usually `PUBLIC_`)
   - `%sveltekit.version%` — app version from configuration
 - **error.html**: Fallback error page with placeholders:
   - `%sveltekit.status%` — HTTP status
@@ -111,42 +138,41 @@ The `src` directory contains the project core. Everything except `src/routes` an
 - **hooks.client.js**: Client hooks
 - **hooks.server.js**: Server hooks
 - **service-worker.js**: Service worker
-- **instrumentation.server.js**: Observability setup (requires adapter support, runs before app code)
+- **tracing.server.js**: Observability setup and instrumentation (requires adapter support, runs before app code)
 
-Unit tests with Vitest live in `src` with `.test.js` extension.
+If Vitest is added, unit tests live in `src` with `.test.js` extension.
 
-## Other Directories
+## Other directories and files
 
 - **static**: Static assets served as-is (robots.txt, favicon.png, etc.)
 - **tests**: Playwright browser tests (if added during setup)
-
-## Configuration Files
-
 - **package.json**: Must include `@sveltejs/kit`, `svelte`, `vite` as devDependencies. Includes `"type": "module"` for ES modules (`.cjs` for CommonJS)
 - **svelte.config.js**: Svelte and SvelteKit configuration
 - **tsconfig.json** or **jsconfig.json**: TypeScript configuration. SvelteKit generates `.svelte-kit/tsconfig.json` which your config extends
 - **vite.config.js**: Vite configuration using `@sveltejs/kit/vite` plugin
-
-## Generated Files
-
-- **.svelte-kit**: Generated during development/build (configurable as `outDir`). Can be deleted anytime; regenerated on next dev/build
+- **.svelte-kit**: Generated directory (configurable as `outDir`). Can be deleted anytime, regenerated on dev/build
 
 ### web-standards
-Standard Web APIs available in SvelteKit: fetch (with SSR-optimized version), Request/Response/Headers, FormData, Streams, URL/URLSearchParams, Web Crypto.
-
-## Overview
-SvelteKit builds on standard Web APIs available in modern browsers and non-browser environments (Cloudflare Workers, Deno, Vercel Functions, Node via polyfills). Your existing web development skills apply directly.
+Web APIs available in SvelteKit: fetch (with special SSR version), Request/Response/Headers, FormData, Streams, URL/URLSearchParams, and Web Crypto.
 
 ## Fetch APIs
-`fetch` is available in hooks, server routes, and the browser. A special version in `load` functions, server hooks, and API routes allows invoking endpoints directly during SSR without HTTP calls while preserving credentials. Server-side `fetch` outside `load` requires explicit `cookie`/`authorization` headers. Relative requests are supported in these special contexts.
 
-**Request**: Accessible as `event.request` in hooks and server routes. Provides methods like `request.json()` and `request.formData()`.
+SvelteKit uses standard `fetch` for network requests in hooks, server routes, and the browser.
 
-**Response**: Returned from `await fetch(...)` and handlers in `+server.js` files. A SvelteKit app fundamentally transforms a `Request` into a `Response`.
+A special version of `fetch` is available in `load` functions, server hooks, and API routes for invoking endpoints directly during server-side rendering without HTTP calls, while preserving credentials. Server-side `fetch` outside `load` requires explicit `cookie` and/or `authorization` headers. This version also allows relative requests.
 
-**Headers**: Read incoming `request.headers` and set outgoing `response.headers`.
+### Request
 
-Example:
+`Request` instances are accessible in hooks and server routes as `event.request`. Contains methods like `request.json()` and `request.formData()` for accessing posted data.
+
+### Response
+
+`Response` instances are returned from `await fetch(...)` and handlers in `+server.js` files. A SvelteKit app fundamentally transforms a `Request` into a `Response`.
+
+### Headers
+
+The `Headers` interface reads incoming `request.headers` and sets outgoing `response.headers`:
+
 ```js
 import { json } from '@sveltejs/kit';
 
@@ -161,23 +187,42 @@ export function GET({ request }) {
 ```
 
 ## FormData
+
 Handle HTML form submissions with `FormData` objects:
+
 ```js
+import { json } from '@sveltejs/kit';
+
 export async function POST(event) {
 	const body = await event.request.formData();
 	console.log([...body]);
-	return json({ name: body.get('name') ?? 'world' });
+	return json({
+		name: body.get('name') ?? 'world'
+	});
 }
 ```
 
 ## Stream APIs
-For large or chunked responses, use ReadableStream, WritableStream, and TransformStream from the Streams API.
+
+For responses too large for memory or delivered in chunks, use streams: `ReadableStream`, `WritableStream`, and `TransformStream`.
 
 ## URL APIs
-URLs use the `URL` interface with properties like `origin`, `pathname`, `hash`. Appears in `event.url` (hooks/server routes), `page.url` (pages), `from`/`to` (navigation callbacks).
 
-**URLSearchParams**: Access query parameters via `url.searchParams.get('foo')`.
+URLs use the `URL` interface with properties like `origin` and `pathname`. Appears in `event.url` (hooks/server routes), `page.url` (pages), and navigation callbacks.
+
+### URLSearchParams
+
+Access query parameters via `url.searchParams` (a `URLSearchParams` instance):
+
+```js
+const foo = url.searchParams.get('foo');
+```
 
 ## Web Crypto
-The Web Crypto API is available via the `crypto` global. Used internally for CSP headers. Example: `const uuid = crypto.randomUUID();`
+
+The Web Crypto API is available via the `crypto` global. Used internally for Content Security Policy headers. Example:
+
+```js
+const uuid = crypto.randomUUID();
+```
 

@@ -1,1 +1,1 @@
-Static public environment variables (PUBLIC_* prefix) replaced at build time, safe for client-side exposure.
+Static public environment variables (PUBLIC_ prefix) replaced at build time, safe for client-side exposure

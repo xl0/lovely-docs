@@ -1,0 +1,1 @@
+Rest parameters `[...file]`, optional `[[param]]`, matchers `[param=type]`, route sorting rules, character encoding `[x+nn]`, layout groups `(name)`, and layout reset `@ancestor`.

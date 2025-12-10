@@ -1,0 +1,1 @@
+Deploy SvelteKit to Netlify with adapter supporting Edge Functions, form handling, custom functions, and Netlify Identity context access.

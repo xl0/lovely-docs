@@ -1,1 +1,0 @@
-Server-side form actions in +page.server.js using POST with optional progressive enhancement; supports default/named actions, validation errors via fail(), redirects, and use:enhance directive for client-side handling.

@@ -1,1 +1,1 @@
-SvelteKit delegates to Vite CLI (dev/build/preview); svelte-kit sync generates tsconfig.json and ./$types, runs automatically as prepare script
+SvelteKit CLI: Vite commands (dev/build/preview) plus svelte-kit sync for generating tsconfig.json and type definitions

@@ -1,28 +1,150 @@
 ## Navigation Functions
 
-**afterNavigate(callback)** - Lifecycle function that runs when component mounts and on every navigation. Must be called during component initialization, remains active while mounted.
+### afterNavigate
+Lifecycle function that runs a callback when component mounts and on every navigation. Must be called during component initialization and remains active while mounted.
 
-**beforeNavigate(callback)** - Navigation interceptor that triggers before navigation (link clicks, `goto()`, browser back/forward). Call `cancel()` to prevent navigation. For 'leave' type navigations (user leaving app), `cancel()` triggers browser unload dialog. `navigation.to.route.id` is `null` for non-SvelteKit routes. `navigation.willUnload` is `true` if navigation will unload document. Must be called during component initialization.
+```js
+import { afterNavigate } from '$app/navigation';
 
-**disableScrollHandling()** - Disables SvelteKit's built-in scroll handling when called during page update (in `onMount`, `afterNavigate`, or actions). Generally discouraged as it breaks user expectations.
-
-**goto(url, opts?)** - Programmatic navigation to given route. Returns Promise that resolves when navigation completes or rejects on failure. For external URLs use `window.location = url` instead. Options: `replaceState` (boolean), `noScroll` (boolean), `keepFocus` (boolean), `invalidateAll` (boolean), `invalidate` (array of strings/URLs/predicates), `state` (App.PageState).
-
-**invalidate(resource)** - Re-runs `load` functions for currently active page if they depend on the given resource via `fetch` or `depends`. Argument can be string/URL (must match exactly) or function predicate. Returns Promise resolving when page updates.
-```ts
-invalidate((url) => url.pathname === '/path'); // Match '/path' regardless of query params
+afterNavigate((navigation) => {
+  console.log('Navigated to:', navigation);
+});
 ```
 
-**invalidateAll()** - Re-runs all `load` functions for currently active page. Returns Promise resolving when page updates.
+### beforeNavigate
+Navigation interceptor that triggers before navigation (link clicks, `goto()`, browser back/forward). Call `cancel()` to prevent navigation. For 'leave' type navigations (user leaving app), `cancel()` triggers browser unload dialog. When navigating to non-SvelteKit routes, `navigation.to.route.id` is `null`. Property `navigation.willUnload` is `true` for document-unloading navigations. Must be called during component initialization.
 
-**onNavigate(callback)** - Lifecycle function running immediately before navigation to new URL (except full-page navigations). If callback returns Promise, SvelteKit waits before completing navigation (useful for `document.startViewTransition`). If callback returns function, it's called after DOM updates. Must be called during component initialization.
+```js
+import { beforeNavigate } from '$app/navigation';
 
-**preloadCode(pathname)** - Programmatically imports code for routes not yet fetched. Specify routes by pathname like `/about` or `/blog/*`. Doesn't call `load` functions. Returns Promise resolving when modules imported.
+beforeNavigate((navigation) => {
+  if (unsavedChanges) {
+    navigation.cancel();
+  }
+});
+```
 
-**preloadData(href)** - Preloads given page: ensures code is loaded and calls page's `load` function. Same behavior as SvelteKit triggers on `<a data-sveltekit-preload-data>`. If next navigation is to `href`, returned values are used making navigation instantaneous. Returns Promise resolving with `{type: 'loaded', status, data}` or `{type: 'redirect', location}`.
+### disableScrollHandling
+Disables SvelteKit's built-in scroll handling when called during page updates (in `onMount`, `afterNavigate`, or actions). Generally discouraged as it breaks user expectations.
 
-**pushState(url, state)** - Programmatically create new history entry with given `page.state`. Pass `''` as url to use current URL. Used for shallow routing.
+```js
+import { disableScrollHandling } from '$app/navigation';
 
-**refreshAll(opts?)** - Re-runs all currently active remote functions and all `load` functions for currently active page (unless disabled via `includeLoadFunctions` option). Returns Promise resolving when page updates.
+onMount(() => {
+  disableScrollHandling();
+  // Custom scroll logic here
+});
+```
 
-**replaceState(url, state)** - Programmatically replace current history entry with given `page.state`. Pass `''` as url to use current URL. Used for shallow routing.
+### goto
+Programmatically navigate to a route. Returns Promise that resolves when navigation completes or rejects on failure. For external URLs, use `window.location = url` instead.
+
+Options:
+- `replaceState`: Replace history entry instead of pushing
+- `noScroll`: Prevent automatic scroll to top
+- `keepFocus`: Keep current element focused
+- `invalidateAll`: Re-run all load functions
+- `invalidate`: Array of specific resources to invalidate
+- `state`: Custom page state
+
+```js
+import { goto } from '$app/navigation';
+
+await goto('/about', { 
+  replaceState: true, 
+  noScroll: true,
+  invalidate: ['custom:data']
+});
+```
+
+### invalidate
+Re-run `load` functions that depend on a specific URL via `fetch` or `depends`. Accepts string/URL (must match exactly, including query params) or function predicate. Custom identifiers use format `[a-z]+:` (e.g., `custom:state`). Returns Promise resolving when page updates.
+
+```js
+import { invalidate } from '$app/navigation';
+
+// Exact match
+invalidate('/api/data');
+
+// Pattern match
+invalidate((url) => url.pathname === '/path');
+
+// Custom identifier
+invalidate('custom:state');
+```
+
+### invalidateAll
+Re-run all `load` and `query` functions for currently active page. Returns Promise resolving when page updates.
+
+```js
+import { invalidateAll } from '$app/navigation';
+
+await invalidateAll();
+```
+
+### onNavigate
+Lifecycle function that runs callback immediately before navigation to new URL (except full-page navigations). If callback returns Promise, SvelteKit waits for resolution before completing navigation (useful for `document.startViewTransition`). If callback returns function, it's called after DOM updates. Must be called during component initialization.
+
+```js
+import { onNavigate } from '$app/navigation';
+
+onNavigate(async (navigation) => {
+  if (!document.startViewTransition) return;
+  
+  return new Promise((resolve) => {
+    document.startViewTransition(resolve);
+  });
+});
+```
+
+### preloadCode
+Programmatically import code for routes not yet fetched. Specify routes by pathname like `/about` or `/blog/*`. Unlike `preloadData`, doesn't call load functions. Returns Promise resolving when modules imported.
+
+```js
+import { preloadCode } from '$app/navigation';
+
+await preloadCode('/about');
+await preloadCode('/blog/*');
+```
+
+### preloadData
+Programmatically preload page: ensures code is loaded and calls page's load function. Same behavior as `<a data-sveltekit-preload-data>`. If next navigation is to preloaded `href`, load values are used for instant navigation. Returns Promise with result object containing either `{type: 'loaded', status, data}` or `{type: 'redirect', location}`.
+
+```js
+import { preloadData } from '$app/navigation';
+
+const result = await preloadData('/about');
+if (result.type === 'loaded') {
+  console.log(result.data);
+}
+```
+
+### pushState
+Programmatically create new history entry with given `page.state`. Pass `''` as first argument to use current URL. Used for shallow routing.
+
+```js
+import { pushState } from '$app/navigation';
+
+pushState('', { count: 1 });
+pushState('/new-url', { count: 2 });
+```
+
+### replaceState
+Programmatically replace current history entry with given `page.state`. Pass `''` as first argument to use current URL. Used for shallow routing.
+
+```js
+import { replaceState } from '$app/navigation';
+
+replaceState('', { count: 1 });
+replaceState('/new-url', { count: 2 });
+```
+
+### refreshAll
+Re-run all currently active remote functions and all `load` functions for active page (unless disabled via `includeLoadFunctions: false` option). Returns Promise resolving when page updates.
+
+```js
+import { refreshAll } from '$app/navigation';
+
+await refreshAll();
+await refreshAll({ includeLoadFunctions: false });
+```

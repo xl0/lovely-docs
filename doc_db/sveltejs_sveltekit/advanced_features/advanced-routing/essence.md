@@ -1,1 +1,0 @@
-Rest parameters `[...file]`, optional params `[[lang]]`, matchers for validation, route sorting rules, character encoding with hex/Unicode escapes, layout groups `(name)` and hierarchy breaking with `@segment`.

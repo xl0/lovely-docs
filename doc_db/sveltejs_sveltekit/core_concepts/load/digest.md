@@ -1,54 +1,65 @@
-## Load Functions
+## Page data
 
-Load functions run before page/layout components render to fetch data. Define them in `+page.js`, `+page.server.js`, `+layout.js`, or `+layout.server.js` files.
-
-### Page Data
-
-`+page.js` exports a `load` function whose return value is available via the `data` prop:
+`+page.svelte` can have a sibling `+page.js` exporting a `load` function. Return value is available via `data` prop:
 
 ```js
-// +page.js
+// src/routes/blog/[slug]/+page.js
 export function load({ params }) {
-	return { post: { title: `Title for ${params.slug}` } };
+	return {
+		post: {
+			title: `Title for ${params.slug}`,
+			content: `Content for ${params.slug}`
+		}
+	};
 }
 ```
 
 ```svelte
-<!-- +page.svelte -->
+<!-- src/routes/blog/[slug]/+page.svelte -->
 <script>
 	let { data } = $props();
 </script>
 <h1>{data.post.title}</h1>
+<div>{@html data.post.content}</div>
 ```
 
-### Layout Data
+`+page.js` runs on server and browser. For server-only (private env vars, database access), use `+page.server.js` with `PageServerLoad` type.
 
-`+layout.js` or `+layout.server.js` can also export `load` functions. Data is available to the layout and all child pages:
+## Layout data
+
+`+layout.svelte` can load data via `+layout.js` or `+layout.server.js`. Data is available to the layout, child layouts, and the page:
 
 ```js
-// +layout.server.js
+// src/routes/blog/[slug]/+layout.server.js
 export async function load() {
 	return { posts: await db.getPostSummaries() };
 }
 ```
 
 ```svelte
-<!-- +layout.svelte -->
+<!-- src/routes/blog/[slug]/+layout.svelte -->
 <script>
 	let { data, children } = $props();
 </script>
 <main>{@render children()}</main>
 <aside>
-	{#each data.posts as post}
-		<a href="/blog/{post.slug}">{post.title}</a>
-	{/each}
+	<h2>More posts</h2>
+	<ul>
+		{#each data.posts as post}
+			<li><a href="/blog/{post.slug}">{post.title}</a></li>
+		{/each}
+	</ul>
 </aside>
 ```
 
-Child pages access parent layout data via `data` prop. Access page data from parent layouts using `page.data`:
+Data from parent layouts is merged into child data. If multiple load functions return the same key, the last one wins.
+
+## page.data
+
+Parent layouts can access page data via `page.data` from `$app/state`:
 
 ```svelte
-<!-- root +layout.svelte -->
+<!-- src/routes/+layout.svelte -->
 <script>
 	import { page } from '$app/state';
 </script>
@@ -57,13 +68,21 @@ Child pages access parent layout data via `data` prop. Access page data from par
 </svelte:head>
 ```
 
-### Universal vs Server Load
+Type info provided by `App.PageData`.
 
-**Universal** (`+page.js`, `+layout.js`): Run on server during SSR, then in browser. Can return any values including custom classes. Use when fetching from external APIs without private credentials.
+## Universal vs server
 
-**Server** (`+page.server.js`, `+layout.server.js`): Run only on server. Must return serializable data (JSON, BigInt, Date, Map, Set, RegExp, promises). Use when accessing databases, filesystems, or private environment variables.
+**Universal load** (`+page.js`, `+layout.js`):
+- Run on server during SSR, then in browser
+- Can return any values (classes, components)
+- Use for fetching from external APIs without private credentials
 
-When both exist, server load return value becomes the `data` property of universal load:
+**Server load** (`+page.server.js`, `+layout.server.js`):
+- Always run on server only
+- Must return serializable data (JSON, BigInt, Date, Map, Set, RegExp, promises)
+- Use for database/filesystem access, private env vars
+
+When both exist, server load return value is passed to universal load as `data` property:
 
 ```js
 // +page.server.js
@@ -73,83 +92,106 @@ export async function load() {
 
 // +page.js
 export async function load({ data }) {
-	return { serverMessage: data.serverMessage, universalMessage: 'hello from browser' };
+	return {
+		serverMessage: data.serverMessage,
+		universalMessage: 'hello from universal'
+	};
 }
 ```
 
-### URL Data
+## URL data
 
 Load functions receive:
-- **url**: URL instance with `origin`, `hostname`, `pathname`, `searchParams`
-- **route**: Route directory name (e.g., `/a/[b]/[...c]`)
-- **params**: Derived from pathname and route (e.g., `{ b: 'x', c: 'y/z' }`)
 
-### Fetch Requests
+**url**: Instance of `URL` with `origin`, `hostname`, `pathname`, `searchParams`. `url.hash` unavailable on server.
 
-Use the provided `fetch` function (not native fetch) to make requests:
+**route**: Route directory name relative to `src/routes`:
+```js
+// src/routes/a/[b]/[...c]/+page.js
+export function load({ route }) {
+	console.log(route.id); // '/a/[b]/[...c]'
+}
+```
+
+**params**: Derived from `url.pathname` and `route.id`. For route `/a/[b]/[...c]` and pathname `/a/x/y/z`:
+```json
+{ "b": "x", "c": "y/z" }
+```
+
+## Making fetch requests
+
+Use provided `fetch` function (not native fetch):
+- Makes credentialed requests on server (inherits cookies/auth headers)
+- Makes relative requests on server
+- Internal requests to `+server.js` go directly without HTTP overhead
+- Response captured and inlined during SSR
+- Response reused during hydration (prevents duplicate requests)
 
 ```js
+// src/routes/items/[id]/+page.js
 export async function load({ fetch, params }) {
 	const res = await fetch(`/api/items/${params.id}`);
 	return { item: await res.json() };
 }
 ```
 
-Features:
-- Inherits cookies and authorization headers on server
-- Makes relative requests on server
-- Internal requests bypass HTTP overhead
-- Response inlined into HTML during SSR
-- Response reused from HTML during hydration
+Cookies passed through `fetch` only if target host is same as app or more specific subdomain (e.g., `my.domain.com` receives cookies for `my.domain.com` and `sub.my.domain.com`, but not `domain.com` or `api.domain.com`).
 
-Cookies only pass through if target host is same domain or subdomain.
+## Headers
 
-### Headers
-
-Both universal and server load can call `setHeaders()` to set response headers (server-side only):
+Both universal and server load functions have `setHeaders` function (only works on server):
 
 ```js
 export async function load({ fetch, setHeaders }) {
 	const response = await fetch('https://cms.example.com/products.json');
 	setHeaders({
+		age: response.headers.get('age'),
 		'cache-control': response.headers.get('cache-control')
 	});
 	return response.json();
 }
 ```
 
-Each header can only be set once. Use `cookies.set()` for set-cookie headers.
+Can only set each header once. Use `cookies.set()` for `set-cookie` instead.
 
-### Parent Data
+## Using parent data
 
 Access parent load data with `await parent()`:
 
 ```js
-// +layout.js
+// src/routes/+layout.js
 export function load() {
 	return { a: 1 };
 }
 
-// +layout.js (child)
+// src/routes/abc/+layout.js
 export async function load({ parent }) {
 	const { a } = await parent();
 	return { b: a + 1 };
 }
 
-// +page.js
+// src/routes/abc/+page.js
 export async function load({ parent }) {
 	const { a, b } = await parent();
 	return { c: a + b };
 }
 ```
 
-In `+page.server.js`/`+layout.server.js`, `parent()` returns data from parent server layouts. In universal load, it returns parent universal layout data, treating missing `+layout.js` as a passthrough function that also returns parent server layout data.
+In `+page.server.js`/`+layout.server.js`, `parent` returns data from parent server layouts. In `+page.js`/`+layout.js`, returns data from parent universal layouts (missing `+layout.js` treated as passthrough).
 
-Avoid waterfalls: call non-dependent operations before `await parent()`.
+Avoid waterfalls: call non-dependent operations before `await parent()`:
 
-### Errors
+```js
+export async function load({ params, parent }) {
+	const data = await getData(params); // doesn't depend on parent
+	const parentData = await parent();
+	return { ...data, meta: { ...parentData.meta, ...data.meta } };
+}
+```
 
-Throw errors in load functions to render nearest `+error.svelte`:
+## Errors
+
+Throw errors in load functions to render nearest `+error.svelte`. Use `error` helper for expected errors:
 
 ```js
 import { error } from '@sveltejs/kit';
@@ -164,11 +206,11 @@ export function load({ locals }) {
 }
 ```
 
-Use `error()` helper for expected errors with HTTP status codes. Unexpected errors invoke `handleError` hook and render 500.
+Unexpected errors invoke `handleError` hook and treated as 500.
 
-### Redirects
+## Redirects
 
-Use `redirect()` helper to redirect users:
+Use `redirect` helper to redirect users:
 
 ```js
 import { redirect } from '@sveltejs/kit';
@@ -180,24 +222,32 @@ export function load({ locals }) {
 }
 ```
 
-Don't use inside try/catch blocks. In browser, use `goto()` from `$app/navigation` for programmatic navigation outside load.
+Don't use inside `try` block. In browser, use `goto` from `$app/navigation` outside load functions.
 
-### Streaming with Promises
+## Streaming with promises
 
-Server load can return unresolved promises to stream data as it resolves:
+Server load functions stream promises to browser as they resolve. Useful for slow non-essential data:
 
 ```js
+// src/routes/blog/[slug]/+page.server.js
 export async function load({ params }) {
 	return {
-		comments: loadComments(params.slug),  // unresolved
-		post: await loadPost(params.slug)     // resolved
+		comments: loadComments(params.slug), // not awaited
+		post: await loadPost(params.slug)
 	};
 }
 ```
 
 ```svelte
+<!-- src/routes/blog/[slug]/+page.svelte -->
+<script>
+	let { data } = $props();
+</script>
+<h1>{data.post.title}</h1>
+<div>{@html data.post.content}</div>
+
 {#await data.comments}
-	Loading...
+	Loading comments...
 {:then comments}
 	{#each comments as comment}
 		<p>{comment.content}</p>
@@ -207,18 +257,33 @@ export async function load({ params }) {
 {/await}
 ```
 
-Attach `.catch(() => {})` to promises to prevent unhandled rejection errors. Streaming only works with JavaScript enabled. Headers/status cannot change after streaming starts.
+Attach noop-catch to unhandled promises to prevent crashes:
+```js
+const ok = Promise.reject();
+ok.catch(() => {});
+return { ok };
+```
 
-### Dependency Tracking & Rerunning
+Streaming only works with JavaScript enabled. Headers/status cannot change after streaming starts.
 
-SvelteKit tracks load function dependencies to avoid unnecessary reruns. Load functions rerun when:
+## Parallel loading
+
+All load functions run concurrently during rendering/navigation. Multiple server load results grouped into single response. Page renders once all complete.
+
+## Rerunning load functions
+
+SvelteKit tracks dependencies to avoid unnecessary reruns. Load function reruns when:
 - Referenced `params` property changes
 - Referenced `url` property changes (pathname, search, searchParams)
-- `await parent()` called and parent reran
-- Dependency declared via `fetch(url)` or `depends(url)` and invalidated with `invalidate(url)`
+- Calls `await parent()` and parent reruns
+- Declared dependency via `fetch(url)` or `depends(url)` and URL invalidated
 - `invalidateAll()` called
 
-Untrack dependencies with `untrack()`:
+Search parameters tracked independently: accessing `url.searchParams.get("x")` reruns on `?x=1` to `?x=2` but not `?x=1&y=1` to `?x=1&y=2`.
+
+### Untracking dependencies
+
+Exclude from tracking with `untrack`:
 
 ```js
 export async function load({ untrack, url }) {
@@ -228,9 +293,12 @@ export async function load({ untrack, url }) {
 }
 ```
 
-Manually invalidate with `invalidate(url)` or `invalidateAll()`:
+### Manual invalidation
+
+Rerun load functions with `invalidate(url)` (reruns dependent functions) or `invalidateAll()` (reruns all):
 
 ```js
+// +page.js
 export async function load({ fetch, depends }) {
 	const response = await fetch('https://api.example.com/random-number');
 	depends('app:random');
@@ -239,41 +307,38 @@ export async function load({ fetch, depends }) {
 ```
 
 ```svelte
+<!-- +page.svelte -->
 <script>
 	import { invalidate, invalidateAll } from '$app/navigation';
-	function rerun() {
+	let { data } = $props();
+
+	function rerunLoadFunction() {
 		invalidate('app:random');
 		invalidate('https://api.example.com/random-number');
 		invalidate(url => url.href.includes('random-number'));
 		invalidateAll();
 	}
 </script>
-<button onclick={rerun}>Update</button>
+<p>random number: {data.number}</p>
+<button onclick={rerunLoadFunction}>Update</button>
 ```
 
-Rerunning load updates `data` prop but doesn't recreate component, preserving internal state. Use `afterNavigate()` callback or `{#key}` block to reset state if needed.
+Rerunning updates `data` prop but doesn't recreate component (internal state preserved). Use `afterNavigate` callback or `{#key}` block to reset state if needed.
 
-### Cookies
+## Authentication implications
 
-Server load can get/set cookies:
+- Layout load functions don't run on every request (e.g., client-side navigation between child routes)
+- Layout and page load functions run concurrently unless `await parent()` called
+- If layout load throws, page load still runs but client doesn't receive data
 
-```js
-export async function load({ cookies }) {
-	const sessionid = cookies.get('sessionid');
-	return { user: await db.getUser(sessionid) };
-}
-```
-
-### Authentication
-
-Layout load functions don't rerun on every request (e.g., client-side navigation between child routes). Strategies:
-- Use hooks to protect routes before load functions run
+Strategies:
+- Use hooks to protect routes before any load functions run
 - Use auth guards in `+page.server.js` for route-specific protection
-- Auth guards in `+layout.server.js` require all child pages to call `await parent()`
+- Auth in `+layout.server.js` requires all child pages to `await parent()`
 
-### getRequestEvent
+## getRequestEvent
 
-Retrieve the `event` object in server load functions using `getRequestEvent()` for shared logic:
+Retrieve `event` object in server load functions with `getRequestEvent()` from `$app/server`. Allows shared logic to access request info:
 
 ```js
 // src/lib/server/auth.js
@@ -283,13 +348,17 @@ import { getRequestEvent } from '$app/server';
 export function requireLogin() {
 	const { locals, url } = getRequestEvent();
 	if (!locals.user) {
-		redirect(307, `/login?redirectTo=${url.pathname}`);
+		const redirectTo = url.pathname + url.search;
+		redirect(307, `/login?redirectTo=${redirectTo}`);
 	}
 	return locals.user;
 }
+```
 
+```js
 // +page.server.js
 import { requireLogin } from '$lib/server/auth';
+
 export function load() {
 	const user = requireLogin();
 	return { message: `hello ${user.name}!` };

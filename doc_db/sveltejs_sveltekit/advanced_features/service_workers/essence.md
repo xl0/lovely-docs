@@ -1,0 +1,1 @@
+Service workers proxy requests for offline support and precaching; auto-registered from src/service-worker.js with access to build/files/version via $service-worker module; implement install/activate/fetch handlers with cache-first or network-first strategies; dev requires module type registration.

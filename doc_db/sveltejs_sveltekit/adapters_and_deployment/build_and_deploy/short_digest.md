@@ -1,1 +1,0 @@
-Documentation index for building and deploying SvelteKit applications.

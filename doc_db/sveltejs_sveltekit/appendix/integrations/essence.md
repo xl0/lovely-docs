@@ -1,0 +1,1 @@
+vitePreprocess enables Vite CSS flavors; npx sv add installs common integrations; svelte-preprocess offers Pug/Babel/global styles; Vite plugins supported; FAQ available.

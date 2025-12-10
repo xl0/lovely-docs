@@ -1,1 +1,0 @@
-Cloudflare adapter: install @sveltejs/adapter-cloudflare, configure with platformProxy/fallback/routes options, set up wrangler.jsonc with assets binding, access platform.env bindings (KV/Durable Objects) in endpoints, use server endpoints not /functions, static _headers/_redirects only, troubleshoot with nodejs_compat flag and client-side imports.

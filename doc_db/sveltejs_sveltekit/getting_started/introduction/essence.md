@@ -1,1 +1,1 @@
-SvelteKit: Svelte-based web framework with routing, build optimization, offline support, configurable rendering (SSR/CSR/prerendering), image optimization, and Vite-powered HMR.
+SvelteKit is a web framework for building apps with Svelte, providing routing, build optimization, SSR/CSR/prerendering, offline support, and HMR via Vite.

@@ -1,1 +1,0 @@
-Vercel adapter for SvelteKit with deployment config (runtime, regions, split, memory, maxDuration), ISR (expiration, bypassToken, allowQuery), image optimization, environment variables, skew protection, and file system access via $app/server.

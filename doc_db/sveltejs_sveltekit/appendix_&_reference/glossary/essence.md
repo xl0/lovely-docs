@@ -1,1 +1,0 @@
-Glossary of rendering modes (CSR, SSR, Hybrid, SPA, MPA, SSG, ISR), prerendering rules, hydration, client-side routing, edge rendering, and PWA concepts for SvelteKit applications.

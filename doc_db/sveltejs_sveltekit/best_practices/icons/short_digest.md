@@ -1,3 +1,5 @@
-**CSS approach**: Use Iconify with CSS to include icons from many popular sets; integrates with Tailwind CSS and UnoCSS plugins without per-icon imports.
+## CSS
+Use Iconify for CSS-based icons with support for many icon sets and CSS framework plugins.
 
-**Svelte approach**: Avoid icon libraries with one `.svelte` file per icon as they slow Vite's dependency optimization, especially with mixed umbrella and subpath imports.
+## Svelte
+Avoid icon libraries with one `.svelte` file per icon—they slow Vite's dependency optimization, especially with mixed umbrella and subpath imports.

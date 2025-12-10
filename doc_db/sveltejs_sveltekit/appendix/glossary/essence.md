@@ -1,0 +1,1 @@
+Glossary of SvelteKit rendering terms: CSR, SSR, hybrid apps, SPA, SSG, prerendering, hydration, ISR, edge rendering, routing, PWA, MPA with configuration options and use cases.

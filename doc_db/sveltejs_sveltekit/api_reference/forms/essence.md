@@ -1,1 +1,1 @@
-Form utilities: applyAction (update form/status), deserialize (parse response), enhance (intercept submission with custom/default handling)
+Three form utilities: applyAction (updates form/status), deserialize (parses submission response), enhance (progressive form enhancement with custom handlers)

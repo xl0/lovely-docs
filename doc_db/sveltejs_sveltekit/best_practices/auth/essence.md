@@ -1,1 +1,1 @@
-Authentication/authorization: session IDs vs JWT tradeoffs; check cookies in server hooks and store user data in locals; use Lucia for session-based auth.
+Authentication and authorization patterns in SvelteKit: session IDs (revocable, DB-dependent) vs JWT (non-revocable, faster); implement via server hooks and locals; use Lucia for session-based auth.

@@ -1,1 +1,1 @@
-$lib alias automatically resolves to src/lib directory; customizable via config files option; enables clean imports without relative paths.
+$lib is an auto-configured import alias pointing to src/lib (customizable in config)

@@ -1,1 +1,1 @@
-Snapshots preserve ephemeral DOM state across navigation via capture/restore methods, stored in sessionStorage.
+Preserve ephemeral DOM state across navigation using snapshot capture/restore methods; data must be JSON-serializable and is stored in sessionStorage.

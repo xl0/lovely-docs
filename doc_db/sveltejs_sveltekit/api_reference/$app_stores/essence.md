@@ -1,1 +1,1 @@
-Deprecated store-based API for page, navigating, and updated; replaced by $app/state in SvelteKit 2.12+
+Deprecated store-based API for navigating, page, and updated; replaced by $app/state in SvelteKit 2.12+.

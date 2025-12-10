@@ -1,16 +1,16 @@
-## Hooks
+## Hooks Overview
+Three optional hook files: `src/hooks.server.js`, `src/hooks.client.js`, `src/hooks.js` (universal). Run at startup.
 
-Three optional hook files: `src/hooks.server.js`, `src/hooks.client.js`, `src/hooks.js` (universal).
+## Server Hooks
+- **handle**: Runs on every request. Modify response, bypass SvelteKit, or transform HTML chunks.
+- **locals**: Add custom data to `event.locals` for `+server.js` and server `load` functions.
+- **handleFetch**: Modify `event.fetch` results (e.g., redirect API URLs for SSR).
+- **handleValidationError**: Handle remote function validation failures.
 
-**Server hooks:**
-- `handle` — runs on every request, receives `event` and `resolve`, can modify response or bypass SvelteKit. `resolve` accepts options for `transformPageChunk`, `filterSerializedResponseHeaders`, `preload`.
-- `handleFetch` — modifies `event.fetch` results, manages credentials for same-origin and cross-origin requests.
-- `handleValidationError` — called when remote function receives invalid argument, returns custom error.
+## Shared Hooks (server & client)
+- **handleError**: Log errors and generate safe user-facing error representations. Customize via `App.Error` interface.
+- **init**: Async initialization (database connections) at startup.
 
-**Shared hooks (server & client):**
-- `handleError` — logs errors and generates safe user-facing error representation. Customize via `App.Error` interface. Never throws.
-- `init` — runs once at startup for async initialization.
-
-**Universal hooks:**
-- `reroute` — changes URL-to-route translation before `handle`. Can be async. Must be pure/idempotent.
-- `transport` — defines custom type encoders/decoders for server/client boundary.
+## Universal Hooks
+- **reroute**: Change URL-to-route translation before `handle`. Can be async. Must be pure/idempotent.
+- **transport**: Encode/decode custom types across server/client boundary.

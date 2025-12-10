@@ -1,7 +1,14 @@
 website:
   sidebar:
     contents:
-      - index.ipynb
-      - 00_utils.ipynb
+      - 00_settings.ipynb
+      - 01_git.ipynb
+      - 02_docs.ipynb
       - 10_sveltejs-svelte.ipynb
-      - 20_web-generator.ipynb
+      - 11_sveltejs-sveltekit.ipynb
+      - 12_huntabyte-bitsui.ipynb
+      - 12_huntabyte-shadcn-svelte.ipynb
+      - 13_neverthrow.ipynb
+      - 14_vercel-ai.ipynb
+      - 15_drizzle.ipynb
+      - 16_runed.ipynb

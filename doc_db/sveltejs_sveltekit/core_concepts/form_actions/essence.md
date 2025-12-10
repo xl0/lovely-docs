@@ -1,0 +1,1 @@
+Export `actions` from `+page.server.js` to handle form POST requests; supports default/named actions, validation errors via `fail()`, redirects, and progressive enhancement with `use:enhance` or manual fetch+`deserialize`+`applyAction`.

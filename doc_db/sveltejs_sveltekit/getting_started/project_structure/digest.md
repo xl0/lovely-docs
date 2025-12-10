@@ -1,4 +1,4 @@
-## Directory Structure
+## Directory structure
 
 A typical SvelteKit project has this layout:
 
@@ -24,12 +24,12 @@ my-project/
 └ vite.config.js
 ```
 
-## src Directory
+## src directory
 
 The `src` directory contains the project core. Everything except `src/routes` and `src/app.html` is optional.
 
-- **lib**: Library code (utilities, components). Import via `$lib` alias or package with `svelte-package`
-  - **server**: Server-only code. Import via `$lib/server` alias. SvelteKit prevents client-side imports
+- **lib**: Library code (utilities, components). Imported via `$lib` alias or packaged with `svelte-package`
+  - **server**: Server-only code. Imported via `$lib/server` alias. SvelteKit prevents importing in client code
 - **params**: Param matchers for advanced routing
 - **routes**: Application routes. Can colocate route-specific components here
 - **app.html**: Page template with placeholders:
@@ -37,7 +37,7 @@ The `src` directory contains the project core. Everything except `src/routes` an
   - `%sveltekit.body%` — rendered page markup (should be inside a `<div>` or similar, not directly in `<body>`)
   - `%sveltekit.assets%` — either `paths.assets` or relative path to `paths.base`
   - `%sveltekit.nonce%` — CSP nonce for manually included links/scripts
-  - `%sveltekit.env.[NAME]%` — replaced at render time with environment variable (must start with `publicPrefix`, usually `PUBLIC_`). Fallback: `''`
+  - `%sveltekit.env.[NAME]%` — replaced at render time with environment variable (must start with `publicPrefix`, usually `PUBLIC_`)
   - `%sveltekit.version%` — app version from configuration
 - **error.html**: Fallback error page with placeholders:
   - `%sveltekit.status%` — HTTP status
@@ -45,22 +45,16 @@ The `src` directory contains the project core. Everything except `src/routes` an
 - **hooks.client.js**: Client hooks
 - **hooks.server.js**: Server hooks
 - **service-worker.js**: Service worker
-- **instrumentation.server.js**: Observability setup (requires adapter support, runs before app code)
+- **tracing.server.js**: Observability setup and instrumentation (requires adapter support, runs before app code)
 
-Unit tests with Vitest live in `src` with `.test.js` extension.
+If Vitest is added, unit tests live in `src` with `.test.js` extension.
 
-## Other Directories
+## Other directories and files
 
 - **static**: Static assets served as-is (robots.txt, favicon.png, etc.)
 - **tests**: Playwright browser tests (if added during setup)
-
-## Configuration Files
-
 - **package.json**: Must include `@sveltejs/kit`, `svelte`, `vite` as devDependencies. Includes `"type": "module"` for ES modules (`.cjs` for CommonJS)
 - **svelte.config.js**: Svelte and SvelteKit configuration
 - **tsconfig.json** or **jsconfig.json**: TypeScript configuration. SvelteKit generates `.svelte-kit/tsconfig.json` which your config extends
 - **vite.config.js**: Vite configuration using `@sveltejs/kit/vite` plugin
-
-## Generated Files
-
-- **.svelte-kit**: Generated during development/build (configurable as `outDir`). Can be deleted anytime; regenerated on next dev/build
+- **.svelte-kit**: Generated directory (configurable as `outDir`). Can be deleted anytime, regenerated on dev/build

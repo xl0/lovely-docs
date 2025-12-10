@@ -1,6 +1,8 @@
 ## Route announcements
 
-SvelteKit uses client-side routing, so page navigations don't trigger full reloads. To compensate, SvelteKit injects a live region that announces the new page title to screen readers after navigation. Every page must have a unique, descriptive `<title>` in a `<svelte:head>` block:
+SvelteKit uses client-side routing, which doesn't trigger full page reloads. To compensate for the loss of automatic screen reader announcements, SvelteKit injects a live region that announces the new page name after navigation by reading the `<title>` element.
+
+Every page should have a unique, descriptive title:
 
 ```svelte
 <svelte:head>
@@ -10,7 +12,7 @@ SvelteKit uses client-side routing, so page navigations don't trigger full reloa
 
 ## Focus management
 
-SvelteKit automatically focuses the `<body>` element after navigation and form submission to simulate traditional server-rendered behavior. If an element has the `autofocus` attribute, that element is focused instead.
+In traditional server-rendered apps, navigation resets focus to the top of the page. SvelteKit simulates this by focusing the `<body>` element after navigation and enhanced form submissions, unless an element with the `autofocus` attribute is present.
 
 Customize focus management with the `afterNavigate` hook:
 
@@ -23,17 +25,17 @@ afterNavigate(() => {
 });
 ```
 
-The `goto()` function accepts a `keepFocus` option to preserve the currently-focused element instead of resetting focus. Ensure the focused element still exists after navigation.
+The `goto` function accepts a `keepFocus` option to preserve the currently-focused element instead of resetting focus. Ensure the focused element still exists after navigation to avoid losing focus.
 
 ## The "lang" attribute
 
-Set the `lang` attribute on the `<html>` element in `src/app.html` to the document's language for correct assistive technology pronunciation:
+Set the correct `lang` attribute on the `<html>` element in `src/app.html` for proper assistive technology pronunciation:
 
 ```html
 <html lang="de">
 ```
 
-For multi-language content, set `lang` dynamically using the server hook:
+For multi-language content, set `lang` dynamically using the handle hook:
 
 ```html
 <!-- src/app.html -->
@@ -49,4 +51,7 @@ export function handle({ event, resolve }) {
 }
 ```
 
-SvelteKit provides accessible defaults but you remain responsible for accessible application code. Svelte's compile-time accessibility checks apply to SvelteKit apps.
+## Built-in features
+
+- Svelte's compile-time accessibility checks apply to SvelteKit applications
+- SvelteKit provides an accessible foundation, but developers remain responsible for application code accessibility

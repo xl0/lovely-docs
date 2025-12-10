@@ -1,1 +1,0 @@
-Index page for best practices documentation; no actual content provided.

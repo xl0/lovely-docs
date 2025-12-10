@@ -1,11 +1,17 @@
-**Avoid shared state on server** — never store user data in shared variables; use cookies and databases instead.
+## Avoid shared state on the server
+Never store data in shared variables—one user's data becomes visible to others. Use cookies and databases instead.
 
-**No side-effects in load** — don't write to stores/global state; return data instead.
+## No side-effects in load functions
+Load functions must be pure. Don't modify stores or global state; return data instead and pass it to components.
 
-**Use context API** — pass state via `setContext`/`getContext` to avoid globals; pass functions for reactivity.
+## Using state with context
+Use Svelte's context API (`setContext`/`getContext`) to safely share state per user/request without creating shared variables. Pass functions to maintain reactivity.
 
-**Component state is preserved** — use `$derived` to recalculate when props change; use `{#key}` to force remount.
+## Component state is preserved on navigation
+SvelteKit reuses components during navigation, so non-reactive values don't recalculate. Use `$derived` for reactive values, or `{#key}` to force remounting.
 
-**URL for persistent state** — store filters/sorting in search params via `goto()` or form attributes.
+## Storing state in the URL
+Use URL search parameters for state that should survive reloads and affect SSR (filters, sorting). Access via `url` parameter in load or `page.url.searchParams` in components.
 
-**Snapshots for ephemeral state** — persist UI state (accordion open) across navigation without reload.
+## Ephemeral state with snapshots
+Use snapshots for disposable UI state (accordion open/closed) that persists across navigation but not page refresh.

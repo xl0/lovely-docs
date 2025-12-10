@@ -1,1 +1,1 @@
-Documentation index page for SvelteKit getting started section; auto-generated from source.
+Documentation index/landing page for SvelteKit beginners

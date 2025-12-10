@@ -1,1 +1,0 @@
-Appendix index page; contains links to supplementary SvelteKit documentation.

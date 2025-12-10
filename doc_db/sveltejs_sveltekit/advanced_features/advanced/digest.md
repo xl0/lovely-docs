@@ -1,1 +1,1 @@
-This is a documentation index page for advanced SvelteKit topics. The page itself contains no substantive content - it serves as a structural container for advanced documentation sections. The actual advanced topics and their details are located in child pages within this section.
+This is a documentation index page for advanced SvelteKit topics. The page itself contains no substantive content—it serves as a structural container for advanced documentation sections and is auto-generated from a documentation sync script.

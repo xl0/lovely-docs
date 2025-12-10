@@ -1,0 +1,1 @@
+Deprecated adapter for deploying SvelteKit to Cloudflare Workers with Workers Sites; configure via wrangler.jsonc, access bindings through platform.env, prerender for file system access.

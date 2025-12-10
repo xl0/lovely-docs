@@ -1,4 +1,6 @@
-**installPolyfills()** - Makes web APIs (`crypto`, `File`) available as globals in Node.js environments.
+## installPolyfills
+
+Installs polyfills for web APIs (`crypto`, `File`) in Node.js environments.
 
 ```js
 import { installPolyfills } from '@sveltejs/kit/node/polyfills';

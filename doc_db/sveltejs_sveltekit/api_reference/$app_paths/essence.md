@@ -1,1 +1,1 @@
-$app/paths exports asset(), resolve(), and deprecated assets/base/resolveRoute for URL/path resolution with base path and assets prefix handling.
+Four path resolution utilities: asset() for static files, resolve() for pathnames/route IDs with base path and dynamic segments; assets, base, resolveRoute deprecated.

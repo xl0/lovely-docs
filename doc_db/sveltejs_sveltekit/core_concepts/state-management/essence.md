@@ -1,1 +1,1 @@
-State management patterns: avoid shared server state, use context API instead of globals, make load functions pure, use $derived for reactive calculations, store persistent state in URL, use snapshots for ephemeral UI state.
+Avoid shared server state; use pure load functions; manage state with context API, URL parameters, or snapshots; use $derived for reactive component values.

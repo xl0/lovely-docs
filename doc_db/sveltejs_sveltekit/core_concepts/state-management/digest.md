@@ -1,6 +1,6 @@
 ## Avoid shared state on the server
 
-Servers are stateless and shared by multiple users. Never store data in shared variables:
+Servers are stateless and shared by multiple users. Never store data in shared variables that persist across requests, as one user's data will be visible to others.
 
 ```js
 // ❌ WRONG - shared across all users
@@ -19,14 +19,14 @@ Instead, authenticate users with cookies and persist data to a database.
 
 ## No side-effects in load functions
 
-Load functions must be pure. Don't write to stores or global state:
+Load functions must be pure. Don't write to stores or global state inside load functions, as this creates shared state across all users.
 
 ```js
-// ❌ WRONG - shared state
+// ❌ WRONG - modifies shared store
 import { user } from '$lib/user';
 export async function load({ fetch }) {
 	const response = await fetch('/api/user');
-	user.set(await response.json()); // Never do this
+	user.set(await response.json()); // shared across all users!
 }
 
 // ✅ CORRECT - return data
@@ -36,21 +36,21 @@ export async function load({ fetch }) {
 }
 ```
 
-Pass data to components or use `page.data`.
+Pass data to components that need it or use `page.data`.
 
 ## Using state and stores with context
 
-Use Svelte's context API to avoid global state. Server-side app state uses `setContext`/`getContext`:
+Use Svelte's context API to safely share state without creating shared variables. State attached to the component tree via `setContext` is isolated per user/request.
 
 ```svelte
-<!-- +layout.svelte -->
+<!-- src/routes/+layout.svelte -->
 <script>
 	import { setContext } from 'svelte';
 	let { data } = $props();
 	setContext('user', () => data.user);
 </script>
 
-<!-- user/+page.svelte -->
+<!-- src/routes/user/+page.svelte -->
 <script>
 	import { getContext } from 'svelte';
 	const user = getContext('user');
@@ -58,45 +58,36 @@ Use Svelte's context API to avoid global state. Server-side app state uses `setC
 <p>Welcome {user().name}</p>
 ```
 
-Pass functions into context to maintain reactivity. On the server, context-based state updates in child components won't affect parent components (already rendered), but on the client they will. Pass state down rather than up to avoid flashing during hydration.
+Pass functions into `setContext` to maintain reactivity across boundaries. With SSR, state updates in child components during rendering won't affect parent components (already rendered), but on the client (CSR) values propagate up. Pass state down rather than up to avoid flashing during hydration.
 
-If not using SSR, you can safely keep state in a shared module.
+If not using SSR, you can safely keep state in a shared module without the context API.
 
 ## Component and page state is preserved
 
-When navigating, SvelteKit reuses layout and page components. The `data` prop updates but lifecycle methods don't rerun:
+When navigating between routes, SvelteKit reuses layout and page components instead of destroying/recreating them. This means `data` props update but lifecycle methods (`onMount`, `onDestroy`) don't rerun and non-reactive values don't recalculate.
 
 ```svelte
-// ❌ WRONG - estimatedReadingTime won't recalculate on navigation
-const wordCount = data.content.split(' ').length;
-const estimatedReadingTime = wordCount / 250;
-
-// ✅ CORRECT - use $derived
-let wordCount = $derived(data.content.split(' ').length);
-let estimatedReadingTime = $derived(wordCount / 250);
-```
-
-Use `afterNavigate` and `beforeNavigate` if lifecycle code must rerun. To destroy/remount on navigation:
-
-```svelte
+<!-- ❌ WRONG - estimatedReadingTime won't update on navigation -->
 <script>
-	import { page } from '$app/state';
+	let { data } = $props();
+	const wordCount = data.content.split(' ').length;
+	const estimatedReadingTime = wordCount / 250;
 </script>
-{#key page.url.pathname}
-	<BlogPost title={data.title} content={data.content} />
-{/key}
+
+<!-- ✅ CORRECT - use $derived for reactivity -->
+<script>
+	let { data } = $props();
+	let wordCount = $derived(data.content.split(' ').length);
+	let estimatedReadingTime = $derived(wordCount / 250);
+</script>
 ```
+
+Use `afterNavigate` and `beforeNavigate` if code in lifecycle methods must run again after navigation. To destroy and remount a component on navigation, use `{#key page.url.pathname}`.
 
 ## Storing state in the URL
 
-For state that should survive reload or affect SSR (filters, sorting), use URL search parameters:
-
-```
-?sort=price&order=ascending
-```
-
-Set via `<a href="...">`, `<form action="...">`, or `goto('?key=value')`. Access in load functions via `url` parameter, in components via `page.url.searchParams`.
+For state that should survive reloads and affect SSR (filters, sorting), use URL search parameters like `?sort=price&order=ascending`. Set them in `<a href>` or `<form action>` attributes, or programmatically via `goto('?key=value')`. Access them in load functions via the `url` parameter and in components via `page.url.searchParams`.
 
 ## Storing ephemeral state in snapshots
 
-For disposable UI state (accordion open/closed) that should persist across navigation but not reload, use snapshots to associate component state with history entries.
+For disposable UI state (accordion open/closed) that should persist across navigation but not survive page refresh, use snapshots to associate component state with history entries.

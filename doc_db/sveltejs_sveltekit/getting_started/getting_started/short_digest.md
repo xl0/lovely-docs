@@ -1,1 +1,1 @@
-Entry point to SvelteKit documentation with foundational setup and basic concepts for new developers.
+Entry point to SvelteKit documentation for new developers.

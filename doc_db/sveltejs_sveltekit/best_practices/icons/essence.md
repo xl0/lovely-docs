@@ -1,1 +1,1 @@
-Two icon approaches: CSS-based via Iconify (supports many sets, integrates with Tailwind/UnoCSS); Svelte libraries (avoid per-icon .svelte files due to Vite optimization issues).
+Two approaches to icons: CSS-based via Iconify (supports many sets, framework plugins), or Svelte libraries (avoid per-icon .svelte files due to Vite optimization issues).

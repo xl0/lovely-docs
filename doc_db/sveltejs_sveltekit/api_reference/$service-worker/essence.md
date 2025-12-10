@@ -1,1 +1,1 @@
-$service-worker module exports base, build, files, prerendered, version for service worker caching and deployment metadata.
+Service worker module providing build metadata: base path, Vite-generated files, static files, prerendered routes, and version for cache invalidation.

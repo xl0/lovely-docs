@@ -4,19 +4,19 @@ SvelteKit is a framework for rapidly developing robust, performant web applicati
 
 ## What is Svelte?
 
-Svelte is a compiler-based UI component framework. It converts components to JavaScript for rendering HTML and CSS for styling. Components are reusable UI elements like navigation bars, comment sections, or contact forms.
+Svelte is a compiler-based UI component framework. It converts components to JavaScript and CSS that runs in the browser. Components are reusable UI elements like navigation bars, comment sections, or contact forms.
 
 ## SvelteKit vs Svelte
 
-Svelte alone renders UI components. SvelteKit provides a complete web application framework with modern best practices and solutions to common development challenges.
+**Svelte** renders individual UI components. You can compose them into pages, but building a complete application requires more.
 
-**Key features:**
+**SvelteKit** provides a complete framework for building web apps with modern best practices:
 - Router that updates UI on link clicks
-- Build optimizations to load minimal required code
+- Build optimizations to load minimal code
 - Offline support via service workers
 - Page preloading before user navigation
 - Configurable rendering modes: SSR (server-side), CSR (client-side), or prerendering at build-time
 - Image optimization
 - Hot Module Replacement (HMR) for instant code reflection in browser during development, powered by Vite with Svelte plugin
 
-SvelteKit handles the complex modern best practices so developers can focus on the creative parts of building applications.
+SvelteKit handles the complex infrastructure so developers can focus on the creative parts of building applications.

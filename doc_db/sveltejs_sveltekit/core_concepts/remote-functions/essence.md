@@ -1,1 +1,0 @@
-Type-safe RPC: query (read), form (write+progressive), command (write), prerender (build-time); validate args with Standard Schema; single-flight mutations; getRequestEvent for auth/cookies.

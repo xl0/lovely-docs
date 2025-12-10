@@ -1,35 +1,46 @@
-## Load Functions
+## Load functions
 
-Define `load` functions in `+page.js`, `+page.server.js`, `+layout.js`, or `+layout.server.js` to fetch data before rendering.
+`+page.js` exports `load` function returning data available via `data` prop. Runs on server and browser. Use `+page.server.js` for server-only (database, private env vars).
 
-**Universal** (`+page.js`, `+layout.js`): Run on server then browser, return any values. Use for external APIs.
+`+layout.js`/`+layout.server.js` load data available to layout and child routes. Data merged with last key winning.
 
-**Server** (`+page.server.js`, `+layout.server.js`): Run only on server, return serializable data. Use for databases and private credentials.
+## Universal vs server
 
-```js
-// +page.server.js
-export async function load({ params, fetch, cookies, setHeaders }) {
-	const res = await fetch(`/api/items/${params.id}`);
-	setHeaders({ 'cache-control': 'max-age=3600' });
-	return { item: await res.json() };
-}
+**Universal** (`+page.js`, `+layout.js`): Run server+browser, return any values, use for external APIs.
+**Server** (`+page.server.js`, `+layout.server.js`): Server-only, return serializable data, use for databases/private credentials.
 
-// +page.js (universal)
-export async function load({ data, parent, url, route, params, depends, untrack }) {
-	const parentData = await parent();
-	depends('app:custom');
-	return { ...data, ...parentData };
-}
-```
+## URL data
 
-Data available to components via `data` prop. Parent layout data accessible via `page.data` or `await parent()`.
+Load receives `url` (URL instance), `route` (route id), `params` (parsed from pathname).
 
-**Errors & Redirects**: Throw `error(status, message)` or `redirect(status, url)` to handle errors and redirects.
+## Fetch
 
-**Streaming**: Return unresolved promises from server load to stream data as it resolves.
+Use provided `fetch` function: credentialed on server, relative requests, internal requests skip HTTP, response inlined during SSR and reused during hydration.
 
-**Rerunning**: Load functions rerun when `params`, `url`, or dependencies change. Use `invalidate(url)` or `invalidateAll()` to manually trigger reruns. Untrack dependencies with `untrack()`.
+## Headers & cookies
 
-**Cookies**: Server load can access/set cookies via `cookies` parameter.
+`setHeaders()` sets response headers (server-only). Cookies passed through `fetch` only to same host or subdomains.
 
-**getRequestEvent**: Use `getRequestEvent()` in server load to access request event for shared auth logic.
+## Parent data
+
+`await parent()` accesses parent load data. Avoid waterfalls by calling non-dependent operations first.
+
+## Errors & redirects
+
+Throw `error(status, message)` or `redirect(status, url)` to handle errors/redirects.
+
+## Streaming
+
+Server load functions stream unresolved promises to browser. Attach noop-catch to prevent crashes.
+
+## Rerunning
+
+Load reruns when `params`/`url` changes, `parent()` reruns, or `invalidate(url)`/`invalidateAll()` called. Use `untrack()` to exclude from tracking.
+
+## Authentication
+
+Use hooks for multi-route protection or auth guards in `+page.server.js`. Auth in `+layout.server.js` requires child pages to `await parent()`.
+
+## getRequestEvent
+
+`getRequestEvent()` retrieves `event` in server load for shared auth logic.

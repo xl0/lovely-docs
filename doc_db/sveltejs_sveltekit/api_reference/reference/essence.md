@@ -1,1 +1,1 @@
-Empty reference documentation index page; actual content in child pages.
+Auto-generated reference documentation index page with no content.

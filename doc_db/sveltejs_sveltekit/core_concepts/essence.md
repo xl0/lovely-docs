@@ -1,1 +1,1 @@
-Filesystem routing with `+` prefix files, load functions for data fetching, form actions for POST handling, page options for rendering control, state management patterns, and type-safe remote functions for client-server communication.
+Filesystem routing, load functions for data, form actions for mutations, page options for rendering strategy, state management patterns, and type-safe remote functions for client-server communication.
