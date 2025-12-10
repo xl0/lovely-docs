@@ -40,21 +40,30 @@ export class DocRepo {
 		const git = simpleGit();
 
 		if (!existsSync(this.repoPath)) {
-			console.log(pc.blue(`Cloning ${repoUrl} to ${this.repoPath}...`));
-			mkdirSync(dirname(this.repoPath), { recursive: true });
-			await git.clone(repoUrl, this.repoPath, ['-b', branch]);
+			console.log(pc.blue(`Cloning ${repoUrl} to ${this.repoPath}`));
+			try {
+				mkdirSync(dirname(this.repoPath), { recursive: true });
+				await git.clone(repoUrl, this.repoPath, ['-b', branch]);
+			} catch (e) {
+				const msg = e instanceof Error ? e.message : String(e);
+				console.error(pc.red('Failed to clone git repo:'), msg);
+				process.exit(1);
+			}
 		} else {
-			console.log(pc.blue(`Syncing ${repoUrl}...`));
+			console.log(pc.blue(`Syncing ${repoUrl} -> ${this.repoPath}`));
 			try {
 				if (!existsSync(join(this.repoPath, '.git'))) {
 					throw new Error('Directory exists but is not a git repository');
 				}
 				const repo = simpleGit(this.repoPath);
-				await repo.fetch('origin', branch);
+
+				await repo.fetch(['origin', branch, '--prune', '--force']);
+				await repo.checkout(branch);
 				await repo.reset(['--hard', `origin/${branch}`]);
 			} catch (e) {
-				console.error(pc.red('Failed to sync git repo:'), e);
-				throw e;
+				const msg = e instanceof Error ? e.message : String(e);
+				console.error(pc.red('Failed to sync git repo:'), msg);
+				process.exit(1);
 			}
 		}
 

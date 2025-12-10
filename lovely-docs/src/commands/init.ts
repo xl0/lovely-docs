@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
 import { DocRepo, getCacheDir, getRepoPath } from '../lib/doc-repo.js';
+import { join } from 'path';
 
 export const initCommand = new Command('init')
 	.description('Initialize lovely-docs in your project')
@@ -31,8 +32,8 @@ export const initCommand = new Command('init')
 
 		let repo: string | undefined = options.repo || 'https://github.com/xl0/lovely-docs';
 		let branch: string | undefined = options.branch || 'master';
-		let gitCacheDir: string | undefined = options.gitCacheDir || getRepoPath(getCacheDir(), repo!);
 		let docDir: string | undefined = options.docDir;
+		let gitCacheDir: string | undefined = undefined;
 
 		let sourceType: 'local' | 'git' = options.docDir ? 'local' : 'git';
 
@@ -81,6 +82,9 @@ export const initCommand = new Command('init')
 
 				branch = choice;
 
+				const baseCacheDir = join(getCacheDir(), 'lovely-docs');
+				gitCacheDir = options.gitCacheDir || getRepoPath(baseCacheDir, repo);
+
 				choice = await p.text({
 					message: 'Git cache directory:',
 					initialValue: gitCacheDir,
@@ -93,14 +97,12 @@ export const initCommand = new Command('init')
 				}
 
 				gitCacheDir = choice;
-				// docDir = getDocDbPath(gitCacheDir);
 
 				const s = p.spinner();
 				s.start('Syncing documentation repository...');
 
 				try {
-					const repoPath = getRepoPath(gitCacheDir, repo);
-					const docRepo = new DocRepo(repoPath);
+					const docRepo = new DocRepo(gitCacheDir);
 					await docRepo.sync(repo, branch);
 					s.stop('Documentation repository synced');
 				} catch (e) {

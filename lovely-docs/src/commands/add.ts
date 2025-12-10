@@ -6,7 +6,7 @@ import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
 import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
-import { DocRepo, getRepoPath } from '../lib/doc-repo.js';
+import { DocRepo } from '../lib/doc-repo.js';
 import { Installer } from '../lib/installer.js';
 interface LibraryInfo {
 	id: string;
@@ -96,7 +96,7 @@ export const addCommand = new Command('add')
 			}
 
 			// Only prompt for LLM Map if not specified via flags
-			if (options.llmsMap === undefined && options.noLlmsMap == undefined ) {
+			if (options.llmsMap === undefined && options.noLlmsMap == undefined) {
 				const llmsMapSelection = await p.confirm({
 					message: 'Generate LLM_MAP.md?',
 					initialValue: includeLlmMap
@@ -115,8 +115,7 @@ export const addCommand = new Command('add')
 		if (config.source.type === 'local') {
 			docDbPath = config.source.docDir;
 		} else {
-			const repoPath = getRepoPath(config.source.gitCacheDir, config.source.repo);
-			const docRepo = new DocRepo(repoPath);
+			const docRepo = new DocRepo(config.source.gitCacheDir);
 			docDbPath = await docRepo.sync(config.source.repo, config.source.branch);
 		}
 
