@@ -5,7 +5,7 @@ import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
 import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
-import { DocRepo, getRepoPath } from '../lib/doc-repo.js';
+import { DocRepo } from '../lib/doc-repo.js';
 import { Installer } from '../lib/installer.js';
 
 interface LibraryInfo {
@@ -36,8 +36,7 @@ export const updateCommand = new Command('update')
 		if (config.source.type === 'local') {
 			docDbPath = config.source.docDir;
 		} else {
-			const repoPath = getRepoPath(config.source.gitCacheDir, config.source.repo);
-			const docRepo = new DocRepo(repoPath);
+			const docRepo = new DocRepo(config.source.gitCacheDir);
 			docDbPath = await docRepo.sync(config.source.repo, config.source.branch);
 		}
 

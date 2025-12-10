@@ -5,7 +5,7 @@ import { join } from 'path';
 import pc from 'picocolors';
 import { ConfigManager } from '../lib/config.js';
 import { getLibrarySummaries, loadLibrariesFromJson } from '../lib/doc-cache.js';
-import { getDocDbPath, getRepoPath } from '../lib/doc-repo.js';
+import { getDocDbPath } from '../lib/doc-repo.js';
 
 interface LibraryInfo {
 	id: string;
@@ -37,8 +37,7 @@ export const removeCommand = new Command('remove')
 		if (config.source.type === 'local') {
 			docDbPath = config.source.docDir;
 		} else {
-			const repoPath = getRepoPath(config.source.gitCacheDir, config.source.repo);
-			docDbPath = getDocDbPath(repoPath);
+			docDbPath = getDocDbPath(config.source.gitCacheDir);
 		}
 
 		const librariesDb = await loadLibrariesFromJson(docDbPath);
