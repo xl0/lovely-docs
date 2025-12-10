@@ -21,7 +21,7 @@ const ConfigSchema = v.object({
 	installs: v.optional(v.picklist(['digest', 'fulltext', 'both']), 'digest'),
 	summaries: v.optional(v.boolean(), false),
 	llms_map: v.optional(v.boolean(), true),
-	installDir: v.optional(v.string(), '.lovely-docs')
+	installDir: v.optional(v.string(), 'lovely-docs')
 });
 
 export type Config = v.Output<typeof ConfigSchema>;

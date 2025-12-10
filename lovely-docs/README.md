@@ -15,10 +15,10 @@ npx -y lovely-docs add sveltejs_svelte
 
 ## File Structure
 
-Documentation is installed in `.lovely-docs/`:
+Documentation is installed in `lovely-docs/`:
 
 ```
-.lovely-docs/
+lovely-docs/
 ├── sveltejs_svelte.md           # Library overview (digest)
 ├── sveltejs_svelte.orig.md      # Full library docs
 └── sveltejs_svelte/
@@ -71,8 +71,8 @@ source:
   type: git
   repo: https://github.com/xl0/lovely-docs
   branch: master
-  gitCacheDir: ~/.cache/lovely-docs/git
-installDir: .lovely-docs
+  gitCacheDir: /home/xl0/.cache/lovely-docs/github.com/xl0/lovely-docs
+installDir: lovely-docs
 ecosystems:
   - svelte
   - webdev
