@@ -127,7 +127,7 @@ export const initCommand = new Command('init')
 			}
 		}
 
-		let installDir = existingConfig?.installDir || '.lovely-docs';
+		let installDir = existingConfig?.installDir || 'lovely-docs';
 		let installMode: 'digest' | 'fulltext' | 'both' = existingConfig?.installs || 'digest';
 		let includeSummaries = existingConfig?.summaries || false;
 		let includeLlmMap = existingConfig?.llms_map ?? true;

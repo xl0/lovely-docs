@@ -39,7 +39,7 @@
 	let installMode = $state<'digest' | 'both' | 'fulltext'>('digest');
 	let includeSummaries = $state(false);
 	let includeLlmMap = $state(false);
-	let installDir = $state('.lovely-docs');
+	let installDir = $state('lovely-docs');
 
 	const installCommand = $derived.by(() => {
 		const baseCmd = pmCommands[selectedPm].add;
@@ -259,14 +259,14 @@
 				<p>AI coding tools work best when given access to up-to-date documentation.</p>
 				<p>
 					Lovely Docs places the documentation inside a folder (
-					<code>.lovely-docs/</code>
+					<code>lovely-docs/</code>
 					by default) in your project. The documentation is available in both condensed and fulltext forms - noise is removed from pages, and
 					content summaries are created for each directory.
 				</p>
 				<p>
 					Your coding agent should have an easy time searching and reading the documentation using its built-in tools, and you can also
 					directly point it to any particular file using
-					<code>@.lovely-docs/...</code>
+					<code>@lovely-docs/...</code>
 					or equivalent mechanism.
 				</p>
 				<p>

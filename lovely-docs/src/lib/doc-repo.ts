@@ -57,8 +57,7 @@ export class DocRepo {
 				}
 				const repo = simpleGit(this.repoPath);
 
-				await repo.fetch(['origin', branch, '--prune', '--force']);
-				await repo.checkout(branch);
+				await repo.fetch(['origin', branch]);
 				await repo.reset(['--hard', `origin/${branch}`]);
 			} catch (e) {
 				const msg = e instanceof Error ? e.message : String(e);
