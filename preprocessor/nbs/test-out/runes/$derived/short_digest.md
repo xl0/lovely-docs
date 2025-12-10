@@ -1,0 +1,1 @@
+Declares reactive derived state with `$derived(expr)` or `$derived.by(() => {...})`. Dependencies are tracked automatically and re-evaluated on read. Can be temporarily overridden for optimistic UI. Uses push-pull reactivity—dependents notified immediately but re-evaluation deferred until read. Skips downstream updates if new value is referentially identical to previous.

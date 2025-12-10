@@ -1,0 +1,1 @@
+This page serves as the introduction and index to the Runes section of the Svelte documentation. Runes are a fundamental concept in Svelte that enable reactive state management and other core functionality. The page itself appears to be a structural/navigation page that introduces the topic and likely links to detailed documentation about specific runes and their usage patterns.

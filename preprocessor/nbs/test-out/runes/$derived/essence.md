@@ -1,0 +1,1 @@
+$derived creates reactive computed values from dependencies; $derived.by for complex logic; supports temporary overrides; uses push-pull reactivity with deferred re-evaluation and referential equality optimization.

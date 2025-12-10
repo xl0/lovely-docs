@@ -1,0 +1,325 @@
+{
+  "map": {
+    "origPath": ".",
+    "displayName": "",
+    "relevant": true,
+    "usage": {
+      "input": 5006,
+      "output": 2081,
+      "details": null
+    },
+    "token_counts": {
+      "fulltext": 3739,
+      "digest": 1738,
+      "short_digest": 219
+    },
+    "children": {
+      "introduction": {
+        "origPath": "01-introduction",
+        "displayName": "Introduction",
+        "relevant": true,
+        "usage": {
+          "input": 2131,
+          "output": 782,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 865,
+          "digest": 532,
+          "short_digest": 137
+        },
+        "children": {
+          "overview": {
+            "origPath": "01-introduction/01-overview.md",
+            "displayName": "overview",
+            "relevant": false,
+            "usage": {
+              "input": 1503,
+              "output": 328,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 266,
+              "digest": 162,
+              "short_digest": 42
+            },
+            "children": {}
+          },
+          "getting-started": {
+            "origPath": "01-introduction/02-getting-started.md",
+            "displayName": "getting-started",
+            "relevant": true,
+            "usage": {
+              "input": 1778,
+              "output": 459,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 539,
+              "digest": 239,
+              "short_digest": 97
+            },
+            "children": {}
+          },
+          "svelte_files": {
+            "origPath": "01-introduction/03-svelte-files.md",
+            "displayName": "Svelte Files",
+            "relevant": true,
+            "usage": {
+              "input": 1860,
+              "output": 611,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 620,
+              "digest": 405,
+              "short_digest": 64
+            },
+            "children": {}
+          },
+          "reactive_logic_files": {
+            "origPath": "01-introduction/04-svelte-js-files.md",
+            "displayName": "Reactive Logic Files",
+            "relevant": true,
+            "usage": {
+              "input": 1386,
+              "output": 260,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 144,
+              "digest": 86,
+              "short_digest": 54
+            },
+            "children": {}
+          },
+          "introduction": {
+            "origPath": "01-introduction/index.md",
+            "displayName": "Introduction",
+            "relevant": false,
+            "usage": {
+              "input": 1249,
+              "output": 192,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 14,
+              "digest": 76,
+              "short_digest": 23
+            },
+            "children": {}
+          }
+        }
+      },
+      "runes": {
+        "origPath": "02-runes",
+        "displayName": "Runes",
+        "relevant": true,
+        "usage": {
+          "input": 6551,
+          "output": 2091,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5209,
+          "digest": 1673,
+          "short_digest": 288
+        },
+        "children": {
+          "what-are-runes": {
+            "origPath": "02-runes/01-what-are-runes.md",
+            "displayName": "what-are-runes",
+            "relevant": true,
+            "usage": {
+              "input": 1491,
+              "output": 324,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 247,
+              "digest": 130,
+              "short_digest": 52
+            },
+            "children": {}
+          },
+          "$state": {
+            "origPath": "02-runes/02-$state.md",
+            "displayName": "$state",
+            "relevant": true,
+            "usage": {
+              "input": 3839,
+              "output": 1338,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2599,
+              "digest": 980,
+              "short_digest": 217
+            },
+            "children": {}
+          },
+          "$derived": {
+            "origPath": "02-runes/03-$derived.md",
+            "displayName": "$derived",
+            "relevant": true,
+            "usage": {
+              "input": 2979,
+              "output": 756,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1739,
+              "digest": 540,
+              "short_digest": 89
+            },
+            "children": {}
+          },
+          "$effect": {
+            "origPath": "02-runes/04-$effect.md",
+            "displayName": "$effect",
+            "relevant": true,
+            "usage": {
+              "input": 7206,
+              "output": 2109,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 5966,
+              "digest": 1644,
+              "short_digest": 314
+            },
+            "children": {}
+          },
+          "$props": {
+            "origPath": "02-runes/05-$props.md",
+            "displayName": "$props",
+            "relevant": true,
+            "usage": {
+              "input": 4169,
+              "output": 843,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2929,
+              "digest": 581,
+              "short_digest": 140
+            },
+            "children": {}
+          },
+          "bindable": {
+            "origPath": "02-runes/06-$bindable.md",
+            "displayName": "bindable",
+            "relevant": true,
+            "usage": {
+              "input": 2056,
+              "output": 598,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 815,
+              "digest": 355,
+              "short_digest": 109
+            },
+            "children": {}
+          },
+          "$inspect": {
+            "origPath": "02-runes/07-$inspect.md",
+            "displayName": "$inspect",
+            "relevant": true,
+            "usage": {
+              "input": 2360,
+              "output": 549,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1120,
+              "digest": 375,
+              "short_digest": 61
+            },
+            "children": {}
+          },
+          "$host": {
+            "origPath": "02-runes/08-$host.md",
+            "displayName": "$host",
+            "relevant": true,
+            "usage": {
+              "input": 1879,
+              "output": 423,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 639,
+              "digest": 264,
+              "short_digest": 55
+            },
+            "children": {}
+          },
+          "runes": {
+            "origPath": "02-runes/index.md",
+            "displayName": "runes",
+            "relevant": false,
+            "usage": {
+              "input": 1253,
+              "output": 205,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 16,
+              "digest": 79,
+              "short_digest": 23
+            },
+            "children": {}
+          }
+        }
+      },
+      "test-compact2-ttt": {
+        "origPath": "04-test-compact2/ttt/ttt.md",
+        "displayName": "test-compact2-ttt",
+        "relevant": false,
+        "usage": {
+          "input": 1269,
+          "output": 129,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 21,
+          "digest": 17,
+          "short_digest": 13
+        },
+        "children": {}
+      },
+      "effect": {
+        "origPath": "05-test-compact3/asd/test.md",
+        "displayName": "effect",
+        "relevant": true,
+        "usage": {
+          "input": 7213,
+          "output": 1795,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5966,
+          "digest": 1425,
+          "short_digest": 254
+        },
+        "children": {}
+      }
+    }
+  },
+  "name": "sveltejs/svelte",
+  "ecosystems": [],
+  "source_type": "git",
+  "source": {
+    "name": "sveltejs/svelte",
+    "comment": null,
+    "ecosystems": [],
+    "include": null,
+    "exclude": null,
+    "doc_dir": "path/to/nowhere",
+    "repo": "https://github.com/sveltejs/svelte",
+    "commit": "123456"
+  },
+  "date": "2025-12-10T16:55:40.033293+00:00",
+  "model": "claude-haiku-4.5",
+  "commit": "3a5e8793fd9b283eba80c88bdd3cb6f23cb0a2ee-dirty"
+}

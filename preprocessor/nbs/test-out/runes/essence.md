@@ -1,0 +1,1 @@
+Compiler keywords controlling reactivity: state creation ($state), computed values ($derived), side effects ($effect), component inputs ($props, $bindable), debugging ($inspect), and custom elements ($host).

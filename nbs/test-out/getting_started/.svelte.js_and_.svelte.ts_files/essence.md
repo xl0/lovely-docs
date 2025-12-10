@@ -1,1 +1,0 @@
-Use .svelte.js and .svelte.ts files to create reusable reactive logic with runes.

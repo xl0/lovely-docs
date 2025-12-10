@@ -1,0 +1,1 @@
+`.svelte` files contain optional `<script>`, `<style>`, and markup sections. `<script>` runs per instance, `<script module>` runs once at module load. CSS in `<style>` is automatically scoped to the component.

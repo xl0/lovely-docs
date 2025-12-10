@@ -44,7 +44,7 @@
 		"hast-util-is-element": "^3.0.0",
 		"hast-util-to-string": "^3.0.1",
 		"hastscript": "^9.0.1",
-		"lovely-docs": "file:../lovely-docs",
+		"lovely-docs": "file:../packages/lovely-docs",
 		"lowlight": "^3.3.0",
 		"mdast-util-toc": "^7.1.0",
 		"mode-watcher": "^1.1.0",

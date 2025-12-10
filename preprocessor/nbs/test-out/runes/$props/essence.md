@@ -1,0 +1,1 @@
+Component input mechanism using `$props()` rune with destructuring, defaults, renaming, rest capture, reactivity, type annotations, and instance ID generation.

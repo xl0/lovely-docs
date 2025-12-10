@@ -1,0 +1,1 @@
+.svelte.js/.ts files enable runes in modules for reusable reactive logic and state sharing, with restrictions on exporting reassigned state.

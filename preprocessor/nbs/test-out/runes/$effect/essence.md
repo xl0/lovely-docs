@@ -1,0 +1,1 @@
+$effect runs side effects when reactive state changes, auto-tracking synchronously-read values; supports teardown functions, $effect.pre (pre-DOM), $effect.tracking (context check), $effect.root (manual scope); avoid for state sync ($derived) or linking values (function bindings).

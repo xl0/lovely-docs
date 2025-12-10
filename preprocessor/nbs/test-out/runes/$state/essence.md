@@ -1,0 +1,1 @@
+$state rune creates reactive state; objects/arrays become deep proxies; $state.raw for non-mutating state; $state.snapshot for static snapshots; pass-by-value semantics; can't export directly reassigned state across modules.

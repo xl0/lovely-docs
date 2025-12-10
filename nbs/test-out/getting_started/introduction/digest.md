@@ -1,1 +1,0 @@
-This page appears to be a documentation index or introduction page for Svelte. The page itself contains only frontmatter with a title and no actual content body. It likely serves as a landing page or structural element for the documentation rather than containing substantive technical information.

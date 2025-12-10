@@ -1,1 +1,0 @@
-$host rune provides access to the host element for dispatching custom events in custom element components.

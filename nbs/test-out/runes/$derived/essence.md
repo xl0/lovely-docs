@@ -1,1 +1,0 @@
-Derived state automatically updates when its dependencies change, with support for complex derivations and temporary overrides.

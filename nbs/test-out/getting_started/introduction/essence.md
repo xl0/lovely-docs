@@ -1,1 +1,0 @@
-Structural documentation page with no substantive content.

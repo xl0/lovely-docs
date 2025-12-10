@@ -1,0 +1,1 @@
+Project setup via SvelteKit (recommended: `npx sv create myapp`) or Vite/Rollup/Webpack; editor support and help resources.

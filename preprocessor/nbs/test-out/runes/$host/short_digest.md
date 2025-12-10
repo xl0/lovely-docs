@@ -1,0 +1,1 @@
+The `$host` rune accesses the host element in custom element components, enabling custom event dispatch. Call `$host().dispatchEvent(new CustomEvent(type))` to emit events that parent components can listen to.

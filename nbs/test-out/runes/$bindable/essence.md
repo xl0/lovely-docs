@@ -1,1 +1,0 @@
-The $bindable rune enables two-way data binding for component props, allowing child components to mutate parent state.

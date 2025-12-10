@@ -1,0 +1,1 @@
+Development-only rune that logs values when they change, tracking nested reactivity. `$inspect(val).with(callback)` uses custom callback instead of console.log. `$inspect.trace()` traces which reactive state triggered an effect/derived.

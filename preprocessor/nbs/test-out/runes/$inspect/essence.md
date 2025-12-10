@@ -1,0 +1,1 @@
+$inspect logs on reactive changes (dev-only); .with() customizes logging; .trace() shows what state triggered effects.

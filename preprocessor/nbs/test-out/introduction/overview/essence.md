@@ -1,0 +1,1 @@
+Compiler-based web UI framework that converts declarative components (HTML/CSS/JS) to optimized JavaScript; supports component-to-full-stack development via SvelteKit.

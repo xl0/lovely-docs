@@ -1,1 +1,0 @@
-Svelte is a compiler-based framework for building web UIs by transforming declarative components into optimized JavaScript.

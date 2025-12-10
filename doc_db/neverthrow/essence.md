@@ -1,1 +1,1 @@
-Complete API reference for Result<T,E> and ResultAsync<T,E> types with transformation methods (map, andThen, orElse, match), utilities (fromThrowable, fromPromise, safeTry), and static combinators (combine, combineWithAllErrors).
+Complete API documentation for Result and ResultAsync types with methods for construction, transformation, chaining, error recovery, side effects, and utilities for wrapping throwable functions and combining multiple results.

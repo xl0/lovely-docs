@@ -1,0 +1,1 @@
+Runes are Svelte's reactive primitives for state and effects management.

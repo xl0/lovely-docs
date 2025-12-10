@@ -1,0 +1,1 @@
+$host rune returns the host element in custom element components for dispatching custom events

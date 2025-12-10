@@ -1,0 +1,1 @@
+Getting started with Svelte: project setup options, .svelte component file structure with script/style sections, and reactive module files.

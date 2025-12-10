@@ -1,1 +1,0 @@
-$effect runs functions when state updates, tracking dependencies and supporting cleanup, with variants for pre-DOM execution and manual control.

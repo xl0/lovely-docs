@@ -1,0 +1,1 @@
+$effect runs functions when state updates with automatic dependency tracking; use for side effects like DOM manipulation, not state synchronization (use $derived instead).

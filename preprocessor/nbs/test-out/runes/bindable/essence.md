@@ -1,0 +1,1 @@
+$bindable rune enables bidirectional prop binding; child marks prop with $bindable(), parent uses bind: directive to establish two-way data flow; allows child mutation of state proxies; supports fallback values.

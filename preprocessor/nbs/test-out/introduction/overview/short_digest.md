@@ -1,0 +1,1 @@
+Svelte is a compiler that transforms HTML/CSS/JavaScript components into optimized JavaScript. Supports everything from components to full-stack apps via SvelteKit.

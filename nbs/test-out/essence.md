@@ -1,1 +1,0 @@
-Project setup, component structure, and Svelte's rune-based reactivity system for state management, derived values, effects, and props.

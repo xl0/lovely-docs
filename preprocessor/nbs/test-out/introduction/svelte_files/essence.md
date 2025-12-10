@@ -1,0 +1,1 @@
+.svelte file structure: optional `<script module>` (module-level, runs once), `<script>` (instance-level), markup, and `<style>` (scoped CSS); use runes for props and reactivity.
