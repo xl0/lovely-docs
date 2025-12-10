@@ -37,6 +37,12 @@ export const initCommand = new Command('init')
 
 		let sourceType: 'local' | 'git' = options.docDir ? 'local' : 'git';
 
+		// Compute gitCacheDir for git source type (needed for both quiet and interactive modes)
+		if (sourceType === 'git') {
+			const baseCacheDir = join(getCacheDir(), 'lovely-docs');
+			gitCacheDir = options.gitCacheDir || getRepoPath(baseCacheDir, repo!);
+		}
+
 		if (!options.quiet) {
 			// Interactive mode
 			let choice = await p.select({
@@ -97,19 +103,6 @@ export const initCommand = new Command('init')
 				}
 
 				gitCacheDir = choice;
-
-				const s = p.spinner();
-				s.start('Syncing documentation repository...');
-
-				try {
-					const docRepo = new DocRepo(gitCacheDir);
-					await docRepo.sync(repo, branch);
-					s.stop('Documentation repository synced');
-				} catch (e) {
-					s.stop('Failed to sync repository');
-					console.error(e);
-					process.exit(1);
-				}
 			} else {
 				// Local directory instead of git.
 				let choice = await p.text({
@@ -185,6 +178,11 @@ export const initCommand = new Command('init')
 				process.exit(0);
 			}
 			includeLlmMap = llmsMapSelection;
+		}
+
+		if (sourceType === 'git') {
+			const docRepo = new DocRepo(gitCacheDir!);
+			await docRepo.sync(repo!, branch!);
 		}
 
 		// Save configuration
