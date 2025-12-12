@@ -99,7 +99,7 @@
 			class="border-border bg-background sticky top-0 hidden h-screen w-64 overflow-y-auto border-r lg:block"
 			onwheel={handleSidebarWheel}>
 			<div class="border-border border-b p-4">
-				<a href={resolve(`/human/${lib.name}`)} class="hover:text-primary text-lg font-semibold transition-colors">
+				<a href={resolve(`/human/${libraryKey}`)} class="hover:text-primary text-lg font-semibold transition-colors">
 					{lib.name}
 				</a>
 			</div>
