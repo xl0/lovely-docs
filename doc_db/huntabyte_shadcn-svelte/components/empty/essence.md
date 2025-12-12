@@ -1,0 +1,1 @@
+Empty state component with customizable media (icon/avatar), title, description, and content sections; supports outline/gradient styling and various content types.

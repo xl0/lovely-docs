@@ -1,0 +1,1 @@
+Toggle switch component with form integration, disabled/readonly states, and sveltekit-superforms support.

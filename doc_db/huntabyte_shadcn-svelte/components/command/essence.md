@@ -1,0 +1,1 @@
+Composable command menu component with root and dialog variants; supports grouped items, shortcuts, disabled state, and auto-styled icons.

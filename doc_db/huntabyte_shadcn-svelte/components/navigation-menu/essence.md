@@ -1,0 +1,1 @@
+Navigation menu component with trigger-based dropdowns and direct links; supports custom layouts, icons, and responsive grids.

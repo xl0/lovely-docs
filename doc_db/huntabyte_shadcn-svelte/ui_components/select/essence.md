@@ -1,1 +1,0 @@
-Dropdown select component with single selection, grouping, state binding, and form integration support.

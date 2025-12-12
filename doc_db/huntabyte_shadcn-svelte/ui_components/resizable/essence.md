@@ -1,1 +1,0 @@
-Resizable panel component with horizontal/vertical direction, defaultSize percentages, nested pane support, and optional handle indicators.

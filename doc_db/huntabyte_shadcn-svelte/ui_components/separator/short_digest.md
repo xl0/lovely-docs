@@ -1,1 +1,0 @@
-A separator component for dividing content. Supports horizontal (default) and vertical orientations via the `orientation` prop. Install with `npx shadcn-svelte@latest add separator -y -o`.

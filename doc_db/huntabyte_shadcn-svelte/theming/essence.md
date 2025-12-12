@@ -1,1 +1,1 @@
-CSS variable theming with background/foreground convention using OKLCH colors; customize by adding variables to src/app.css with @theme inline directive; includes default variables for primary, secondary, accent, destructive, border, input, ring, charts, sidebar; pre-configured themes available.
+CSS variable-based theming with background/foreground convention; supports light/dark modes; OKLCH color space; pre-configured color presets (Neutral, Stone, Zinc, Gray, Slate); custom colors via @theme inline directive.

@@ -1,0 +1,1 @@
+Breadcrumb component for hierarchical navigation; supports custom separators, dropdowns, ellipsis collapse, and responsive desktop/mobile variants.

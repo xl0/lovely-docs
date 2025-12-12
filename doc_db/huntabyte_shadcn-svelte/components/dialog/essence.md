@@ -1,0 +1,1 @@
+Modal dialog overlay component with Root, Trigger, Content, Header, Title, Description, and Footer subcomponents.

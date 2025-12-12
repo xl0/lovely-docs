@@ -1,1 +1,0 @@
-Toggle control for boolean states. Install with `npx shadcn-svelte@latest add switch -y -o`. Basic usage: `<Switch id="..." />` with optional `<Label>`. Integrates with sveltekit-superforms via `bind:checked` and supports `disabled`/`aria-readonly` attributes.

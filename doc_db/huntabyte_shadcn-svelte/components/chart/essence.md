@@ -1,0 +1,1 @@
+Chart components built on LayerChart with composition-based design, customizable config, CSS variable theming, and tooltip support.

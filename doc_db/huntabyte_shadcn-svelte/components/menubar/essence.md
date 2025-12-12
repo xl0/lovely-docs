@@ -1,0 +1,1 @@
+Desktop menubar component with menus, submenus, separators, shortcuts, checkboxes, and radio buttons; install with `npx shadcn-svelte@latest add menubar -y -o`

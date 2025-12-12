@@ -1,1 +1,0 @@
-Svelte toast component; install via CLI, add Toaster to layout, call toast() with message and optional description/action callback.

@@ -1,32 +1,16 @@
-## Svelte 4 to Svelte 5 Migration
+## Svelte 4→5 Migration
 
-**Prerequisites**: Read Svelte v5 migration guide, commit changes, identify custom components, use `sv-migrate` CLI.
+Update `components.json` with registry and new aliases (`components`, `utils`, `ui`, `hooks`, `lib`).
 
-**Update components.json**: Add `registry` field and aliases for `components`, `utils`, `ui`, `hooks`, `lib`:
-```json
-{
-  "$schema": "https://shadcn-svelte.com/schema.json",
-  "style": "default",
-  "tailwind": { "css": "src/app.css", "baseColor": "slate" },
-  "aliases": {
-    "components": "$lib/components",
-    "utils": "$lib/utils",
-    "ui": "$lib/components/ui",
-    "hooks": "$lib/hooks",
-    "lib": "$lib"
-  },
-  "typescript": true,
-  "registry": "https://shadcn-svelte.com/registry"
-}
-```
-
-**Update tailwind.config.js**: Install `tailwindcss-animate`, add sidebar colors and animations:
+Install `tailwindcss-animate`:
 ```bash
 npm i tailwindcss-animate
 ```
+
+Update `tailwind.config.js` to include the plugin and sidebar color theme:
 ```ts
 import tailwindcssAnimate from "tailwindcss-animate";
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
@@ -59,56 +43,67 @@ const config = {
 };
 ```
 
-**Simplify utils.ts**: Export only `cn` function and utility types:
+Replace `utils.ts` with:
 ```ts
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
 export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
 export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, "children"> : T;
 export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };
 ```
 
-**Update dependencies**:
+Update dependencies:
 ```bash
-npm i bits-ui@latest svelte-sonner@latest @lucide/svelte@latest paneforge@next vaul-svelte@next mode-watcher@latest -D
+npm i bits-ui@latest svelte-sonner@latest @lucide/svelte@latest paneforge@next vaul-svelte@next mode-watcher@latest
 ```
 
-**Remove deprecated packages**: `cmdk-sv` (use Bits UI Command), `svelte-headless-table` (use @tanstack/table-core), `svelte-radix` (use @lucide/svelte), `lucide-svelte` (use @lucide/svelte).
+Deprecated packages replaced: `cmdk-sv` → Bits UI Command, `svelte-headless-table` → `@tanstack/table-core`, `svelte-radix`/`lucide-svelte` → `@lucide/svelte`.
 
-**Migrate components**: Optionally alias old bits-ui as `bits-ui-old` in package.json for gradual migration. Commit before migrating:
+Migrate components with:
 ```bash
-git add . && git commit -m 'before migration'
 npx shadcn-svelte@latest add <component> -y -o
 ```
-(`-y`: skip confirmation, `-o`: overwrite existing files). Review diffs and repeat for each component. After all migrations, uninstall deprecated packages.
+(`-y`: skip confirmation, `-o`: overwrite existing files)
 
-## Tailwind v4 and Svelte 5 Migration
+Remove old packages after migration:
+```bash
+npm uninstall cmdk-sv svelte-headless-table svelte-radix lucide-svelte
+```
 
-**Overview**: For existing Svelte 5 + Tailwind v3 projects. HSL colors convert to OKLCH (non-breaking). Default style changes from `default` to `new-york`. All components updated with `data-slot` attributes.
+## Tailwind v3→v4 + Svelte 5 Migration
 
-**Follow Tailwind v4 upgrade guide**: Run official upgrade and use `@tailwindcss/upgrade` codemod.
+Follow official Tailwind v4 upgrade guide first.
 
-**Replace PostCSS with Vite**:
+Replace PostCSS with Vite. Delete `postcss.config.js`:
 ```bash
 npm uninstall @tailwindcss/postcss
 npm i @tailwindcss/vite -D
 ```
+
 Update `vite.config.ts`:
 ```ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
+
 export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
 });
 ```
 
-**Update app.css**: Replace `tailwindcss-animate` with `tw-animate-css`:
+Replace `tailwindcss-animate` with `tw-animate-css`:
 ```bash
-npm uninstall tailwindcss-animate && npm i tw-animate-css -D
+npm uninstall tailwindcss-animate
+npm i tw-animate-css -D
 ```
+
+Update `app.css`:
 ```css
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -117,10 +112,62 @@ npm uninstall tailwindcss-animate && npm i tw-animate-css -D
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(240 10% 3.9%);
+  --muted: hsl(240 4.8% 95.9%);
+  --muted-foreground: hsl(240 3.8% 46.1%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(240 10% 3.9%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(240 10% 3.9%);
+  --border: hsl(240 5.9% 90%);
+  --input: hsl(240 5.9% 90%);
+  --primary: hsl(240 5.9% 10%);
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(240 4.8% 95.9%);
+  --secondary-foreground: hsl(240 5.9% 10%);
+  --accent: hsl(240 4.8% 95.9%);
+  --accent-foreground: hsl(240 5.9% 10%);
+  --destructive: hsl(0 72.2% 50.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --ring: hsl(240 10% 3.9%);
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
   --radius: 0.5rem;
 }
+
 .dark {
   --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --accent: hsl(240 3.7% 15.9%);
+  --accent-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --ring: hsl(240 4.9% 83.9%);
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 @theme inline {
@@ -130,29 +177,55 @@ npm uninstall tailwindcss-animate && npm i tw-animate-css -D
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 ```
 
-**Delete tailwind.config.ts** after verifying styles work.
+Remove `tailwind.config.ts` after verifying styles work.
 
-**Use new `size-*` utility**: Replace `w-* h-*` with `size-*` (e.g., `w-4 h-4` → `size-4`).
-
-**Update dependencies**:
+Update dependencies:
 ```bash
 npm i bits-ui@latest @lucide/svelte@latest tailwind-variants@latest tailwind-merge@latest clsx@latest svelte-sonner@latest paneforge@next vaul-svelte@next formsnap@latest
 ```
 
-**Update utils.ts** (optional): Add type helpers:
-```ts
-export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
-export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, "children"> : T;
-export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
-export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };
-```
+Update `utils.ts` to include type helpers (same as Svelte 5 migration above).
 
-**Update colors** (optional): Re-add components to get new dark mode colors:
+Optionally update all components with new colors:
 ```bash
-git add . && git commit -m '...'
 npm dlx shadcn-svelte@latest add --all --overwrite
 ```
-Then update dark mode colors in `app.css` to new OKLCH values.
+
+Replace `w-* h-*` with `size-*` utility.

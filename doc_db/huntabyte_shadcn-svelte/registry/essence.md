@@ -1,1 +1,1 @@
-Create and host custom component registries with shadcn-svelte CLI; items must be JSON files conforming to registry-item schema; use provided template as starting point.
+Create custom component registries with JSON-based items compatible with shadcn-svelte CLI; use provided template as starting point.

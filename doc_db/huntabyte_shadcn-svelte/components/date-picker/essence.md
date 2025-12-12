@@ -1,0 +1,1 @@
+Popover-based date picker supporting single/range selection, presets, dropdown month navigation, date constraints, and form validation integration.

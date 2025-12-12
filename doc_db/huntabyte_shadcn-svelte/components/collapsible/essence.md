@@ -1,0 +1,1 @@
+Collapsible component with Root, Trigger, and Content subcomponents for expandable/collapsible panels.

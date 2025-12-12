@@ -1,1 +1,0 @@
-Pagination component with configurable page count, items per page, and sibling count; renders page links, prev/next buttons, and ellipsis for skipped pages.

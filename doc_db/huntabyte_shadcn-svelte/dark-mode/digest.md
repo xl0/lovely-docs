@@ -1,1 +1,7 @@
-Dark mode implementation guide with framework-specific instructions for Svelte and Astro.
+## Dark Mode
+
+Adding dark mode to your site.
+
+Implementations available for:
+- Svelte
+- Astro

@@ -1,0 +1,1 @@
+Native HTML select wrapper with grouping, disabled states, validation, and accessibility support; prefer over Select for native behavior and mobile.

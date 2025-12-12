@@ -58,7 +58,7 @@ registry
 
 **Important:** If you're placing your component in a custom directory, make sure it can be detected by Tailwind CSS.
 
-src/app.css
+src/routes/layout.css
 
 ```css
 @source "./registry/@acmecorp/ui-lib";

@@ -1,0 +1,1 @@
+SvelteKit setup: create project with sv CLI + tailwindcss, run shadcn-svelte init, configure path aliases in svelte.config.js if needed, add components with `npx shadcn-svelte@latest add <component> -y -o`, import from $lib/components/ui/

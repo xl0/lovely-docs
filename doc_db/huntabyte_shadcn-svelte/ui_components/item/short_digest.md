@@ -1,1 +1,0 @@
-Flex container component for displaying content with title, description, and actions. Supports variants (default, outline, muted), sizes (default, sm), and media types (icon, avatar, image). Can be grouped with separators, used as links via `child` snippet, or integrated into dropdowns. Install: `npx shadcn-svelte@latest add item -y -o`

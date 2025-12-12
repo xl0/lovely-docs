@@ -1,0 +1,1 @@
+Upgrade shadcn-svelte from Tailwind v3→v4 and Svelte 4→v5: replace PostCSS with Vite, migrate to CSS-based config with `@theme inline`, update `app.css` with HSL variables, replace `tailwindcss-animate` with `tw-animate-css`, update dependencies, optionally update components and colors via CLI.

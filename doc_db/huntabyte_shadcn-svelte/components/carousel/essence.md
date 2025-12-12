@@ -1,0 +1,1 @@
+Embla-based carousel component with sizing, spacing, vertical/horizontal orientation, options, API for state tracking, events, and plugin support (autoplay).

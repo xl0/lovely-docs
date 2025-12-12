@@ -1,8 +1,12 @@
-## Registry Item Examples
+# Registry Examples
 
 Registry items define styles, components, themes, blocks, and CSS customizations for shadcn-svelte projects.
 
-### registry:style
+## Registry Item Structure
+
+All registry items use a JSON schema with `$schema`, `name`, `type`, and optional `dependencies`, `registryDependencies`, `cssVars`, and `css` fields.
+
+## registry:style
 
 **Extending shadcn-svelte:**
 ```json
@@ -13,14 +17,14 @@ Registry items define styles, components, themes, blocks, and CSS customizations
   "dependencies": ["phosphor-svelte"],
   "registryDependencies": ["login-01", "calendar", "https://example.com/r/editor.json"],
   "cssVars": {
-    "theme": { "font-sans": "Inter, sans-serif" },
-    "light": { "brand": "oklch(0.145 0 0)" },
-    "dark": { "brand": "oklch(0.145 0 0)" }
+    "theme": {"font-sans": "Inter, sans-serif"},
+    "light": {"brand": "oklch(0.145 0 0)"},
+    "dark": {"brand": "oklch(0.145 0 0)"}
   }
 }
 ```
 
-**From scratch (extends: none):**
+**From scratch (no shadcn-svelte base):**
 ```json
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
@@ -28,16 +32,16 @@ Registry items define styles, components, themes, blocks, and CSS customizations
   "name": "new-style",
   "type": "registry:style",
   "dependencies": ["tailwind-merge", "clsx"],
-  "registryDependencies": ["utils", "https://example.com/r/button.json", "https://example.com/r/input.json", "https://example.com/r/label.json", "https://example.com/r/select.json"],
+  "registryDependencies": ["utils", "https://example.com/r/button.json"],
   "cssVars": {
-    "theme": { "font-sans": "Inter, sans-serif" },
-    "light": { "main": "#88aaee", "bg": "#dfe5f2", "border": "#000", "text": "#000", "ring": "#000" },
-    "dark": { "main": "#88aaee", "bg": "#272933", "border": "#000", "text": "#e6e6e6", "ring": "#fff" }
+    "theme": {"font-sans": "Inter, sans-serif"},
+    "light": {"main": "#88aaee", "bg": "#dfe5f2", "border": "#000", "text": "#000", "ring": "#000"},
+    "dark": {"main": "#88aaee", "bg": "#272933", "border": "#000", "text": "#e6e6e6", "ring": "#fff"}
   }
 }
 ```
 
-### registry:theme
+## registry:theme
 
 ```json
 {
@@ -69,19 +73,19 @@ Registry items define styles, components, themes, blocks, and CSS customizations
 }
 ```
 
-Custom colors can be added to existing styles:
+Add custom colors to existing theme:
 ```json
 {
   "name": "custom-style",
   "type": "registry:style",
   "cssVars": {
-    "light": { "brand": "oklch(0.99 0.00 0)" },
-    "dark": { "brand": "oklch(0.14 0.00 286)" }
+    "light": {"brand": "oklch(0.99 0.00 0)"},
+    "dark": {"brand": "oklch(0.14 0.00 286)"}
   }
 }
 ```
 
-### registry:block
+## registry:block
 
 ```json
 {
@@ -93,7 +97,7 @@ Custom colors can be added to existing styles:
   "files": [
     {
       "path": "blocks/login-01/page.svelte",
-      "content": "import { LoginForm } ...",
+      "content": "...",
       "type": "registry:page",
       "target": "src/routes/login/+page.svelte"
     },
@@ -106,18 +110,23 @@ Custom colors can be added to existing styles:
 }
 ```
 
-Blocks can override primitives from other registries:
+Override primitives when installing a block:
 ```json
 {
   "name": "custom-login",
   "type": "registry:block",
-  "registryDependencies": ["login-01", "https://example.com/r/button.json", "https://example.com/r/input.json", "https://example.com/r/label.json"]
+  "registryDependencies": [
+    "login-01",
+    "https://example.com/r/button.json",
+    "https://example.com/r/input.json",
+    "https://example.com/r/label.json"
+  ]
 }
 ```
 
-### CSS Variables
+## CSS Variables
 
-**Theme variables:**
+**Custom theme variables:**
 ```json
 {
   "name": "custom-theme",
@@ -131,7 +140,7 @@ Blocks can override primitives from other registries:
 }
 ```
 
-**Tailwind overrides:**
+**Override Tailwind CSS variables:**
 ```json
 {
   "cssVars": {
@@ -147,7 +156,7 @@ Blocks can override primitives from other registries:
 }
 ```
 
-### Custom CSS
+## Custom CSS
 
 **Base styles:**
 ```json
@@ -156,8 +165,8 @@ Blocks can override primitives from other registries:
   "type": "registry:style",
   "css": {
     "@layer base": {
-      "h1": { "font-size": "var(--text-2xl)" },
-      "h2": { "font-size": "var(--text-xl)" }
+      "h1": {"font-size": "var(--text-2xl)"},
+      "h2": {"font-size": "var(--text-xl)"}
     }
   }
 }
@@ -181,13 +190,11 @@ Blocks can override primitives from other registries:
 }
 ```
 
-### Custom Utilities
+## Custom Utilities
 
 **Simple utility:**
 ```json
 {
-  "name": "custom-component",
-  "type": "registry:component",
   "css": {
     "@utility content-auto": {
       "content-visibility": "auto"
@@ -196,13 +203,13 @@ Blocks can override primitives from other registries:
 }
 ```
 
-**Complex utility with pseudo-elements:**
+**Complex utility with pseudo-selectors:**
 ```json
 {
   "css": {
     "@utility scrollbar-hidden": {
       "scrollbar-hidden": {
-        "&::-webkit-scrollbar": { "display": "none" }
+        "&::-webkit-scrollbar": {"display": "none"}
       }
     }
   }
@@ -220,9 +227,9 @@ Blocks can override primitives from other registries:
 }
 ```
 
-### Custom Animations
+## Custom Animations
 
-Define both keyframes in `css` and theme variable in `cssVars`:
+Define both `@keyframes` in css and animation in cssVars:
 ```json
 {
   "name": "custom-component",
@@ -234,8 +241,8 @@ Define both keyframes in `css` and theme variable in `cssVars`:
   },
   "css": {
     "@keyframes wiggle": {
-      "0%, 100%": { "transform": "rotate(-3deg)" },
-      "50%": { "transform": "rotate(3deg)" }
+      "0%, 100%": {"transform": "rotate(-3deg)"},
+      "50%": {"transform": "rotate(3deg)"}
     }
   }
 }

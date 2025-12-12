@@ -1,0 +1,1 @@
+Select dropdown component with single selection, grouping, disabled items, form integration via sveltekit-superforms, and reactive trigger content via $derived.

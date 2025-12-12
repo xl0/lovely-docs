@@ -1,1 +1,1 @@
-Registry item JSON schema examples for styles, themes, blocks, CSS variables, custom CSS layers, utilities, and animations with light/dark mode support.
+Registry item JSON schema for styles, themes, blocks with dependencies, CSS variables, base/component/utility styles, and animations.

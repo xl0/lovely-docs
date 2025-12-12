@@ -1,1 +1,0 @@
-Modal dialog overlay component with composable subcomponents (Root, Trigger, Content, Header, Title, Description, Footer); install via CLI with -y -o flags.

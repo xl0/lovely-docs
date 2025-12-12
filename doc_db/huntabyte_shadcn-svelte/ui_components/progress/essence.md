@@ -1,1 +1,0 @@
-Progress bar component with value and max props; install via CLI with -y -o flags

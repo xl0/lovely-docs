@@ -1,0 +1,1 @@
+Searchable dropdown selector built from Popover + Command; supports icons, form integration, and keyboard navigation with refocus pattern.

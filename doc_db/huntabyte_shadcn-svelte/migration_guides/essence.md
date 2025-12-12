@@ -1,1 +1,1 @@
-Step-by-step guides for upgrading Svelte 4→5 and Tailwind v3→v4, with config updates, dependency changes, and component migration instructions.
+Step-by-step upgrade paths from Svelte 4→5 and Tailwind v3→v4 with configuration changes, dependency updates, and component migration commands.

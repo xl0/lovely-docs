@@ -1,1 +1,0 @@
-Native HTML select wrapper with design system styling. Supports option groups, disabled states, invalid state via `aria-invalid`, and full accessibility. Install with `npx shadcn-svelte@latest add native-select -y -o`. Components: `NativeSelect.Root`, `NativeSelect.Option`, `NativeSelect.OptGroup`.

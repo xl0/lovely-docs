@@ -1,1 +1,0 @@
-Skeleton loader component; customize dimensions and shape via Tailwind classes

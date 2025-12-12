@@ -1,0 +1,1 @@
+Two-state toggle button with outline/default variants, sm/default/lg sizes, disabled state, and icon/text content support.

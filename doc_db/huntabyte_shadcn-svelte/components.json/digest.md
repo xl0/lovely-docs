@@ -1,21 +1,28 @@
 ## Overview
-The `components.json` file configures your project for the shadcn-svelte CLI. It's optional and only required when using the CLI to add components; not needed for copy-paste method.
+
+The `components.json` file holds configuration for your project. It's used by the CLI to understand your project setup and generate customized components. **Only required if using the CLI** to add components; not needed for copy-paste method.
 
 Create it with:
 ```bash
 npx shadcn-svelte@latest init
 ```
 
-## Configuration Options
+## $schema
 
-**$schema**: Reference the JSON schema at `https://shadcn-svelte.com/schema.json`
+Reference the JSON Schema:
 ```json
 {
   "$schema": "https://shadcn-svelte.com/schema.json"
 }
 ```
 
-**tailwind.css**: Path to your Tailwind CSS import file
+## tailwind
+
+Configuration for how Tailwind CSS is set up.
+
+### tailwind.css
+
+Path to the CSS file that imports Tailwind CSS:
 ```json
 {
   "tailwind": {
@@ -24,7 +31,9 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**tailwind.baseColor**: Sets the default color palette (cannot be changed after initialization)
+### tailwind.baseColor
+
+Generates the default color palette. **Cannot be changed after initialization.**
 ```json
 {
   "tailwind": {
@@ -33,12 +42,9 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**aliases**: Path aliases for organizing generated components. Must be configured in `svelte.config.js`:
-- `lib`: Library root (typically `$lib`)
-- `utils`: Utility functions (typically `$lib/utils`)
-- `components`: All components (typically `$lib/components`)
-- `ui`: UI components (typically `$lib/components/ui`)
-- `hooks`: Svelte 5 reactive functions/classes (typically `$lib/hooks`)
+## aliases
+
+CLI uses these values with `alias` config from `svelte.config.js` to place generated components correctly. Path aliases must be set up in `svelte.config.js`.
 
 ```json
 {
@@ -52,12 +58,22 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**typescript**: Enable/disable TypeScript or specify custom config path
+- **lib**: Import alias for library (components, utils, hooks, etc.)
+- **utils**: Import alias for utility functions
+- **components**: Import alias for components
+- **ui**: Import alias for UI components
+- **hooks**: Import alias for hooks (Svelte 5 reactive functions/classes, typically `.svelte.ts` or `.svelte.js`)
+
+## typescript
+
+Enable or disable TypeScript:
 ```json
 {
   "typescript": true | false
 }
 ```
+
+Specify custom TypeScript config path:
 ```json
 {
   "typescript": {
@@ -66,7 +82,9 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**registry**: URL for fetching components (can pin to preview release or custom fork)
+## registry
+
+Registry URL for fetching shadcn-svelte components. Can pin to specific preview release or custom fork:
 ```json
 {
   "registry": "https://shadcn-svelte.com/registry"

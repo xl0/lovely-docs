@@ -1,0 +1,1 @@
+Date picker component with single/range selection, dropdown month/year navigation, popover integration, natural language parsing support, and constraint options.

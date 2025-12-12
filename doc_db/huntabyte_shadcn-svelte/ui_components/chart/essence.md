@@ -1,1 +1,0 @@
-Composable chart components built on LayerChart; define data, config (labels/colors), build with LayerChart components; supports CSS variable theming and customizable tooltips.

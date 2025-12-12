@@ -1,1 +1,0 @@
-Tabbed interface component with Root, List, Trigger, and Content sub-components; install with `npx shadcn-svelte@latest add tabs -y -o`.

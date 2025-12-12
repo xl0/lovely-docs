@@ -1,0 +1,1 @@
+Pagination component with configurable items-per-page, sibling count, previous/next buttons, and ellipsis support; responsive-friendly with snippet-based rendering.

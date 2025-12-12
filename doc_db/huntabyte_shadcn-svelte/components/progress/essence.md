@@ -1,0 +1,1 @@
+Progress bar component with reactive value and max props; install via shadcn-svelte CLI

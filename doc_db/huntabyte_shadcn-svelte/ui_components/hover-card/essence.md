@@ -1,1 +1,0 @@
-Hover card component for displaying link preview content on hover; install with `add hover-card -y -o`; use Root/Trigger/Content structure with optional href on Trigger.

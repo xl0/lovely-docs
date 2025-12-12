@@ -1,0 +1,1 @@
+Checkbox component with checked/disabled states, data-attribute styling, and sveltekit-superforms integration.

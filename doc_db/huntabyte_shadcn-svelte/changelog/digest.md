@@ -1,86 +1,159 @@
+# Changelog
+
 ## June 2025
-Calendar and RangeCalendar components overhauled with month/year dropdown selectors and 30+ Calendar blocks added.
+
+### Calendar Components Overhaul
+`Calendar` and `RangeCalendar` components completely redesigned with dropdown month/year selectors and 30+ Calendar blocks for building custom calendar components.
 
 ## May 2025
-**Tailwind v4 Support**: Official support landed with refreshed styles. Full migration guide available. Projects using Svelte v5 with Tailwind v3 continue to work until upgrade.
 
-**Charts**: Added as preview component. Available via CLI for Svelte v5 + Tailwind v4 projects.
+### Tailwind v4 Support
+Official Tailwind v4 support released. Full migration guide available. Projects using Svelte v5 with Tailwind v3 continue to work until upgrade.
 
-**Custom Registry Support**: Publish custom/remote components via shadcn-svelte CLI to share with community.
+### Charts (Preview)
+Charts added as preview component. Available via CLI for Svelte v5 + Tailwind v4 projects.
+
+### Custom Registry Support
+Custom/remote registries now supported, allowing publishing and sharing components via the CLI.
 
 ## March 2024
-**Blocks**: Ready-made, fully responsive, accessible, composable components built using same principles as core components.
 
-**New Components**: Breadcrumb, Scroll Area (built on Bits UI, supports vertical/horizontal scrolling).
+### Blocks
+Ready-made, fully responsive, accessible, composable components built using same principles as core components.
+
+### New Components
+- **Breadcrumb**: Navigation component
+- **Scroll Area**: Built on Bits UI, supports vertical and horizontal scrolling with consistent cross-browser experience
 
 ## February 2024
-**New Component: Resizable**: Built on PaneForge.
 
-**Icon Imports Updated**: Moved from unmaintained `radix-icons-svelte` to `svelte-radix`. Changed from:
+### Resizable Component
+Built on PaneForge (early stage library). Allows creating resizable pane layouts.
+
+### Icon Import Changes
+Moved from unmaintained `radix-icons-svelte` to `svelte-radix` for new-york style. Changed from barrel imports to deep imports for better dev server performance:
+
 ```ts
+// Before
 import { Check } from "@lucide/svelte";
-```
-to deep imports:
-```ts
+
+// After
 import Check from "@lucide/svelte/icons/check";
 ```
-Deep imports prevent Vite from optimizing entire icon collections, only optimizing used icons. Significant dev server performance improvement.
 
-**Major Forms Update**: Formsnap completely rewritten for flexibility and power. No direct migration path—update components to new API. All Form components updated. See Forms Examples page.
+Deep imports prevent Vite from optimizing entire icon collections, only optimizing used icons.
 
-## January 2024
-**New Component: Carousel**:
-```svelte
-<Carousel.Root class="w-full max-w-xs">
-  <Carousel.Content>
-    {#each Array(5), i}
-      <Carousel.Item>
-        <Card.Root>
-          <Card.Content class="flex aspect-square items-center justify-center p-6">
-            <span class="text-4xl font-semibold">{i + 1}</span>
-          </Card.Content>
-        </Card.Root>
-      </Carousel.Item>
-    {/each}
-  </Carousel.Content>
-  <Carousel.Previous />
-  <Carousel.Next />
-</Carousel.Root>
-```
+### Forms Major Update
+Formsnap completely rewritten for flexibility and power. No direct migration path from old version.
 
-**New Component: Drawer**: Built on vaul-svelte (Svelte port of vaul by Emil Kowalski). Includes header, description, content, footer with buttons.
-
-**New Component: Sonner**: Svelte port of Sonner (by Emil Kowalski). Toast notifications:
-```ts
-import { toast } from "svelte-sonner";
-toast.success("Event has been created", {
-  description: "Sunday, December 03, 2023 at 9:00 AM",
-  action: { label: "Undo", onClick: () => console.info("Undo") }
-});
-```
-
-**New Component: Pagination**: Built on Bits UI Pagination component.
-
-## December 2023
-New components: Calendar, Range Calendar, Date Picker.
-
-## November 2023
-New component: Toggle Group.
-
-## October 2023
-**New Component: Command**: Command palette built on cmdk-sv (Svelte port of cmdk).
-
-**New Component: Combobox**: Combination of Command + Popover for searchable dropdown.
-
-**Form.Label Changes**: `ids` from `getFormField()` now a store, prefix with `$`:
+**Form.Label Changes**: `ids` from `getFormField()` is now a store, prefix with `$`:
 ```svelte
 <Label for={$ids.input} class={cn($errors && "text-destructive", className)}>
   <slot />
 </Label>
 ```
 
-**Form.Control**: New formsnap component wraps non-traditional form elements. Export in `src/lib/ui/form/index.ts`:
+**Form.Control**: New component wraps non-traditional form elements for accessibility:
 ```ts
+// src/lib/ui/form/index.ts
 const Control = FormPrimitive.Control;
 export { Control, Control as FormControl };
 ```
+
+## January 2024
+
+### New Components
+- **Carousel**: Image/content carousel with previous/next navigation
+  ```svelte
+  <Carousel.Root class="w-full max-w-xs">
+    <Carousel.Content>
+      {#each Array(5), i}
+        <Carousel.Item>
+          <div class="p-1">
+            <Card.Root>
+              <Card.Content class="flex aspect-square items-center justify-center p-6">
+                <span class="text-4xl font-semibold">{i + 1}</span>
+              </Card.Content>
+            </Card.Root>
+          </div>
+        </Carousel.Item>
+      {/each}
+    </Carousel.Content>
+    <Carousel.Previous />
+    <Carousel.Next />
+  </Carousel.Root>
+  ```
+
+- **Drawer**: Built on vaul-svelte (Svelte port of vaul by Emil Kowalski). Slide-out panel with header, content, and footer:
+  ```svelte
+  <Drawer.Root>
+    <Drawer.Trigger class={buttonVariants({ variant: "outline" })}>
+      Open Drawer
+    </Drawer.Trigger>
+    <Drawer.Content>
+      <div class="mx-auto w-full max-w-sm">
+        <Drawer.Header>
+          <Drawer.Title>Move Goal</Drawer.Title>
+          <Drawer.Description>Set your daily activity goal.</Drawer.Description>
+        </Drawer.Header>
+        <div class="p-4 pb-0">
+          <div class="flex items-center justify-center space-x-2">
+            <Button variant="outline" size="icon" class="size-8 shrink-0 rounded-full"
+              onclick={() => handleClick(-10)} disabled={goal <= 200}>
+              <MinusIcon />
+            </Button>
+            <div class="flex-1 text-center">
+              <div class="text-7xl font-bold tracking-tighter">{goal}</div>
+              <div class="text-muted-foreground text-[0.70rem] uppercase">Calories/day</div>
+            </div>
+            <Button variant="outline" size="icon" class="size-8 shrink-0 rounded-full"
+              onclick={() => handleClick(10)} disabled={goal >= 400}>
+              <PlusIcon />
+            </Button>
+          </div>
+          <div class="mt-3 h-[120px]">
+            <BarChart data={data.map((d, i) => ({ goal: d.goal, index: i }))} 
+              y="goal" x="index" xScale={scaleBand().padding(0.25)} 
+              axis={false} tooltip={false} />
+          </div>
+        </div>
+        <Drawer.Footer>
+          <Button>Submit</Button>
+          <Drawer.Close class={buttonVariants({ variant: "outline" })}>Cancel</Drawer.Close>
+        </Drawer.Footer>
+      </div>
+    </Drawer.Content>
+  </Drawer.Root>
+  ```
+
+- **Sonner**: Toast notifications via svelte-sonner (Svelte port of Sonner by Emil Kowalski)
+  ```svelte
+  <Button variant="outline" onclick={() =>
+    toast.success("Event has been created", {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      action: { label: "Undo", onClick: () => console.info("Undo") }
+    })}>
+    Show Toast
+  </Button>
+  ```
+
+- **Pagination**: Built on Bits UI pagination component
+
+## December 2023
+
+New components: Calendar, Range Calendar, Date Picker
+
+## November 2023
+
+New component: Toggle Group
+
+## October 2023
+
+### Command Component
+Command palette component built on cmdk-sv (Svelte port of cmdk). Allows creating searchable command interfaces.
+
+### Combobox Component
+Combination of Command and Popover components. Creates searchable dropdown menu.
+
+### Form Updates
+See February 2024 Forms section above for Form.Label and Form.Control changes.

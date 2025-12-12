@@ -1,1 +1,0 @@
-Popover component with Root, Trigger, and Content subcomponents; displays portal content on button click.

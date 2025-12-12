@@ -1,0 +1,1 @@
+Legacy documentation index for older Svelte/Tailwind version combinations

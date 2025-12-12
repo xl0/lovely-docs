@@ -1,1 +1,0 @@
-AspectRatio component maintains content at specified ratio (e.g., 16/9); install with `npx shadcn-svelte@latest add aspect-ratio -y -o`

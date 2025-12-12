@@ -1,20 +1,24 @@
 ## Svelte 4 to Svelte 5 Migration
 
-Prerequisites:
-- Read Svelte's v5 migration guide
-- Commit pending changes
-- Identify components with custom behavior/styles
-- Use `sv-migrate` CLI tool
+Migrate from Svelte 4 with Tailwind 3 to Svelte 5 with Tailwind 3. This guide covers shadcn-svelte migration only; see Bits UI's migration guide for bits-ui changes.
 
-### Update Configs
+### Prerequisites
 
-**components.json**: Add `registry` field and new aliases:
+1. Read Svelte's v5 migration guide
+2. Commit pending changes
+3. Identify components with custom behavior/styles for reimplementation
+4. Use `sv-migrate` CLI tool to help with migration
+
+### Update `components.json`
+
+Add `registry` to root and new aliases:
+
 ```json
 {
   "$schema": "https://shadcn-svelte.com/schema.json",
   "style": "default",
   "tailwind": {
-    "css": "src/app.css",
+    "css": "src/routes/layout.css",
     "baseColor": "slate"
   },
   "aliases": {
@@ -29,13 +33,18 @@ Prerequisites:
 }
 ```
 
-**tailwind.config.js**: Install and add `tailwindcss-animate` plugin, sidebar colors, and animations:
+### Update `tailwind.config.js`
+
+Install and add `tailwindcss-animate` plugin:
+
 ```bash
 npm i tailwindcss-animate
 ```
+
 ```ts
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+
 const config: Config = {
   darkMode: ["class"],
   content: ["./src/**/*.{html,js,svelte,ts}"],
@@ -80,35 +89,34 @@ const config: Config = {
 export default config;
 ```
 
-**utils.ts**: Simplify to only export `cn` function and utility types:
+### Update `utils.ts`
+
+Replace with new version exporting only `cn` function and utility types:
+
 ```ts
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
 export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
 export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, "children"> : T;
 export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
-export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };
+export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
+  ref?: U | null;
+};
 ```
 
-### Update Dependencies
+Note: Some components may rely on the removed `flyAndScale` function; update those after updating components.
 
-Update to Svelte 5 compatible versions:
-```bash
-npm i bits-ui@latest svelte-sonner@latest @lucide/svelte@latest paneforge@next vaul-svelte@next mode-watcher@latest -D
-```
+### Upgrade Components
 
-Deprecated packages to remove:
-- `cmdk-sv` → replaced by Bits UI's `Command` component
-- `svelte-headless-table` → replaced by `@tanstack/table-core`
-- `svelte-radix` → replaced by `@lucide/svelte`
-- `lucide-svelte` → replaced by `@lucide/svelte`
+#### Optional: Alias Old Dependencies
 
-### Migrate Components
+For gradual migration, alias old dependency versions in `package.json`:
 
-For gradual migration, optionally alias old dependencies in package.json:
 ```json
 {
   "devDependencies": {
@@ -117,25 +125,44 @@ For gradual migration, optionally alias old dependencies in package.json:
 }
 ```
 
-Then update imports to use `bits-ui-old` in old components.
+Update imports to use `bits-ui-old` while migrating.
 
-Commit changes before migrating:
+#### Update Dependencies
+
+```bash
+npm i bits-ui@latest svelte-sonner@latest @lucide/svelte@latest paneforge@next vaul-svelte@next mode-watcher@latest -D
+```
+
+Updated packages:
+- `bits-ui` → `^1.0.0`
+- `svelte-sonner` → `^1.0.0`
+- `@lucide/svelte` → `^0.482.0`
+- `paneforge` → `^1.0.0-next.5`
+- `vaul-svelte` → `^1.0.0-next.7`
+- `mode-watcher` → `^1.0.0`
+
+Deprecated/replaced:
+- `cmdk-sv` → use Bits UI's `Command` component
+- `svelte-headless-table` → use `@tanstack/table-core`
+- `svelte-radix` → use `@lucide/svelte`
+- `lucide-svelte` → use `@lucide/svelte`
+
+#### Migrate Components
+
+Commit changes, then run CLI to replace components:
+
 ```bash
 git add .
 git commit -m 'before migration'
-```
-
-Migrate components one at a time:
-```bash
 npx shadcn-svelte@latest add dialog -y -o
 ```
-(`-y`: skip confirmation, `-o`: overwrite existing files)
 
-Review diffs and adjust as needed. Repeat for each component.
+The `-y` flag skips confirmation, `-o` overwrites existing files. Review diffs and repeat for each component.
 
 ### Remove Unused Dependencies
 
-After migrating all components:
+After migrating all components, remove old packages:
+
 ```bash
 npm uninstall cmdk-sv svelte-headless-table svelte-radix lucide-svelte
 ```

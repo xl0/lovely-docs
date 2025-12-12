@@ -1,0 +1,1 @@
+Composable sidebar with Provider/Root/Header/Content/Footer/Trigger; supports left/right, sidebar/floating/inset variants, offcanvas/icon/none collapse modes; useSidebar hook for state; Menu with Button/Action/Sub/Badge/Skeleton; collapsible groups/menus via Collapsible; OKLch CSS variables for theming.

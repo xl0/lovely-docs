@@ -1,1 +1,0 @@
-Kbd component displays keyboard input; supports grouping and nesting in buttons, tooltips, and input groups.

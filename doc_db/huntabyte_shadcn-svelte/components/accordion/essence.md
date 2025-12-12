@@ -1,0 +1,1 @@
+Accordion component with single/multiple open items, WAI-ARIA accessible, composed of Root/Item/Trigger/Content subcomponents.

@@ -1,0 +1,1 @@
+Accessible label component; use `for` attribute to link to form control id

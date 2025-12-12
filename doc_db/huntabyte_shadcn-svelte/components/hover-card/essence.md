@@ -1,0 +1,1 @@
+Hover card component for displaying preview content on hover; Root/Trigger/Content structure; Trigger accepts link attributes.

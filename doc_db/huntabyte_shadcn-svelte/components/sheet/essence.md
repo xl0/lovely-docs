@@ -1,0 +1,1 @@
+Sheet component: dialog-based overlay sliding from screen edges (top/right/bottom/left), customizable size via CSS classes, with Header/Title/Description/Footer/Close subcomponents.

@@ -1,1 +1,0 @@
-Composable form field components with labels, descriptions, errors, and validation; supports vertical/horizontal/responsive orientations and choice cards.

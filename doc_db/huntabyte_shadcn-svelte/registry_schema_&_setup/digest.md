@@ -1,103 +1,109 @@
-## Registry Item JSON Schema
+## Registry System
 
-Registry items define reusable components, styles, themes, and blocks for shadcn-svelte projects. Each item is a JSON object with metadata and file references.
+Complete specification for creating and publishing custom component registries in shadcn-svelte.
 
-### Core Properties
+### Registry Structure
 
-**name**: Unique identifier (e.g., "hello-world")
+Create `registry.json` at project root:
+```json
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry.json",
+  "name": "acme",
+  "homepage": "https://acme.com",
+  "items": [],
+  "aliases": {
+    "lib": "@/lib",
+    "ui": "@/lib/registry/ui",
+    "components": "@/lib/registry/components",
+    "utils": "@/lib/utils",
+    "hooks": "@/lib/registry/hooks"
+  },
+  "overrideDependencies": ["paneforge@next"]
+}
+```
 
-**type**: Item classification:
+Place components in `registry/[NAME]/` directory structure. Add to `registry.json` items array with required properties: `name`, `type`, `title`, `description`, `files`.
+
+### Registry Item Schema
+
+Registry items use JSON schema with core properties:
+
+**name** - Unique identifier (e.g., `"hello-world"`)
+
+**type** - Item type:
 - `registry:block` - Complex components with multiple files
-- `registry:component` - Simple single components
-- `registry:ui` - UI primitives
-- `registry:lib` - Libraries/utilities
+- `registry:component` - Simple components
+- `registry:ui` - UI components and primitives
+- `registry:lib` - Libraries and utilities
 - `registry:hook` - Hooks
 - `registry:page` - Routes
 - `registry:file` - Miscellaneous files
-- `registry:style` - Styles (e.g., "new-york")
+- `registry:style` - Styles (e.g., `new-york`)
 - `registry:theme` - Themes
 
-**title**, **description**: Human-readable metadata
-
-**files**: Array of file objects with `path` (registry location), `type`, and optional `target` (installation location):
+**files** - Array with `path` (relative from project root), `type`, and optional `target` (where to install):
 ```json
 {
   "files": [
-    {
-      "path": "registry/hello-world/page.svelte",
-      "type": "registry:page",
-      "target": "src/routes/hello/+page.svelte"
-    },
-    {
-      "path": "registry/hello-world/hello-world.svelte",
-      "type": "registry:component"
-    },
-    {
-      "path": "registry/hello-world/.env",
-      "type": "registry:file",
-      "target": ".env"
-    }
+    {"path": "registry/hello-world/hello-world.svelte", "type": "registry:component"},
+    {"path": "registry/hello-world/page.svelte", "type": "registry:page", "target": "src/routes/hello/+page.svelte"},
+    {"path": "registry/hello-world/config.ts", "type": "registry:file", "target": "~/config.ts"}
   ]
 }
 ```
 
-**dependencies**: npm packages (use `@version` for specific versions):
-```json
-{ "dependencies": ["bits-ui", "zod@3.0.0"] }
-```
+**dependencies** - npm packages: `["bits-ui", "zod", "name@1.0.2"]`
 
-**registryDependencies**: Other registry items (names, URLs, or local paths):
-```json
-{ "registryDependencies": ["button", "input", "https://example.com/r/custom.json"] }
-```
+**registryDependencies** - Other registry items: `["button", "input", "https://example.com/r/editor.json", "./stepper.json"]`
 
-**cssVars**: CSS variables organized by theme sections:
+**cssVars** - CSS variables by scope:
 ```json
 {
   "cssVars": {
-    "theme": { "font-heading": "Poppins, sans-serif" },
-    "light": { "brand": "20 14.3% 4.1%", "radius": "0.5rem" },
-    "dark": { "brand": "20 14.3% 4.1%" }
+    "theme": {"font-heading": "Poppins, sans-serif"},
+    "light": {"brand": "20 14.3% 4.1%", "radius": "0.5rem"},
+    "dark": {"brand": "20 14.3% 4.1%"}
   }
 }
 ```
 
-**css**: CSS rules added to project CSS file:
+**css** - Custom CSS rules:
 ```json
 {
   "css": {
-    "@layer base": { "h1": { "font-size": "var(--text-2xl)" } },
-    "@layer components": { "card": { "padding": "var(--spacing-6)" } },
-    "@utility content-auto": { "content-visibility": "auto" },
-    "@keyframes wiggle": { "0%, 100%": { "transform": "rotate(-3deg)" } }
+    "@layer base": {"h1": {"font-size": "var(--text-2xl)"}},
+    "@layer components": {"card": {"background-color": "var(--color-white)"}},
+    "@utility content-auto": {"content-visibility": "auto"},
+    "@keyframes wiggle": {"0%, 100%": {"transform": "rotate(-3deg)"}, "50%": {"transform": "rotate(3deg)"}}
   }
 }
 ```
 
-**docs**: Custom message shown during CLI installation
+**docs** - Custom installation message
 
-**categories**: Organize items by category (e.g., `["sidebar", "dashboard"]`)
+**categories** - Organization tags: `["sidebar", "dashboard"]`
 
-**meta**: Additional key/value metadata
+**meta** - Arbitrary metadata object
 
-### Style & Theme Examples
+### Registry Styles & Themes
 
-**Extending shadcn-svelte style:**
+**registry:style** - Extends shadcn-svelte or starts from scratch:
 ```json
 {
   "name": "example-style",
   "type": "registry:style",
-  "dependencies": ["phosphor-svelte"],
-  "registryDependencies": ["login-01", "calendar"],
+  "extends": "none",
+  "dependencies": ["tailwind-merge", "clsx"],
+  "registryDependencies": ["utils", "button"],
   "cssVars": {
-    "theme": { "font-sans": "Inter, sans-serif" },
-    "light": { "brand": "oklch(0.145 0 0)" },
-    "dark": { "brand": "oklch(0.145 0 0)" }
+    "theme": {"font-sans": "Inter, sans-serif"},
+    "light": {"main": "#88aaee", "bg": "#dfe5f2"},
+    "dark": {"main": "#88aaee", "bg": "#272933"}
   }
 }
 ```
 
-**Custom theme:**
+**registry:theme** - Define complete theme with light/dark variants:
 ```json
 {
   "name": "custom-theme",
@@ -106,7 +112,8 @@ Registry items define reusable components, styles, themes, and blocks for shadcn
     "light": {
       "background": "oklch(1 0 0)",
       "foreground": "oklch(0.141 0.005 285.823)",
-      "primary": "oklch(0.546 0.245 262.881)"
+      "primary": "oklch(0.546 0.245 262.881)",
+      "sidebar-primary": "oklch(0.546 0.245 262.881)"
     },
     "dark": {
       "background": "oklch(1 0 0)",
@@ -116,141 +123,24 @@ Registry items define reusable components, styles, themes, and blocks for shadcn
 }
 ```
 
-**Block with dependencies:**
-```json
-{
-  "name": "login-01",
-  "type": "registry:block",
-  "description": "A simple login form.",
-  "registryDependencies": ["button", "card", "input", "label"],
-  "files": [
-    {
-      "path": "blocks/login-01/page.svelte",
-      "type": "registry:page",
-      "target": "src/routes/login/+page.svelte"
-    },
-    {
-      "path": "blocks/login-01/components/login-form.svelte",
-      "type": "registry:component"
-    }
-  ]
-}
-```
+### Building & Publishing
 
-## registry.json Schema
+Install CLI: `npm i shadcn-svelte@latest`
 
-Root registry configuration file defining the registry itself.
+Add to `package.json`: `"registry:build": "shadcn-svelte registry build"`
 
-**$schema**: `https://shadcn-svelte.com/schema/registry.json`
+Run: `npm run registry:build` - generates JSON files in `static/r/` (e.g., `static/r/hello-world.json`)
 
-**name**: Registry identifier (used in data attributes)
+Serve locally: `npm run dev` - registry at `http://localhost:5173/r/[NAME].json`
 
-**homepage**: Registry URL
+Deploy to public URL to make available to other developers.
 
-**items**: Array of registry items (each follows registry-item schema)
+### Authentication
 
-**aliases**: Maps internal import paths to actual locations. Transformed during installation based on user's `components.json`:
-```json
-{
-  "aliases": {
-    "lib": "@/lib",
-    "ui": "@/lib/registry/ui",
-    "components": "@/lib/registry/components",
-    "utils": "@/lib/utils",
-    "hooks": "@/lib/hooks"
-  }
-}
-```
+shadcn-svelte CLI has no built-in auth. Implement on registry server using token query parameter: `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Return 401 Unauthorized for invalid tokens.
 
-Default aliases if not specified:
-```json
-{
-  "aliases": {
-    "lib": "$lib/registry/lib",
-    "ui": "$lib/registry/ui",
-    "components": "$lib/registry/components",
-    "utils": "$lib/utils",
-    "hooks": "$lib/registry/hooks"
-  }
-}
-```
+### Installation
 
-**overrideDependencies**: Force specific dependency versions (overrides `package.json` detection):
-```json
-{ "overrideDependencies": ["paneforge@next"] }
-```
+Users install with: `npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json -y -o`
 
-## Setting Up a Registry
-
-Create `registry.json` in project root:
-```json
-{
-  "$schema": "https://shadcn-svelte.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
-  "items": []
-}
-```
-
-Create component file at `registry/hello-world/hello-world.svelte`:
-```svelte
-<script lang="ts">
-  import { Button } from "$lib/components/ui/button/index.js";
-</script>
-<Button>Hello World</Button>
-```
-
-Add to `registry.json`:
-```json
-{
-  "items": [
-    {
-      "name": "hello-world",
-      "type": "registry:block",
-      "title": "Hello World",
-      "description": "A simple hello world component.",
-      "files": [
-        {
-          "path": "./src/lib/hello-world/hello-world.svelte",
-          "type": "registry:component"
-        }
-      ]
-    }
-  ]
-}
-```
-
-For custom component directories, ensure Tailwind CSS detects them via `@source` in `src/app.css`:
-```css
-@source "./registry/@acmecorp/ui-lib";
-```
-
-### Build & Serve
-
-Install CLI: `npm install shadcn-svelte@latest`
-
-Add to `package.json`:
-```json
-{ "scripts": { "registry:build": "shadcn-svelte registry build" } }
-```
-
-Run: `npm run registry:build` (generates JSON in `static/r/` by default, customizable with `--output`)
-
-Serve: `npm run dev` - registry available at `http://localhost:5173/r/[NAME].json`
-
-### Publishing & Authentication
-
-Deploy to public URL. For token-based auth, use query parameter: `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Handle authorization on server, return 401 for invalid tokens. Encrypt and expire tokens.
-
-### Installing Registry Items
-
-`npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json -y -o`
-
-Flags: `-y` skips confirmation prompt, `-o` overwrites existing files.
-
-### Guidelines
-
-- Required block properties: `name`, `description`, `type`, `files`
-- List all registry dependencies in `registryDependencies`
-- Organize files in `components`, `hooks`, `lib` directories
-- Use registry template at GitHub for new projects
+Flags: `-y` skips confirmation prompt, `-o` overwrites existing files

@@ -1,1 +1,0 @@
-Composable sidebar component with Provider/Root/Header/Content/Group/Menu/Footer/Trigger subcomponents; supports left/right, sidebar/floating/inset variants, offcanvas/icon/none collapse modes; useSidebar() hook for state control; theming via CSS variables; integrates with Collapsible and DropdownMenu.

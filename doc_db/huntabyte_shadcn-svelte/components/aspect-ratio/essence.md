@@ -1,0 +1,1 @@
+AspectRatio component enforces a specified aspect ratio on content via numeric ratio prop (e.g., 16/9).

@@ -1,1 +1,1 @@
-Svelte/SvelteKit port of shadcn/ui maintained by Huntabyte and CokaKoala. Built on Bits UI, Formsnap, Paneforge, Vaul Svelte, and Radix UI. MIT licensed.
+Svelte/SvelteKit port of shadcn/ui maintained by Huntabyte, CokaKoala, and Aidan Bleser. Built on Bits UI, Formsnap, Paneforge, Vaul Svelte, and Radix UI. MIT licensed.

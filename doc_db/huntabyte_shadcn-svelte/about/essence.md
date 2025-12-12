@@ -1,1 +1,1 @@
-Port of shadcn/ui for Svelte/SvelteKit built on Bits UI, Formsnap, Paneforge, Vaul Svelte, and Radix UI; MIT licensed.
+Svelte port of shadcn/ui built on Bits UI, Formsnap, Paneforge, Vaul Svelte, Radix UI; MIT licensed

@@ -1,0 +1,1 @@
+Install TailwindCSS, configure TypeScript/Vite path aliases for $lib, run shadcn-svelte init with $lib-based import paths, add components with -y -o flags, import from $lib/components/ui

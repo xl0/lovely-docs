@@ -1,0 +1,1 @@
+Toast notification component with success/error variants, descriptions, and action buttons; dark mode support via system preferences or theme prop.

@@ -1,1 +1,0 @@
-Modal dialog component with Root, Trigger, Content, Header, Title, Description, and Footer subcomponents. Install with `npx shadcn-svelte@latest add dialog -y -o`. Compose with Dialog.Root wrapping Trigger and Content elements containing Header/Title/Description and optional Footer.

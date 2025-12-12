@@ -1,1 +1,0 @@
-Modal dialog component with Root, Trigger, Content, Header, Title, Description, Footer, Cancel, and Action subcomponents.

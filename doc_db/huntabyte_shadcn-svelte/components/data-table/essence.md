@@ -1,0 +1,1 @@
+TanStack Table v8 integration with pagination, sorting, filtering, column visibility, row selection, and custom cell rendering via snippets and components.

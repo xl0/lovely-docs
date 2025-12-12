@@ -2,20 +2,23 @@
 
 ## Pages
 
-### dark-mode-astro
-Astro dark mode: inline script for localStorage persistence + FUOC prevention, mode-watcher library with ModeWatcher component, light switch or dropdown toggle components using toggleMode/setMode/resetMode.
+### astro
+Astro dark mode via Tailwind's class strategy: inline script for FUOC prevention + localStorage sync, mode-watcher for toggling, custom toggle components with setMode/toggleMode/resetMode.
 
 ## Dark Mode in Astro
 
-Astro uses Tailwind CSS's `class` strategy to toggle dark mode by adding/removing the `dark` class on the `html` element.
+Astro uses Tailwind CSS's `class` strategy for dark mode toggling by adding/removing the `dark` class on the `html` element.
 
 ### Inline Theme Script
 
-Create a script that persists theme preference to `localStorage` and prevents FUOC (Flash of Unstyled Content):
+Create a script that:
+- Reads theme preference from `localStorage` or system preference
+- Applies the `dark` class to `html` on page load (prevents FUOC)
+- Observes class changes and syncs to `localStorage`
 
 ```astro
 ---
-import "$lib/styles/app.css";
+import "../styles/global.css";
 ---
 <script is:inline>
   const isBrowser = typeof localStorage !== 'undefined';
@@ -46,26 +49,27 @@ import "$lib/styles/app.css";
 </html>
 ```
 
-### Using mode-watcher
+### Mode Watcher Integration
 
-Install: `npm i mode-watcher@0.5.1`
+Install mode-watcher:
+```bash
+npm i mode-watcher@0.5.1
+```
 
-Add `ModeWatcher` component to your page with `client:load` directive:
+Add the `ModeWatcher` component with `client:load` directive to enable theme toggling:
 
 ```astro
 ---
 import { ModeWatcher } from "mode-watcher";
 ---
-<html lang="en">
- <body>
-      <ModeWatcher client:load />
- </body>
-</html>
+<ModeWatcher client:load />
 ```
 
 ### Mode Toggle Components
 
-Light switch toggle:
+Create a light switch or dropdown menu to toggle themes:
+
+**Light switch:**
 ```svelte
 <script lang="ts">
   import SunIcon from "@lucide/svelte/icons/sun";
@@ -75,16 +79,16 @@ Light switch toggle:
 </script>
 <Button onclick={toggleMode} variant="outline" size="icon">
   <SunIcon
-    class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0"
+    class="transition-all! h-[1.2rem] w-[1.2rem] rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
   />
   <MoonIcon
-    class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100"
+    class="transition-all! absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 dark:rotate-0 dark:scale-100"
   />
   <span class="sr-only">Toggle theme</span>
 </Button>
 ```
 
-Dropdown menu toggle:
+**Dropdown menu:**
 ```svelte
 <script lang="ts">
   import { resetMode, setMode } from "mode-watcher";
@@ -93,8 +97,8 @@ Dropdown menu toggle:
 </script>
 <DropdownMenu.Root>
   <DropdownMenu.Trigger class={buttonVariants({ variant: "outline", size: "icon" })}>
-    <SunIcon class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0" />
-    <MoonIcon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100" />
+    <SunIcon class="transition-all! h-[1.2rem] w-[1.2rem] rotate-0 scale-100 dark:-rotate-90 dark:scale-0" />
+    <MoonIcon class="transition-all! absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
     <span class="sr-only">Toggle theme</span>
   </DropdownMenu.Trigger>
   <DropdownMenu.Content align="end">
@@ -105,20 +109,26 @@ Dropdown menu toggle:
 </DropdownMenu.Root>
 ```
 
-Add toggle to page with `client:load` directive.
+Add the toggle to your page with `client:load`:
+```astro
+<ModeToggle client:load />
+```
 
 ### dark-mode
-Implement dark mode with mode-watcher package: install, add ModeWatcher component to layout, create toggle button or dropdown menu using toggleMode/setMode/resetMode functions.
+Install mode-watcher, add ModeWatcher component to root layout, use toggleMode()/setMode()/resetMode() for theme control.
 
-## Dark Mode Setup
+## Setup
 
-Install `mode-watcher` package:
+Install `mode-watcher`:
+
 ```bash
 npm i mode-watcher
 ```
 
-Add `ModeWatcher` component to your root layout (src/routes/+layout.svelte):
+Add `ModeWatcher` component to your root layout:
+
 ```svelte
+// src/routes/+layout.svelte
 <script lang="ts">
   import "../app.css";
   import { ModeWatcher } from "mode-watcher";
@@ -128,7 +138,10 @@ Add `ModeWatcher` component to your root layout (src/routes/+layout.svelte):
 {@render children?.()}
 ```
 
-Create a mode toggle button:
+## Mode Toggle
+
+Simple button toggle:
+
 ```svelte
 <script lang="ts">
   import SunIcon from "@lucide/svelte/icons/sun";
@@ -137,23 +150,26 @@ Create a mode toggle button:
   import { Button } from "$lib/components/ui/button/index.js";
 </script>
 <Button onclick={toggleMode} variant="outline" size="icon">
-  <SunIcon class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0" />
-  <MoonIcon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100" />
+  <SunIcon class="transition-all! h-[1.2rem] w-[1.2rem] rotate-0 scale-100 dark:-rotate-90 dark:scale-0" />
+  <MoonIcon class="transition-all! absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
   <span class="sr-only">Toggle theme</span>
 </Button>
 ```
 
-Or create a dropdown menu with light/dark/system options:
+Dropdown menu with light/dark/system options:
+
 ```svelte
 <script lang="ts">
+  import SunIcon from "@lucide/svelte/icons/sun";
+  import MoonIcon from "@lucide/svelte/icons/moon";
   import { resetMode, setMode } from "mode-watcher";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import { buttonVariants } from "$lib/components/ui/button/index.js";
 </script>
 <DropdownMenu.Root>
   <DropdownMenu.Trigger class={buttonVariants({ variant: "outline", size: "icon" })}>
-    <SunIcon class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0" />
-    <MoonIcon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100" />
+    <SunIcon class="transition-all! h-[1.2rem] w-[1.2rem] rotate-0 scale-100 dark:-rotate-90 dark:scale-0" />
+    <MoonIcon class="transition-all! absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
     <span class="sr-only">Toggle theme</span>
   </DropdownMenu.Trigger>
   <DropdownMenu.Content align="end">
@@ -164,5 +180,5 @@ Or create a dropdown menu with light/dark/system options:
 </DropdownMenu.Root>
 ```
 
-Use `toggleMode()` to toggle between modes, `setMode("light"|"dark")` to set a specific mode, and `resetMode()` to use system preference.
+Use `toggleMode()` for simple toggle, `setMode("light"|"dark")` for explicit mode, or `resetMode()` for system preference.
 

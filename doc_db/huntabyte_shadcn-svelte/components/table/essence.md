@@ -1,0 +1,1 @@
+Responsive table component with Root, Header, Body, Footer, Row, Head, and Cell subcomponents; supports dynamic data rendering, colspan, and Tailwind styling.

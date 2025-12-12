@@ -1,0 +1,1 @@
+Step-by-step Astro project setup: create project, add Svelte/TailwindCSS, configure tsconfig path aliases, init shadcn-svelte with Slate theme and $lib aliases, add components with -y -o flags, use in .astro files with client directives.

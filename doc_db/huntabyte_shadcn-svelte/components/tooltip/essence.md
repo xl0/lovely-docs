@@ -1,0 +1,1 @@
+Tooltip component for hover/focus popups; install with `add tooltip -y -o`, wrap app in `Tooltip.Provider`, use `Root`/`Trigger`/`Content`; supports nested providers with custom `delayDuration`.

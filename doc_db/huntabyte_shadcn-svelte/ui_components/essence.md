@@ -1,1 +1,0 @@
-Complete UI component library for Svelte with 60+ composable, accessible, themeable components for forms, navigation, data display, and layouts.

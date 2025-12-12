@@ -1,1 +1,1 @@
-Release history: June 2025 Calendar overhaul; May 2025 Tailwind v4, Charts, custom registries; Feb 2024 deep icon imports for perf, Formsnap rewrite; Jan 2024 Carousel/Drawer/Sonner/Pagination; Oct 2023 Command/Combobox, Form.Label store syntax, Form.Control.
+Release history: June 2025 Calendar overhaul; May 2025 Tailwind v4, Charts, custom registries; Feb 2024 Resizable, deep icon imports, Formsnap rewrite ($ids store, Form.Control); Jan 2024 Carousel, Drawer, Sonner, Pagination; Dec 2023 Calendar/RangeCalendar/DatePicker; Nov 2023 ToggleGroup; Oct 2023 Command/Combobox.

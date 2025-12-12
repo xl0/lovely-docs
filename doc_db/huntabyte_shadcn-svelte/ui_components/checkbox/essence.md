@@ -1,1 +1,0 @@
-Toggle control with checked/disabled states, data-[state=checked] styling, onCheckedChange event, sveltekit-superforms integration.

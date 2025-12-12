@@ -1,1 +1,0 @@
-Embla-based carousel with sizing (basis classes), spacing (pl-/ml- utilities), vertical/horizontal orientation, configurable options, API access via setApi callback, and plugin support (Autoplay).

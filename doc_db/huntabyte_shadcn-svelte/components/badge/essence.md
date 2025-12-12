@@ -1,0 +1,1 @@
+Badge component with variants (default, secondary, destructive, outline); supports custom styling and badgeVariants helper for link badges.

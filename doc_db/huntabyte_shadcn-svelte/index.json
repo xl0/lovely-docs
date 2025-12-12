@@ -4,29 +4,29 @@
     "displayName": "",
     "relevant": true,
     "usage": {
-      "input": 13106,
-      "output": 2591,
+      "input": 15756,
+      "output": 3803,
       "details": null
     },
     "token_counts": {
-      "fulltext": 11602,
-      "digest": 2224,
-      "short_digest": 242
+      "fulltext": 14252,
+      "digest": 3536,
+      "short_digest": 141
     },
     "children": {
-      "ui_components": {
+      "components": {
         "origPath": "components",
-        "displayName": "UI Components",
+        "displayName": "Components",
         "relevant": true,
         "usage": {
-          "input": 68427,
-          "output": 2217,
+          "input": 78317,
+          "output": 3128,
           "details": null
         },
         "token_counts": {
-          "fulltext": 66221,
-          "digest": 1932,
-          "short_digest": 168
+          "fulltext": 76111,
+          "digest": 2560,
+          "short_digest": 454
         },
         "children": {
           "accordion": {
@@ -34,14 +34,14 @@
             "displayName": "accordion",
             "relevant": true,
             "usage": {
-              "input": 2140,
-              "output": 785,
+              "input": 2192,
+              "output": 772,
               "details": null
             },
             "token_counts": {
               "fulltext": 806,
-              "digest": 457,
-              "short_digest": 203
+              "digest": 455,
+              "short_digest": 198
             },
             "children": {}
           },
@@ -50,14 +50,14 @@
             "displayName": "alert-dialog",
             "relevant": true,
             "usage": {
-              "input": 1936,
-              "output": 748,
+              "input": 1988,
+              "output": 760,
               "details": null
             },
             "token_counts": {
               "fulltext": 600,
-              "digest": 447,
-              "short_digest": 184
+              "digest": 443,
+              "short_digest": 201
             },
             "children": {}
           },
@@ -66,14 +66,14 @@
             "displayName": "alert",
             "relevant": true,
             "usage": {
-              "input": 2396,
-              "output": 1036,
+              "input": 2448,
+              "output": 853,
               "details": null
             },
             "token_counts": {
               "fulltext": 1062,
-              "digest": 604,
-              "short_digest": 323
+              "digest": 475,
+              "short_digest": 270
             },
             "children": {}
           },
@@ -82,14 +82,14 @@
             "displayName": "aspect-ratio",
             "relevant": true,
             "usage": {
-              "input": 1731,
-              "output": 493,
+              "input": 1783,
+              "output": 608,
               "details": null
             },
             "token_counts": {
               "fulltext": 395,
-              "digest": 236,
-              "short_digest": 124
+              "digest": 314,
+              "short_digest": 177
             },
             "children": {}
           },
@@ -98,14 +98,14 @@
             "displayName": "avatar",
             "relevant": true,
             "usage": {
-              "input": 1985,
-              "output": 703,
+              "input": 2037,
+              "output": 926,
               "details": null
             },
             "token_counts": {
               "fulltext": 651,
-              "digest": 526,
-              "short_digest": 62
+              "digest": 538,
+              "short_digest": 278
             },
             "children": {}
           },
@@ -114,14 +114,14 @@
             "displayName": "badge",
             "relevant": true,
             "usage": {
-              "input": 1913,
-              "output": 744,
+              "input": 1965,
+              "output": 763,
               "details": null
             },
             "token_counts": {
               "fulltext": 579,
-              "digest": 448,
-              "short_digest": 178
+              "digest": 436,
+              "short_digest": 211
             },
             "children": {}
           },
@@ -130,14 +130,14 @@
             "displayName": "breadcrumb",
             "relevant": true,
             "usage": {
-              "input": 4664,
-              "output": 2283,
+              "input": 4716,
+              "output": 2641,
               "details": null
             },
             "token_counts": {
               "fulltext": 3328,
-              "digest": 1728,
-              "short_digest": 416
+              "digest": 1977,
+              "short_digest": 541
             },
             "children": {}
           },
@@ -146,14 +146,14 @@
             "displayName": "button-group",
             "relevant": true,
             "usage": {
-              "input": 6230,
-              "output": 2140,
+              "input": 6282,
+              "output": 2475,
               "details": null
             },
             "token_counts": {
               "fulltext": 4894,
-              "digest": 1765,
-              "short_digest": 253
+              "digest": 1916,
+              "short_digest": 430
             },
             "children": {}
           },
@@ -162,14 +162,14 @@
             "displayName": "button",
             "relevant": true,
             "usage": {
-              "input": 2326,
-              "output": 907,
+              "input": 2401,
+              "output": 955,
               "details": null
             },
             "token_counts": {
-              "fulltext": 992,
-              "digest": 482,
-              "short_digest": 308
+              "fulltext": 1015,
+              "digest": 567,
+              "short_digest": 267
             },
             "children": {}
           },
@@ -178,14 +178,14 @@
             "displayName": "calendar",
             "relevant": true,
             "usage": {
-              "input": 4637,
-              "output": 1141,
+              "input": 4689,
+              "output": 2788,
               "details": null
             },
             "token_counts": {
               "fulltext": 3303,
-              "digest": 836,
-              "short_digest": 185
+              "digest": 2208,
+              "short_digest": 467
             },
             "children": {}
           },
@@ -194,14 +194,14 @@
             "displayName": "card",
             "relevant": true,
             "usage": {
-              "input": 2486,
-              "output": 1329,
+              "input": 2538,
+              "output": 1143,
               "details": null
             },
             "token_counts": {
               "fulltext": 1152,
-              "digest": 767,
-              "short_digest": 445
+              "digest": 773,
+              "short_digest": 241
             },
             "children": {}
           },
@@ -210,14 +210,14 @@
             "displayName": "carousel",
             "relevant": true,
             "usage": {
-              "input": 4863,
-              "output": 1406,
+              "input": 4915,
+              "output": 2441,
               "details": null
             },
             "token_counts": {
               "fulltext": 3529,
-              "digest": 1123,
-              "short_digest": 150
+              "digest": 1693,
+              "short_digest": 626
             },
             "children": {}
           },
@@ -226,14 +226,14 @@
             "displayName": "chart",
             "relevant": true,
             "usage": {
-              "input": 9213,
-              "output": 1990,
+              "input": 9267,
+              "output": 2625,
               "details": null
             },
             "token_counts": {
-              "fulltext": 7879,
-              "digest": 1339,
-              "short_digest": 525
+              "fulltext": 7881,
+              "digest": 1790,
+              "short_digest": 724
             },
             "children": {}
           },
@@ -242,14 +242,14 @@
             "displayName": "checkbox",
             "relevant": true,
             "usage": {
-              "input": 2927,
-              "output": 1563,
+              "input": 2979,
+              "output": 1726,
               "details": null
             },
             "token_counts": {
               "fulltext": 1593,
-              "digest": 1037,
-              "short_digest": 407
+              "digest": 1147,
+              "short_digest": 467
             },
             "children": {}
           },
@@ -258,14 +258,14 @@
             "displayName": "collapsible",
             "relevant": true,
             "usage": {
-              "input": 2013,
-              "output": 950,
+              "input": 2065,
+              "output": 940,
               "details": null
             },
             "token_counts": {
               "fulltext": 677,
-              "digest": 658,
-              "short_digest": 181
+              "digest": 643,
+              "short_digest": 182
             },
             "children": {}
           },
@@ -274,14 +274,14 @@
             "displayName": "combobox",
             "relevant": true,
             "usage": {
-              "input": 7295,
-              "output": 5075,
+              "input": 7347,
+              "output": 4992,
               "details": null
             },
             "token_counts": {
               "fulltext": 5959,
-              "digest": 4141,
-              "short_digest": 797
+              "digest": 3956,
+              "short_digest": 918
             },
             "children": {}
           },
@@ -290,14 +290,14 @@
             "displayName": "command",
             "relevant": true,
             "usage": {
-              "input": 3308,
-              "output": 1544,
+              "input": 3360,
+              "output": 1633,
               "details": null
             },
             "token_counts": {
               "fulltext": 1974,
-              "digest": 965,
-              "short_digest": 451
+              "digest": 1052,
+              "short_digest": 469
             },
             "children": {}
           },
@@ -306,14 +306,14 @@
             "displayName": "context-menu",
             "relevant": true,
             "usage": {
-              "input": 2349,
-              "output": 1642,
+              "input": 2401,
+              "output": 1564,
               "details": null
             },
             "token_counts": {
               "fulltext": 1013,
-              "digest": 1188,
-              "short_digest": 337
+              "digest": 979,
+              "short_digest": 469
             },
             "children": {}
           },
@@ -322,14 +322,14 @@
             "displayName": "data-table",
             "relevant": true,
             "usage": {
-              "input": 12350,
-              "output": 4741,
+              "input": 12402,
+              "output": 8506,
               "details": null
             },
             "token_counts": {
               "fulltext": 11014,
-              "digest": 3576,
-              "short_digest": 1033
+              "digest": 6264,
+              "short_digest": 2120
             },
             "children": {}
           },
@@ -338,14 +338,14 @@
             "displayName": "date-picker",
             "relevant": true,
             "usage": {
-              "input": 4890,
-              "output": 2732,
+              "input": 4968,
+              "output": 3098,
               "details": null
             },
             "token_counts": {
-              "fulltext": 3554,
-              "digest": 2247,
-              "short_digest": 362
+              "fulltext": 3580,
+              "digest": 2363,
+              "short_digest": 617
             },
             "children": {}
           },
@@ -354,14 +354,14 @@
             "displayName": "dialog",
             "relevant": true,
             "usage": {
-              "input": 2031,
-              "output": 929,
+              "input": 2083,
+              "output": 885,
               "details": null
             },
             "token_counts": {
               "fulltext": 697,
-              "digest": 733,
-              "short_digest": 73
+              "digest": 580,
+              "short_digest": 193
             },
             "children": {}
           },
@@ -370,14 +370,14 @@
             "displayName": "drawer",
             "relevant": true,
             "usage": {
-              "input": 3758,
-              "output": 2549,
+              "input": 3810,
+              "output": 2687,
               "details": null
             },
             "token_counts": {
               "fulltext": 2424,
-              "digest": 2145,
-              "short_digest": 268
+              "digest": 2291,
+              "short_digest": 261
             },
             "children": {}
           },
@@ -386,14 +386,14 @@
             "displayName": "dropdown-menu",
             "relevant": true,
             "usage": {
-              "input": 3285,
-              "output": 1515,
+              "input": 3337,
+              "output": 1834,
               "details": null
             },
             "token_counts": {
               "fulltext": 1949,
-              "digest": 1293,
-              "short_digest": 91
+              "digest": 1140,
+              "short_digest": 583
             },
             "children": {}
           },
@@ -402,30 +402,30 @@
             "displayName": "empty",
             "relevant": true,
             "usage": {
-              "input": 3527,
-              "output": 1284,
+              "input": 3579,
+              "output": 1693,
               "details": null
             },
             "token_counts": {
               "fulltext": 2193,
-              "digest": 799,
-              "short_digest": 363
+              "digest": 1220,
+              "short_digest": 356
             },
             "children": {}
           },
           "field": {
             "origPath": "components/field.md",
-            "displayName": "field",
+            "displayName": "Field",
             "relevant": true,
             "usage": {
-              "input": 7737,
-              "output": 3479,
+              "input": 7789,
+              "output": 4842,
               "details": null
             },
             "token_counts": {
               "fulltext": 6403,
-              "digest": 2420,
-              "short_digest": 940
+              "digest": 3815,
+              "short_digest": 914
             },
             "children": {}
           },
@@ -434,14 +434,14 @@
             "displayName": "form",
             "relevant": true,
             "usage": {
-              "input": 3892,
-              "output": 2236,
+              "input": 3945,
+              "output": 2412,
               "details": null
             },
             "token_counts": {
-              "fulltext": 2558,
-              "digest": 1615,
-              "short_digest": 451
+              "fulltext": 2559,
+              "digest": 1581,
+              "short_digest": 713
             },
             "children": {}
           },
@@ -450,14 +450,14 @@
             "displayName": "hover-card",
             "relevant": true,
             "usage": {
-              "input": 2013,
-              "output": 1017,
+              "input": 2065,
+              "output": 847,
               "details": null
             },
             "token_counts": {
               "fulltext": 677,
-              "digest": 698,
-              "short_digest": 189
+              "digest": 571,
+              "short_digest": 163
             },
             "children": {}
           },
@@ -466,14 +466,14 @@
             "displayName": "input-group",
             "relevant": true,
             "usage": {
-              "input": 7696,
-              "output": 4422,
+              "input": 7748,
+              "output": 5457,
               "details": null
             },
             "token_counts": {
               "fulltext": 6360,
-              "digest": 3226,
-              "short_digest": 1073
+              "digest": 3894,
+              "short_digest": 1424
             },
             "children": {}
           },
@@ -482,14 +482,14 @@
             "displayName": "input-otp",
             "relevant": true,
             "usage": {
-              "input": 3488,
-              "output": 1747,
+              "input": 3540,
+              "output": 1737,
               "details": null
             },
             "token_counts": {
               "fulltext": 2151,
-              "digest": 1373,
-              "short_digest": 260
+              "digest": 1274,
+              "short_digest": 349
             },
             "children": {}
           },
@@ -498,30 +498,30 @@
             "displayName": "input",
             "relevant": true,
             "usage": {
-              "input": 2677,
-              "output": 1842,
+              "input": 2729,
+              "output": 1886,
               "details": null
             },
             "token_counts": {
               "fulltext": 1343,
-              "digest": 1006,
-              "short_digest": 717
+              "digest": 1053,
+              "short_digest": 712
             },
             "children": {}
           },
           "item": {
             "origPath": "components/item.md",
-            "displayName": "item",
+            "displayName": "Item",
             "relevant": true,
             "usage": {
-              "input": 6378,
-              "output": 2420,
+              "input": 6430,
+              "output": 3369,
               "details": null
             },
             "token_counts": {
               "fulltext": 5044,
-              "digest": 2217,
-              "short_digest": 91
+              "digest": 2720,
+              "short_digest": 506
             },
             "children": {}
           },
@@ -530,14 +530,14 @@
             "displayName": "kbd",
             "relevant": true,
             "usage": {
-              "input": 2686,
-              "output": 692,
+              "input": 2738,
+              "output": 959,
               "details": null
             },
             "token_counts": {
               "fulltext": 1352,
-              "digest": 446,
-              "short_digest": 135
+              "digest": 702,
+              "short_digest": 134
             },
             "children": {}
           },
@@ -546,14 +546,14 @@
             "displayName": "label",
             "relevant": true,
             "usage": {
-              "input": 1621,
-              "output": 373,
+              "input": 1673,
+              "output": 420,
               "details": null
             },
             "token_counts": {
               "fulltext": 287,
-              "digest": 215,
-              "short_digest": 51
+              "digest": 212,
+              "short_digest": 103
             },
             "children": {}
           },
@@ -562,14 +562,14 @@
             "displayName": "menubar",
             "relevant": true,
             "usage": {
-              "input": 2983,
-              "output": 1519,
+              "input": 3035,
+              "output": 2397,
               "details": null
             },
             "token_counts": {
               "fulltext": 1648,
-              "digest": 948,
-              "short_digest": 433
+              "digest": 1547,
+              "short_digest": 715
             },
             "children": {}
           },
@@ -578,14 +578,14 @@
             "displayName": "native-select",
             "relevant": true,
             "usage": {
-              "input": 3562,
-              "output": 1261,
+              "input": 3614,
+              "output": 1462,
               "details": null
             },
             "token_counts": {
               "fulltext": 2226,
-              "digest": 1068,
-              "short_digest": 82
+              "digest": 1036,
+              "short_digest": 313
             },
             "children": {}
           },
@@ -594,14 +594,14 @@
             "displayName": "navigation-menu",
             "relevant": true,
             "usage": {
-              "input": 3762,
-              "output": 1429,
+              "input": 3814,
+              "output": 1107,
               "details": null
             },
             "token_counts": {
               "fulltext": 2426,
-              "digest": 972,
-              "short_digest": 343
+              "digest": 650,
+              "short_digest": 345
             },
             "children": {}
           },
@@ -610,14 +610,14 @@
             "displayName": "pagination",
             "relevant": true,
             "usage": {
-              "input": 2217,
-              "output": 1545,
+              "input": 2269,
+              "output": 1469,
               "details": null
             },
             "token_counts": {
               "fulltext": 883,
-              "digest": 1065,
-              "short_digest": 356
+              "digest": 1007,
+              "short_digest": 340
             },
             "children": {}
           },
@@ -626,14 +626,14 @@
             "displayName": "popover",
             "relevant": true,
             "usage": {
-              "input": 2105,
-              "output": 1035,
+              "input": 2157,
+              "output": 977,
               "details": null
             },
             "token_counts": {
               "fulltext": 770,
-              "digest": 741,
-              "short_digest": 183
+              "digest": 680,
+              "short_digest": 171
             },
             "children": {}
           },
@@ -642,14 +642,14 @@
             "displayName": "progress",
             "relevant": true,
             "usage": {
-              "input": 1630,
-              "output": 408,
+              "input": 1682,
+              "output": 454,
               "details": null
             },
             "token_counts": {
               "fulltext": 296,
-              "digest": 244,
-              "short_digest": 57
+              "digest": 240,
+              "short_digest": 106
             },
             "children": {}
           },
@@ -658,14 +658,14 @@
             "displayName": "radio-group",
             "relevant": true,
             "usage": {
-              "input": 2644,
-              "output": 1291,
+              "input": 2696,
+              "output": 1471,
               "details": null
             },
             "token_counts": {
               "fulltext": 1308,
-              "digest": 1072,
-              "short_digest": 85
+              "digest": 1088,
+              "short_digest": 272
             },
             "children": {}
           },
@@ -674,14 +674,14 @@
             "displayName": "range-calendar",
             "relevant": true,
             "usage": {
-              "input": 1731,
-              "output": 472,
+              "input": 1783,
+              "output": 528,
               "details": null
             },
             "token_counts": {
               "fulltext": 395,
-              "digest": 268,
-              "short_digest": 86
+              "digest": 248,
+              "short_digest": 172
             },
             "children": {}
           },
@@ -690,14 +690,14 @@
             "displayName": "resizable",
             "relevant": true,
             "usage": {
-              "input": 2740,
-              "output": 996,
+              "input": 2792,
+              "output": 982,
               "details": null
             },
             "token_counts": {
               "fulltext": 1405,
-              "digest": 818,
-              "short_digest": 64
+              "digest": 663,
+              "short_digest": 206
             },
             "children": {}
           },
@@ -706,14 +706,14 @@
             "displayName": "scroll-area",
             "relevant": true,
             "usage": {
-              "input": 2665,
-              "output": 614,
+              "input": 2717,
+              "output": 1122,
               "details": null
             },
             "token_counts": {
               "fulltext": 1329,
-              "digest": 429,
-              "short_digest": 76
+              "digest": 769,
+              "short_digest": 240
             },
             "children": {}
           },
@@ -722,14 +722,14 @@
             "displayName": "select",
             "relevant": true,
             "usage": {
-              "input": 2576,
-              "output": 1840,
+              "input": 2628,
+              "output": 2027,
               "details": null
             },
             "token_counts": {
               "fulltext": 1242,
-              "digest": 1300,
-              "short_digest": 433
+              "digest": 1444,
+              "short_digest": 464
             },
             "children": {}
           },
@@ -738,14 +738,14 @@
             "displayName": "separator",
             "relevant": true,
             "usage": {
-              "input": 1716,
-              "output": 478,
+              "input": 1768,
+              "output": 556,
               "details": null
             },
             "token_counts": {
               "fulltext": 382,
-              "digest": 318,
-              "short_digest": 52
+              "digest": 327,
+              "short_digest": 117
             },
             "children": {}
           },
@@ -754,14 +754,14 @@
             "displayName": "sheet",
             "relevant": true,
             "usage": {
-              "input": 2209,
-              "output": 867,
+              "input": 2261,
+              "output": 1278,
               "details": null
             },
             "token_counts": {
               "fulltext": 875,
-              "digest": 559,
-              "short_digest": 194
+              "digest": 848,
+              "short_digest": 301
             },
             "children": {}
           },
@@ -770,14 +770,14 @@
             "displayName": "sidebar",
             "relevant": true,
             "usage": {
-              "input": 9165,
-              "output": 5086,
+              "input": 9219,
+              "output": 4891,
               "details": null
             },
             "token_counts": {
-              "fulltext": 7831,
-              "digest": 4134,
-              "short_digest": 785
+              "fulltext": 7833,
+              "digest": 3935,
+              "short_digest": 782
             },
             "children": {}
           },
@@ -786,14 +786,14 @@
             "displayName": "skeleton",
             "relevant": true,
             "usage": {
-              "input": 1614,
-              "output": 387,
+              "input": 1666,
+              "output": 473,
               "details": null
             },
             "token_counts": {
               "fulltext": 280,
-              "digest": 223,
-              "short_digest": 62
+              "digest": 249,
+              "short_digest": 114
             },
             "children": {}
           },
@@ -802,14 +802,14 @@
             "displayName": "slider",
             "relevant": true,
             "usage": {
-              "input": 1847,
-              "output": 616,
+              "input": 1899,
+              "output": 759,
               "details": null
             },
             "token_counts": {
               "fulltext": 513,
-              "digest": 388,
-              "short_digest": 122
+              "digest": 452,
+              "short_digest": 198
             },
             "children": {}
           },
@@ -818,14 +818,14 @@
             "displayName": "sonner",
             "relevant": true,
             "usage": {
-              "input": 2019,
-              "output": 646,
+              "input": 2071,
+              "output": 610,
               "details": null
             },
             "token_counts": {
               "fulltext": 684,
-              "digest": 451,
-              "short_digest": 77
+              "digest": 415,
+              "short_digest": 84
             },
             "children": {}
           },
@@ -834,14 +834,14 @@
             "displayName": "spinner",
             "relevant": true,
             "usage": {
-              "input": 3290,
-              "output": 1504,
+              "input": 3342,
+              "output": 1161,
               "details": null
             },
             "token_counts": {
               "fulltext": 1956,
-              "digest": 1170,
-              "short_digest": 203
+              "digest": 830,
+              "short_digest": 211
             },
             "children": {}
           },
@@ -850,14 +850,14 @@
             "displayName": "switch",
             "relevant": true,
             "usage": {
-              "input": 2342,
-              "output": 1103,
+              "input": 2394,
+              "output": 1312,
               "details": null
             },
             "token_counts": {
               "fulltext": 1008,
-              "digest": 908,
-              "short_digest": 81
+              "digest": 958,
+              "short_digest": 245
             },
             "children": {}
           },
@@ -866,14 +866,14 @@
             "displayName": "table",
             "relevant": true,
             "usage": {
-              "input": 2357,
-              "output": 973,
+              "input": 2409,
+              "output": 1745,
               "details": null
             },
             "token_counts": {
               "fulltext": 1023,
-              "digest": 541,
-              "short_digest": 315
+              "digest": 1106,
+              "short_digest": 514
             },
             "children": {}
           },
@@ -882,14 +882,14 @@
             "displayName": "tabs",
             "relevant": true,
             "usage": {
-              "input": 2341,
-              "output": 1250,
+              "input": 2393,
+              "output": 1125,
               "details": null
             },
             "token_counts": {
               "fulltext": 1007,
-              "digest": 865,
-              "short_digest": 258
+              "digest": 761,
+              "short_digest": 252
             },
             "children": {}
           },
@@ -898,14 +898,14 @@
             "displayName": "textarea",
             "relevant": true,
             "usage": {
-              "input": 2510,
-              "output": 1525,
+              "input": 2562,
+              "output": 1549,
               "details": null
             },
             "token_counts": {
               "fulltext": 1176,
-              "digest": 847,
-              "short_digest": 561
+              "digest": 957,
+              "short_digest": 483
             },
             "children": {}
           },
@@ -914,14 +914,14 @@
             "displayName": "toggle-group",
             "relevant": true,
             "usage": {
-              "input": 3461,
-              "output": 926,
+              "input": 3513,
+              "output": 1524,
               "details": null
             },
             "token_counts": {
               "fulltext": 2125,
-              "digest": 658,
-              "short_digest": 153
+              "digest": 1029,
+              "short_digest": 384
             },
             "children": {}
           },
@@ -930,14 +930,14 @@
             "displayName": "toggle",
             "relevant": true,
             "usage": {
-              "input": 2140,
-              "output": 711,
+              "input": 2192,
+              "output": 878,
               "details": null
             },
             "token_counts": {
               "fulltext": 806,
-              "digest": 480,
-              "short_digest": 114
+              "digest": 429,
+              "short_digest": 334
             },
             "children": {}
           },
@@ -946,14 +946,14 @@
             "displayName": "tooltip",
             "relevant": true,
             "usage": {
-              "input": 1735,
-              "output": 506,
+              "input": 1969,
+              "output": 748,
               "details": null
             },
             "token_counts": {
-              "fulltext": 401,
-              "digest": 286,
-              "short_digest": 112
+              "fulltext": 583,
+              "digest": 399,
+              "short_digest": 209
             },
             "children": {}
           },
@@ -962,14 +962,14 @@
             "displayName": "typography",
             "relevant": true,
             "usage": {
-              "input": 4467,
-              "output": 1205,
+              "input": 4519,
+              "output": 1684,
               "details": null
             },
             "token_counts": {
               "fulltext": 3133,
-              "digest": 878,
-              "short_digest": 200
+              "digest": 1253,
+              "short_digest": 294
             },
             "children": {}
           }
@@ -980,29 +980,29 @@
         "displayName": "Dark Mode",
         "relevant": true,
         "usage": {
-          "input": 3296,
-          "output": 1282,
+          "input": 3358,
+          "output": 1151,
           "details": null
         },
         "token_counts": {
-          "fulltext": 1943,
-          "digest": 1077,
+          "fulltext": 2005,
+          "digest": 966,
           "short_digest": 83
         },
         "children": {
-          "dark-mode-astro": {
+          "astro": {
             "origPath": "dark-mode/astro.md",
-            "displayName": "dark-mode-astro",
+            "displayName": "astro",
             "relevant": true,
             "usage": {
-              "input": 2846,
-              "output": 1311,
+              "input": 2892,
+              "output": 1684,
               "details": null
             },
             "token_counts": {
-              "fulltext": 1507,
-              "digest": 1088,
-              "short_digest": 88
+              "fulltext": 1501,
+              "digest": 1132,
+              "short_digest": 420
             },
             "children": {}
           },
@@ -1011,48 +1011,113 @@
             "displayName": "dark-mode",
             "relevant": true,
             "usage": {
-              "input": 2175,
-              "output": 940,
+              "input": 2227,
+              "output": 1122,
               "details": null
             },
             "token_counts": {
               "fulltext": 836,
-              "digest": 757,
-              "short_digest": 55
+              "digest": 786,
+              "short_digest": 217
             },
             "children": {}
           }
         }
       },
       "installation": {
-        "origPath": "installation.md",
-        "displayName": "installation",
+        "origPath": "installation",
+        "displayName": "Installation",
         "relevant": true,
         "usage": {
-          "input": 2101,
-          "output": 506,
+          "input": 5233,
+          "output": 1120,
           "details": null
         },
         "token_counts": {
-          "fulltext": 769,
-          "digest": 334,
-          "short_digest": 43
+          "fulltext": 3853,
+          "digest": 898,
+          "short_digest": 108
         },
-        "children": {}
+        "children": {
+          "astro-setup": {
+            "origPath": "installation/astro.md",
+            "displayName": "astro-setup",
+            "relevant": true,
+            "usage": {
+              "input": 2354,
+              "output": 770,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 967,
+              "digest": 473,
+              "short_digest": 142
+            },
+            "children": {}
+          },
+          "manual-setup": {
+            "origPath": "installation/manual.md",
+            "displayName": "manual-setup",
+            "relevant": true,
+            "usage": {
+              "input": 4036,
+              "output": 2626,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2650,
+              "digest": 2309,
+              "short_digest": 199
+            },
+            "children": {}
+          },
+          "sveltekit-setup": {
+            "origPath": "installation/sveltekit.md",
+            "displayName": "sveltekit-setup",
+            "relevant": true,
+            "usage": {
+              "input": 1932,
+              "output": 607,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 543,
+              "digest": 347,
+              "short_digest": 96
+            },
+            "children": {}
+          },
+          "vite_setup": {
+            "origPath": "installation/vite.md",
+            "displayName": "Vite Setup",
+            "relevant": true,
+            "usage": {
+              "input": 2198,
+              "output": 798,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 811,
+              "digest": 488,
+              "short_digest": 166
+            },
+            "children": {}
+          }
+        }
       },
       "migration_guides": {
         "origPath": "migration",
         "displayName": "Migration Guides",
         "relevant": true,
         "usage": {
-          "input": 4017,
-          "output": 2290,
+          "input": 5841,
+          "output": 3348,
           "details": null
         },
         "token_counts": {
-          "fulltext": 2666,
-          "digest": 1936,
-          "short_digest": 228
+          "fulltext": 4490,
+          "digest": 2967,
+          "short_digest": 255
         },
         "children": {
           "svelte-5-migration": {
@@ -1060,30 +1125,30 @@
             "displayName": "svelte-5-migration",
             "relevant": true,
             "usage": {
-              "input": 4029,
-              "output": 1786,
+              "input": 4083,
+              "output": 1954,
               "details": null
             },
             "token_counts": {
-              "fulltext": 2692,
-              "digest": 1326,
-              "short_digest": 236
+              "fulltext": 2694,
+              "digest": 1524,
+              "short_digest": 227
             },
             "children": {}
           },
-          "tailwind-v4": {
+          "tailwind_v4_migration": {
             "origPath": "migration/tailwind-v4.md",
-            "displayName": "tailwind-v4",
+            "displayName": "Tailwind v4 Migration",
             "relevant": true,
             "usage": {
-              "input": 7218,
-              "output": 1529,
+              "input": 7270,
+              "output": 3197,
               "details": null
             },
             "token_counts": {
               "fulltext": 5880,
-              "digest": 1129,
-              "short_digest": 247
+              "digest": 2747,
+              "short_digest": 269
             },
             "children": {}
           }
@@ -1094,14 +1159,14 @@
         "displayName": "Registry Schema & Setup",
         "relevant": true,
         "usage": {
-          "input": 7043,
-          "output": 2348,
+          "input": 7110,
+          "output": 1773,
           "details": null
         },
         "token_counts": {
-          "fulltext": 5647,
-          "digest": 2118,
-          "short_digest": 117
+          "fulltext": 5714,
+          "digest": 1469,
+          "short_digest": 191
         },
         "children": {
           "registry-examples": {
@@ -1109,14 +1174,14 @@
             "displayName": "registry-examples",
             "relevant": true,
             "usage": {
-              "input": 4353,
-              "output": 2322,
+              "input": 4405,
+              "output": 2818,
               "details": null
             },
             "token_counts": {
               "fulltext": 3019,
-              "digest": 2114,
-              "short_digest": 89
+              "digest": 2092,
+              "short_digest": 611
             },
             "children": {}
           },
@@ -1125,14 +1190,14 @@
             "displayName": "registry-faq",
             "relevant": true,
             "usage": {
-              "input": 2217,
-              "output": 892,
+              "input": 2269,
+              "output": 885,
               "details": null
             },
             "token_counts": {
               "fulltext": 882,
-              "digest": 702,
-              "short_digest": 77
+              "digest": 680,
+              "short_digest": 95
             },
             "children": {}
           },
@@ -1141,14 +1206,14 @@
             "displayName": "getting-started",
             "relevant": true,
             "usage": {
-              "input": 3020,
-              "output": 908,
+              "input": 3074,
+              "output": 1156,
               "details": null
             },
             "token_counts": {
-              "fulltext": 1684,
-              "digest": 657,
-              "short_digest": 124
+              "fulltext": 1686,
+              "digest": 808,
+              "short_digest": 214
             },
             "children": {}
           },
@@ -1157,30 +1222,30 @@
             "displayName": "registry-item.json Schema",
             "relevant": true,
             "usage": {
-              "input": 3812,
-              "output": 1706,
+              "input": 3864,
+              "output": 1782,
               "details": null
             },
             "token_counts": {
               "fulltext": 2474,
-              "digest": 1371,
-              "short_digest": 221
+              "digest": 1370,
+              "short_digest": 298
             },
             "children": {}
           },
-          "registry.json_schema": {
+          "registry.json": {
             "origPath": "registry/registry-json.md",
-            "displayName": "registry.json Schema",
+            "displayName": "registry.json",
             "relevant": true,
             "usage": {
-              "input": 2604,
-              "output": 964,
+              "input": 2656,
+              "output": 980,
               "details": null
             },
             "token_counts": {
               "fulltext": 1268,
-              "digest": 638,
-              "short_digest": 207
+              "digest": 609,
+              "short_digest": 259
             },
             "children": {}
           }
@@ -1191,14 +1256,14 @@
         "displayName": "about",
         "relevant": false,
         "usage": {
-          "input": 1775,
-          "output": 375,
+          "input": 1846,
+          "output": 409,
           "details": null
         },
         "token_counts": {
-          "fulltext": 443,
-          "digest": 175,
-          "short_digest": 67
+          "fulltext": 462,
+          "digest": 207,
+          "short_digest": 75
         },
         "children": {}
       },
@@ -1207,14 +1272,14 @@
         "displayName": "changelog",
         "relevant": true,
         "usage": {
-          "input": 5235,
-          "output": 1276,
+          "input": 5287,
+          "output": 1970,
           "details": null
         },
         "token_counts": {
           "fulltext": 3903,
-          "digest": 920,
-          "short_digest": 181
+          "digest": 1540,
+          "short_digest": 229
         },
         "children": {}
       },
@@ -1223,14 +1288,14 @@
         "displayName": "cli",
         "relevant": true,
         "usage": {
-          "input": 2453,
-          "output": 715,
+          "input": 2548,
+          "output": 883,
           "details": null
         },
         "token_counts": {
-          "fulltext": 1121,
-          "digest": 459,
-          "short_digest": 133
+          "fulltext": 1164,
+          "digest": 555,
+          "short_digest": 217
         },
         "children": {}
       },
@@ -1239,30 +1304,30 @@
         "displayName": "components.json",
         "relevant": true,
         "usage": {
-          "input": 2316,
-          "output": 789,
+          "input": 2368,
+          "output": 839,
           "details": null
         },
         "token_counts": {
           "fulltext": 982,
-          "digest": 539,
-          "short_digest": 133
+          "digest": 578,
+          "short_digest": 150
         },
         "children": {}
       },
-      "components": {
+      "components--md": {
         "origPath": "components.md",
         "displayName": "components",
         "relevant": false,
         "usage": {
-          "input": 2701,
-          "output": 411,
+          "input": 2753,
+          "output": 458,
           "details": null
         },
         "token_counts": {
           "fulltext": 1369,
-          "digest": 245,
-          "short_digest": 61
+          "digest": 295,
+          "short_digest": 51
         },
         "children": {}
       },
@@ -1271,14 +1336,14 @@
         "displayName": "dark-mode",
         "relevant": false,
         "usage": {
-          "input": 1404,
-          "output": 147,
+          "input": 1456,
+          "output": 155,
           "details": null
         },
         "token_counts": {
           "fulltext": 70,
-          "digest": 25,
-          "short_digest": 20
+          "digest": 34,
+          "short_digest": 21
         },
         "children": {}
       },
@@ -1298,35 +1363,51 @@
         },
         "children": {}
       },
+      "installation--md": {
+        "origPath": "installation.md",
+        "displayName": "installation",
+        "relevant": true,
+        "usage": {
+          "input": 2153,
+          "output": 555,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 769,
+          "digest": 315,
+          "short_digest": 127
+        },
+        "children": {}
+      },
       "javascript": {
         "origPath": "javascript.md",
         "displayName": "javascript",
         "relevant": true,
         "usage": {
-          "input": 1628,
-          "output": 371,
+          "input": 1682,
+          "output": 382,
           "details": null
         },
         "token_counts": {
-          "fulltext": 296,
-          "digest": 218,
-          "short_digest": 40
+          "fulltext": 298,
+          "digest": 233,
+          "short_digest": 41
         },
         "children": {}
       },
-      "legacy-docs": {
+      "legacy": {
         "origPath": "legacy.md",
-        "displayName": "legacy-docs",
+        "displayName": "legacy",
         "relevant": false,
         "usage": {
-          "input": 1464,
-          "output": 277,
+          "input": 1516,
+          "output": 262,
           "details": null
         },
         "token_counts": {
           "fulltext": 132,
-          "digest": 116,
-          "short_digest": 41
+          "digest": 106,
+          "short_digest": 56
         },
         "children": {}
       },
@@ -1335,13 +1416,13 @@
         "displayName": "migration",
         "relevant": false,
         "usage": {
-          "input": 1460,
-          "output": 204,
+          "input": 1512,
+          "output": 200,
           "details": null
         },
         "token_counts": {
           "fulltext": 128,
-          "digest": 60,
+          "digest": 57,
           "short_digest": 32
         },
         "children": {}
@@ -1351,14 +1432,14 @@
         "displayName": "registry",
         "relevant": true,
         "usage": {
-          "input": 1692,
-          "output": 356,
+          "input": 1744,
+          "output": 329,
           "details": null
         },
         "token_counts": {
           "fulltext": 360,
-          "digest": 161,
-          "short_digest": 71
+          "digest": 135,
+          "short_digest": 79
         },
         "children": {}
       },
@@ -1367,14 +1448,14 @@
         "displayName": "theming",
         "relevant": true,
         "usage": {
-          "input": 9673,
-          "output": 1266,
+          "input": 9739,
+          "output": 2116,
           "details": null
         },
         "token_counts": {
-          "fulltext": 8340,
-          "digest": 886,
-          "short_digest": 231
+          "fulltext": 8354,
+          "digest": 1611,
+          "short_digest": 366
         },
         "children": {}
       }
@@ -1395,9 +1476,9 @@
     "exclude": null,
     "doc_dir": "docs/.svelte-kit/cloudflare/docs",
     "repo": "https://github.com/huntabyte/shadcn-svelte",
-    "commit": "2c94bbbe096fcebb49282369b8a91a7e2e73eb75"
+    "commit": "489032016ddb6d312cacd5bf026505299fb3fcd4"
   },
-  "date": "2025-12-07T02:35:34.307670+00:00",
+  "date": "2025-12-12T06:54:22.326809+00:00",
   "model": "claude-haiku-4.5",
-  "commit": "89d7a82f10a43f14d4fd63c518b2eaed000cc5c9-dirty"
+  "commit": "3bd2f2220f4b1466f18f8434694a9d290943c3d4-dirty"
 }

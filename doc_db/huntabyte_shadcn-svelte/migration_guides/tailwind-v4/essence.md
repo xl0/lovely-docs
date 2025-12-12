@@ -1,1 +1,0 @@
-Migrate Tailwind v3→v4 + Svelte 5: run official upgrade, replace PostCSS with Vite, convert app.css to CSS variables + @theme inline, delete tailwind.config.ts, update deps, optionally refresh components for new dark colors.

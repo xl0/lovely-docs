@@ -1,1 +1,1 @@
-Install `mode-watcher`, add `ModeWatcher` component to root layout. Use `toggleMode()`, `setMode("light"|"dark")`, or `resetMode()` functions. Create toggle button or dropdown menu with light/dark/system options. For Astro, use inline script to prevent FUOC and persist theme to localStorage.
+Install `mode-watcher`, add `ModeWatcher` component to root layout. Use `toggleMode()`, `setMode("light"|"dark")`, or `resetMode()` for theme control. Create toggle buttons with sun/moon icons or dropdown menu. For Astro, use inline script to prevent FUOC and sync theme to localStorage.

@@ -1,0 +1,1 @@
+Astro dark mode via Tailwind's class strategy: inline script for FUOC prevention + localStorage sync, mode-watcher for toggling, custom toggle components with setMode/toggleMode/resetMode.

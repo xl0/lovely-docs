@@ -1,0 +1,1 @@
+Manual setup: Tailwind + dependencies + path aliases + CSS variables (light/dark theme) + utils helper + layout import + component installation

@@ -1,13 +1,16 @@
 ## Using JavaScript Instead of TypeScript
 
-The project is written in TypeScript, but JavaScript versions of components are available via the CLI.
+The project and components are written in TypeScript, but JavaScript versions are available via the CLI.
 
-**Disable TypeScript** in `components.json`:
+### Disable TypeScript
+
+Set `typescript: false` in `components.json`:
+
 ```json
 {
   "style": "default",
   "tailwind": {
-    "css": "src/app.css"
+    "css": "src/routes/layout.css"
   },
   "typescript": false,
   "aliases": {
@@ -20,7 +23,10 @@ The project is written in TypeScript, but JavaScript versions of components are 
 }
 ```
 
-**Configure import aliases** in `jsconfig.json`:
+### Configure Import Aliases
+
+Create `jsconfig.json` to set up path aliases:
+
 ```json
 {
   "compilerOptions": {

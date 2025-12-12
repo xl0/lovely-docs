@@ -1,1 +1,0 @@
-Toast component for Svelte. Install with `npx shadcn-svelte@latest add sonner -y -o`, add `<Toaster />` to root layout, then use `toast("message")` or `toast.success("message", { description, action })` from "svelte-sonner".

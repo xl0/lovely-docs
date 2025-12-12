@@ -1,1 +1,0 @@
-Radio button group component for single-selection from multiple options; install with -y -o flags; use RadioGroup.Root/Item with Label; integrates with sveltekit-superforms for form validation.

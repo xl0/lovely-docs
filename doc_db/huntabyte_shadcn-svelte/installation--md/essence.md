@@ -1,0 +1,1 @@
+Installation guides for multiple frameworks; components split into multiple files with barrel exports; VSCode and JetBrains IDE extensions available.

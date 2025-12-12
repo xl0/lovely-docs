@@ -1,1 +1,0 @@
-Navigation menu component with triggers, dropdowns, and links; supports grid layouts, icons, and Tailwind styling.

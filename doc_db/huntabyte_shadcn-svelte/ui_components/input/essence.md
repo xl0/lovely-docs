@@ -1,1 +1,0 @@
-Form input component supporting email, file, disabled, invalid states, labels, descriptions, buttons, and sveltekit-superforms validation integration.

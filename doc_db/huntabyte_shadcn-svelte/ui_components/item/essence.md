@@ -1,1 +1,0 @@
-Flex container for content display with variants, sizes, media types, grouping, and link/dropdown integration.

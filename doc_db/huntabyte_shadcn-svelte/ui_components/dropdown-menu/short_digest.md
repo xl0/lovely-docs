@@ -1,1 +1,0 @@
-Menu component triggered by button. Components: Root, Trigger, Content, Label, Group, Item, Shortcut, Separator, Sub/SubTrigger/SubContent, CheckboxItem, RadioGroup/RadioItem. Supports disabled items, nested submenus, and keyboard shortcuts. Install: `npx shadcn-svelte@latest add dropdown-menu -y -o`

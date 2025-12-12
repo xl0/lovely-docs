@@ -1,0 +1,1 @@
+Links to legacy docs for Svelte 5 + Tailwind v3 and Svelte 4 + Tailwind v3. Current docs are for Svelte 5 + Tailwind v4.

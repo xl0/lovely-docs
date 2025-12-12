@@ -1,1 +1,0 @@
-Two-state button component with variants (default/outline), sizes (sm/default/lg), disabled state, and icon/text support

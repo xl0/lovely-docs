@@ -1,1 +1,0 @@
-Resizable panel groups with keyboard support. Use `PaneGroup` with `direction` prop, nest `Pane` components with optional `defaultSize`, and separate with `Handle` (use `withHandle` prop to show visual indicator). Supports nested layouts.

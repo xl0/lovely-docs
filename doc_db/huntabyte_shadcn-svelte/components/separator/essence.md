@@ -1,0 +1,1 @@
+Separator component for visual/semantic content division; supports horizontal (default) and vertical orientations via `orientation` prop.

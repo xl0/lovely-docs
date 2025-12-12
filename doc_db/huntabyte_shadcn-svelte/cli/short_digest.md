@@ -1,7 +1,23 @@
-**init**: `npx shadcn-svelte@latest init` - configure project with base color, CSS file, and import aliases.
+# CLI
 
-**add**: `npx shadcn-svelte@latest add <component> -y -o` - add components with `-y` (skip prompt) and `-o` (overwrite).
+Initialize projects and manage components via command line.
 
-**registry build**: `npx shadcn-svelte@latest registry build [registry.json]` - generate registry JSON files to `static/r`.
+**init** — Set up project with dependencies and CSS variables:
+```bash
+npx shadcn-svelte@latest init
+```
+Options: `-c`, `-o`, `--no-deps`, `--skip-preflight`, `--base-color`, `--css`, `--*-alias`, `--proxy`
 
-**Proxy**: Set `HTTP_PROXY` environment variable for registry requests.
+**add** — Install components:
+```bash
+npx shadcn-svelte@latest add <component> -y -o
+```
+Options: `-a` (all), `--no-deps`, `--skip-preflight`, `--proxy`
+
+**registry build** — Generate registry JSON files:
+```bash
+npx shadcn-svelte@latest registry build [registry.json]
+```
+Options: `-c`, `-o` (output directory)
+
+**Proxy** — Set via `HTTP_PROXY` environment variable for all commands.

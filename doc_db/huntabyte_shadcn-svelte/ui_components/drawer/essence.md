@@ -1,1 +1,0 @@
-Slide-out panel component (Vaul Svelte-based) with Root/Trigger/Content/Header/Title/Description/Footer/Close subcomponents; supports responsive Dialog/Drawer switching via MediaQuery.

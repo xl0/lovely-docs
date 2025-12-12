@@ -1,1 +1,0 @@
-Separator component with horizontal/vertical orientation support; install via shadcn-svelte CLI.

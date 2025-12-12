@@ -1,6 +1,6 @@
-## Setting up a component registry
+## registry.json
 
-Create a `registry.json` file in your project root:
+Create a `registry.json` file in the root of your project:
 
 ```json
 {
@@ -11,9 +11,21 @@ Create a `registry.json` file in your project root:
 }
 ```
 
-### Add a component
+Must conform to the registry schema specification. Only required if using the shadcn-svelte CLI to build your registry.
 
-Create component file at `registry/hello-world/hello-world.svelte`:
+## Add a registry item
+
+### Create your component
+
+Place components in `registry/[NAME]/` directory structure:
+
+```
+registry/
+  hello-world/
+    hello-world.svelte
+```
+
+Example component:
 
 ```svelte
 <script lang="ts">
@@ -22,7 +34,14 @@ Create component file at `registry/hello-world/hello-world.svelte`:
 <Button>Hello World</Button>
 ```
 
-Add to `registry.json`:
+If placing in a custom directory, ensure Tailwind CSS can detect it:
+
+```css
+/* src/routes/layout.css */
+@source "./registry/@acmecorp/ui-lib";
+```
+
+### Add component to registry.json
 
 ```json
 {
@@ -43,43 +62,58 @@ Add to `registry.json`:
 }
 ```
 
-Each registry item requires: `name`, `type`, `title`, `description`, `files`. For each file, specify `path` (relative from project root) and `type`.
+Required properties: `name`, `type`, `title`, `description`, `files`. For each file, specify `path` (relative from project root) and `type`.
 
-If placing components in custom directories, ensure Tailwind CSS can detect them via `@source` in `src/app.css`:
+## Build your registry
 
-```css
-@source "./registry/@acmecorp/ui-lib";
+Install CLI:
+
+```bash
+npm i shadcn-svelte@latest
 ```
 
-### Build and serve
-
-Install CLI: `npm i shadcn-svelte@latest`
-
-Add to `package.json`:
+Add build script to `package.json`:
 
 ```json
 {
   "scripts": {
-    "registry:build": "shadcn-svelte registry build"
+    "registry:build": "npm shadcn-svelte registry build"
   }
 }
 ```
 
-Run: `npm run registry:build` (generates JSON files in `static/r/` by default, customizable with `--output`)
+Run build:
 
-Serve: `npm run dev` - registry available at `http://localhost:5173/r/[NAME].json`
+```bash
+npm run registry:build
+```
 
-### Publishing and authentication
+By default generates registry JSON files in `static/r/` (e.g., `static/r/hello-world.json`). Change output directory with `--output` option.
 
-Deploy to public URL to publish. For auth, use query parameter approach: `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Handle authorization on server, return 401 for invalid tokens. Encrypt and expire tokens.
+## Serve your registry
 
-### Install registry items
+```bash
+npm run dev
+```
 
-`npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json`
+Registry served at `http://localhost:5173/r/[NAME].json` (e.g., `http://localhost:5173/r/hello-world.json`).
 
-### Guidelines
+## Publish your registry
 
-- Required block properties: `name`, `description`, `type`, `files`
-- List all registry dependencies in `registryDependencies` (component names or URLs)
-- Organize files in `components`, `hooks`, `lib` directories
-- Use registry template at GitHub for new projects (already configured)
+Deploy project to a public URL to make registry available to other developers.
+
+## Adding Auth
+
+shadcn-svelte CLI does not offer built-in auth. Handle authorization on registry server. Common approach: use `token` query parameter, e.g., `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Return 401 Unauthorized for invalid tokens. Encrypt and expire tokens.
+
+## Guidelines
+
+- Required block definition properties: `name`, `description`, `type`, `files`
+- List all registry dependencies in `registryDependencies` (component names like `input`, `button`, or URLs to registry items)
+- Ideally place files in `components`, `hooks`, or `lib` directories within registry item
+
+## Install using CLI
+
+```bash
+npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json
+```

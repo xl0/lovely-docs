@@ -1,1 +1,0 @@
-Right-click context menu with items, checkboxes, radio groups, separators, nested submenus, and keyboard shortcuts.

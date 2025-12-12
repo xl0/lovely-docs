@@ -1,1 +1,0 @@
-Tooltip component: popup on hover/focus with Provider/Root/Trigger/Content structure

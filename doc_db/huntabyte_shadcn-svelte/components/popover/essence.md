@@ -1,0 +1,1 @@
+Portal popover component with Root, Trigger, and Content subcomponents; install with `npx shadcn-svelte@latest add popover -y -o`.

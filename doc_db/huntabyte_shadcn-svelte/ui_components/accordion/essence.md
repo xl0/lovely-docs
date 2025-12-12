@@ -1,1 +1,0 @@
-Accordion component with single/multiple expand modes, WAI-ARIA accessible, installed via `npx shadcn-svelte@latest add accordion -y -o`.

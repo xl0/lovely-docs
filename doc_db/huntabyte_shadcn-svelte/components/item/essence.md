@@ -1,0 +1,1 @@
+Flex container component for displaying content with title, description, and actions; supports variants (default/outline/muted), sizes (default/sm), media types (icon/image/avatar), grouping with separators, link rendering via child snippet, and dropdown integration.

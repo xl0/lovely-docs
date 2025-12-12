@@ -1,0 +1,1 @@
+Textarea component for multi-line text input with support for disabled state, labels, and form validation integration.

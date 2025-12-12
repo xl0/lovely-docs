@@ -1,1 +1,0 @@
-registry.json schema for custom component registries: defines name, homepage, items array, path aliases for import transformation, and dependency version overrides.

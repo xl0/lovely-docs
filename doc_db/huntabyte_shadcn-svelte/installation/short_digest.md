@@ -1,1 +1,1 @@
-Components split into multiple files with barrel exports. Import via `$lib/components/ui/<component>`. VSCode and JetBrains extensions available for component management.
+Setup guides for SvelteKit, Vite, manual, and Astro. Configure path aliases (`$lib`), TailwindCSS, CSS variables for theming (light/dark with oklch), and utils helper. Install with `npx shadcn-svelte@latest init` then add components via `npx shadcn-svelte@latest add <component> -y -o` (-y: skip prompt, -o: overwrite).

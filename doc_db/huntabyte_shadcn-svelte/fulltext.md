@@ -1,117 +1,154 @@
 
 ## Directories
 
-### ui_components
-Complete UI component library for Svelte with 60+ composable, accessible, themeable components for forms, navigation, data display, and layouts.
+### components
+60+ composable UI components with subcomponents, variants, sizes, and form integration via sveltekit-superforms.
 
-A comprehensive collection of 60+ reusable Svelte UI components built on Bits UI, Embla Carousel, LayerChart, and other libraries. Each component is installed via `npx shadcn-svelte@latest add <component> -y -o` (flags: -y skips confirmation, -o overwrites existing files).
+# Components
 
-**Core Components:**
-- **Accordion**: Vertically stacked expandable sections with single/multiple modes, WAI-ARIA accessible
-- **Alert/AlertDialog**: Callout notifications and modal dialogs with variants (default, destructive)
-- **Avatar**: Image with fallback text, composed of Root/Image/Fallback
-- **Badge**: Styled badges with variants (default, secondary, destructive, outline), icon support
-- **Breadcrumb**: Navigation path with Root/List/Item/Link/Page/Separator/Ellipsis, custom separators, dropdowns, responsive variants
-- **Button**: Reusable button with variants (default, secondary, destructive, outline, ghost, link), sizes, icon support, href for links
-- **ButtonGroup**: Groups related buttons with vertical/horizontal orientation, separators, nesting, composition with inputs/dropdowns/popovers
+Comprehensive collection of 60+ reusable UI components built on Bits UI, Embla Carousel, LayerChart, and other libraries. Each component is installable via CLI and composable with subcomponents.
 
-**Form Components:**
-- **Checkbox**: Toggle control with checked/disabled states, data-[state=checked] styling, form integration
-- **Input**: Text input with email/file/disabled/invalid states, labels, descriptions, validation
-- **InputGroup**: Input/textarea wrapper with configurable addons (icons, text, buttons, tooltips, dropdowns, loading indicators), inline/block alignment
-- **InputOTP**: Accessible OTP input with configurable length, pattern validation, separators, form integration
-- **Label**: Accessible label with for attribute linking to form control id
-- **RadioGroup**: Mutually exclusive selection with single-selection mode, form integration
-- **Select**: Dropdown with single selection, grouping, state binding, form integration
-- **Switch**: Toggle control with checked/disabled states, form integration
-- **Textarea**: Multi-line text input with disabled state, labels, validation
+## Installation Pattern
 
-**Layout & Structure:**
-- **Card**: Composable card with Root/Header/Title/Description/Action/Content/Footer
-- **Empty**: Empty state with Root/Header/Media/Title/Description/Content, icon/avatar variants, borders, gradients
-- **Field**: Composable form field with labels, descriptions, errors, vertical/horizontal/responsive orientations, choice cards
-- **Item**: Flex container for content with title/description/actions, variants (default, outline, muted), sizes, media types, grouping, link/dropdown integration
-- **Separator**: Visual divider with horizontal/vertical orientation
-- **Sidebar**: Composable sidebar with Provider/Root/Header/Content/Group/Menu/Footer/Trigger, left/right positioning, sidebar/floating/inset variants, offcanvas/icon/none collapse modes, useSidebar() hook, CSS variable theming
+All components install via:
+```bash
+npx shadcn-svelte@latest add <component> -y -o
+```
+Flags: `-y` skips confirmation, `-o` overwrites existing files.
 
-**Navigation & Menus:**
-- **Breadcrumb**: Navigation hierarchy with custom separators, dropdowns, ellipsis for collapsed state, responsive desktop/mobile variants
-- **DropdownMenu**: Menu triggered by button with items, checkboxes, radio groups, separators, nested submenus, keyboard shortcuts
-- **Menubar**: Desktop menubar with Root/Menu/Trigger/Content/Item/Shortcut/Separator/Sub/CheckboxItem/RadioGroup, nested submenus
-- **NavigationMenu**: Collection of navigation links with triggers, dropdowns, grid layouts, icons
-- **Pagination**: Page navigation with configurable page count, items per page, sibling count, prev/next buttons, ellipsis
+## Core Components
 
-**Overlays & Popovers:**
-- **Dialog**: Modal window with Root/Trigger/Content/Header/Title/Description/Footer
-- **Drawer**: Slide-out panel (Vaul-based) with Root/Trigger/Content/Header/Title/Description/Footer/Close, responsive Dialog/Drawer switching
-- **HoverCard**: Link preview on hover with Root/Trigger/Content
-- **Popover**: Rich content portal triggered by button with Root/Trigger/Content
-- **Sheet**: Dialog-based sheet with configurable side positioning (top/right/bottom/left), CSS-customizable sizing
-- **Tooltip**: Popup on hover/focus with Provider/Root/Trigger/Content
+**Accordion** - Vertically stacked interactive headings with single/multiple open items. Root/Item/Trigger/Content subcomponents. WAI-ARIA accessible.
 
-**Data Display:**
-- **Calendar**: Date selection with single/range modes, dropdown month/year selectors, popover integration, natural language parsing, 30+ block variants
-- **Chart**: Composable charts on LayerChart with data/config (labels/colors), CSS variable theming, customizable tooltips
-- **DataTable**: TanStack Table v8 integration with pagination, sorting, filtering, column visibility, row selection, cell formatting using Svelte 5 snippets
-- **Progress**: Progress bar with value and max props
-- **Skeleton**: Placeholder loader component, customize dimensions/shape via Tailwind classes
-- **Table**: Responsive table with Root/Caption/Header/Body/Footer/Row/Head/Cell, colspan support, custom styling
-- **Tabs**: Tabbed interface with Root/List/Trigger/Content, only one panel visible at a time
+**Alert** - Callout component with Root/Title/Description. Supports default and destructive variants.
 
-**Input Enhancements:**
-- **AspectRatio**: Maintains content at specified ratio (e.g., 16/9)
-- **Carousel**: Embla-based carousel with sizing (basis classes), spacing (pl-/ml- utilities), vertical/horizontal orientation, configurable options, API access via setApi callback, Autoplay plugin support
-- **DatePicker**: Date picker combining Popover + Calendar/RangeCalendar for single dates, ranges, presets, form integration with date constraints
-- **RangeCalendar**: Date range picker calendar with {start, end} value object binding
-- **Resizable**: Resizable panel groups with horizontal/vertical direction, defaultSize percentages, nested pane support, optional handle indicators
-- **ScrollArea**: Custom-styled scroll area with configurable orientation (vertical/horizontal/both)
-- **Slider**: Range input with single/multiple thumbs, configurable max/step/orientation
+**Alert Dialog** - Modal dialog interrupting user with important content. Root/Trigger/Content/Header/Title/Description/Footer/Cancel/Action subcomponents.
 
-**Specialized:**
-- **Command**: Unstyled command menu with Root/Input/List/Group/Item/Separator/Shortcut/Dialog variants, keyboard shortcuts, disabled items, automatic icon styling
-- **Combobox**: Searchable dropdown/autocomplete built from Popover + Command, $state/$derived for open/value, closeAndFocusTrigger() after selection, Form.Control for form integration
-- **ContextMenu**: Right-click context menu with items, checkboxes, radio groups, separators, nested submenus, keyboard shortcuts
-- **Collapsible**: Expandable/collapsible panel with Root/Trigger/Content
-- **Form**: Form components wrapping Formsnap & Superforms with Zod validation, ARIA attributes, composable field structure (Field/Control/Label/Description/FieldErrors)
-- **Kbd**: Keyboard input display, supports grouping and nesting in buttons/tooltips/input groups
-- **NativeSelect**: Styled native HTML select with option groups, disabled/invalid states, accessibility features
-- **Sonner**: Toast notifications with success/error variants, description, action callback
-- **Spinner**: Loading indicator, customize size/color with utility classes, works in buttons/badges/input groups/items/empty states
-- **Toggle**: Two-state button with variants (default, outline), sizes (sm/default/lg), disabled state, icon/text support
-- **ToggleGroup**: Toggle group with single/multiple selection modes, size variants, outline styling, disabled state support
-- **Typography**: Styling examples using Tailwind utilities for headings (h1-h4), paragraphs, blockquotes, code, lists, tables
+**Avatar** - Image element with fallback text. Root/Image/Fallback. Supports custom styling and grouped avatars with negative spacing.
 
-**Installation Pattern:**
-All components follow the same installation: `npx shadcn-svelte@latest add <component> -y -o`
+**Badge** - Small label component with variants (default, secondary, destructive, outline). Use `badgeVariants` helper to style links as badges.
 
-**Key Patterns:**
-- Composable subcomponents (Root/Trigger/Content/Item structure)
-- Svelte 5 snippets and $state/$derived reactivity
-- Tailwind CSS for styling
-- Form integration with sveltekit-superforms and Zod validation
-- Accessibility via ARIA attributes and semantic HTML
-- Keyboard navigation support
-- Dark mode support via CSS variables
-- Responsive design patterns
+**Breadcrumb** - Hierarchical navigation path. Root/List/Item/Link/Page/Separator/Ellipsis. Supports custom separators, dropdowns, ellipsis collapse, and responsive desktop/mobile variants via MediaQuery and Drawer/DropdownMenu composition.
+
+**Button** - Clickable action element with variants (primary, secondary, destructive, outline, ghost, link). Supports `href` prop for links, icons, and loading state via Spinner. Use `buttonVariants` helper to style elements as buttons.
+
+**Button Group** - Container grouping related buttons with consistent styling. Supports vertical orientation, separators, nesting. Composable with Input, Select, DropdownMenu, Popover, InputGroup.
+
+**Calendar** - Date selection component with single/range selection, dropdown month/year navigation, popover integration, natural language parsing support (chrono-node), and date constraints (minValue/maxValue).
+
+**Card** - Container with Root/Header/Title/Description/Action/Content/Footer subcomponents. Flexible layout for displaying grouped content.
+
+**Carousel** - Embla-based image carousel with sizing, spacing, vertical/horizontal orientation, options, API for state tracking, events, and plugin support (autoplay).
+
+**Chart** - LayerChart-based customizable charts with composition design, CSS variable theming, and tooltip support. Define data and config separately, build charts using LayerChart components directly.
+
+**Checkbox** - Toggle control with checked/disabled states, data-attribute styling, and sveltekit-superforms integration.
+
+**Collapsible** - Expandable/collapsible panel with Root/Trigger/Content subcomponents.
+
+**Combobox** - Searchable dropdown built from Popover + Command. Supports icons, form integration, keyboard navigation with refocus pattern. Example: status selector with icons, dropdown menu with combobox submenu, form integration with validation.
+
+**Command** - Fast, composable command menu with Root/Input/List/Empty/Group/Item/Separator/Shortcut/Dialog variants. Supports grouped items, shortcuts, disabled state, auto-styled icons.
+
+**Context Menu** - Right-click triggered menu with items, submenus, checkboxes, radio groups, separators, keyboard shortcuts.
+
+**Data Table** - TanStack Table v8 integration with pagination, sorting, filtering, column visibility, row selection. Custom cell rendering via `createRawSnippet`/`renderSnippet`. Row actions via `renderComponent`. Complete example with all features.
+
+**Date Picker** - Popover-based date picker combining Popover and Calendar/RangeCalendar. Supports single/range selection, presets via Select, dropdown month navigation, date constraints, form validation integration.
+
+**Dialog** - Modal overlay with Root/Trigger/Content/Header/Title/Description/Footer subcomponents.
+
+**Drawer** - Slide-out panel built on Vaul Svelte. Root/Trigger/Content/Header/Title/Description/Footer/Close. Responsive Dialog/Drawer switching via MediaQuery for desktop/mobile.
+
+**Dropdown Menu** - Menu triggered by button with items, groups, checkboxes, radio groups, submenus, shortcuts, disabled states.
+
+**Empty** - Empty state component with customizable media (icon/avatar), title, description, content sections. Supports outline/gradient styling and various content types (buttons, InputGroup, links).
+
+**Field** - Accessible form field wrapper supporting vertical/horizontal/responsive layouts with labels, descriptions, errors, semantic grouping. Examples: input fields, textarea, select, slider, checkbox group, radio group, switch, choice cards, field groups with separators, complex payment form.
+
+**Form** - Composable form components with Zod validation, ARIA attributes, Superforms integration. Field/Control/Label/Description/FieldErrors/Button/Fieldset/Legend subcomponents. Complete SPA and server-side examples.
+
+**Hover Card** - Preview content on hover for sighted users. Root/Trigger/Content. Trigger accepts link attributes (href, target, rel).
+
+**Input** - Form input field supporting email, file, disabled, invalid states, labels, helper text, buttons. Form validation with sveltekit-superforms.
+
+**Input Group** - Container for adding icons, text, buttons, tooltips, dropdowns, spinners to inputs/textareas. Root/Input/Textarea/Addon/Text/Button. Addon alignment: inline-end (default), block-start, block-end. Examples: icons, text prefixes/suffixes, buttons, tooltips, textarea with labels, dropdowns, button groups, custom inputs via data-slot attribute.
+
+**Input OTP** - Accessible one-time password component with configurable length, pattern validation (REGEXP_ONLY_DIGITS_AND_CHARS), separators, error states, form integration.
+
+**Item** - Flex container for displaying content with title, description, actions. Root/Header/Media/Content/Title/Description/Actions/Footer/Group/Separator. Variants: default, outline, muted. Sizes: default, sm. Media variants: icon, avatar, image. Supports grouping, links via child snippet, dropdown integration.
+
+**Kbd** - Keyboard input display. Root for single keys, Group for multiple keys. Examples: in buttons, tooltips, input groups.
+
+**Label** - Accessible label associated with form controls via `for` attribute.
+
+**Menubar** - Desktop menubar with menus, submenus, separators, shortcuts, checkboxes, radio buttons. Root/Menu/Trigger/Content/Item/Shortcut/Separator/Sub/SubTrigger/SubContent/CheckboxItem/RadioGroup/RadioItem.
+
+**Native Select** - Styled native HTML select with grouping, disabled states, validation, accessibility. Root/Option/OptGroup. Prefer over Select for native behavior and mobile optimization.
+
+**Navigation Menu** - Collection of links for navigating websites. Root/List/Item/Trigger/Content/Link. Supports custom layouts, icons, responsive grids. Use `navigationMenuTriggerStyle()` utility for trigger styling.
+
+**Pagination** - Paginated content navigation with configurable items-per-page, sibling count, previous/next buttons, ellipsis support. Root/Content/Item/PrevButton/NextButton/Link/Ellipsis. Responsive-friendly with snippet-based rendering.
+
+**Popover** - Portal popover triggered by button. Root/Trigger/Content. Displays rich content.
+
+**Progress** - Progress bar indicator with reactive value and max props.
+
+**Radio Group** - Set of radio buttons where only one can be checked. Root/Item. Form integration with sveltekit-superforms.
+
+**Range Calendar** - Date range picker built on Bits UI, uses @internationalized/date.
+
+**Resizable** - Accessible resizable panel groups with horizontal/vertical layouts, keyboard support, nested pane support via PaneForge. PaneGroup/Pane/Handle with direction, defaultSize, withHandle props.
+
+**Scroll Area** - Custom-styled scrollable container with vertical, horizontal, or bidirectional scrolling via `orientation` prop.
+
+**Select** - Dropdown selector with single selection, grouping, disabled items, form integration. Root/Trigger/Content/Group/Label/Item. Dynamic content with $derived for trigger text. Form validation with sveltekit-superforms.
+
+**Separator** - Visual/semantic content divider. Horizontal (default) or vertical via `orientation` prop.
+
+**Sheet** - Dialog-based overlay sliding from screen edges (top/right/bottom/left). Root/Trigger/Content/Header/Title/Description/Footer/Close. Customizable size via CSS classes on Content.
+
+**Sidebar** - Composable, themeable, customizable sidebar with Provider/Root/Header/Content/Footer/Trigger. Supports left/right, sidebar/floating/inset variants, offcanvas/icon/none collapse modes. useSidebar hook for state. Menu with Button/Action/Sub/Badge/Skeleton. Collapsible groups/menus via Collapsible. OKLch CSS variables for theming. Width customization via CSS variables or constants.
+
+**Skeleton** - Placeholder component for loading states. Styled with Tailwind classes for size, shape, spacing.
+
+**Slider** - Range input with single/multiple thumbs, horizontal/vertical orientation, configurable step and max value.
+
+**Sonner** - Toast notification component with success/error variants, descriptions, action buttons. Dark mode support via system preferences or theme prop. Add Toaster to root layout.
+
+**Spinner** - Loading state indicator. Customize size/color with utility classes or replace icon. Integrates with Button, Badge, InputGroup, Empty, Item components.
+
+**Switch** - Toggle control with form integration, disabled/readonly states, sveltekit-superforms support.
+
+**Table** - Responsive table with Root/Caption/Header/Body/Footer/Row/Head/Cell subcomponents. Supports dynamic data rendering, colspan, Tailwind styling.
+
+**Tabs** - Tabbed interface with Root/List/Trigger/Content subcomponents. Activate tabs by matching value props.
+
+**Textarea** - Multi-line text input with disabled state, labels, form validation integration.
+
+**Toggle** - Two-state button with outline/default variants, sm/default/lg sizes, disabled state, icon/text content support.
+
+**Toggle Group** - Set of two-state buttons with single/multiple selection modes, outline variant, sm/lg sizes, disabled state.
+
+**Tooltip** - Hover/focus popup. Root/Trigger/Content. Wrap app in Tooltip.Provider (once in root layout). Supports nested providers with custom `delayDuration`.
+
+**Typography** - Utility-based text styles for headings (h1-h4), paragraphs (standard, lead, large, small, muted), blockquotes, lists, tables, inline code using Tailwind classes.
+
 
 ### dark_mode
-Implement dark mode with mode-watcher package: install, add ModeWatcher component to layout, create toggle controls using toggleMode/setMode/resetMode functions.
+Dark mode setup using mode-watcher with toggle components and theme control functions
 
-## Dark Mode Implementation
+## Dark Mode Setup
 
-Implement dark mode using the `mode-watcher` package which manages theme state and persistence.
-
-### Setup
-
-Install the package:
+Install `mode-watcher`:
 ```bash
 npm i mode-watcher
 ```
 
-Add the `ModeWatcher` component to your root layout (`src/routes/+layout.svelte`):
+Add `ModeWatcher` component to your root layout to enable dark mode functionality:
 ```svelte
+// src/routes/+layout.svelte
 <script lang="ts">
-  import "../app.css";
   import { ModeWatcher } from "mode-watcher";
   let { children } = $props();
 </script>
@@ -119,9 +156,9 @@ Add the `ModeWatcher` component to your root layout (`src/routes/+layout.svelte`
 {@render children?.()}
 ```
 
-### Toggle Components
+## Mode Toggle Components
 
-Create a simple toggle button:
+**Simple button toggle:**
 ```svelte
 <script lang="ts">
   import SunIcon from "@lucide/svelte/icons/sun";
@@ -130,13 +167,13 @@ Create a simple toggle button:
   import { Button } from "$lib/components/ui/button/index.js";
 </script>
 <Button onclick={toggleMode} variant="outline" size="icon">
-  <SunIcon class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0" />
-  <MoonIcon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100" />
+  <SunIcon class="transition-all! h-[1.2rem] w-[1.2rem] rotate-0 scale-100 dark:-rotate-90 dark:scale-0" />
+  <MoonIcon class="transition-all! absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 dark:rotate-0 dark:scale-100" />
   <span class="sr-only">Toggle theme</span>
 </Button>
 ```
 
-Or a dropdown menu with light/dark/system options:
+**Dropdown menu with light/dark/system options:**
 ```svelte
 <script lang="ts">
   import { resetMode, setMode } from "mode-watcher";
@@ -145,8 +182,7 @@ Or a dropdown menu with light/dark/system options:
 </script>
 <DropdownMenu.Root>
   <DropdownMenu.Trigger class={buttonVariants({ variant: "outline", size: "icon" })}>
-    <SunIcon class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0" />
-    <MoonIcon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100" />
+    <!-- Sun/Moon icons -->
   </DropdownMenu.Trigger>
   <DropdownMenu.Content align="end">
     <DropdownMenu.Item onclick={() => setMode("light")}>Light</DropdownMenu.Item>
@@ -156,15 +192,16 @@ Or a dropdown menu with light/dark/system options:
 </DropdownMenu.Root>
 ```
 
-### API Functions
+## API Functions
 
-- `toggleMode()` - Toggle between light and dark modes
-- `setMode("light" | "dark")` - Set a specific mode
-- `resetMode()` - Use system preference
+- `toggleMode()` - Toggle between light and dark
+- `setMode("light" | "dark")` - Set explicit mode
+- `resetMode()` - Reset to system preference
 
-### Astro Integration
+## Astro Integration
 
-For Astro projects, use an inline script to prevent FUOC (Flash of Unstyled Content) and persist theme to localStorage:
+For Astro projects, use Tailwind's `class` strategy with an inline script to prevent FUOC (Flash of Unstyled Content):
+
 ```astro
 <script is:inline>
   const isBrowser = typeof localStorage !== 'undefined';
@@ -189,72 +226,132 @@ For Astro projects, use an inline script to prevent FUOC (Flash of Unstyled Cont
 </script>
 ```
 
-Then add `ModeWatcher` with `client:load` directive to your Astro layout.
+Add `ModeWatcher` with `client:load` directive in Astro layouts to enable theme toggling.
 
 ### installation
-Framework-specific installation and configuration guides for shadcn-svelte
+Step-by-step installation and configuration for different project types (SvelteKit, Vite, manual, Astro)
 
-## Installation Guides for shadcn-svelte
+## Installation guides for shadcn-svelte across different frameworks and setups
 
-Setup instructions for multiple frameworks and build tools.
-
-### SvelteKit
+### SvelteKit Setup
+Create project with TailwindCSS:
 ```bash
-npx sv create my-app
-npx sv add tailwindcss
+npx sv create my-app --add tailwindcss
 npx shadcn-svelte@latest init
 npx shadcn-svelte@latest add button -y -o
 ```
-Configure `svelte.config.js` with path aliases if needed. During init, set base color to Slate, global CSS to src/app.css, and import aliases to $lib, $lib/components, $lib/utils, $lib/hooks, $lib/components/ui.
+Configure path aliases in `svelte.config.js` if not using default `$lib`:
+```ts
+const config = {
+  kit: {
+    alias: {
+      "@/*": "./path/to/lib/*",
+    },
+  },
+};
+```
+Import components from `$lib/components/ui/`.
 
-### Vite
-Add Tailwind, configure TypeScript paths in `tsconfig.json` and `tsconfig.app.json` with `$lib` alias pointing to `./src/lib`, update `vite.config.ts` with path resolution alias, then run init and add components.
-
-### Astro
-Create Astro project with TypeScript (Strict), add Svelte and Tailwind integrations. Configure `tsconfig.json` with `$lib` path alias. Create `src/styles/app.css` with Tailwind directives and import in `src/pages/index.astro`. Run init with Slate theme and $lib aliases. Set `applyBaseStyles: false` in `astro.config.mjs` to prevent duplicate Tailwind base styles. Use client directives for interactive components.
-
-### Manual Setup
-Install dependencies: `tailwind-variants`, `clsx`, `tailwind-merge`, `tw-animate-css`, `@lucide/svelte`. Configure path aliases in `svelte.config.js` (SvelteKit) or `tsconfig.json`/`vite.config.ts` (non-SvelteKit). Create `src/app.css` with Tailwind imports and CSS variables for theming using oklch color format with dark mode overrides. Define `@theme inline` block mapping Tailwind theme values to CSS variables. Create `src/lib/utils.ts` with `cn()` utility combining clsx and tailwind-merge. Import styles in layout component.
-
-### Component Installation
-Add components with `npx shadcn-svelte@latest add <component> -y -o`:
-- `-y`: skip confirmation prompt
-- `-o`: overwrite existing files
-
-Import from `$lib/components/ui/<component>/index.js`.
-
-### migration_guides
-Step-by-step guides for upgrading Svelte 4→5 and Tailwind v3→v4, with config updates, dependency changes, and component migration instructions.
-
-## Svelte 4 to Svelte 5 Migration
-
-**Prerequisites**: Read Svelte v5 migration guide, commit changes, identify custom components, use `sv-migrate` CLI.
-
-**Update components.json**: Add `registry` field and aliases for `components`, `utils`, `ui`, `hooks`, `lib`:
+### Vite Setup
+Add TailwindCSS and configure TypeScript path aliases in `tsconfig.json` and `tsconfig.app.json`:
 ```json
 {
-  "$schema": "https://shadcn-svelte.com/schema.json",
-  "style": "default",
-  "tailwind": { "css": "src/app.css", "baseColor": "slate" },
-  "aliases": {
-    "components": "$lib/components",
-    "utils": "$lib/utils",
-    "ui": "$lib/components/ui",
-    "hooks": "$lib/hooks",
-    "lib": "$lib"
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"]
+    }
+  }
+}
+```
+Configure Vite in `vite.config.ts`:
+```ts
+import path from "path";
+export default defineConfig({
+  resolve: {
+    alias: {
+      $lib: path.resolve("./src/lib"),
+    },
   },
-  "typescript": true,
-  "registry": "https://shadcn-svelte.com/registry"
+});
+```
+Then run `npx shadcn-svelte@latest init` and add components.
+
+### Manual Setup
+Install dependencies: `npm i tailwind-variants clsx tailwind-merge tw-animate-css @lucide/svelte`
+
+Create `src/lib/utils.ts` with class merging utility:
+```ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
 ```
 
-**Update tailwind.config.js**: Install `tailwindcss-animate`, add sidebar colors and animations:
+Create `src/routes/layout.css` with Tailwind imports and CSS variables for light/dark theming using oklch color space. Define `--radius`, `--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--border`, `--input`, `--ring`, `--chart-1` through `--chart-5`, and sidebar-related variables. Include `.dark` class overrides for dark mode.
+
+Create `src/routes/+layout.svelte` to import global styles.
+
+### Astro Setup
+Create Astro project and add Svelte and TailwindCSS:
+```bash
+npm create astro@latest
+npx astro add svelte
+npx astro add tailwind
+```
+
+Configure path aliases in `tsconfig.json`:
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"]
+    }
+  }
+}
+```
+
+Run `npx shadcn-svelte@latest init` and configure with Slate theme and `$lib`-based aliases.
+
+Import global CSS in `src/pages/index.astro` and use components with client directives:
+```astro
+---
+import { Button } from "$lib/components/ui/button/index.js";
+import "../styles/global.css";
+---
+<Button>Hello World</Button>
+```
+
+### Common Configuration
+All setups use the same component installation command:
+```bash
+npx shadcn-svelte@latest add <component> -y -o
+```
+Where `-y` skips confirmation prompt and `-o` overwrites existing files.
+
+Default init configuration prompts for: base color (Slate), global CSS file location, and import aliases for lib, components, utils, hooks, and ui components.
+
+### migration_guides
+Step-by-step upgrade paths from Svelte 4→5 and Tailwind v3→v4 with configuration changes, dependency updates, and component migration commands.
+
+## Svelte 4→5 Migration
+
+Update `components.json` with registry and new aliases (`components`, `utils`, `ui`, `hooks`, `lib`).
+
+Install `tailwindcss-animate`:
 ```bash
 npm i tailwindcss-animate
 ```
+
+Update `tailwind.config.js` to include the plugin and sidebar color theme:
 ```ts
 import tailwindcssAnimate from "tailwindcss-animate";
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
@@ -287,56 +384,67 @@ const config = {
 };
 ```
 
-**Simplify utils.ts**: Export only `cn` function and utility types:
+Replace `utils.ts` with:
 ```ts
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
 export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
 export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, "children"> : T;
 export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };
 ```
 
-**Update dependencies**:
+Update dependencies:
 ```bash
-npm i bits-ui@latest svelte-sonner@latest @lucide/svelte@latest paneforge@next vaul-svelte@next mode-watcher@latest -D
+npm i bits-ui@latest svelte-sonner@latest @lucide/svelte@latest paneforge@next vaul-svelte@next mode-watcher@latest
 ```
 
-**Remove deprecated packages**: `cmdk-sv` (use Bits UI Command), `svelte-headless-table` (use @tanstack/table-core), `svelte-radix` (use @lucide/svelte), `lucide-svelte` (use @lucide/svelte).
+Deprecated packages replaced: `cmdk-sv` → Bits UI Command, `svelte-headless-table` → `@tanstack/table-core`, `svelte-radix`/`lucide-svelte` → `@lucide/svelte`.
 
-**Migrate components**: Optionally alias old bits-ui as `bits-ui-old` in package.json for gradual migration. Commit before migrating:
+Migrate components with:
 ```bash
-git add . && git commit -m 'before migration'
 npx shadcn-svelte@latest add <component> -y -o
 ```
-(`-y`: skip confirmation, `-o`: overwrite existing files). Review diffs and repeat for each component. After all migrations, uninstall deprecated packages.
+(`-y`: skip confirmation, `-o`: overwrite existing files)
 
-## Tailwind v4 and Svelte 5 Migration
+Remove old packages after migration:
+```bash
+npm uninstall cmdk-sv svelte-headless-table svelte-radix lucide-svelte
+```
 
-**Overview**: For existing Svelte 5 + Tailwind v3 projects. HSL colors convert to OKLCH (non-breaking). Default style changes from `default` to `new-york`. All components updated with `data-slot` attributes.
+## Tailwind v3→v4 + Svelte 5 Migration
 
-**Follow Tailwind v4 upgrade guide**: Run official upgrade and use `@tailwindcss/upgrade` codemod.
+Follow official Tailwind v4 upgrade guide first.
 
-**Replace PostCSS with Vite**:
+Replace PostCSS with Vite. Delete `postcss.config.js`:
 ```bash
 npm uninstall @tailwindcss/postcss
 npm i @tailwindcss/vite -D
 ```
+
 Update `vite.config.ts`:
 ```ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
+
 export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
 });
 ```
 
-**Update app.css**: Replace `tailwindcss-animate` with `tw-animate-css`:
+Replace `tailwindcss-animate` with `tw-animate-css`:
 ```bash
-npm uninstall tailwindcss-animate && npm i tw-animate-css -D
+npm uninstall tailwindcss-animate
+npm i tw-animate-css -D
 ```
+
+Update `app.css`:
 ```css
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -345,10 +453,62 @@ npm uninstall tailwindcss-animate && npm i tw-animate-css -D
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(240 10% 3.9%);
+  --muted: hsl(240 4.8% 95.9%);
+  --muted-foreground: hsl(240 3.8% 46.1%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(240 10% 3.9%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(240 10% 3.9%);
+  --border: hsl(240 5.9% 90%);
+  --input: hsl(240 5.9% 90%);
+  --primary: hsl(240 5.9% 10%);
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(240 4.8% 95.9%);
+  --secondary-foreground: hsl(240 5.9% 10%);
+  --accent: hsl(240 4.8% 95.9%);
+  --accent-foreground: hsl(240 5.9% 10%);
+  --destructive: hsl(0 72.2% 50.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --ring: hsl(240 10% 3.9%);
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
   --radius: 0.5rem;
 }
+
 .dark {
   --background: hsl(240 10% 3.9%);
+  --foreground: hsl(0 0% 98%);
+  --muted: hsl(240 3.7% 15.9%);
+  --muted-foreground: hsl(240 5% 64.9%);
+  --popover: hsl(240 10% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 10% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+  --border: hsl(240 3.7% 15.9%);
+  --input: hsl(240 3.7% 15.9%);
+  --primary: hsl(0 0% 98%);
+  --primary-foreground: hsl(240 5.9% 10%);
+  --secondary: hsl(240 3.7% 15.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --accent: hsl(240 3.7% 15.9%);
+  --accent-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --ring: hsl(240 4.9% 83.9%);
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 @theme inline {
@@ -358,136 +518,168 @@ npm uninstall tailwindcss-animate && npm i tw-animate-css -D
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 ```
 
-**Delete tailwind.config.ts** after verifying styles work.
+Remove `tailwind.config.ts` after verifying styles work.
 
-**Use new `size-*` utility**: Replace `w-* h-*` with `size-*` (e.g., `w-4 h-4` → `size-4`).
-
-**Update dependencies**:
+Update dependencies:
 ```bash
 npm i bits-ui@latest @lucide/svelte@latest tailwind-variants@latest tailwind-merge@latest clsx@latest svelte-sonner@latest paneforge@next vaul-svelte@next formsnap@latest
 ```
 
-**Update utils.ts** (optional): Add type helpers:
-```ts
-export type WithoutChild<T> = T extends { child?: any } ? Omit<T, "child"> : T;
-export type WithoutChildren<T> = T extends { children?: any } ? Omit<T, "children"> : T;
-export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
-export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & { ref?: U | null };
-```
+Update `utils.ts` to include type helpers (same as Svelte 5 migration above).
 
-**Update colors** (optional): Re-add components to get new dark mode colors:
+Optionally update all components with new colors:
 ```bash
-git add . && git commit -m '...'
 npm dlx shadcn-svelte@latest add --all --overwrite
 ```
-Then update dark mode colors in `app.css` to new OKLCH values.
+
+Replace `w-* h-*` with `size-*` utility.
 
 ### registry_schema_&_setup
-JSON schema specification and setup guide for creating custom component registries with reusable items, styles, and themes.
+JSON schema specification and setup guide for creating custom component registries with styles, themes, blocks, and CSS customizations.
 
-## Registry Item JSON Schema
+## Registry System
 
-Registry items define reusable components, styles, themes, and blocks for shadcn-svelte projects. Each item is a JSON object with metadata and file references.
+Complete specification for creating and publishing custom component registries in shadcn-svelte.
 
-### Core Properties
+### Registry Structure
 
-**name**: Unique identifier (e.g., "hello-world")
+Create `registry.json` at project root:
+```json
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry.json",
+  "name": "acme",
+  "homepage": "https://acme.com",
+  "items": [],
+  "aliases": {
+    "lib": "@/lib",
+    "ui": "@/lib/registry/ui",
+    "components": "@/lib/registry/components",
+    "utils": "@/lib/utils",
+    "hooks": "@/lib/registry/hooks"
+  },
+  "overrideDependencies": ["paneforge@next"]
+}
+```
 
-**type**: Item classification:
+Place components in `registry/[NAME]/` directory structure. Add to `registry.json` items array with required properties: `name`, `type`, `title`, `description`, `files`.
+
+### Registry Item Schema
+
+Registry items use JSON schema with core properties:
+
+**name** - Unique identifier (e.g., `"hello-world"`)
+
+**type** - Item type:
 - `registry:block` - Complex components with multiple files
-- `registry:component` - Simple single components
-- `registry:ui` - UI primitives
-- `registry:lib` - Libraries/utilities
+- `registry:component` - Simple components
+- `registry:ui` - UI components and primitives
+- `registry:lib` - Libraries and utilities
 - `registry:hook` - Hooks
 - `registry:page` - Routes
 - `registry:file` - Miscellaneous files
-- `registry:style` - Styles (e.g., "new-york")
+- `registry:style` - Styles (e.g., `new-york`)
 - `registry:theme` - Themes
 
-**title**, **description**: Human-readable metadata
-
-**files**: Array of file objects with `path` (registry location), `type`, and optional `target` (installation location):
+**files** - Array with `path` (relative from project root), `type`, and optional `target` (where to install):
 ```json
 {
   "files": [
-    {
-      "path": "registry/hello-world/page.svelte",
-      "type": "registry:page",
-      "target": "src/routes/hello/+page.svelte"
-    },
-    {
-      "path": "registry/hello-world/hello-world.svelte",
-      "type": "registry:component"
-    },
-    {
-      "path": "registry/hello-world/.env",
-      "type": "registry:file",
-      "target": ".env"
-    }
+    {"path": "registry/hello-world/hello-world.svelte", "type": "registry:component"},
+    {"path": "registry/hello-world/page.svelte", "type": "registry:page", "target": "src/routes/hello/+page.svelte"},
+    {"path": "registry/hello-world/config.ts", "type": "registry:file", "target": "~/config.ts"}
   ]
 }
 ```
 
-**dependencies**: npm packages (use `@version` for specific versions):
-```json
-{ "dependencies": ["bits-ui", "zod@3.0.0"] }
-```
+**dependencies** - npm packages: `["bits-ui", "zod", "name@1.0.2"]`
 
-**registryDependencies**: Other registry items (names, URLs, or local paths):
-```json
-{ "registryDependencies": ["button", "input", "https://example.com/r/custom.json"] }
-```
+**registryDependencies** - Other registry items: `["button", "input", "https://example.com/r/editor.json", "./stepper.json"]`
 
-**cssVars**: CSS variables organized by theme sections:
+**cssVars** - CSS variables by scope:
 ```json
 {
   "cssVars": {
-    "theme": { "font-heading": "Poppins, sans-serif" },
-    "light": { "brand": "20 14.3% 4.1%", "radius": "0.5rem" },
-    "dark": { "brand": "20 14.3% 4.1%" }
+    "theme": {"font-heading": "Poppins, sans-serif"},
+    "light": {"brand": "20 14.3% 4.1%", "radius": "0.5rem"},
+    "dark": {"brand": "20 14.3% 4.1%"}
   }
 }
 ```
 
-**css**: CSS rules added to project CSS file:
+**css** - Custom CSS rules:
 ```json
 {
   "css": {
-    "@layer base": { "h1": { "font-size": "var(--text-2xl)" } },
-    "@layer components": { "card": { "padding": "var(--spacing-6)" } },
-    "@utility content-auto": { "content-visibility": "auto" },
-    "@keyframes wiggle": { "0%, 100%": { "transform": "rotate(-3deg)" } }
+    "@layer base": {"h1": {"font-size": "var(--text-2xl)"}},
+    "@layer components": {"card": {"background-color": "var(--color-white)"}},
+    "@utility content-auto": {"content-visibility": "auto"},
+    "@keyframes wiggle": {"0%, 100%": {"transform": "rotate(-3deg)"}, "50%": {"transform": "rotate(3deg)"}}
   }
 }
 ```
 
-**docs**: Custom message shown during CLI installation
+**docs** - Custom installation message
 
-**categories**: Organize items by category (e.g., `["sidebar", "dashboard"]`)
+**categories** - Organization tags: `["sidebar", "dashboard"]`
 
-**meta**: Additional key/value metadata
+**meta** - Arbitrary metadata object
 
-### Style & Theme Examples
+### Registry Styles & Themes
 
-**Extending shadcn-svelte style:**
+**registry:style** - Extends shadcn-svelte or starts from scratch:
 ```json
 {
   "name": "example-style",
   "type": "registry:style",
-  "dependencies": ["phosphor-svelte"],
-  "registryDependencies": ["login-01", "calendar"],
+  "extends": "none",
+  "dependencies": ["tailwind-merge", "clsx"],
+  "registryDependencies": ["utils", "button"],
   "cssVars": {
-    "theme": { "font-sans": "Inter, sans-serif" },
-    "light": { "brand": "oklch(0.145 0 0)" },
-    "dark": { "brand": "oklch(0.145 0 0)" }
+    "theme": {"font-sans": "Inter, sans-serif"},
+    "light": {"main": "#88aaee", "bg": "#dfe5f2"},
+    "dark": {"main": "#88aaee", "bg": "#272933"}
   }
 }
 ```
 
-**Custom theme:**
+**registry:theme** - Define complete theme with light/dark variants:
 ```json
 {
   "name": "custom-theme",
@@ -496,7 +688,8 @@ Registry items define reusable components, styles, themes, and blocks for shadcn
     "light": {
       "background": "oklch(1 0 0)",
       "foreground": "oklch(0.141 0.005 285.823)",
-      "primary": "oklch(0.546 0.245 262.881)"
+      "primary": "oklch(0.546 0.245 262.881)",
+      "sidebar-primary": "oklch(0.546 0.245 262.881)"
     },
     "dark": {
       "background": "oklch(1 0 0)",
@@ -506,256 +699,224 @@ Registry items define reusable components, styles, themes, and blocks for shadcn
 }
 ```
 
-**Block with dependencies:**
-```json
-{
-  "name": "login-01",
-  "type": "registry:block",
-  "description": "A simple login form.",
-  "registryDependencies": ["button", "card", "input", "label"],
-  "files": [
-    {
-      "path": "blocks/login-01/page.svelte",
-      "type": "registry:page",
-      "target": "src/routes/login/+page.svelte"
-    },
-    {
-      "path": "blocks/login-01/components/login-form.svelte",
-      "type": "registry:component"
-    }
-  ]
-}
-```
+### Building & Publishing
 
-## registry.json Schema
+Install CLI: `npm i shadcn-svelte@latest`
 
-Root registry configuration file defining the registry itself.
+Add to `package.json`: `"registry:build": "shadcn-svelte registry build"`
 
-**$schema**: `https://shadcn-svelte.com/schema/registry.json`
+Run: `npm run registry:build` - generates JSON files in `static/r/` (e.g., `static/r/hello-world.json`)
 
-**name**: Registry identifier (used in data attributes)
+Serve locally: `npm run dev` - registry at `http://localhost:5173/r/[NAME].json`
 
-**homepage**: Registry URL
+Deploy to public URL to make available to other developers.
 
-**items**: Array of registry items (each follows registry-item schema)
+### Authentication
 
-**aliases**: Maps internal import paths to actual locations. Transformed during installation based on user's `components.json`:
-```json
-{
-  "aliases": {
-    "lib": "@/lib",
-    "ui": "@/lib/registry/ui",
-    "components": "@/lib/registry/components",
-    "utils": "@/lib/utils",
-    "hooks": "@/lib/hooks"
-  }
-}
-```
+shadcn-svelte CLI has no built-in auth. Implement on registry server using token query parameter: `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Return 401 Unauthorized for invalid tokens.
 
-Default aliases if not specified:
-```json
-{
-  "aliases": {
-    "lib": "$lib/registry/lib",
-    "ui": "$lib/registry/ui",
-    "components": "$lib/registry/components",
-    "utils": "$lib/utils",
-    "hooks": "$lib/registry/hooks"
-  }
-}
-```
+### Installation
 
-**overrideDependencies**: Force specific dependency versions (overrides `package.json` detection):
-```json
-{ "overrideDependencies": ["paneforge@next"] }
-```
+Users install with: `npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json -y -o`
 
-## Setting Up a Registry
-
-Create `registry.json` in project root:
-```json
-{
-  "$schema": "https://shadcn-svelte.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
-  "items": []
-}
-```
-
-Create component file at `registry/hello-world/hello-world.svelte`:
-```svelte
-<script lang="ts">
-  import { Button } from "$lib/components/ui/button/index.js";
-</script>
-<Button>Hello World</Button>
-```
-
-Add to `registry.json`:
-```json
-{
-  "items": [
-    {
-      "name": "hello-world",
-      "type": "registry:block",
-      "title": "Hello World",
-      "description": "A simple hello world component.",
-      "files": [
-        {
-          "path": "./src/lib/hello-world/hello-world.svelte",
-          "type": "registry:component"
-        }
-      ]
-    }
-  ]
-}
-```
-
-For custom component directories, ensure Tailwind CSS detects them via `@source` in `src/app.css`:
-```css
-@source "./registry/@acmecorp/ui-lib";
-```
-
-### Build & Serve
-
-Install CLI: `npm install shadcn-svelte@latest`
-
-Add to `package.json`:
-```json
-{ "scripts": { "registry:build": "shadcn-svelte registry build" } }
-```
-
-Run: `npm run registry:build` (generates JSON in `static/r/` by default, customizable with `--output`)
-
-Serve: `npm run dev` - registry available at `http://localhost:5173/r/[NAME].json`
-
-### Publishing & Authentication
-
-Deploy to public URL. For token-based auth, use query parameter: `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Handle authorization on server, return 401 for invalid tokens. Encrypt and expire tokens.
-
-### Installing Registry Items
-
-`npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json -y -o`
-
-Flags: `-y` skips confirmation prompt, `-o` overwrites existing files.
-
-### Guidelines
-
-- Required block properties: `name`, `description`, `type`, `files`
-- List all registry dependencies in `registryDependencies`
-- Organize files in `components`, `hooks`, `lib` directories
-- Use registry template at GitHub for new projects
+Flags: `-y` skips confirmation prompt, `-o` overwrites existing files
 
 
 
 ## Pages
 
 ### changelog
-Release history: June 2025 Calendar overhaul; May 2025 Tailwind v4, Charts, custom registries; Feb 2024 deep icon imports for perf, Formsnap rewrite; Jan 2024 Carousel/Drawer/Sonner/Pagination; Oct 2023 Command/Combobox, Form.Label store syntax, Form.Control.
+Release history: June 2025 Calendar overhaul; May 2025 Tailwind v4, Charts, custom registries; Feb 2024 Resizable, deep icon imports, Formsnap rewrite ($ids store, Form.Control); Jan 2024 Carousel, Drawer, Sonner, Pagination; Dec 2023 Calendar/RangeCalendar/DatePicker; Nov 2023 ToggleGroup; Oct 2023 Command/Combobox.
+
+# Changelog
 
 ## June 2025
-Calendar and RangeCalendar components overhauled with month/year dropdown selectors and 30+ Calendar blocks added.
+
+### Calendar Components Overhaul
+`Calendar` and `RangeCalendar` components completely redesigned with dropdown month/year selectors and 30+ Calendar blocks for building custom calendar components.
 
 ## May 2025
-**Tailwind v4 Support**: Official support landed with refreshed styles. Full migration guide available. Projects using Svelte v5 with Tailwind v3 continue to work until upgrade.
 
-**Charts**: Added as preview component. Available via CLI for Svelte v5 + Tailwind v4 projects.
+### Tailwind v4 Support
+Official Tailwind v4 support released. Full migration guide available. Projects using Svelte v5 with Tailwind v3 continue to work until upgrade.
 
-**Custom Registry Support**: Publish custom/remote components via shadcn-svelte CLI to share with community.
+### Charts (Preview)
+Charts added as preview component. Available via CLI for Svelte v5 + Tailwind v4 projects.
+
+### Custom Registry Support
+Custom/remote registries now supported, allowing publishing and sharing components via the CLI.
 
 ## March 2024
-**Blocks**: Ready-made, fully responsive, accessible, composable components built using same principles as core components.
 
-**New Components**: Breadcrumb, Scroll Area (built on Bits UI, supports vertical/horizontal scrolling).
+### Blocks
+Ready-made, fully responsive, accessible, composable components built using same principles as core components.
+
+### New Components
+- **Breadcrumb**: Navigation component
+- **Scroll Area**: Built on Bits UI, supports vertical and horizontal scrolling with consistent cross-browser experience
 
 ## February 2024
-**New Component: Resizable**: Built on PaneForge.
 
-**Icon Imports Updated**: Moved from unmaintained `radix-icons-svelte` to `svelte-radix`. Changed from:
+### Resizable Component
+Built on PaneForge (early stage library). Allows creating resizable pane layouts.
+
+### Icon Import Changes
+Moved from unmaintained `radix-icons-svelte` to `svelte-radix` for new-york style. Changed from barrel imports to deep imports for better dev server performance:
+
 ```ts
+// Before
 import { Check } from "@lucide/svelte";
-```
-to deep imports:
-```ts
+
+// After
 import Check from "@lucide/svelte/icons/check";
 ```
-Deep imports prevent Vite from optimizing entire icon collections, only optimizing used icons. Significant dev server performance improvement.
 
-**Major Forms Update**: Formsnap completely rewritten for flexibility and power. No direct migration path—update components to new API. All Form components updated. See Forms Examples page.
+Deep imports prevent Vite from optimizing entire icon collections, only optimizing used icons.
 
-## January 2024
-**New Component: Carousel**:
-```svelte
-<Carousel.Root class="w-full max-w-xs">
-  <Carousel.Content>
-    {#each Array(5), i}
-      <Carousel.Item>
-        <Card.Root>
-          <Card.Content class="flex aspect-square items-center justify-center p-6">
-            <span class="text-4xl font-semibold">{i + 1}</span>
-          </Card.Content>
-        </Card.Root>
-      </Carousel.Item>
-    {/each}
-  </Carousel.Content>
-  <Carousel.Previous />
-  <Carousel.Next />
-</Carousel.Root>
-```
+### Forms Major Update
+Formsnap completely rewritten for flexibility and power. No direct migration path from old version.
 
-**New Component: Drawer**: Built on vaul-svelte (Svelte port of vaul by Emil Kowalski). Includes header, description, content, footer with buttons.
-
-**New Component: Sonner**: Svelte port of Sonner (by Emil Kowalski). Toast notifications:
-```ts
-import { toast } from "svelte-sonner";
-toast.success("Event has been created", {
-  description: "Sunday, December 03, 2023 at 9:00 AM",
-  action: { label: "Undo", onClick: () => console.info("Undo") }
-});
-```
-
-**New Component: Pagination**: Built on Bits UI Pagination component.
-
-## December 2023
-New components: Calendar, Range Calendar, Date Picker.
-
-## November 2023
-New component: Toggle Group.
-
-## October 2023
-**New Component: Command**: Command palette built on cmdk-sv (Svelte port of cmdk).
-
-**New Component: Combobox**: Combination of Command + Popover for searchable dropdown.
-
-**Form.Label Changes**: `ids` from `getFormField()` now a store, prefix with `$`:
+**Form.Label Changes**: `ids` from `getFormField()` is now a store, prefix with `$`:
 ```svelte
 <Label for={$ids.input} class={cn($errors && "text-destructive", className)}>
   <slot />
 </Label>
 ```
 
-**Form.Control**: New formsnap component wraps non-traditional form elements. Export in `src/lib/ui/form/index.ts`:
+**Form.Control**: New component wraps non-traditional form elements for accessibility:
 ```ts
+// src/lib/ui/form/index.ts
 const Control = FormPrimitive.Control;
 export { Control, Control as FormControl };
 ```
 
+## January 2024
+
+### New Components
+- **Carousel**: Image/content carousel with previous/next navigation
+  ```svelte
+  <Carousel.Root class="w-full max-w-xs">
+    <Carousel.Content>
+      {#each Array(5), i}
+        <Carousel.Item>
+          <div class="p-1">
+            <Card.Root>
+              <Card.Content class="flex aspect-square items-center justify-center p-6">
+                <span class="text-4xl font-semibold">{i + 1}</span>
+              </Card.Content>
+            </Card.Root>
+          </div>
+        </Carousel.Item>
+      {/each}
+    </Carousel.Content>
+    <Carousel.Previous />
+    <Carousel.Next />
+  </Carousel.Root>
+  ```
+
+- **Drawer**: Built on vaul-svelte (Svelte port of vaul by Emil Kowalski). Slide-out panel with header, content, and footer:
+  ```svelte
+  <Drawer.Root>
+    <Drawer.Trigger class={buttonVariants({ variant: "outline" })}>
+      Open Drawer
+    </Drawer.Trigger>
+    <Drawer.Content>
+      <div class="mx-auto w-full max-w-sm">
+        <Drawer.Header>
+          <Drawer.Title>Move Goal</Drawer.Title>
+          <Drawer.Description>Set your daily activity goal.</Drawer.Description>
+        </Drawer.Header>
+        <div class="p-4 pb-0">
+          <div class="flex items-center justify-center space-x-2">
+            <Button variant="outline" size="icon" class="size-8 shrink-0 rounded-full"
+              onclick={() => handleClick(-10)} disabled={goal <= 200}>
+              <MinusIcon />
+            </Button>
+            <div class="flex-1 text-center">
+              <div class="text-7xl font-bold tracking-tighter">{goal}</div>
+              <div class="text-muted-foreground text-[0.70rem] uppercase">Calories/day</div>
+            </div>
+            <Button variant="outline" size="icon" class="size-8 shrink-0 rounded-full"
+              onclick={() => handleClick(10)} disabled={goal >= 400}>
+              <PlusIcon />
+            </Button>
+          </div>
+          <div class="mt-3 h-[120px]">
+            <BarChart data={data.map((d, i) => ({ goal: d.goal, index: i }))} 
+              y="goal" x="index" xScale={scaleBand().padding(0.25)} 
+              axis={false} tooltip={false} />
+          </div>
+        </div>
+        <Drawer.Footer>
+          <Button>Submit</Button>
+          <Drawer.Close class={buttonVariants({ variant: "outline" })}>Cancel</Drawer.Close>
+        </Drawer.Footer>
+      </div>
+    </Drawer.Content>
+  </Drawer.Root>
+  ```
+
+- **Sonner**: Toast notifications via svelte-sonner (Svelte port of Sonner by Emil Kowalski)
+  ```svelte
+  <Button variant="outline" onclick={() =>
+    toast.success("Event has been created", {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      action: { label: "Undo", onClick: () => console.info("Undo") }
+    })}>
+    Show Toast
+  </Button>
+  ```
+
+- **Pagination**: Built on Bits UI pagination component
+
+## December 2023
+
+New components: Calendar, Range Calendar, Date Picker
+
+## November 2023
+
+New component: Toggle Group
+
+## October 2023
+
+### Command Component
+Command palette component built on cmdk-sv (Svelte port of cmdk). Allows creating searchable command interfaces.
+
+### Combobox Component
+Combination of Command and Popover components. Creates searchable dropdown menu.
+
+### Form Updates
+See February 2024 Forms section above for Form.Label and Form.Control changes.
+
 ### cli
-CLI commands: init (setup project), add (install components with -y -o flags), registry build (generate JSON), proxy support via HTTP_PROXY env var.
+CLI commands for project initialization (init), component installation (add), and registry building (registry build) with proxy support.
+
+# CLI
+
+Command-line interface for managing shadcn-svelte components and project setup.
 
 ## init
 
-Initialize a new project with dependencies, the `cn` util, and CSS variables.
+Initialize a new project with dependencies, the `cn` utility, and CSS variables.
 
 ```bash
 npx shadcn-svelte@latest init
 ```
 
-Prompts for configuration:
+Interactive configuration prompts:
 - Base color (slate, gray, zinc, neutral, stone)
 - Global CSS file path
 - Import aliases for lib, components, utils, hooks, ui
 
-Options: `-c/--cwd <path>`, `-o/--overwrite`, `--no-deps`, `--base-color <name>`, `--css <path>`, `--components-alias <path>`, `--lib-alias <path>`, `--utils-alias <path>`, `--hooks-alias <path>`, `--ui-alias <path>`, `--proxy <proxy>`
+Options:
+- `-c, --cwd <path>` — working directory
+- `-o, --overwrite` — overwrite existing files
+- `--no-deps` — skip dependency installation
+- `--skip-preflight` — ignore preflight checks
+- `--base-color <name>` — set base color
+- `--css <path>` — global CSS file path
+- `--components-alias`, `--lib-alias`, `--utils-alias`, `--hooks-alias`, `--ui-alias` — configure import aliases
+- `--proxy <proxy>` — use proxy for registry requests
 
 ## add
 
@@ -765,54 +926,67 @@ Add components and dependencies to your project.
 npx shadcn-svelte@latest add <component> -y -o
 ```
 
-- `-y`: skip confirmation prompt
-- `-o`: overwrite existing files
+- `-y` — skip confirmation prompt
+- `-o` — overwrite existing files
+- `-a, --all` — install all components
+- `--no-deps` — skip package dependency installation
+- `--skip-preflight` — ignore preflight checks
+- `--proxy <proxy>` — use proxy for registry requests
 
-Presents interactive list of available components (accordion, alert, alert-dialog, aspect-ratio, avatar, badge, button, card, checkbox, collapsible, etc.)
-
-Options: `-c/--cwd <path>`, `--no-deps`, `-a/--all` (install all components), `-y/--yes`, `-o/--overwrite`, `--proxy <proxy>`
+Interactive mode presents a list of available components to select from (accordion, alert, alert-dialog, aspect-ratio, avatar, badge, button, card, checkbox, collapsible, etc.).
 
 ## registry build
 
-Generate registry JSON files from a `registry.json` source file.
+Generate registry JSON files from a registry.json source.
 
 ```bash
 npx shadcn-svelte@latest registry build [registry.json]
 ```
 
-Outputs to `static/r` directory by default.
+Reads `registry.json` and outputs generated files to `static/r` directory.
 
-Options: `-c/--cwd <path>`, `-o/--output <path>` (destination directory), `-h/--help`
+Options:
+- `-c, --cwd <path>` — working directory
+- `-o, --output <path>` — destination directory (default: ./static/r)
 
-## Proxy
+## Proxy Configuration
 
-Use HTTP proxy for registry requests via `HTTP_PROXY` or `http_proxy` environment variables:
+Use HTTP proxy for registry requests via environment variable:
 
 ```bash
 HTTP_PROXY="<proxy-url>" npx shadcn-svelte@latest init
 ```
 
+Respects `HTTP_PROXY` or `http_proxy` environment variables.
+
 ### components.json
-Configuration file for shadcn-svelte CLI with settings for Tailwind CSS, path aliases, TypeScript, and component registry.
+Configuration file for CLI component generation with Tailwind CSS, path aliases, TypeScript, and registry settings.
 
 ## Overview
-The `components.json` file configures your project for the shadcn-svelte CLI. It's optional and only required when using the CLI to add components; not needed for copy-paste method.
+
+The `components.json` file holds configuration for your project. It's used by the CLI to understand your project setup and generate customized components. **Only required if using the CLI** to add components; not needed for copy-paste method.
 
 Create it with:
 ```bash
 npx shadcn-svelte@latest init
 ```
 
-## Configuration Options
+## $schema
 
-**$schema**: Reference the JSON schema at `https://shadcn-svelte.com/schema.json`
+Reference the JSON Schema:
 ```json
 {
   "$schema": "https://shadcn-svelte.com/schema.json"
 }
 ```
 
-**tailwind.css**: Path to your Tailwind CSS import file
+## tailwind
+
+Configuration for how Tailwind CSS is set up.
+
+### tailwind.css
+
+Path to the CSS file that imports Tailwind CSS:
 ```json
 {
   "tailwind": {
@@ -821,7 +995,9 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**tailwind.baseColor**: Sets the default color palette (cannot be changed after initialization)
+### tailwind.baseColor
+
+Generates the default color palette. **Cannot be changed after initialization.**
 ```json
 {
   "tailwind": {
@@ -830,12 +1006,9 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**aliases**: Path aliases for organizing generated components. Must be configured in `svelte.config.js`:
-- `lib`: Library root (typically `$lib`)
-- `utils`: Utility functions (typically `$lib/utils`)
-- `components`: All components (typically `$lib/components`)
-- `ui`: UI components (typically `$lib/components/ui`)
-- `hooks`: Svelte 5 reactive functions/classes (typically `$lib/hooks`)
+## aliases
+
+CLI uses these values with `alias` config from `svelte.config.js` to place generated components correctly. Path aliases must be set up in `svelte.config.js`.
 
 ```json
 {
@@ -849,12 +1022,22 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**typescript**: Enable/disable TypeScript or specify custom config path
+- **lib**: Import alias for library (components, utils, hooks, etc.)
+- **utils**: Import alias for utility functions
+- **components**: Import alias for components
+- **ui**: Import alias for UI components
+- **hooks**: Import alias for hooks (Svelte 5 reactive functions/classes, typically `.svelte.ts` or `.svelte.js`)
+
+## typescript
+
+Enable or disable TypeScript:
 ```json
 {
   "typescript": true | false
 }
 ```
+
+Specify custom TypeScript config path:
 ```json
 {
   "typescript": {
@@ -863,66 +1046,77 @@ npx shadcn-svelte@latest init
 }
 ```
 
-**registry**: URL for fetching components (can pin to preview release or custom fork)
+## registry
+
+Registry URL for fetching shadcn-svelte components. Can pin to specific preview release or custom fork:
 ```json
 {
   "registry": "https://shadcn-svelte.com/registry"
 }
 ```
 
-### installation
-Components split across multiple files with barrel exports; import from `$lib/components/ui/<component>`; tree-shaken by Rollup; VSCode and JetBrains IDE extensions available.
+### installation--md
+Installation guides for multiple frameworks; components split into multiple files with barrel exports; VSCode and JetBrains IDE extensions available.
 
 ## Installation Guides
 
-Multiple setup paths available: SvelteKit, Astro, Vite, or Manual installation.
+Setup instructions available for:
+- SvelteKit
+- Astro
+- Vite
+- Manual setup
 
 ## Component Structure & Imports
 
-Unlike shadcn/ui for React, components are split across multiple files because Svelte doesn't support multiple components per file. The CLI creates a folder for each component with an `index.ts` barrel export.
+Components are split into multiple files (unlike React's shadcn/ui). Each component gets its own folder with an `index.ts` barrel export.
 
-Example: Accordion component split into 4 files:
-- `accordion.svelte`
-- `accordion-content.svelte`
-- `accordion-item.svelte`
-- `accordion-trigger.svelte`
+Example: Accordion component structure
+```
+accordion/
+  ├── accordion.svelte
+  ├── accordion-content.svelte
+  ├── accordion-item.svelte
+  ├── accordion-trigger.svelte
+  └── index.ts
+```
 
-Import options:
+Import approaches (both tree-shaken by Rollup):
 ```ts
 import * as Accordion from '$lib/components/ui/accordion'
 // or
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '$lib/components/ui/accordion'
 ```
 
-Components are tree-shaken by Rollup, so unused exports don't bloat the bundle.
-
 ## IDE Extensions
 
-**VSCode**: shadcn-svelte extension by @selemondev provides:
-- CLI initialization
-- Component addition
-- Documentation navigation
-- Import/markup snippets
+**VSCode**: shadcn-svelte extension by @selemondev
+- Initialize CLI
+- Add components
+- Navigate to component docs
+- Import snippets
 
-**JetBrains IDEs**: shadcn/ui Components Manager by @WarningImHack3r supports:
-- Auto-detect shadcn/ui components
+**JetBrains IDEs**: shadcn/ui Components Manager by @WarningImHack3r
+- Auto-detect components
 - Add/remove/update with one click
-- Works with Svelte, React, Vue, Solid
+- Supports Svelte, React, Vue, Solid
 - Search remote or existing components
 
 ### javascript
-Disable TypeScript via components.json flag; JavaScript components available through CLI; configure jsconfig.json for import aliases.
+Disable TypeScript via components.json flag; configure jsconfig.json for import aliases.
 
 ## Using JavaScript Instead of TypeScript
 
-The project is written in TypeScript, but JavaScript versions of components are available via the CLI.
+The project and components are written in TypeScript, but JavaScript versions are available via the CLI.
 
-**Disable TypeScript** in `components.json`:
+### Disable TypeScript
+
+Set `typescript: false` in `components.json`:
+
 ```json
 {
   "style": "default",
   "tailwind": {
-    "css": "src/app.css"
+    "css": "src/routes/layout.css"
   },
   "typescript": false,
   "aliases": {
@@ -935,7 +1129,10 @@ The project is written in TypeScript, but JavaScript versions of components are 
 }
 ```
 
-**Configure import aliases** in `jsconfig.json`:
+### Configure Import Aliases
+
+Create `jsconfig.json` to set up path aliases:
+
 ```json
 {
   "compilerOptions": {
@@ -947,37 +1144,41 @@ The project is written in TypeScript, but JavaScript versions of components are 
 ```
 
 ### registry
-Create and host custom component registries with shadcn-svelte CLI; items must be JSON files conforming to registry-item schema; use provided template as starting point.
+Create custom component registries with JSON-based items compatible with shadcn-svelte CLI; use provided template as starting point.
 
-## Creating a Custom Component Registry
+## Registry
 
-The `shadcn-svelte` CLI allows you to create and host your own component registry to distribute custom components, hooks, pages, and other files to any Svelte project. Registry items are automatically compatible with the `shadcn-svelte` CLI.
+Create and host your own component registry to distribute custom components, hooks, pages, and other files to Svelte projects. Registry items are automatically compatible with the shadcn-svelte CLI.
 
 ### Requirements
 
-Registry items must be valid JSON files conforming to the registry-item schema specification. You can design and host your registry however you prefer.
+Registry items must be valid JSON files conforming to the registry-item schema specification.
 
 ### Getting Started
 
-Clone the official template project as a starting point:
+Clone the template project as a starting point:
 
 ```bash
 npx degit huntabyte/shadcn-svelte/registry-template#next-tailwind-4
 ```
 
-This template provides a complete example of a properly structured registry.
+**Note:** This feature is experimental. Feedback and testing are welcome via GitHub discussions.
 
 ### theming
-CSS variable theming with background/foreground convention using OKLCH colors; customize by adding variables to src/app.css with @theme inline directive; includes default variables for primary, secondary, accent, destructive, border, input, ring, charts, sidebar; pre-configured themes available.
+CSS variable-based theming with background/foreground convention; supports light/dark modes; OKLCH color space; pre-configured color presets (Neutral, Stone, Zinc, Gray, Slate); custom colors via @theme inline directive.
 
-## Theming with CSS Variables
+## Theming
 
-shadcn-svelte uses CSS variables for styling, allowing easy customization without changing class names.
+Customize component appearance using CSS variables. This allows changing colors without updating class names.
 
 ### Convention
 
-Uses `background` and `foreground` naming convention. The `background` suffix is omitted when used for component backgrounds.
+Uses `background` and `foreground` naming convention:
+- `background` variable: component background color
+- `foreground` variable: text color
+- The `background` suffix is omitted in utility classes
 
+Example:
 ```css
 --primary: oklch(0.205 0 0);
 --primary-foreground: oklch(0.985 0 0);
@@ -989,7 +1190,7 @@ Uses `background` and `foreground` naming convention. The `background` suffix is
 
 ### Available Variables
 
-Default light/dark theme variables in `src/app.css`:
+Default variables in `src/routes/layout.css`:
 
 ```css
 :root {
@@ -1012,7 +1213,11 @@ Default light/dark theme variables in `src/app.css`:
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1 through --chart-5: [color values];
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -1024,36 +1229,69 @@ Default light/dark theme variables in `src/app.css`:
 }
 
 .dark {
-  /* dark mode overrides for all variables above */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.269 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.439 0 0);
 }
 ```
 
 ### Adding Custom Colors
 
-Add new color variables to `src/app.css`:
+Add new color variables to `src/routes/layout.css`:
 
 ```css
 :root {
   --warning: oklch(0.84 0.16 84);
   --warning-foreground: oklch(0.28 0.07 46);
 }
+
 .dark {
   --warning: oklch(0.41 0.11 46);
   --warning-foreground: oklch(0.99 0.02 95);
 }
+
 @theme inline {
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
 }
 ```
 
-Then use in components:
-
+Use in components:
 ```svelte
 <div class="bg-warning text-warning-foreground"></div>
 ```
 
-### Base Color Themes
+### Base Color Presets
 
-Pre-configured theme options available: Neutral, Stone, Zinc, Gray, Slate. Each includes full light/dark mode variable sets using OKLCH color format.
+Pre-configured color schemes available: Neutral, Stone, Zinc, Gray, Slate. Each includes light and dark mode variants with all standard variables (background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, chart colors, and sidebar colors).
+
+Colors use OKLCH color space format.
 

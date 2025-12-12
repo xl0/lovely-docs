@@ -1,1 +1,0 @@
-Loading indicator component; install with `add spinner -y -o`; customize size/color with utility classes; works in buttons, badges, input groups, items, empty states; replace icon by editing component.

@@ -1,1 +1,0 @@
-Accessible label component for form controls. Install with `npx shadcn-svelte@latest add label -y -o`. Use the `for` attribute to associate with form elements by their `id`.

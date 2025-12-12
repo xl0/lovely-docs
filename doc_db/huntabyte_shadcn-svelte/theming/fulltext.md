@@ -27,7 +27,7 @@ The `background` color of the following component will be `var(--primary)` and t
 
 Here's the list of variables available for customization:
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {
@@ -103,7 +103,7 @@ src/app.css
 
 To add new colors, you need to add them to your CSS file.
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {
@@ -138,7 +138,7 @@ For reference, here's a list of the base colors that are available.
 
 Expand
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {
@@ -216,7 +216,7 @@ Expand
 
 Expand
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {
@@ -294,7 +294,7 @@ Expand
 
 Expand
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {
@@ -372,7 +372,7 @@ Expand
 
 Expand
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {
@@ -450,7 +450,7 @@ Expand
 
 Expand
 
-src/app.css
+src/routes/layout.css
 
 ```css
 :root {

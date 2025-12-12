@@ -1,1 +1,1 @@
-Complete Svelte UI component library with 60+ composable, accessible, themeable components; CLI-based installation with customization via CSS variables and registries.
+Complete Svelte component library with 60+ composable UI components, CLI-based installation, CSS variable theming, dark mode support, and custom registry system.

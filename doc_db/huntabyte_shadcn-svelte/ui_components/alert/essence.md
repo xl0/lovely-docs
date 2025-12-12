@@ -1,1 +1,0 @@
-Alert component for callouts with optional icon, title, description; supports default and destructive variants.

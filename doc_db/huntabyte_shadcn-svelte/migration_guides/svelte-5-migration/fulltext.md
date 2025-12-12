@@ -36,7 +36,7 @@ The `components.json`, `utils`, and the global CSS file have changed for Svelte 
   "$schema": "https://shadcn-svelte.com/schema.json",
   "style": "default",
   "tailwind": {
-    "css": "src/app.css",
+    "css": "src/routes/layout.css",
     "baseColor": "slate"
   },
   "aliases": {

@@ -1,1 +1,0 @@
-Toggle group component with single/multiple selection modes, size variants (sm/lg), outline styling, and disabled state support.

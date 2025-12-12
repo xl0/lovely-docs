@@ -1,1 +1,0 @@
-Date selection component with single/range modes, dropdown month/year selectors, popover integration, natural language parsing, and 30+ block variants.

@@ -398,12 +398,16 @@ async def process_tree_depth_first(
             # .name is llm-generated and might be not unique. Make it unique.
             names: set[str] = set()
             for x in subdirs + pages:
-                name, i = x.displayName, 2
-                while name in names:
-                    name = f"{x.displayName}_{str(i)}"
-                    i += 1
-                x.displayName = name
-                names.add(name)
+                name = x.name
+                if name in names:
+                    suffix = "" if x.children else (x.origPath.suffix.lstrip(".") or "file")
+                    name = f"{x.name}--{suffix}"
+                    i = 2
+                    while name in names:
+                        name = f"{x.name}--{suffix}{str(i)}"
+                        i += 1
+                    x.name = name
+                names.add(x.name)
 
             if not any(x for x in subdirs + pages if x.relevant):
                 result = DocItem(
@@ -420,6 +424,7 @@ async def process_tree_depth_first(
             result = await llm_process_directory(settings, tree, libname, extra_dir)
         trace.end(outputs=result.model_copy(update={"fulltext": ""}))
         return result
+
 
 # %% ../02_docs.ipynb 33
 def calculate_total_usage(doc_dir: DocItem) -> Usage:

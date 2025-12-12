@@ -1,0 +1,1 @@
+Spinner component for loading states; customize size/color with utility classes or replace icon; integrates with Button, Badge, InputGroup, Empty, Item components.

@@ -1,0 +1,3 @@
+## Setup shadcn-svelte in Astro
+
+Create Astro project, add Svelte and TailwindCSS via CLI, configure path aliases in `tsconfig.json`, run `npx shadcn-svelte@latest init` with base color Slate and import aliases (`$lib`, `$lib/components`, `$lib/utils`, `$lib/hooks`, `$lib/components/ui`), then add components with `npx shadcn-svelte@latest add button -y -o`. Import and use in `.astro` files with client directives for interactivity.

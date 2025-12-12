@@ -1,1 +1,0 @@
-ButtonGroup component for grouping related buttons with consistent styling, supporting vertical/horizontal orientation, separators, nesting, and composition with other UI components.

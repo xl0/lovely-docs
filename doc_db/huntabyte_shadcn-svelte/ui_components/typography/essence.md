@@ -1,1 +1,0 @@
-Typography styling examples using Tailwind utility classes for headings (h1-h4), paragraphs, blockquotes, code, lists, and tables with no default styles provided.

@@ -1,1 +1,0 @@
-Searchable dropdown/autocomplete built from Popover + Command; use $state/$derived for open/value, closeAndFocusTrigger() after selection, Form.Control for form integration.

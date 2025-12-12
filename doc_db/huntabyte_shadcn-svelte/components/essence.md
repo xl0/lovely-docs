@@ -1,1 +1,1 @@
-Complete component library index with 70+ UI components for forms, layout, display, and utilities.
+60+ composable UI components with subcomponents, variants, sizes, and form integration via sveltekit-superforms.

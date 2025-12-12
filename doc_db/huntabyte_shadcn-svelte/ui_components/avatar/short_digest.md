@@ -1,1 +1,0 @@
-Image element with text fallback. Install with `npx shadcn-svelte@latest add avatar -y -o`. Wrap `Avatar.Image` and `Avatar.Fallback` in `Avatar.Root`. Supports custom classes for styling.

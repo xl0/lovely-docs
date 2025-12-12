@@ -1,0 +1,1 @@
+Skeleton component for loading placeholders; styled with Tailwind classes for size, shape, and spacing.

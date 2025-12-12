@@ -1,1 +1,0 @@
-TanStack Table v8 integration for building customizable data tables with pagination, sorting, filtering, column visibility, row selection, and cell formatting using Svelte 5 snippets and components.

@@ -14,7 +14,7 @@ components.json
 {
   "style": "default",
   "tailwind": {
-    "css": "src/app.css"
+    "css": "src/routes/layout.css"
   },
   "typescript": false,
   "aliases": {

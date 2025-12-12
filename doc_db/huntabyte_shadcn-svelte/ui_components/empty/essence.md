@@ -1,1 +1,0 @@
-Empty state component with Root, Header (Media/Title/Description), and Content sections; supports icon/avatar variants, borders, gradients, and input groups.

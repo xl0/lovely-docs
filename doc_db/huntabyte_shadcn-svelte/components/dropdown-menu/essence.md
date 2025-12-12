@@ -1,0 +1,1 @@
+Menu component with items, groups, checkboxes, radio groups, submenus, shortcuts, and disabled states.

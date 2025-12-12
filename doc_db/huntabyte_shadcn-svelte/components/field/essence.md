@@ -1,0 +1,1 @@
+Accessible form field wrapper supporting vertical/horizontal/responsive layouts with labels, descriptions, errors, and semantic grouping.

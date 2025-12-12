@@ -1,1 +1,1 @@
-CLI commands: init (setup project), add (install components with -y -o flags), registry build (generate JSON), proxy support via HTTP_PROXY env var.
+CLI commands for project initialization (init), component installation (add), and registry building (registry build) with proxy support.

@@ -3,13 +3,17 @@
 ## Pages
 
 ### registry-examples
-Registry item JSON schema examples for styles, themes, blocks, CSS variables, custom CSS layers, utilities, and animations with light/dark mode support.
+Registry item JSON schema for styles, themes, blocks with dependencies, CSS variables, base/component/utility styles, and animations.
 
-## Registry Item Examples
+# Registry Examples
 
 Registry items define styles, components, themes, blocks, and CSS customizations for shadcn-svelte projects.
 
-### registry:style
+## Registry Item Structure
+
+All registry items use a JSON schema with `$schema`, `name`, `type`, and optional `dependencies`, `registryDependencies`, `cssVars`, and `css` fields.
+
+## registry:style
 
 **Extending shadcn-svelte:**
 ```json
@@ -20,14 +24,14 @@ Registry items define styles, components, themes, blocks, and CSS customizations
   "dependencies": ["phosphor-svelte"],
   "registryDependencies": ["login-01", "calendar", "https://example.com/r/editor.json"],
   "cssVars": {
-    "theme": { "font-sans": "Inter, sans-serif" },
-    "light": { "brand": "oklch(0.145 0 0)" },
-    "dark": { "brand": "oklch(0.145 0 0)" }
+    "theme": {"font-sans": "Inter, sans-serif"},
+    "light": {"brand": "oklch(0.145 0 0)"},
+    "dark": {"brand": "oklch(0.145 0 0)"}
   }
 }
 ```
 
-**From scratch (extends: none):**
+**From scratch (no shadcn-svelte base):**
 ```json
 {
   "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
@@ -35,16 +39,16 @@ Registry items define styles, components, themes, blocks, and CSS customizations
   "name": "new-style",
   "type": "registry:style",
   "dependencies": ["tailwind-merge", "clsx"],
-  "registryDependencies": ["utils", "https://example.com/r/button.json", "https://example.com/r/input.json", "https://example.com/r/label.json", "https://example.com/r/select.json"],
+  "registryDependencies": ["utils", "https://example.com/r/button.json"],
   "cssVars": {
-    "theme": { "font-sans": "Inter, sans-serif" },
-    "light": { "main": "#88aaee", "bg": "#dfe5f2", "border": "#000", "text": "#000", "ring": "#000" },
-    "dark": { "main": "#88aaee", "bg": "#272933", "border": "#000", "text": "#e6e6e6", "ring": "#fff" }
+    "theme": {"font-sans": "Inter, sans-serif"},
+    "light": {"main": "#88aaee", "bg": "#dfe5f2", "border": "#000", "text": "#000", "ring": "#000"},
+    "dark": {"main": "#88aaee", "bg": "#272933", "border": "#000", "text": "#e6e6e6", "ring": "#fff"}
   }
 }
 ```
 
-### registry:theme
+## registry:theme
 
 ```json
 {
@@ -76,19 +80,19 @@ Registry items define styles, components, themes, blocks, and CSS customizations
 }
 ```
 
-Custom colors can be added to existing styles:
+Add custom colors to existing theme:
 ```json
 {
   "name": "custom-style",
   "type": "registry:style",
   "cssVars": {
-    "light": { "brand": "oklch(0.99 0.00 0)" },
-    "dark": { "brand": "oklch(0.14 0.00 286)" }
+    "light": {"brand": "oklch(0.99 0.00 0)"},
+    "dark": {"brand": "oklch(0.14 0.00 286)"}
   }
 }
 ```
 
-### registry:block
+## registry:block
 
 ```json
 {
@@ -100,7 +104,7 @@ Custom colors can be added to existing styles:
   "files": [
     {
       "path": "blocks/login-01/page.svelte",
-      "content": "import { LoginForm } ...",
+      "content": "...",
       "type": "registry:page",
       "target": "src/routes/login/+page.svelte"
     },
@@ -113,18 +117,23 @@ Custom colors can be added to existing styles:
 }
 ```
 
-Blocks can override primitives from other registries:
+Override primitives when installing a block:
 ```json
 {
   "name": "custom-login",
   "type": "registry:block",
-  "registryDependencies": ["login-01", "https://example.com/r/button.json", "https://example.com/r/input.json", "https://example.com/r/label.json"]
+  "registryDependencies": [
+    "login-01",
+    "https://example.com/r/button.json",
+    "https://example.com/r/input.json",
+    "https://example.com/r/label.json"
+  ]
 }
 ```
 
-### CSS Variables
+## CSS Variables
 
-**Theme variables:**
+**Custom theme variables:**
 ```json
 {
   "name": "custom-theme",
@@ -138,7 +147,7 @@ Blocks can override primitives from other registries:
 }
 ```
 
-**Tailwind overrides:**
+**Override Tailwind CSS variables:**
 ```json
 {
   "cssVars": {
@@ -154,7 +163,7 @@ Blocks can override primitives from other registries:
 }
 ```
 
-### Custom CSS
+## Custom CSS
 
 **Base styles:**
 ```json
@@ -163,8 +172,8 @@ Blocks can override primitives from other registries:
   "type": "registry:style",
   "css": {
     "@layer base": {
-      "h1": { "font-size": "var(--text-2xl)" },
-      "h2": { "font-size": "var(--text-xl)" }
+      "h1": {"font-size": "var(--text-2xl)"},
+      "h2": {"font-size": "var(--text-xl)"}
     }
   }
 }
@@ -188,13 +197,11 @@ Blocks can override primitives from other registries:
 }
 ```
 
-### Custom Utilities
+## Custom Utilities
 
 **Simple utility:**
 ```json
 {
-  "name": "custom-component",
-  "type": "registry:component",
   "css": {
     "@utility content-auto": {
       "content-visibility": "auto"
@@ -203,13 +210,13 @@ Blocks can override primitives from other registries:
 }
 ```
 
-**Complex utility with pseudo-elements:**
+**Complex utility with pseudo-selectors:**
 ```json
 {
   "css": {
     "@utility scrollbar-hidden": {
       "scrollbar-hidden": {
-        "&::-webkit-scrollbar": { "display": "none" }
+        "&::-webkit-scrollbar": {"display": "none"}
       }
     }
   }
@@ -227,9 +234,9 @@ Blocks can override primitives from other registries:
 }
 ```
 
-### Custom Animations
+## Custom Animations
 
-Define both keyframes in `css` and theme variable in `cssVars`:
+Define both `@keyframes` in css and animation in cssVars:
 ```json
 {
   "name": "custom-component",
@@ -241,19 +248,19 @@ Define both keyframes in `css` and theme variable in `cssVars`:
   },
   "css": {
     "@keyframes wiggle": {
-      "0%, 100%": { "transform": "rotate(-3deg)" },
-      "50%": { "transform": "rotate(3deg)" }
+      "0%, 100%": {"transform": "rotate(-3deg)"},
+      "50%": {"transform": "rotate(3deg)"}
     }
   }
 }
 ```
 
 ### registry-faq
-Registry item structure with multiple file types; custom Tailwind colors and theme variable overrides via cssVars configuration.
+Registry item structure with multiple file types, CSS variable configuration for Tailwind colors and theme overrides
 
-## Complex Component Structure
+## Complex Components
 
-A registry item can include multiple file types in a single installation:
+A registry item can include multiple file types:
 
 ```json
 {
@@ -316,9 +323,9 @@ Add colors to `cssVars` under `light` and `dark` keys:
 
 The CLI updates the project CSS file. Colors become available as utility classes: `bg-brand`, `text-brand-accent`.
 
-## Adding or Overriding Theme Variables
+## Overriding Tailwind Theme Variables
 
-Add theme variables to `cssVars.theme`:
+Add or override theme variables in `cssVars.theme`:
 
 ```json
 {
@@ -332,14 +339,12 @@ Add theme variables to `cssVars.theme`:
 }
 ```
 
-Theme variables can override spacing, easing, fonts, and other Tailwind configuration values.
-
 ### getting-started
-Set up component registry: create registry.json with items (name, type, title, description, files), build with CLI, serve locally or deploy publicly, optionally add token-based auth.
+Set up a component registry: create registry.json with items, place components in registry/[NAME]/ structure, build with CLI to generate static JSON files, serve and deploy publicly, optionally add token-based auth.
 
-## Setting up a component registry
+## registry.json
 
-Create a `registry.json` file in your project root:
+Create a `registry.json` file in the root of your project:
 
 ```json
 {
@@ -350,9 +355,21 @@ Create a `registry.json` file in your project root:
 }
 ```
 
-### Add a component
+Must conform to the registry schema specification. Only required if using the shadcn-svelte CLI to build your registry.
 
-Create component file at `registry/hello-world/hello-world.svelte`:
+## Add a registry item
+
+### Create your component
+
+Place components in `registry/[NAME]/` directory structure:
+
+```
+registry/
+  hello-world/
+    hello-world.svelte
+```
+
+Example component:
 
 ```svelte
 <script lang="ts">
@@ -361,7 +378,14 @@ Create component file at `registry/hello-world/hello-world.svelte`:
 <Button>Hello World</Button>
 ```
 
-Add to `registry.json`:
+If placing in a custom directory, ensure Tailwind CSS can detect it:
+
+```css
+/* src/routes/layout.css */
+@source "./registry/@acmecorp/ui-lib";
+```
+
+### Add component to registry.json
 
 ```json
 {
@@ -382,46 +406,61 @@ Add to `registry.json`:
 }
 ```
 
-Each registry item requires: `name`, `type`, `title`, `description`, `files`. For each file, specify `path` (relative from project root) and `type`.
+Required properties: `name`, `type`, `title`, `description`, `files`. For each file, specify `path` (relative from project root) and `type`.
 
-If placing components in custom directories, ensure Tailwind CSS can detect them via `@source` in `src/app.css`:
+## Build your registry
 
-```css
-@source "./registry/@acmecorp/ui-lib";
+Install CLI:
+
+```bash
+npm i shadcn-svelte@latest
 ```
 
-### Build and serve
-
-Install CLI: `npm i shadcn-svelte@latest`
-
-Add to `package.json`:
+Add build script to `package.json`:
 
 ```json
 {
   "scripts": {
-    "registry:build": "shadcn-svelte registry build"
+    "registry:build": "npm shadcn-svelte registry build"
   }
 }
 ```
 
-Run: `npm run registry:build` (generates JSON files in `static/r/` by default, customizable with `--output`)
+Run build:
 
-Serve: `npm run dev` - registry available at `http://localhost:5173/r/[NAME].json`
+```bash
+npm run registry:build
+```
 
-### Publishing and authentication
+By default generates registry JSON files in `static/r/` (e.g., `static/r/hello-world.json`). Change output directory with `--output` option.
 
-Deploy to public URL to publish. For auth, use query parameter approach: `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Handle authorization on server, return 401 for invalid tokens. Encrypt and expire tokens.
+## Serve your registry
 
-### Install registry items
+```bash
+npm run dev
+```
 
-`npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json`
+Registry served at `http://localhost:5173/r/[NAME].json` (e.g., `http://localhost:5173/r/hello-world.json`).
 
-### Guidelines
+## Publish your registry
 
-- Required block properties: `name`, `description`, `type`, `files`
-- List all registry dependencies in `registryDependencies` (component names or URLs)
-- Organize files in `components`, `hooks`, `lib` directories
-- Use registry template at GitHub for new projects (already configured)
+Deploy project to a public URL to make registry available to other developers.
+
+## Adding Auth
+
+shadcn-svelte CLI does not offer built-in auth. Handle authorization on registry server. Common approach: use `token` query parameter, e.g., `http://localhost:5173/r/hello-world.json?token=[SECURE_TOKEN_HERE]`. Return 401 Unauthorized for invalid tokens. Encrypt and expire tokens.
+
+## Guidelines
+
+- Required block definition properties: `name`, `description`, `type`, `files`
+- List all registry dependencies in `registryDependencies` (component names like `input`, `button`, or URLs to registry items)
+- Ideally place files in `components`, `hooks`, or `lib` directories within registry item
+
+## Install using CLI
+
+```bash
+npx shadcn-svelte@latest add http://localhost:5173/r/hello-world.json
+```
 
 ### registry-item.json_schema
 JSON schema specification for registry items with properties for name, type, files, dependencies, CSS variables, and metadata.
@@ -430,7 +469,7 @@ JSON schema specification for registry items with properties for name, type, fil
 
 JSON schema for defining custom registry items in shadcn-svelte.
 
-### Basic Structure
+### Complete Example
 
 ```json
 {
@@ -439,6 +478,9 @@ JSON schema for defining custom registry items in shadcn-svelte.
   "title": "Hello World",
   "type": "registry:block",
   "description": "A simple hello world component.",
+  "author": "John Doe <john@doe.com>",
+  "dependencies": ["bits-ui", "zod", "@lucide/svelte", "name@1.0.2"],
+  "registryDependencies": ["button", "input", "./stepper.json"],
   "files": [
     {
       "path": "registry/hello-world/hello-world.svelte",
@@ -447,87 +489,18 @@ JSON schema for defining custom registry items in shadcn-svelte.
     {
       "path": "registry/hello-world/use-hello-world.svelte.ts",
       "type": "registry:hook"
-    }
-  ],
-  "cssVars": {
-    "theme": {
-      "font-heading": "Poppins, sans-serif"
     },
-    "light": {
-      "brand": "20 14.3% 4.1%"
-    },
-    "dark": {
-      "brand": "20 14.3% 4.1%"
-    }
-  }
-}
-```
-
-### Properties
-
-**$schema**: URL to the schema definition (https://shadcn-svelte.com/schema/registry-item.json)
-
-**name**: Unique identifier for the item (e.g., "hello-world")
-
-**title**: Human-readable title, short and descriptive (e.g., "Hello World")
-
-**description**: Longer, detailed description of the item
-
-**type**: Specifies the item type:
-- `registry:block` - Complex components with multiple files
-- `registry:component` - Simple components
-- `registry:lib` - Libraries and utilities
-- `registry:hook` - Hooks
-- `registry:ui` - UI components and single-file primitives
-- `registry:page` - Page or file-based routes
-- `registry:file` - Miscellaneous files
-- `registry:style` - Registry styles (e.g., "new-york")
-- `registry:theme` - Themes
-
-**author**: Author of the item (e.g., "John Doe <john@doe.com>")
-
-**dependencies**: Array of npm package dependencies, use `@version` for specific versions:
-```json
-{
-  "dependencies": ["bits-ui", "zod", "@lucide/svelte", "name@1.0.2"]
-}
-```
-
-**registryDependencies**: Array of other registry items this depends on. Can be:
-- shadcn-svelte item names: `["button", "input", "select"]`
-- Remote URLs: `["https://example.com/r/hello-world.json"]`
-- Local aliases (CLI only): `["local:stepper"]` → converts to `["./stepper.json"]`
-- Relative paths: `["./stepper.json"]`
-
-**files**: Array of file objects with properties:
-- `path`: Path to file in registry (used by build script)
-- `type`: File type (see type section above)
-- `target`: Where file should be placed in project (required for `registry:page` and `registry:file`). Use `~` for project root (e.g., `~/foo.config.js`)
-
-```json
-{
-  "files": [
     {
       "path": "registry/hello-world/page.svelte",
       "type": "registry:page",
       "target": "src/routes/hello/+page.svelte"
     },
     {
-      "path": "registry/hello-world/hello-world.svelte",
-      "type": "registry:component"
-    },
-    {
       "path": "registry/hello-world/.env",
       "type": "registry:file",
       "target": ".env"
     }
-  ]
-}
-```
-
-**cssVars**: Define CSS variables organized by theme sections:
-```json
-{
+  ],
   "cssVars": {
     "theme": {
       "font-heading": "Poppins, sans-serif"
@@ -539,13 +512,7 @@ JSON schema for defining custom registry items in shadcn-svelte.
     "dark": {
       "brand": "20 14.3% 4.1%"
     }
-  }
-}
-```
-
-**css**: Add CSS rules to project's CSS file:
-```json
-{
+  },
   "css": {
     "@layer base": {
       "body": {
@@ -571,55 +538,80 @@ JSON schema for defining custom registry items in shadcn-svelte.
         "transform": "rotate(3deg)"
       }
     }
-  }
-}
-```
-
-**docs**: Custom documentation or message shown during CLI installation:
-```json
-{
-  "docs": "Remember to add the FOO_BAR environment variable to your .env file."
-}
-```
-
-**categories**: Organize items by categories:
-```json
-{
-  "categories": ["sidebar", "dashboard"]
-}
-```
-
-**meta**: Additional metadata as key/value pairs:
-```json
-{
+  },
+  "docs": "Remember to add the FOO_BAR environment variable to your .env file.",
+  "categories": ["sidebar", "dashboard"],
   "meta": { "foo": "bar" }
 }
 ```
 
-### registry.json_schema
-registry.json schema for custom component registries: defines name, homepage, items array, path aliases for import transformation, and dependency version overrides.
+### Properties
+
+**$schema** - URL to the registry-item.json schema for validation.
+
+**name** - Unique identifier for the item in the registry (e.g., `"hello-world"`).
+
+**title** - Human-readable title, short and descriptive.
+
+**description** - Longer, detailed description of the item.
+
+**type** - Specifies the item type:
+- `registry:block` - Complex components with multiple files
+- `registry:component` - Simple components
+- `registry:lib` - Libraries and utilities
+- `registry:hook` - Hooks
+- `registry:ui` - UI components and single-file primitives
+- `registry:page` - Page or file-based routes
+- `registry:file` - Miscellaneous files
+- `registry:style` - Registry styles (e.g., `new-york`)
+- `registry:theme` - Themes
+
+**author** - Author of the item (e.g., `"John Doe <john@doe.com>"`). Can be unique per item or shared with registry.
+
+**dependencies** - Array of npm package dependencies. Use `@version` for specific versions (e.g., `"name@1.0.2"`).
+
+**registryDependencies** - Array of other registry items this item depends on. Can be:
+- shadcn-svelte registry items: `"button"`, `"input"`, `"select"`
+- Remote URLs: `"https://example.com/r/hello-world.json"`
+- Local aliases (CLI only): `"local:stepper"` converts to `"./stepper.json"` in output
+- Relative paths: `"./stepper.json"`
+
+**files** - Array of files with properties:
+- `path` - Path to file in registry (used by build script)
+- `type` - File type (see type section above)
+- `target` - Where file should be placed in project (required for `registry:page` and `registry:file`). Use `~` for project root (e.g., `"~/foo.config.js"`). For other types, determined from `components.json`.
+
+**cssVars** - Define CSS variables organized by theme scope:
+```json
+{
+  "theme": { "font-heading": "Poppins, sans-serif" },
+  "light": { "brand": "20 14.3% 4.1%" },
+  "dark": { "brand": "20 14.3% 4.1%" }
+}
+```
+
+**css** - Add CSS rules to project's CSS file. Supports `@layer base`, `@layer components`, `@utility`, `@keyframes`, etc.
+
+**docs** - Custom documentation or message shown when installing via CLI.
+
+**categories** - Array of category strings to organize the item (e.g., `["sidebar", "dashboard"]`).
+
+**meta** - Object for arbitrary key/value metadata.
+
+### registry.json
+registry.json schema defines custom component registries with name, homepage, items, path aliases, and dependency overrides.
 
 ## registry.json Schema
 
-Defines the structure for custom component registries in shadcn-svelte.
+Defines a custom component registry for shadcn-svelte.
 
-### Core Properties
+### Structure
 
-**$schema**: Points to the schema definition at `https://shadcn-svelte.com/schema/registry.json`
-
-**name**: Registry identifier used for data attributes and metadata
-```json
-{ "name": "acme" }
-```
-
-**homepage**: Registry URL for metadata
-```json
-{ "homepage": "https://acme.com" }
-```
-
-**items**: Array of registry items, each implementing the registry-item schema. Example:
 ```json
 {
+  "$schema": "https://shadcn-svelte.com/schema/registry.json",
+  "name": "acme",
+  "homepage": "https://acme.com",
   "items": [
     {
       "name": "hello-world",
@@ -633,60 +625,42 @@ Defines the structure for custom component registries in shadcn-svelte.
         }
       ]
     }
-  ]
-}
-```
-
-### aliases
-
-Maps internal import paths to their actual locations. When users install components, these paths are transformed according to their `components.json` configuration.
-
-Example registry with internal imports:
-```svelte
-<script lang="ts">
-  import { Button } from "@/lib/registry/ui/button/index.js";
-  import { cn } from "@/lib/utils.js";
-</script>
-```
-
-Matching aliases in registry.json:
-```json
-{
+  ],
   "aliases": {
     "lib": "@/lib",
     "ui": "@/lib/registry/ui",
     "components": "@/lib/registry/components",
     "utils": "@/lib/utils",
     "hooks": "@/lib/hooks"
-  }
-}
-```
-
-Default aliases (if not specified):
-```json
-{
-  "aliases": {
-    "lib": "$lib/registry/lib",
-    "ui": "$lib/registry/ui",
-    "components": "$lib/registry/components",
-    "utils": "$lib/utils",
-    "hooks": "$lib/registry/hooks"
-  }
-}
-```
-
-### overrideDependencies
-
-Forces specific version ranges for dependencies, overriding what `shadcn-svelte registry build` detects in `package.json`. Use cases: pre-release versions or pinning to specific versions.
-
-Example:
-```json
-{
+  },
   "overrideDependencies": ["paneforge@next"]
 }
 ```
 
-When user installs, `paneforge@next` (latest pre-release) is used instead of the version in your package.json.
+### Properties
 
-**Warning**: Can cause version conflicts if not carefully managed; use sparingly.
+**$schema**: URL to the registry.json schema for validation.
+
+**name**: Registry name used for data attributes and metadata.
+
+**homepage**: Registry homepage URL for metadata.
+
+**items**: Array of registry items. Each must implement the registry-item schema specification.
+
+**aliases**: Maps internal import paths to their actual locations. When users install components, these paths are transformed according to their `components.json` configuration.
+
+Default aliases if not specified:
+- `lib`: `$lib/registry/lib` (internal library code)
+- `ui`: `$lib/registry/ui` (UI components)
+- `components`: `$lib/registry/components` (component-specific code)
+- `utils`: `$lib/utils` (utility functions)
+- `hooks`: `$lib/registry/hooks` (reactive state and logic)
+
+Example: If your component imports `@/lib/registry/ui/button`, define `"ui": "@/lib/registry/ui"` in aliases so paths are correctly transformed during installation.
+
+**overrideDependencies**: Forces specific version ranges for dependencies, overriding what `shadcn-svelte registry build` detects in `package.json`. Useful for pre-release versions or pinning specific versions.
+
+Example: `"overrideDependencies": ["paneforge@next"]` forces the latest `@next` version instead of the version in package.json.
+
+⚠️ Warning: Overriding dependencies can cause version conflicts. Use sparingly.
 

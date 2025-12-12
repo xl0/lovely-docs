@@ -1,0 +1,1 @@
+Card component with Root, Header, Title, Description, Action, Content, and Footer sub-components; install with `npx shadcn-svelte@latest add card -y -o`.

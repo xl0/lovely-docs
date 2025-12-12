@@ -1,1 +1,0 @@
-Augments native scroll with custom styling. Install with `npx shadcn-svelte@latest add scroll-area -y -o`. Use `orientation` prop: `"vertical"` (default), `"horizontal"`, or `"both"` for scrolling direction. Apply Tailwind classes for sizing.

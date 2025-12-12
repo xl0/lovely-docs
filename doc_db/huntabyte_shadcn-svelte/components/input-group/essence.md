@@ -1,0 +1,1 @@
+Input group component for adding icons, text, buttons, tooltips, dropdowns, and spinners to inputs/textareas with configurable alignment (inline-end, block-start, block-end); supports custom inputs via data-slot attribute.

@@ -1,0 +1,1 @@
+Index of 70+ shadcn-svelte UI components across forms, dialogs, layouts, and display categories.

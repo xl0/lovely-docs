@@ -1,0 +1,1 @@
+Modal dialog component with trigger, header, description, and cancel/action buttons; install via shadcn-svelte CLI.

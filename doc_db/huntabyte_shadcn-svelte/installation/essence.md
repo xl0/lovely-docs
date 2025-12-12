@@ -1,1 +1,1 @@
-Components split across multiple files with barrel exports; import from `$lib/components/ui/<component>`; tree-shaken by Rollup; VSCode and JetBrains IDE extensions available.
+Step-by-step installation and configuration for different project types (SvelteKit, Vite, manual, Astro)

@@ -1,0 +1,1 @@
+Tabbed interface component with Root, List, Trigger, and Content subcomponents; activate tabs by matching value props.

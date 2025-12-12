@@ -1,1 +1,0 @@
-Toggle switch component; install via CLI; bind to checked property; supports disabled/aria-readonly states; integrates with form libraries.

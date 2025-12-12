@@ -1,1 +1,0 @@
-Placeholder component for loading states. Install with `npx shadcn-svelte@latest add skeleton -y -o`. Import from `$lib/components/ui/skeleton/index.js` and customize with Tailwind classes for size and shape.

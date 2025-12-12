@@ -1,1 +1,7 @@
-Registry items support multiple file types (pages, components, hooks, utils, config files) defined in a JSON schema. Add custom Tailwind colors via `cssVars.light` and `cssVars.dark` keys, and override theme variables via `cssVars.theme` (spacing, easing, fonts, etc.).
+## Complex Components
+
+Registry items can include pages, components, hooks, utils, and config files with `target` field specifying installation paths.
+
+## Tailwind Colors & Theme
+
+Add colors via `cssVars.light` and `cssVars.dark` (becomes utility classes like `bg-brand`). Override theme variables via `cssVars.theme` for sizing, easing, fonts, etc.

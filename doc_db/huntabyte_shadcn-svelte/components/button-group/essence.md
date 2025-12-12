@@ -1,0 +1,1 @@
+Container for grouping related buttons with consistent styling; supports vertical orientation, separators, nesting, and composition with Input, Select, DropdownMenu, Popover, and InputGroup components.

@@ -1,0 +1,1 @@
+Kbd component displays keyboard input; use Kbd.Root for keys and Kbd.Group to group them; integrates with buttons, tooltips, and input groups.

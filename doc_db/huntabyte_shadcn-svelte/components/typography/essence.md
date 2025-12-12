@@ -1,0 +1,1 @@
+Utility-based typography styles for headings (h1-h4), paragraphs (standard, lead, large, small, muted), blockquotes, lists, tables, and inline code using Tailwind classes.

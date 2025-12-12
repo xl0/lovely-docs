@@ -2,14 +2,18 @@
 
 JSON schema for defining custom registry items.
 
-**Core properties**: `$schema`, `name`, `title`, `type`, `description`
+### Key Properties
 
-**Item types**: `registry:block`, `registry:component`, `registry:lib`, `registry:hook`, `registry:ui`, `registry:page`, `registry:file`, `registry:style`, `registry:theme`
-
-**Dependencies**: `dependencies` (npm packages), `registryDependencies` (other registry items via name, URL, local alias, or relative path)
-
-**Files**: Array with `path`, `type`, and optional `target` (required for pages/files). Use `~` for project root.
-
-**Styling**: `cssVars` (organized by theme/light/dark), `css` (add @layer/@utility/@keyframes rules)
-
-**Metadata**: `author`, `docs` (installation message), `categories`, `meta` (custom key/value pairs)
+- **name** - Unique identifier
+- **title** - Human-readable name
+- **type** - Item type: `registry:block`, `registry:component`, `registry:lib`, `registry:hook`, `registry:ui`, `registry:page`, `registry:file`, `registry:style`, `registry:theme`
+- **description** - Detailed description
+- **author** - Item author
+- **dependencies** - npm packages (use `@version` for specific versions)
+- **registryDependencies** - Other registry items: shadcn-svelte items (`"button"`), remote URLs (`"https://..."`), local aliases (`"local:stepper"`), or relative paths (`"./stepper.json"`)
+- **files** - Array with `path`, `type`, and optional `target` (required for `registry:page` and `registry:file`; use `~` for project root)
+- **cssVars** - CSS variables by theme scope (theme, light, dark)
+- **css** - CSS rules (@layer, @utility, @keyframes, etc.)
+- **docs** - Installation message
+- **categories** - Organization tags
+- **meta** - Custom metadata

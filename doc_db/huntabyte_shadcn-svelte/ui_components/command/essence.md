@@ -1,1 +1,0 @@
-Unstyled command menu component with Root/Input/List/Group/Item/Separator/Shortcut/Dialog variants; supports keyboard shortcuts, disabled items, and automatic icon styling.

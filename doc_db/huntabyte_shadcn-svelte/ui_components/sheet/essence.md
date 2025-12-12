@@ -1,1 +1,0 @@
-Dialog-based sheet component with configurable side positioning (top/right/bottom/left) and CSS-customizable sizing.

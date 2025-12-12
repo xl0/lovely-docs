@@ -1,1 +1,1 @@
-Disable TypeScript via components.json flag; JavaScript components available through CLI; configure jsconfig.json for import aliases.
+Disable TypeScript via components.json flag; configure jsconfig.json for import aliases.

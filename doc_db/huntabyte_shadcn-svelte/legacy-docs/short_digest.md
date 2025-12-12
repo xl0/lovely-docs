@@ -1,1 +1,0 @@
-Navigation page linking to legacy documentation for Svelte 5 + Tailwind v3 and Svelte 4 + Tailwind v3.

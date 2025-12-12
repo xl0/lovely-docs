@@ -1,0 +1,1 @@
+Button component with variants (primary, secondary, destructive, outline, ghost, link), href support for links, icon support, and loading state via Spinner.

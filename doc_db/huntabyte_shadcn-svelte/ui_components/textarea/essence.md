@@ -1,1 +1,0 @@
-Textarea component for form text input; supports disabled state, labels, validation with zod/superforms, and integration with form components.

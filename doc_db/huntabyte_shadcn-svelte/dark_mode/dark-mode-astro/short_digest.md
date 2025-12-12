@@ -1,1 +1,0 @@
-Astro dark mode uses Tailwind's `class` strategy. Create an inline script to persist theme to `localStorage` and prevent FUOC. Use `mode-watcher` library with `ModeWatcher` component (`client:load`). Create toggle with light switch or dropdown menu using `toggleMode()`, `setMode()`, or `resetMode()` functions.

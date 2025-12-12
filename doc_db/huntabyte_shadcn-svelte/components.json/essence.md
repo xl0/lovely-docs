@@ -1,1 +1,1 @@
-Configuration file for shadcn-svelte CLI with settings for Tailwind CSS, path aliases, TypeScript, and component registry.
+Configuration file for CLI component generation with Tailwind CSS, path aliases, TypeScript, and registry settings.

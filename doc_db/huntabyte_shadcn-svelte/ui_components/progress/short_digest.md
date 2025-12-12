@@ -1,1 +1,0 @@
-Progress bar component showing task completion. Install with `npx shadcn-svelte@latest add progress -y -o`. Use with `value` and `max` props: `<Progress {value} max={100} />`

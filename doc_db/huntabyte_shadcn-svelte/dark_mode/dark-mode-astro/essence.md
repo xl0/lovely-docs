@@ -1,1 +1,0 @@
-Astro dark mode: inline script for localStorage persistence + FUOC prevention, mode-watcher library with ModeWatcher component, light switch or dropdown toggle components using toggleMode/setMode/resetMode.

@@ -1,0 +1,1 @@
+Accessible OTP input component with configurable length, pattern validation, separators, error states, and form integration support.

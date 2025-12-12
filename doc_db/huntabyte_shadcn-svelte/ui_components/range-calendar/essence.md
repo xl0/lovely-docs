@@ -1,1 +1,0 @@
-Date range picker calendar component built on Bits UI, uses @internationalized/date, binds {start, end} value object.

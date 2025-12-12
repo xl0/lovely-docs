@@ -1,0 +1,1 @@
+Alert component with Root, Title, and Description subcomponents; supports default and destructive variants.

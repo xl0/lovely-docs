@@ -1,11 +1,15 @@
-## Theming with CSS Variables
+## Theming
 
-shadcn-svelte uses CSS variables for styling, allowing easy customization without changing class names.
+Customize component appearance using CSS variables. This allows changing colors without updating class names.
 
 ### Convention
 
-Uses `background` and `foreground` naming convention. The `background` suffix is omitted when used for component backgrounds.
+Uses `background` and `foreground` naming convention:
+- `background` variable: component background color
+- `foreground` variable: text color
+- The `background` suffix is omitted in utility classes
 
+Example:
 ```css
 --primary: oklch(0.205 0 0);
 --primary-foreground: oklch(0.985 0 0);
@@ -17,7 +21,7 @@ Uses `background` and `foreground` naming convention. The `background` suffix is
 
 ### Available Variables
 
-Default light/dark theme variables in `src/app.css`:
+Default variables in `src/routes/layout.css`:
 
 ```css
 :root {
@@ -40,7 +44,11 @@ Default light/dark theme variables in `src/app.css`:
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1 through --chart-5: [color values];
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -52,35 +60,68 @@ Default light/dark theme variables in `src/app.css`:
 }
 
 .dark {
-  /* dark mode overrides for all variables above */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.269 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.439 0 0);
 }
 ```
 
 ### Adding Custom Colors
 
-Add new color variables to `src/app.css`:
+Add new color variables to `src/routes/layout.css`:
 
 ```css
 :root {
   --warning: oklch(0.84 0.16 84);
   --warning-foreground: oklch(0.28 0.07 46);
 }
+
 .dark {
   --warning: oklch(0.41 0.11 46);
   --warning-foreground: oklch(0.99 0.02 95);
 }
+
 @theme inline {
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
 }
 ```
 
-Then use in components:
-
+Use in components:
 ```svelte
 <div class="bg-warning text-warning-foreground"></div>
 ```
 
-### Base Color Themes
+### Base Color Presets
 
-Pre-configured theme options available: Neutral, Stone, Zinc, Gray, Slate. Each includes full light/dark mode variable sets using OKLCH color format.
+Pre-configured color schemes available: Neutral, Stone, Zinc, Gray, Slate. Each includes light and dark mode variants with all standard variables (background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, chart colors, and sidebar colors).
+
+Colors use OKLCH color space format.

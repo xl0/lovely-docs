@@ -1,6 +1,6 @@
-## Complex Component Structure
+## Complex Components
 
-A registry item can include multiple file types in a single installation:
+A registry item can include multiple file types:
 
 ```json
 {
@@ -63,9 +63,9 @@ Add colors to `cssVars` under `light` and `dark` keys:
 
 The CLI updates the project CSS file. Colors become available as utility classes: `bg-brand`, `text-brand-accent`.
 
-## Adding or Overriding Theme Variables
+## Overriding Tailwind Theme Variables
 
-Add theme variables to `cssVars.theme`:
+Add or override theme variables in `cssVars.theme`:
 
 ```json
 {
@@ -78,5 +78,3 @@ Add theme variables to `cssVars.theme`:
   }
 }
 ```
-
-Theme variables can override spacing, easing, fonts, and other Tailwind configuration values.

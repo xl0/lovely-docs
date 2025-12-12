@@ -1,1 +1,0 @@
-Custom-styled scroll area component with configurable orientation (vertical/horizontal/both) via prop.

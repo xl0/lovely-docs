@@ -1,0 +1,1 @@
+Custom-styled scrollable container with vertical, horizontal, or bidirectional scrolling via `orientation` prop.

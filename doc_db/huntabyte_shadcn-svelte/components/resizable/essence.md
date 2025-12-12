@@ -1,0 +1,1 @@
+Resizable panel groups with horizontal/vertical layouts, keyboard support, and nested pane support via PaneForge.
