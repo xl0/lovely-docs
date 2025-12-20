@@ -10,9 +10,9 @@
 
 	const { data } = $props();
 
-	const libraries = $derived(data.mcp.libraries);
+	const libraries = $derived(data.libraries);
 	const libraryOptions = $derived(libraries.map((l: any) => l.key));
-	const markdownVariants = $derived(data.mcp.markdownVariants);
+	const markdownVariants = $derived(data.markdownVariants);
 
 	const selectedLibrary = $derived(page.params.library ?? libraries[0].key ?? '');
 	const selectedPath = $derived(page.params.path ?? '');
@@ -20,12 +20,9 @@
 
 	const content = $derived(data.content ? (data.content[selectedLevel] ?? data.content['digest']) : null);
 
-	// Get paths for current library
-	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === selectedLibrary));
-
 	// Paths are already relative to the library (no library prefix)
 	const pathOptions = $derived(
-		(pageIndex?.paths ?? []).map((pathPart: string) => ({
+		(data.paths ?? []).map((pathPart: string) => ({
 			value: pathPart,
 			label: pathPart
 		}))
@@ -53,8 +50,9 @@
 				{@const hash = selectedLevel !== 'digest' ? `#${selectedLevel}` : ''}
 				<a
 					href={resolve(`/mcp/tools/get-page/${childFullPath}${hash}`)}
-					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
-					<span class="text-muted-foreground">- </span>{child}
+					class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+					<span class="text-muted-foreground">-</span>
+					{child}
 				</a>
 			{:else if typeof child === 'object' && child !== null}
 				{#each Object.entries(child) as [key, value]}
@@ -64,10 +62,11 @@
 					<div>
 						<a
 							href={resolve(`/mcp/tools/get-page/${childFullPath}${hash}`)}
-							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
-							{key}<span class="text-muted-foreground">:</span>
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							{key}
+							<span class="text-muted-foreground">:</span>
 						</a>
-						<div class="pl-4 border-l border-muted ml-1">
+						<div class="border-muted ml-1 border-l pl-4">
 							{@render childNode(value, childPathPart)}
 						</div>
 					</div>
@@ -80,7 +79,7 @@
 <div class="space-y-2">
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
-		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
+		<Card.Content class="flex flex-wrap items-center gap-2 font-mono text-sm">
 			<div class="flex items-center gap-2">
 				<span class="text-foreground/70">$</span>
 				<div class="flex items-center">
@@ -88,13 +87,10 @@
 						type="single"
 						value={resourceRoot}
 						onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
-						<Select.Trigger
-							size="sm"
-							class="bg-background border-border text-foreground px-2 h-7"
-							aria-label="Tool command">
+						<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 px-2" aria-label="Tool command">
 							<span>GetPage</span>
 						</Select.Trigger>
-						<Select.Content class="bg-popover border border-border text-popover-foreground">
+						<Select.Content class="bg-popover border-border text-popover-foreground border">
 							{#each toolCommands as cmd}
 								<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
 							{/each}
@@ -107,10 +103,10 @@
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">library=</span>
 				<Select.Root type="single" value={selectedLibrary} onValueChange={(v) => updateUrl(v, '', selectedLevel)}>
-					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Library">
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 px-2" aria-label="Library">
 						<span>{selectedLibrary || '(select)'}</span>
 					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground max-h-[80dvh]">
+					<Select.Content class="bg-popover border-border text-popover-foreground max-h-[80dvh] border">
 						{#each libraryOptions as lib}
 							<Select.Item value={lib}>{lib}</Select.Item>
 						{/each}
@@ -122,14 +118,14 @@
 
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">page=</span>
-				<Select.Root
-					type="single"
-					value={selectedPath}
-					onValueChange={(v) => updateUrl(selectedLibrary, v, selectedLevel)}>
-					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7 w-full sm:w-auto sm:min-w-[200px]" aria-label="Page">
+				<Select.Root type="single" value={selectedPath} onValueChange={(v) => updateUrl(selectedLibrary, v, selectedLevel)}>
+					<Select.Trigger
+						size="sm"
+						class="bg-background border-border text-foreground h-7 w-full px-2 sm:w-auto sm:min-w-[200px]"
+						aria-label="Page">
 						<span>{pathOptions.find((o) => o.value === selectedPath)?.label ?? (selectedPath || '/')}</span>
 					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground max-h-[80dvh]">
+					<Select.Content class="bg-popover border-border text-popover-foreground max-h-[80dvh] border">
 						{#each pathOptions as option}
 							<Select.Item value={option.value}>{option.label}</Select.Item>
 						{/each}
@@ -141,14 +137,11 @@
 
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">level=</span>
-				<Select.Root
-					type="single"
-					value={selectedLevel}
-					onValueChange={(v) => updateUrl(selectedLibrary, selectedPath, v)}>
-					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Level">
+				<Select.Root type="single" value={selectedLevel} onValueChange={(v) => updateUrl(selectedLibrary, selectedPath, v)}>
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 px-2" aria-label="Level">
 						<span>{selectedLevel}</span>
 					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground">
+					<Select.Content class="bg-popover border-border text-popover-foreground border">
 						{#each markdownVariants as v}
 							<Select.Item value={v}>{v}</Select.Item>
 						{/each}
@@ -161,13 +154,13 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<div class="overflow-auto min-h-[320px] p-4">
+	<div class="min-h-[320px] overflow-auto p-4">
 		{#if content}
 			{#if mcpState.renderMarkdown}
 				<Markdown content={content.text} />
 				{#if content.children && Array.isArray(content.children) && content.children.length > 0}
 					<Card.Root class="border-border bg-card mt-4">
-						<Card.Content class="font-mono text-xs overflow-x-auto">
+						<Card.Content class="overflow-x-auto font-mono text-xs">
 							<div class="text-foreground/70 mb-2">Available sub-pages:</div>
 							{@render childNode(content.children, selectedPath)}
 						</Card.Content>
@@ -175,9 +168,9 @@
 				{/if}
 			{:else}
 				<div class="font-mono text-xs">
-					<pre class="whitespace-pre-wrap text-foreground">{content.text}</pre>
+					<pre class="text-foreground whitespace-pre-wrap">{content.text}</pre>
 					{#if content.children && Array.isArray(content.children) && content.children.length > 0}
-						<div class="mt-4 border-t border-border pt-4 overflow-x-auto">
+						<div class="border-border mt-4 overflow-x-auto border-t pt-4">
 							<div class="text-foreground/70 mb-2">Available sub-pages:</div>
 							{@render childNode(content.children, selectedPath)}
 						</div>
@@ -185,7 +178,7 @@
 				</div>
 			{/if}
 		{:else}
-			<p class="text-xs text-muted-foreground"># select library and page to view content</p>
+			<p class="text-muted-foreground text-xs"># select library and page to view content</p>
 		{/if}
 	</div>
 </div>

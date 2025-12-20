@@ -7,7 +7,7 @@
 	const { data } = $props();
 
 	const library = $derived(page.params.library);
-	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === library));
+	const pageIndex = $derived(data.pageIndex);
 	const verbose = $derived(page.url.hash.slice(1).includes('verbose=true'));
 </script>
 
@@ -19,8 +19,9 @@
 				{@const fullPath = childPathPart === '/' ? library : `${library}/${childPathPart}`}
 				<a
 					href={resolve(`/mcp/resources/doc-page/${fullPath}`)}
-					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
-					<span class="text-muted-foreground">- </span>{child}
+					class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+					<span class="text-muted-foreground">-</span>
+					{child}
 				</a>
 			{:else if typeof child === 'object' && child !== null}
 				{#each Object.entries(child) as [key, value]}
@@ -29,10 +30,11 @@
 					<div>
 						<a
 							href={resolve(`/mcp/resources/doc-page/${fullPath}`)}
-							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
-							{key}<span class="text-muted-foreground">:</span>
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							{key}
+							<span class="text-muted-foreground">:</span>
 						</a>
-						<div class="pl-4 border-l border-muted ml-1">
+						<div class="border-muted ml-1 border-l pl-4">
 							{@render treeNode(value, childPathPart)}
 						</div>
 					</div>
@@ -55,13 +57,13 @@
 					<div class="">
 						<a
 							href={resolve(`/mcp/resources/doc-page/${fullPath}`)}
-							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block text-nowrap">
-							{key}<span class="whitespace-nowrap shrink-0 text-muted-foreground">: {essence}</span>
-
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left text-nowrap transition-colors">
+							{key}
+							<span class="text-muted-foreground shrink-0 whitespace-nowrap">: {essence}</span>
 						</a>
 
 						{#if children}
-							<div class="pl-4 border-l border-muted ml-1">
+							<div class="border-muted ml-1 border-l pl-4">
 								{@render verboseTreeNode(children, childPathPart)}
 							</div>
 						{/if}
@@ -74,8 +76,8 @@
 
 <!-- Content -->
 <Card.Root class="border-border bg-card">
-	<Card.Content class="overflow-auto min-h-[320px]">
-		{#if !!data.mcp.pageIndexes && library}
+	<Card.Content class="min-h-[320px] overflow-auto">
+		{#if pageIndex && library}
 			<div class="font-mono text-xs">
 				{#if verbose}
 					{@render verboseTreeNode(pageIndex?.verboseTree, '')}
@@ -84,7 +86,7 @@
 				{/if}
 			</div>
 		{:else}
-			<p class="text-xs text-muted-foreground"># no pages found for {library}</p>
+			<p class="text-muted-foreground text-xs"># no pages found for {library}</p>
 		{/if}
 	</Card.Content>
 </Card.Root>

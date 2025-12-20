@@ -5,7 +5,7 @@
 
 	const { data } = $props();
 
-	const libraries = $derived(data.mcp.libraries);
+	const libraries = $derived(data.mcp?.libraries ?? []);
 
 	onMount(() => {
 		if (libraries.length) {

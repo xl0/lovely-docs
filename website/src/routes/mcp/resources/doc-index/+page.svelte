@@ -8,7 +8,7 @@
 
 	const { data } = $props();
 
-	const ecosystems = $derived(data.mcp.ecosystems);
+	const ecosystems = $derived(data.ecosystems);
 	const ecosystemOptions = $derived(ecosystems);
 
 	const hashParts = $derived(page.url.hash.slice(1).split('&'));
@@ -16,8 +16,7 @@
 	const verbose = $derived(hashParts.includes('verbose=true'));
 
 	const activeResource = $derived(
-		data.mcp.resources.find((r: any) => r.label === selectedEcosystem) ||
-			data.mcp.resources.find((r: any) => r.label === '*')
+		data.resources.find((r: any) => r.label === selectedEcosystem) || data.resources.find((r: any) => r.label === '*')
 	);
 
 	function handleEcosystemChange(value: string) {
@@ -40,8 +39,8 @@
 <div class="space-y-2">
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
-		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
-			<span class="text-primary hidden sm:inline">URL: </span>
+		<Card.Content class="flex flex-wrap items-center gap-2 font-mono text-sm">
+			<span class="text-primary hidden sm:inline">URL:</span>
 			<span class="text-foreground hidden sm:inline">lovely-docs://</span>
 
 			<Select.Root
@@ -51,7 +50,7 @@
 				<Select.Trigger size="sm" class="bg-background border-border text-foreground" aria-label="Resource command">
 					<span>index</span>
 				</Select.Trigger>
-				<Select.Content class="bg-popover border border-border text-popover-foreground">
+				<Select.Content class="bg-popover border-border text-popover-foreground border">
 					{#each resourceCommands as cmd}
 						<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
 					{/each}
@@ -62,7 +61,7 @@
 				<Select.Trigger size="sm" class="bg-background border-border text-foreground" aria-label="Ecosystem">
 					<span>{selectedEcosystem}</span>
 				</Select.Trigger>
-				<Select.Content class="bg-popover border border-border text-popover-foreground">
+				<Select.Content class="bg-popover border-border text-popover-foreground border">
 					{#each ecosystemOptions as eco}
 						<Select.Item value={eco}>{eco}</Select.Item>
 					{/each}
@@ -74,7 +73,7 @@
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">verbose=</span>
 				<label
-					class="flex items-center gap-2 cursor-pointer bg-background border border-border px-2 h-7 rounded-md hover:bg-accent/50 transition-colors">
+					class="bg-background border-border hover:bg-accent/50 flex h-7 cursor-pointer items-center gap-2 rounded-md border px-2 transition-colors">
 					<input type="checkbox" class="accent-primary h-3 w-3" checked={verbose} onchange={toggleVerbose} />
 				</label>
 			</div>
@@ -82,29 +81,31 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<div class="overflow-auto min-h-[320px] p-4">
+	<div class="min-h-[320px] overflow-auto p-4">
 		{#if activeResource}
 			<div class="font-mono text-sm">
 				{#if verbose}
 					{#each Object.entries(activeResource.verbose) as [lib, summary]}
 						<a
 							href={resolve(`/mcp/resources/page-index/${lib}`)}
-							class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-							{lib}<span class="text-muted-foreground">: {summary}</span>
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							{lib}
+							<span class="text-muted-foreground">: {summary}</span>
 						</a>
 					{/each}
 				{:else}
 					{#each activeResource.index as lib}
 						<a
 							href={resolve(`/mcp/resources/page-index/${lib}`)}
-							class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-							<span class="text-muted-foreground">- </span>{lib}
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							<span class="text-muted-foreground">-</span>
+							{lib}
 						</a>
 					{/each}
 				{/if}
 			</div>
 		{:else}
-			<p class="text-xs text-muted-foreground"># no resources for ecosystem {selectedEcosystem}</p>
+			<p class="text-muted-foreground text-xs"># no resources for ecosystem {selectedEcosystem}</p>
 		{/if}
 	</div>
 </div>

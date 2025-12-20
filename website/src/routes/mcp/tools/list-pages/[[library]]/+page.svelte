@@ -8,12 +8,12 @@
 
 	const { data } = $props();
 
-	const libraries = $derived(data.mcp.libraries);
+	const libraries = $derived(data.libraries);
 	const libraryOptions = $derived(libraries.map((l: any) => l.key));
 	const selectedLibrary = $derived(page.params.library ?? '');
 	const verbose = $derived(page.url.hash.slice(1).includes('verbose=true'));
 
-	const pageIndex = $derived(data.mcp.pageIndexes.find((p: any) => p.label === selectedLibrary));
+	const pageIndex = $derived(data.pageIndex);
 
 	const resourceRoot = 'list-pages';
 
@@ -36,8 +36,9 @@
 				{@const fullPath = childPathPart === '/' ? selectedLibrary : `${selectedLibrary}/${childPathPart}`}
 				<a
 					href={resolve(`/mcp/tools/get-page/${fullPath}#digest`)}
-					class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
-					<span class="text-muted-foreground">- </span>{child}
+					class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+					<span class="text-muted-foreground">-</span>
+					{child}
 				</a>
 			{:else if typeof child === 'object' && child !== null}
 				{#each Object.entries(child) as [key, value]}
@@ -46,10 +47,11 @@
 					<div>
 						<a
 							href={resolve(`/mcp/tools/get-page/${fullPath}#digest`)}
-							class="w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors block">
-							{key}<span class="text-muted-foreground">:</span>
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							{key}
+							<span class="text-muted-foreground">:</span>
 						</a>
-						<div class="pl-4 border-l border-muted ml-1">
+						<div class="border-muted ml-1 border-l pl-4">
 							{@render treeNode(value, childPathPart)}
 						</div>
 					</div>
@@ -72,17 +74,17 @@
 					<div class="mb-1">
 						<a
 							href={resolve(`/mcp/tools/get-page/${fullPath}`)}
-							class="flex items-baseline overflow-hidden text-primary hover:text-primary/80 hover:bg-accent transition-colors w-full">
-							<span class="whitespace-nowrap shrink-0">{key}</span>
+							class="text-primary hover:text-primary/80 hover:bg-accent flex w-full items-baseline overflow-hidden transition-colors">
+							<span class="shrink-0 whitespace-nowrap">{key}</span>
 							{#if essence}
-								<span class="text-muted-foreground text-xs truncate" title={essence}>
+								<span class="text-muted-foreground truncate text-xs" title={essence}>
 									: {essence}
 								</span>
 							{/if}
 						</a>
 
 						{#if children}
-							<div class="pl-4 border-l border-muted ml-1 mt-1">
+							<div class="border-muted mt-1 ml-1 border-l pl-4">
 								{@render verboseTreeNode(children, childPathPart)}
 							</div>
 						{/if}
@@ -96,7 +98,7 @@
 <div class="space-y-2">
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
-		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
+		<Card.Content class="flex flex-wrap items-center gap-2 font-mono text-sm">
 			<div class="flex items-center gap-2">
 				<span class="text-foreground/70">$</span>
 				<div class="flex items-center">
@@ -104,13 +106,10 @@
 						type="single"
 						value={resourceRoot}
 						onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
-						<Select.Trigger
-							size="sm"
-							class="bg-background border-border text-foreground px-2 h-7"
-							aria-label="Tool command">
+						<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 px-2" aria-label="Tool command">
 							<span>ListPages</span>
 						</Select.Trigger>
-						<Select.Content class="bg-popover border border-border text-popover-foreground">
+						<Select.Content class="bg-popover border-border text-popover-foreground border">
 							{#each toolCommands as cmd}
 								<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
 							{/each}
@@ -123,13 +122,10 @@
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">library=</span>
 				<Select.Root type="single" value={selectedLibrary} onValueChange={handleLibraryChange}>
-					<Select.Trigger
-						size="sm"
-						class="bg-background border-border text-foreground px-2 h-7 min-w-[100px]"
-						aria-label="Library">
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 min-w-[100px] px-2" aria-label="Library">
 						<span>{selectedLibrary || '(select)'}</span>
 					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground max-h-60">
+					<Select.Content class="bg-popover border-border text-popover-foreground max-h-60 border">
 						{#each libraryOptions as lib}
 							<Select.Item value={lib}>{lib}</Select.Item>
 						{/each}
@@ -142,7 +138,7 @@
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">verbose=</span>
 				<label
-					class="flex items-center gap-2 cursor-pointer bg-background border border-border px-2 h-7 rounded-md hover:bg-accent/50 transition-colors">
+					class="bg-background border-border hover:bg-accent/50 flex h-7 cursor-pointer items-center gap-2 rounded-md border px-2 transition-colors">
 					<input type="checkbox" class="accent-primary h-3 w-3" checked={verbose} onchange={toggleVerbose} />
 				</label>
 			</div>
@@ -152,7 +148,7 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<div class="overflow-auto min-h-[320px] p-4">
+	<div class="min-h-[320px] overflow-auto p-4">
 		{#if pageIndex}
 			<div class="font-mono text-xs">
 				{#if verbose}
@@ -162,7 +158,7 @@
 				{/if}
 			</div>
 		{:else}
-			<p class="text-xs text-muted-foreground"># select a library to view pages</p>
+			<p class="text-muted-foreground text-xs"># select a library to view pages</p>
 		{/if}
 	</div>
 </div>

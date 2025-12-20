@@ -11,9 +11,5 @@ export const load: LayoutServerLoad = async () => {
 		name: summary.name ?? key
 	}));
 
-	return {
-		mcp: {
-			libraries: librarySummaries
-		}
-	};
+	return { libraries: librarySummaries };
 };

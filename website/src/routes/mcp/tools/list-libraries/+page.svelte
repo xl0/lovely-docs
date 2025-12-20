@@ -8,13 +8,13 @@
 
 	const { data } = $props();
 
-	const ecosystems = $derived(data.mcp.ecosystems);
+	const ecosystems = $derived(data.ecosystems);
 	const ecosystemOptions = $derived(ecosystems);
 	const hashParts = $derived(page.url.hash.slice(1).split('&'));
 	const selectedEcosystem = $derived(hashParts[0] || '*');
 	const verbose = $derived(hashParts.includes('verbose=true'));
 
-	const currentTools = $derived(data.mcp.tools.filter((t: any) => t.label === selectedEcosystem));
+	const currentTools = $derived(data.tools.filter((t: any) => t.label === selectedEcosystem));
 
 	const resourceRoot = 'list-libraries';
 
@@ -36,19 +36,16 @@
 <div class="space-y-2">
 	<!-- Selector Bar -->
 	<Card.Root class="border-border bg-card">
-		<Card.Content class="text-sm flex flex-wrap items-center gap-2 font-mono">
+		<Card.Content class="flex flex-wrap items-center gap-2 font-mono text-sm">
 			<div class="flex items-center">
 				<Select.Root
 					type="single"
 					value={resourceRoot}
 					onValueChange={(v) => handleToolCommandChange(v as ToolCommand['id'], resourceRoot)}>
-					<Select.Trigger
-						size="sm"
-						class="bg-background border-border text-foreground px-2 h-7"
-						aria-label="Tool command">
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 px-2" aria-label="Tool command">
 						<span>ListLibraries</span>
 					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground">
+					<Select.Content class="bg-popover border-border text-popover-foreground border">
 						{#each toolCommands as cmd}
 							<Select.Item value={cmd.id}>{cmd.label}</Select.Item>
 						{/each}
@@ -60,10 +57,10 @@
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">ecosystem=</span>
 				<Select.Root type="single" value={selectedEcosystem} onValueChange={handleEcosystemChange}>
-					<Select.Trigger size="sm" class="bg-background border-border text-foreground px-2 h-7" aria-label="Ecosystem">
+					<Select.Trigger size="sm" class="bg-background border-border text-foreground h-7 px-2" aria-label="Ecosystem">
 						<span>{selectedEcosystem}</span>
 					</Select.Trigger>
-					<Select.Content class="bg-popover border border-border text-popover-foreground">
+					<Select.Content class="bg-popover border-border text-popover-foreground border">
 						{#each ecosystemOptions as eco}
 							<Select.Item value={eco}>{eco}</Select.Item>
 						{/each}
@@ -76,7 +73,7 @@
 			<div class="flex items-center gap-1">
 				<span class="text-muted-foreground">verbose=</span>
 				<label
-					class="flex items-center gap-2 cursor-pointer bg-background border border-border px-2 h-7 rounded-md hover:bg-accent/50 transition-colors">
+					class="bg-background border-border hover:bg-accent/50 flex h-7 cursor-pointer items-center gap-2 rounded-md border px-2 transition-colors">
 					<input type="checkbox" class="accent-primary h-3 w-3" checked={verbose} onchange={toggleVerbose} />
 				</label>
 			</div>
@@ -86,9 +83,9 @@
 	</Card.Root>
 
 	<!-- Content -->
-	<div class="overflow-auto min-h-[320px] p-4">
+	<div class="min-h-[320px] overflow-auto p-4">
 		{#if currentTools.length === 0}
-			<p class="text-xs text-muted-foreground"># no tools for this ecosystem</p>
+			<p class="text-muted-foreground text-xs"># no tools for this ecosystem</p>
 		{:else}
 			{#each currentTools as t}
 				<div class="mb-4">
@@ -97,16 +94,18 @@
 							{#each Object.entries(t.verbose) as [lib, summary]}
 								<a
 									href={resolve(`/mcp/tools/list-pages/${lib}`)}
-									class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-									{lib}<span class="text-muted-foreground">: {summary}</span>
+									class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+									{lib}
+									<span class="text-muted-foreground">: {summary}</span>
 								</a>
 							{/each}
 						{:else}
 							{#each t.payload as lib}
 								<a
 									href={resolve(`/mcp/tools/list-pages/${lib}`)}
-									class="block w-full text-left text-primary hover:text-primary/80 hover:bg-accent transition-colors">
-									<span class="text-muted-foreground">- </span>{lib}
+									class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+									<span class="text-muted-foreground">-</span>
+									{lib}
 								</a>
 							{/each}
 						{/if}
