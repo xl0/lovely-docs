@@ -13,31 +13,30 @@ import { flattenPagePaths } from '$lib/server/utils';
 export const load = async ({ params }) => {
 	const { library, path } = params;
 
-	if (!library) {
-		const allLibraries = await getWebsiteLibraries();
-		const summaries = getLibrarySummaries(allLibraries);
-		const libs = filterLibraries(summaries, {} as LibraryFilterOptions);
-		const librarySummaries = Array.from(libs.entries()).map(([key, summary]) => ({
-			key,
-			name: summary.name ?? key
-		}));
+	const allLibraries = await getWebsiteLibraries();
+	const summaries = getLibrarySummaries(allLibraries);
+	const libs = filterLibraries(summaries, {} as LibraryFilterOptions);
+	const libraries = Array.from(libs.entries()).map(([key, summary]) => ({
+		key,
+		name: summary.name ?? key
+	}));
+	const markdownVariants = Array.from(markdownVariantKeys);
 
-		return {
-			content: null,
-			libraries: librarySummaries,
-			markdownVariants: Array.from(markdownVariantKeys),
-			paths: []
-		};
+	if (!library) {
+		return { content: null, libraries, markdownVariants, paths: [] };
 	}
+
+	const result = getPageIndex(allLibraries, library);
+	const tree = result.isOk() ? (result.value.tree ?? []) : [];
+	const paths = flattenPagePaths(tree);
 
 	const pathSegments = path ? path.split('/').filter(Boolean) : [];
 
 	try {
 		const { currentNode } = await getDocPageData(library, pathSegments);
-
+		const children = buildNested(currentNode);
 		const levels: MarkdownLevel[] = ['digest', 'fulltext', 'short_digest', 'essence'];
 		const content: Record<string, { text: string; children?: unknown[] }> = {};
-		const children = buildNested(currentNode);
 
 		for (const level of levels) {
 			const text = currentNode.markdown[level];
@@ -49,44 +48,12 @@ export const load = async ({ params }) => {
 			}
 		}
 
-		if (Object.keys(content).length === 0) {
-			if (Object.keys(currentNode.children).length > 0) {
-				content['digest'] = { text: '', children };
-			}
+		if (Object.keys(content).length === 0 && Object.keys(currentNode.children).length > 0) {
+			content['digest'] = { text: '', children };
 		}
 
-		const allLibraries = await getWebsiteLibraries();
-		const summaries = getLibrarySummaries(allLibraries);
-		const libs = filterLibraries(summaries, {} as LibraryFilterOptions);
-		const librarySummaries = Array.from(libs.entries()).map(([key, summary]) => ({
-			key,
-			name: summary.name ?? key
-		}));
-
-		const result = getPageIndex(allLibraries, library);
-		const tree = result.isOk() ? (result.value.tree ?? []) : [];
-		const paths = flattenPagePaths(tree);
-
-		return {
-			content,
-			libraries: librarySummaries,
-			markdownVariants: Array.from(markdownVariantKeys),
-			paths
-		};
-	} catch (e) {
-		const allLibraries = await getWebsiteLibraries();
-		const summaries = getLibrarySummaries(allLibraries);
-		const libs = filterLibraries(summaries, {} as LibraryFilterOptions);
-		const librarySummaries = Array.from(libs.entries()).map(([key, summary]) => ({
-			key,
-			name: summary.name ?? key
-		}));
-
-		return {
-			content: null,
-			libraries: librarySummaries,
-			markdownVariants: Array.from(markdownVariantKeys),
-			paths: []
-		};
+		return { content, libraries, markdownVariants, paths };
+	} catch {
+		return { content: null, libraries, markdownVariants, paths: [] };
 	}
 };
