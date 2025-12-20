@@ -1,10 +1,8 @@
 import type { PageServerLoad } from './$types';
-import YAML from 'yaml';
 import { filterEcosystems, filterLibraries, getEcosystems, getLibrarySummaries, type LibraryFilterOptions } from 'lovely-docs/doc-cache';
 import { libraryIndex } from 'lovely-docs/handlers';
 import { getWebsiteLibraries } from '$lib/server/library-service';
-
-const toYaml = (value: unknown): string => YAML.stringify(value).trim();
+import { toYaml } from '$lib/server/utils';
 
 export const load: PageServerLoad = async () => {
 	const libraries = await getWebsiteLibraries();
