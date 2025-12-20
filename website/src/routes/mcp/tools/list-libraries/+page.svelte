@@ -14,7 +14,7 @@
 	const selectedEcosystem = $derived(hashParts[0] || '*');
 	const verbose = $derived(hashParts.includes('verbose=true'));
 
-	const currentTools = $derived(data.tools.filter((t: any) => t.label === selectedEcosystem));
+	const currentItem = $derived(data.items.find((t: any) => t.label === selectedEcosystem));
 
 	const resourceRoot = 'list-libraries';
 
@@ -84,34 +84,30 @@
 
 	<!-- Content -->
 	<div class="min-h-[320px] overflow-auto p-4">
-		{#if currentTools.length === 0}
-			<p class="text-muted-foreground text-xs"># no tools for this ecosystem</p>
+		{#if !currentItem}
+			<p class="text-muted-foreground text-xs"># no libraries for this ecosystem</p>
 		{:else}
-			{#each currentTools as t}
-				<div class="mb-4">
-					<div class="font-mono text-xs">
-						{#if verbose}
-							{#each Object.entries(t.verbose) as [lib, summary]}
-								<a
-									href={resolve(`/mcp/tools/list-pages/${lib}`)}
-									class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
-									{lib}
-									<span class="text-muted-foreground">: {summary}</span>
-								</a>
-							{/each}
-						{:else}
-							{#each t.payload as lib}
-								<a
-									href={resolve(`/mcp/tools/list-pages/${lib}`)}
-									class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
-									<span class="text-muted-foreground">-</span>
-									{lib}
-								</a>
-							{/each}
-						{/if}
-					</div>
-				</div>
-			{/each}
+			<div class="font-mono text-xs">
+				{#if verbose}
+					{#each Object.entries(currentItem.verbose) as [lib, summary]}
+						<a
+							href={resolve(`/mcp/tools/list-pages/${lib}`)}
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							{lib}
+							<span class="text-muted-foreground">: {summary}</span>
+						</a>
+					{/each}
+				{:else}
+					{#each currentItem.index as lib}
+						<a
+							href={resolve(`/mcp/tools/list-pages/${lib}`)}
+							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
+							<span class="text-muted-foreground">-</span>
+							{lib}
+						</a>
+					{/each}
+				{/if}
+			</div>
 		{/if}
 	</div>
 </div>

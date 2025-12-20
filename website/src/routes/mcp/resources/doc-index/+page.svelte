@@ -15,9 +15,7 @@
 	const selectedEcosystem = $derived(hashParts[0] || '*');
 	const verbose = $derived(hashParts.includes('verbose=true'));
 
-	const activeResource = $derived(
-		data.resources.find((r: any) => r.label === selectedEcosystem) || data.resources.find((r: any) => r.label === '*')
-	);
+	const activeItem = $derived(data.items.find((r: any) => r.label === selectedEcosystem) || data.items.find((r: any) => r.label === '*'));
 
 	function handleEcosystemChange(value: string) {
 		const eco = value !== '*' ? value : '';
@@ -82,10 +80,10 @@
 
 	<!-- Content -->
 	<div class="min-h-[320px] overflow-auto p-4">
-		{#if activeResource}
+		{#if activeItem}
 			<div class="font-mono text-sm">
 				{#if verbose}
-					{#each Object.entries(activeResource.verbose) as [lib, summary]}
+					{#each Object.entries(activeItem.verbose) as [lib, summary]}
 						<a
 							href={resolve(`/mcp/resources/page-index/${lib}`)}
 							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
@@ -94,7 +92,7 @@
 						</a>
 					{/each}
 				{:else}
-					{#each activeResource.index as lib}
+					{#each activeItem.index as lib}
 						<a
 							href={resolve(`/mcp/resources/page-index/${lib}`)}
 							class="text-primary hover:text-primary/80 hover:bg-accent block w-full text-left transition-colors">
@@ -105,7 +103,7 @@
 				{/if}
 			</div>
 		{:else}
-			<p class="text-muted-foreground text-xs"># no resources for ecosystem {selectedEcosystem}</p>
+			<p class="text-muted-foreground text-xs"># no libraries for ecosystem {selectedEcosystem}</p>
 		{/if}
 	</div>
 </div>
