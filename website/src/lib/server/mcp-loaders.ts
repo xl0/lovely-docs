@@ -42,8 +42,8 @@ export async function loadLibraryIndex(): Promise<{
 	ecosystems: string[];
 	items: LibraryIndexItem[];
 }> {
-	const { libs } = await getLibrarySummaryList();
-	const summaries = getLibrarySummaries(await getWebsiteLibraries());
+	const { allLibraries, libs } = await getLibrarySummaryList();
+	const summaries = getLibrarySummaries(allLibraries);
 	const ecosystems = ['*', ...Array.from(filterEcosystems(getEcosystems(summaries), {})).sort()];
 
 	const items = ecosystems.map((eco) => {
