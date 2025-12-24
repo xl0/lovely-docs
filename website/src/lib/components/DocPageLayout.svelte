@@ -7,6 +7,7 @@
 	import MarkdownPanel from '$lib/components/MarkdownPanel.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import LibrarySwitcher from '$lib/components/LibrarySwitcher.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import * as Sheet from '$lib/components/ui/sheet';
@@ -98,10 +99,10 @@
 		<aside
 			class="border-border bg-background sticky top-0 hidden h-screen w-64 overflow-y-auto border-r lg:block"
 			onwheel={handleSidebarWheel}>
-			<div class="border-border border-b p-4">
+			<div class="border-border border-b p-4 flex gap-2 items-baseline">
 				<a href={resolve(`/human/${libraryKey}`)} class="hover:text-primary text-lg font-semibold transition-colors">
 					{lib.name}
-				</a>
+				</a><span>pages</span>
 			</div>
 			<div class="p-4">
 				<DocSidebar tree={fullTree} {libraryKey} />
@@ -208,6 +209,7 @@
 
 				<!-- Header Actions -->
 				<div class="flex items-center gap-2 self-end sm:self-auto">
+					<LibrarySwitcher libraries={allLibraries} currentLibraryKey={libraryKey} />
 					<Search libraryFilter={libraryKey} placeholder="Search in {lib.name}..." />
 					<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view" class="hidden sm:block">
 						<Button variant="outline" size="icon" class="mcp-theme bg-background text-foreground border-border hover:bg-accent">
@@ -225,11 +227,7 @@
 					</div>
 					<!-- Outline Toggle -->
 					<span class="hidden xl:block" title={hasToc ? '' : 'No headings in this document'}>
-						<Button
-							variant="outline"
-							size="icon"
-							disabled={!hasToc}
-							onclick={() => (outlineOpen.current = !outlineOpen.current)}>
+						<Button variant="outline" size="icon" disabled={!hasToc} onclick={() => (outlineOpen.current = !outlineOpen.current)}>
 							{#if outlineOpen.current && hasToc}
 								<PanelRightClose size={20} />
 							{:else}

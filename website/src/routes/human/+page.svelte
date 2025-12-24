@@ -6,6 +6,7 @@
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import LibrarySwitcher from '$lib/components/LibrarySwitcher.svelte';
 
 	import dbg from 'debug';
 	import { resolve } from '$app/paths';
@@ -39,9 +40,7 @@
 		let filtered = Array.from(libraries.entries());
 
 		if (selectedEcosystems.length) {
-			filtered = filtered.filter(([, lib]) =>
-				lib.ecosystems.some((eco) => selectedEcosystems.includes(eco))
-			);
+			filtered = filtered.filter(([, lib]) => lib.ecosystems.some((eco) => selectedEcosystems.includes(eco)));
 		}
 
 		// Filter by search query
@@ -67,29 +66,22 @@
 					</Button>
 				</a>
 				<div>
-					<h1
-						class="from-foreground to-foreground/70 bg-linear-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent">
+					<h1 class="from-foreground to-foreground/70 bg-linear-to-r bg-clip-text text-5xl font-bold tracking-tight text-transparent">
 						Lovely Docs
 					</h1>
 					<p class="text-muted-foreground mt-2">Browse documentation libraries</p>
 				</div>
 			</div>
 			<div class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-end">
+				<LibrarySwitcher libraries={Array.from(libraries.entries()).map(([key, lib]) => ({ key, displayName: lib.name }))} />
 				<Search />
 				<div class="flex items-center gap-2">
 					<a href={resolve('/mcp')} title="Switch to MCP view" aria-label="Switch to MCP view">
-						<Button
-							variant="outline"
-							size="icon"
-							class="mcp-theme bg-background text-foreground border-border hover:bg-accent">
+						<Button variant="outline" size="icon" class="mcp-theme bg-background text-foreground border-border hover:bg-accent">
 							<Bot size={24} />
 						</Button>
 					</a>
-					<a
-						href="https://github.com/xl0/lovely-docs"
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="GitHub">
+					<a href="https://github.com/xl0/lovely-docs" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
 						<Button variant="outline" size="icon">
 							<Github size={20} />
 						</Button>
@@ -135,17 +127,16 @@
 		<div class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
 			{#each filteredLibraries as [key, library]}
 				<a href={resolve(`/human/${key}`)} class="group block">
-					<Card
-						class="hover:border-primary/50 h-full transition-all duration-200 group-hover:scale-[1.02] hover:shadow-lg py-0 gap-0">
+					<Card class="hover:border-primary/50 h-full gap-0 py-0 transition-all duration-200 group-hover:scale-[1.02] hover:shadow-lg">
 						<CardHeader class="p-3 pb-1.5">
 							<CardTitle class="text-base">
 								<div class="flex items-center gap-2">
 									<BookOpen class="text-primary size-4 shrink-0" />
-									<span class="truncate shrink-0">{library.name}</span>
+									<span class="shrink-0 truncate">{library.name}</span>
 
 									{#if library.ecosystems?.length}
 										{#each library.ecosystems as eco}
-											<Badge variant="secondary" class="text-[10px] h-5 px-1.5 shrink-0 font-normal">
+											<Badge variant="secondary" class="h-5 shrink-0 px-1.5 text-[10px] font-normal">
 												{eco}
 											</Badge>
 										{/each}
@@ -154,16 +145,13 @@
 									<div class="flex-1"></div>
 
 									{#if library.source_type}
-										<Badge
-											variant="outline"
-											class="text-[10px] h-5 px-1.5 shrink-0 hidden sm:inline-flex font-normal">
+										<Badge variant="outline" class="hidden h-5 shrink-0 px-1.5 text-[10px] font-normal sm:inline-flex">
 											{library.source_type}
 										</Badge>
 									{/if}
 
 									{#if library.source?.commit}
-										<span
-											class="text-muted-foreground font-mono text-[10px] shrink-0 hidden md:inline-block font-normal">
+										<span class="text-muted-foreground hidden shrink-0 font-mono text-[10px] font-normal md:inline-block">
 											{library.source.commit.slice(0, 7)}
 										</span>
 									{/if}
@@ -171,7 +159,7 @@
 							</CardTitle>
 						</CardHeader>
 						<CardContent class="p-3 pt-0">
-							<p class="text-muted-foreground text-sm line-clamp-2">
+							<p class="text-muted-foreground line-clamp-2 text-sm">
 								{library.essence || library.source?.repo || library.source?.name || 'No description'}
 							</p>
 						</CardContent>
