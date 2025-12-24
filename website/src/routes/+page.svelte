@@ -2,10 +2,12 @@
 	import { resolve } from '$app/paths';
 	import Footer from '$lib/components/Footer.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import * as Alert from '$lib/components/ui/alert';
 	import { Button } from '$lib/components/ui/button';
+	import { Title } from '$lib/components/ui/card';
 	import { Tabs, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import UsageInstructions from '$lib/components/UsageInstructions.svelte';
-	import { BookOpen, Bot, File, Folder, Github, Terminal } from '@lucide/svelte';
+	import { BookOpen, Bot, CircleAlert, File, Folder, Github, Terminal } from '@lucide/svelte';
 	import { siDiscord, siX } from 'simple-icons';
 
 	// Package Manager State
@@ -360,6 +362,15 @@
 				You can experiment with the installed. So far I found that "Diegst only" without directory summaries and llm map works best in
 				Windsurf and Antigravity, but give it a try and let me know how it goes.
 			</p>
+			<Alert.Root>
+				<CircleAlert/>
+				<Alert.Title>Don't add lovely-docs to .gitignore.</Alert.Title>
+				<Alert.Description>
+					Even if you alow agent access to ignored files, it's likely to be reluctant to use them, depending on the agent of couese. The IDE
+					might also get in the way by not allowing to @ the ignored files.
+				</Alert.Description>
+			</Alert.Root>
+
 			<div class="grid gap-4 lg:grid-cols-2">
 				<!-- Interactive Configurator -->
 				<div class="bg-card text-card-foreground rounded-lg border font-mono text-sm shadow-sm">
