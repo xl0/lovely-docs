@@ -252,7 +252,7 @@
 	<div class="flex w-full max-w-md gap-4">
 		<Button href={resolve('/human')} variant="default" size="lg" class="flex-1">
 			<BookOpen class="mr-2" size={20} />
-			Read the docs
+			Read the (human) docs
 		</Button>
 	</div>
 
@@ -532,7 +532,7 @@
 				<p>You can run a Lovely Docs MCP server locally. Or you can access the one I'm running publicly.</p>
 			</div>
 			<div class="mx-auto w-full max-w-md gap-4">
-				<Button href={resolve('/mcp')} variant="default" size="lg" class="w-full flex-1 text-center text-wrap whitespace-pre-wrap">
+				<Button href={resolve('/mcp')} variant="default" size="lg" class="mcp-theme w-full flex-1 text-center text-wrap whitespace-pre-wrap">
 					<Bot class="mr-2" size={20} />Read the docs the way your agent sees them over MCP
 				</Button>
 			</div>
@@ -540,5 +540,5 @@
 			<UsageInstructions />
 		</section>
 	</div>
+	<Footer />
 </div>
-<Footer />

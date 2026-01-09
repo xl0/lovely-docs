@@ -55,7 +55,7 @@
 	});
 </script>
 
-<div class="from-background to-muted/20 min-h-screen bg-linear-to-b">
+<div class="from-background to-muted/20 min-h-screen bg-linear-to-b flex flex-col justify-between">
 	<div class="container mx-auto px-4 py-8">
 		<!-- Header -->
 		<div class="mb-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -174,6 +174,6 @@
 			</div>
 		{/if}
 	</div>
+	<Footer />
 </div>
 
-<Footer />

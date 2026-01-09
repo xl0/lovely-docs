@@ -99,10 +99,11 @@
 		<aside
 			class="border-border bg-background sticky top-0 hidden h-screen w-64 overflow-y-auto border-r lg:block"
 			onwheel={handleSidebarWheel}>
-			<div class="border-border border-b p-4 flex gap-2 items-baseline">
+			<div class="border-border flex items-baseline gap-2 border-b p-4">
 				<a href={resolve(`/human/${libraryKey}`)} class="hover:text-primary text-lg font-semibold transition-colors">
 					{lib.name}
-				</a><span>pages</span>
+				</a>
+				<span>pages</span>
 			</div>
 			<div class="p-4">
 				<DocSidebar tree={fullTree} {libraryKey} />
@@ -111,7 +112,7 @@
 	{/if}
 
 	<!-- Main Content -->
-	<div class="min-w-0 flex-1">
+	<div class="flex min-h-screen min-w-0 flex-1 flex-col">
 		<!-- Header -->
 		<header class="border-border bg-background/95 supports-backdrop-filter:bg-background/60 sticky top-0 z-10 border-b backdrop-blur">
 			<div class="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
@@ -240,7 +241,7 @@
 		</header>
 
 		<!-- Page Content with Outline -->
-		<div class="flex">
+		<div class="flex flex-1">
 			<main class="min-w-0 flex-1 px-4 py-8" class:max-w-4xl={!wideMode.current} class:mx-auto={!wideMode.current}>
 				{#if currentNode}
 					<div class="mb-4">
@@ -281,7 +282,6 @@
 				</aside>
 			{/if}
 		</div>
-
 		<Footer />
 	</div>
 
