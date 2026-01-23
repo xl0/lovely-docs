@@ -67,7 +67,7 @@ export class Installer {
 		// 2. Generate LLM_MAP.md
 		if (includeLlmMap) {
 			const essenceTree = await this.buildEssenceTree(libPath, index.map, '', index.name);
-			const llmMapContent = this.renderEssenceTree(essenceTree, libTargetDir);
+			const llmMapContent = this.renderEssenceTree(essenceTree, libTargetDir, 0, includeSummaries);
 			await fs.outputFile(join(libTargetDir, 'LLM_MAP.md'), llmMapContent);
 		}
 
@@ -140,15 +140,18 @@ export class Installer {
 			children[key] = await this.buildEssenceTree(join(path, key), child, childRelativePath);
 		}
 
+		const isDirectory = Object.keys(node.children).length > 0;
+
 		return {
 			name: libraryName || node.displayName,
 			essence,
 			children,
-			relativePath
+			relativePath,
+			isDirectory
 		};
 	}
 
-	private renderEssenceTree(node: EssenceNode, baseDir: string, depth = 0): string {
+	private renderEssenceTree(node: EssenceNode, baseDir: string, depth = 0, includeSummaries = false): string {
 		let output = '';
 		const indent = '  '.repeat(depth);
 
@@ -156,13 +159,20 @@ export class Installer {
 			output += `# ${node.name}\n\n`;
 			if (node.essence) output += `${node.essence}\n\n`;
 		} else {
-			const mdPath = node.relativePath ? `./${node.relativePath}.md` : './root.md';
 			const essence = node.essence.trim().replace(/\n/g, ' ');
-			output += `${indent}${mdPath}: ${essence}\n`;
+			// Only emit file path if the file will actually exist
+			const hasFile = !node.isDirectory || includeSummaries;
+			if (hasFile) {
+				const mdPath = node.relativePath ? `./${node.relativePath}.md` : './root.md';
+				output += `${indent}${mdPath}: ${essence}\n`;
+			} else if (essence) {
+				// For directories without summaries, just show the essence inline as a header
+				output += `${indent}${node.relativePath}/: ${essence}\n`;
+			}
 		}
 
 		for (const child of Object.values(node.children)) {
-			output += this.renderEssenceTree(child, baseDir, depth + 1);
+			output += this.renderEssenceTree(child, baseDir, depth + 1, includeSummaries);
 		}
 
 		return output;
@@ -174,4 +184,5 @@ interface EssenceNode {
 	essence: string;
 	children: Record<string, EssenceNode>;
 	relativePath: string;
+	isDirectory: boolean;
 }
