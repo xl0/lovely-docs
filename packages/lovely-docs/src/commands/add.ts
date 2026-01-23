@@ -209,18 +209,26 @@ export const addCommand = new Command('add')
 			librariesToAdd = selectedLibs as string[];
 		} else {
 			// Multiple libraries by name or ID
+			const notFound: string[] = [];
 			for (const libraryInput of libraryInputs) {
 				const libByName = libraries.find((l: LibraryInfo) => l.name === libraryInput);
 				const libById = libraries.find((l: LibraryInfo) => l.id === libraryInput);
 
 				if (!libById && !libByName) {
-					console.error(pc.red(`Library '${libraryInput}' not found in documentation database.`));
-					console.log(pc.yellow('Run `npx lovely-docs list` to see available libraries.'));
-					process.exit(1);
+					notFound.push(libraryInput);
+					continue;
 				}
 
 				const library = libById || libByName!;
 				librariesToAdd.push(library.id);
+			}
+
+			if (notFound.length > 0) {
+				console.error(pc.red(`Libraries not found: ${notFound.join(', ')}`));
+				console.log(pc.yellow('Run `npx lovely-docs list` to see available libraries.'));
+				if (librariesToAdd.length === 0) {
+					process.exit(1);
+				}
 			}
 		}
 
