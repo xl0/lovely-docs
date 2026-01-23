@@ -16,7 +16,7 @@ interface LibraryInfo {
 
 export const addCommand = new Command('add')
 	.description('Add a documentation library to your project')
-	.argument('[library]', 'Library name or ID to add')
+	.argument('[libraries...]', 'Library names or IDs to add')
 	.alias('a')
 	.option('--all', 'Add all available libraries')
 	.option('--digest', 'Install only digest files')
@@ -27,7 +27,7 @@ export const addCommand = new Command('add')
 	.option('--llms-map', 'Generate LLM_MAP.md')
 	.option('--no-llms-map', 'Do not generate LLM_MAP.md')
 	.option('-q, --quiet', 'Skip prompts and use defaults')
-	.action(async (libraryInput, options) => {
+	.action(async (libraryInputs: string[], options) => {
 		const configManager = new ConfigManager();
 		const config = await configManager.load();
 
@@ -147,7 +147,7 @@ export const addCommand = new Command('add')
 		if (options.all) {
 			// Add all libraries
 			librariesToAdd = libraries.map((l: LibraryInfo) => l.id);
-		} else if (!libraryInput) {
+		} else if (libraryInputs.length === 0) {
 			// Interactive mode
 			p.intro(pc.bold('Add Documentation Libraries'));
 
@@ -208,18 +208,20 @@ export const addCommand = new Command('add')
 
 			librariesToAdd = selectedLibs as string[];
 		} else {
-			// Single library by name or ID
-			const libByName = libraries.find((l: LibraryInfo) => l.name === libraryInput);
-			const libById = libraries.find((l: LibraryInfo) => l.id === libraryInput);
+			// Multiple libraries by name or ID
+			for (const libraryInput of libraryInputs) {
+				const libByName = libraries.find((l: LibraryInfo) => l.name === libraryInput);
+				const libById = libraries.find((l: LibraryInfo) => l.id === libraryInput);
 
-			if (!libById && !libByName) {
-				console.error(pc.red(`Library '${libraryInput}' not found in documentation database.`));
-				console.log(pc.yellow('Run `npx lovely-docs list` to see available libraries.'));
-				process.exit(1);
+				if (!libById && !libByName) {
+					console.error(pc.red(`Library '${libraryInput}' not found in documentation database.`));
+					console.log(pc.yellow('Run `npx lovely-docs list` to see available libraries.'));
+					process.exit(1);
+				}
+
+				const library = libById || libByName!;
+				librariesToAdd.push(library.id);
 			}
-
-			const library = libById || libByName!;
-			librariesToAdd = [library.id];
 		}
 
 		if (librariesToAdd.length === 0) {
