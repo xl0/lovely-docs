@@ -220,7 +220,10 @@ export const addCommand = new Command('add')
 				}
 
 				const library = libById || libByName!;
-				librariesToAdd.push(library.id);
+				// Skip duplicates
+				if (!librariesToAdd.includes(library.id)) {
+					librariesToAdd.push(library.id);
+				}
 			}
 
 			if (notFound.length > 0) {
