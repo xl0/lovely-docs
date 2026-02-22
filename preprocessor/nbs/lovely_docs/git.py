@@ -77,7 +77,7 @@ def clone_repo(source: GitSource) -> tuple[str, Path]:
         repo.git.clean('-fdq') # Just in case
         # Fetch to ensure remote branches are up to date
         if 'origin' in repo.remotes:
-            repo.remotes.origin.fetch(progress=git_progress)
+            repo.remotes.origin.fetch(progress=git_progress) # type: ignore[arg-type]
     except (InvalidGitRepositoryError, NoSuchPathError):
         clone_dir.parent.mkdir(parents=True, exist_ok=True)
         repo = Repo.clone_from(source.repo, clone_dir, progress=git_progress)

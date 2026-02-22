@@ -179,6 +179,7 @@ async def llm_process_page(
             prompt = template.render(**inputs)
             template_trace.end(outputs=prompt)
 
+        res = None
         with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as llm_trace:
             async for attempt in AsyncRetrying(
                 stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)
@@ -194,14 +195,16 @@ async def llm_process_page(
                             f"{page.origPath}: retry {attempt.retry_state.attempt_number}: {str(e)}"
                         )
                         raise
+        assert res is not None
 
         with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as parse_trace:
             reply = PageReplySchema.model_validate_json(await res.text())
             reply.better_name = reply.better_name.removesuffix('.md')
-            parse_trace.end(outputs=reply)
+            parse_trace.end(outputs=reply.model_dump())
             usage = await res.usage()
 
         # Count tokens for fulltext, digest, and short_digest in parallel
+        token_counts = None
         async for attempt in AsyncRetrying(
             stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)
         ):
@@ -224,6 +227,7 @@ async def llm_process_page(
                         f"{page.origPath}: retry token count {attempt.retry_state.attempt_number}: {str(e)}"
                     )
                     raise
+        assert token_counts is not None
 
         result = DocItem(
             origPath=page.origPath,
@@ -238,7 +242,7 @@ async def llm_process_page(
             usage=usage
         )
 
-        trace.end(outputs=result.model_copy(update={"fulltext": ""}))
+        trace.end(outputs=result.model_copy(update={"fulltext": ""}).model_dump())
         return result
 
 # %% ../02_docs.ipynb 24
@@ -292,6 +296,8 @@ async def llm_process_directory(
             prompt = template.render(**input)
             template_trace.end(outputs=prompt)
 
+        res = None
+        usage = None
         with ls.trace("LLM call", "llm", inputs={"prompt": prompt}) as llm_trace:
             async for attempt in AsyncRetrying(
                 stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)
@@ -308,12 +314,14 @@ async def llm_process_directory(
                             f"{directory.origPath}: retry {attempt.retry_state.attempt_number}: {str(e)}"
                         )
                         raise
+        assert res is not None
+        assert usage is not None
 
         with ls.trace("Parse", "parser", inputs={"input": await res.text()}) as parse_trace:
             reply = DirReplySchema.model_validate_json(await res.text())
             reply.better_name = reply.better_name.removesuffix('.md')
 
-            parse_trace.end(outputs=reply)
+            parse_trace.end(outputs=reply.model_dump())
 
         # We save a generated fulltext for a directory which is the sum of digests of all the pages and subdirs within.
         fulltext_template = Environment(loader=FileSystemLoader(settings.templates_dir)
@@ -321,6 +329,7 @@ async def llm_process_directory(
         fulltext = fulltext_template.render(**input)
 
         # Count tokens for fulltext, digest, and short_digest in parallel
+        token_counts = None
         async for attempt in AsyncRetrying(
             stop=stop_after_attempt(5), wait=wait_exponential(multiplier=1, min=3, max=60)
         ):
@@ -343,6 +352,7 @@ async def llm_process_directory(
                         f"{directory.origPath}: retry token count {attempt.retry_state.attempt_number}: {str(e)}"
                     )
                     raise
+        assert token_counts is not None
 
         result = directory.model_copy(deep=True)
         result.displayName = reply.better_name
@@ -355,7 +365,7 @@ async def llm_process_directory(
         result.token_counts = token_counts
         result.usage = usage
 
-        trace.end(outputs=result.model_copy(update={"fulltext": ""}))
+        trace.end(outputs=result.model_copy(update={"fulltext": ""}).model_dump())
         return result
 
 # %% ../02_docs.ipynb 28
@@ -412,17 +422,18 @@ async def process_tree_depth_first(
             if not any(x for x in subdirs + pages if x.relevant):
                 result = DocItem(
                     origPath=tree.origPath,
+                    name=tree.name,
                     displayName=tree.displayName,
-                    children=pages,
+                    children=list(pages),
                     relevant=False
                 )
-                trace.end(outputs=result)
+                trace.end(outputs=result.model_dump())
                 return result
 
             # Update children with processed items
             tree.children = subdirs + pages
             result = await llm_process_directory(settings, tree, libname, extra_dir)
-        trace.end(outputs=result.model_copy(update={"fulltext": ""}))
+        trace.end(outputs=result.model_copy(update={"fulltext": ""}).model_dump())
         return result
 
 
@@ -494,7 +505,7 @@ def file_map(doc: DocItem):
         children_map[child.name] = file_map(child)
 
     return doc.model_dump(
-        mode="json", include=["origPath", "displayName", "relevant", "usage", "token_counts"]
+        mode="json", include={"origPath", "displayName", "relevant", "usage", "token_counts"}
     ) | {
         "children": children_map
     }
