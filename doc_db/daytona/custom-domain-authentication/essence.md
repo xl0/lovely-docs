@@ -1,0 +1,1 @@
+Custom preview proxy for sandboxes with custom domains, authentication, auto-start, and control headers (skip-warning, disable-CORS, skip-activity-update, preview-token).

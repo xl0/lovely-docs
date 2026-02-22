@@ -1,0 +1,1 @@
+Run Claude Code in isolated sandboxes with PTY-based real-time output streaming; AsyncDaytona recommended for automatic callbacks.

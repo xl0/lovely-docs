@@ -1,0 +1,1 @@
+Sandbox class: isolated execution environment with resource allocation, lifecycle automation, preview/SSH access, and code/file/git/process operation interfaces.

@@ -1,0 +1,1 @@
+Personal vs collaborative organizations with role-based access control (Owner/Member), granular assignments (Viewer, Developer, various Admins, Super Admin, Auditor), and member management (invite, remove, assignments).

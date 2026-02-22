@@ -1,0 +1,3 @@
+**API**: Interactive reference of all endpoints and operations.
+
+**CLI**: Sandbox lifecycle (`create`/`start`/`stop`/`archive`/`delete` with resource allocation, env vars, labels, volumes, snapshots), operations (`exec`, `ssh`, `info`, `list`, `preview-url`), snapshots (`create` from Dockerfile with defaults: 1 cpu/1GB mem/3GB disk, `push`, `list`, `delete`), volumes (`create`/`delete`/`get`/`list`), organizations (`create`/`use`/`list`/`delete`), auth (`login`/`logout`), MCP server (`init`/`start`/`config` for claude/windsurf/cursor), utilities (`autocomplete`, `docs`, `version`). All commands support `--help`.

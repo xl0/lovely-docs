@@ -1,0 +1,1 @@
+Async sandbox interface with lifecycle control (start/stop/recover/delete/archive), resource management (resize), configuration (autostop/archive/delete intervals, labels), preview links, SSH access, LSP server creation, and file/git/process/code execution operations.

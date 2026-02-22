@@ -1,0 +1,1 @@
+TypeScript types for matplotlib chart parsing: ChartType enum, parseChart() function, and type definitions for Bar, Pie, Line, Scatter, Box-and-Whisker, and Composite charts with metadata.

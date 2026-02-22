@@ -1,0 +1,1 @@
+Dashboard, SDKs (Python/TypeScript/Ruby/Go), CLI, REST API, and MCP server for sandbox management; examples for creating sandboxes with custom resources, ephemeral mode, snapshots, declarative images, volumes, Git repos, and labels.

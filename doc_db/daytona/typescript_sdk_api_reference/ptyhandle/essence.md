@@ -1,0 +1,1 @@
+PTY session handle with methods to send input, resize terminal, wait for completion, kill process, and manage WebSocket connection.

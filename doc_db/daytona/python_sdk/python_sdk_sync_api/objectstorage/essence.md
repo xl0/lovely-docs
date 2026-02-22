@@ -1,0 +1,1 @@
+ObjectStorage class for uploading files to object storage services with AWS credentials; upload() method returns file hash

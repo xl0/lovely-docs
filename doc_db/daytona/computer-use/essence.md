@@ -1,0 +1,1 @@
+Desktop automation API: mouse/keyboard/screenshot/recording/display operations for GUI testing and automation on Linux/Windows/macOS sandboxes.

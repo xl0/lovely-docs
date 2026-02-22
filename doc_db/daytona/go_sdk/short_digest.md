@@ -1,0 +1,1 @@
+Go client for Daytona sandboxes: create/manage lifecycle, execute commands/sessions/PTY, file operations, git, Python code execution, desktop automation (mouse/keyboard/screenshots/recording), LSP, snapshots with fluent DockerImage builder, volumes. Functional options pattern for configuration. Specialized error types (NotFound, RateLimit, Timeout).

@@ -1,0 +1,2116 @@
+{
+  "map": {
+    "origPath": ".",
+    "displayName": "",
+    "relevant": true,
+    "usage": {
+      "input": 77760,
+      "output": 3013,
+      "details": null
+    },
+    "token_counts": {
+      "fulltext": 75905,
+      "digest": 2764,
+      "short_digest": 126
+    },
+    "children": {
+      "go_sdk": {
+        "origPath": "go-sdk",
+        "displayName": "Go SDK",
+        "relevant": true,
+        "usage": {
+          "input": 9507,
+          "output": 3320,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 8178,
+          "digest": 3107,
+          "short_digest": 88
+        },
+        "children": {
+          "go-sdk": {
+            "origPath": "go-sdk/daytona.mdx",
+            "displayName": "go-sdk",
+            "relevant": true,
+            "usage": {
+              "input": 41426,
+              "output": 5513,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 40134,
+              "digest": 4314,
+              "short_digest": 1047
+            },
+            "children": {}
+          },
+          "errors": {
+            "origPath": "go-sdk/errors.mdx",
+            "displayName": "errors",
+            "relevant": true,
+            "usage": {
+              "input": 2802,
+              "output": 727,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1512,
+              "digest": 497,
+              "short_digest": 98
+            },
+            "children": {}
+          },
+          "reference": {
+            "origPath": "go-sdk/index.mdx",
+            "displayName": "reference",
+            "relevant": true,
+            "usage": {
+              "input": 1910,
+              "output": 785,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 620,
+              "digest": 431,
+              "short_digest": 191
+            },
+            "children": {}
+          },
+          "options": {
+            "origPath": "go-sdk/options.mdx",
+            "displayName": "options",
+            "relevant": true,
+            "usage": {
+              "input": 8411,
+              "output": 2266,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 7121,
+              "digest": 1731,
+              "short_digest": 376
+            },
+            "children": {}
+          },
+          "types": {
+            "origPath": "go-sdk/types.mdx",
+            "displayName": "types",
+            "relevant": true,
+            "usage": {
+              "input": 5038,
+              "output": 1477,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3748,
+              "digest": 906,
+              "short_digest": 444
+            },
+            "children": {}
+          }
+        }
+      },
+      "guides": {
+        "origPath": "guides",
+        "displayName": "guides",
+        "relevant": true,
+        "usage": {
+          "input": 20838,
+          "output": 8359,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 19401,
+          "digest": 7727,
+          "short_digest": 461
+        },
+        "children": {
+          "claude_agent_sdk_integration": {
+            "origPath": "guides/claude",
+            "displayName": "Claude Agent SDK Integration",
+            "relevant": true,
+            "usage": {
+              "input": 5106,
+              "output": 1650,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3793,
+              "digest": 1151,
+              "short_digest": 351
+            },
+            "children": {
+              "two-agent_coding_system_with_claude_agent_sdk": {
+                "origPath": "guides/claude/claude-agent-sdk-connect-service-sandbox.mdx",
+                "displayName": "Two-Agent Coding System with Claude Agent SDK",
+                "relevant": true,
+                "usage": {
+                  "input": 3621,
+                  "output": 1847,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2321,
+                  "digest": 1256,
+                  "short_digest": 404
+                },
+                "children": {}
+              },
+              "build_a_coding_agent_using_claude_agent_sdk": {
+                "origPath": "guides/claude/claude-agent-sdk-interactive-terminal-sandbox.mdx",
+                "displayName": "Build a Coding Agent Using Claude Agent SDK",
+                "relevant": true,
+                "usage": {
+                  "input": 4146,
+                  "output": 1884,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2846,
+                  "digest": 1295,
+                  "short_digest": 442
+                },
+                "children": {}
+              },
+              "run_claude_code_in_sandbox_via_cli": {
+                "origPath": "guides/claude/claude-code-run-cli-sandbox.mdx",
+                "displayName": "Run Claude Code in Sandbox via CLI",
+                "relevant": true,
+                "usage": {
+                  "input": 1980,
+                  "output": 563,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 682,
+                  "digest": 297,
+                  "short_digest": 136
+                },
+                "children": {}
+              },
+              "running_claude_code_in_sandboxes": {
+                "origPath": "guides/claude/claude-code-run-tasks-stream-logs-sandbox.mdx",
+                "displayName": "Running Claude Code in Sandboxes",
+                "relevant": true,
+                "usage": {
+                  "input": 2289,
+                  "output": 1110,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 987,
+                  "digest": 681,
+                  "short_digest": 304
+                },
+                "children": {}
+              },
+              "claude_integration_guides": {
+                "origPath": "guides/claude/index.mdx",
+                "displayName": "Claude Integration Guides",
+                "relevant": false,
+                "usage": {
+                  "input": 1365,
+                  "output": 154,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 75,
+                  "digest": 35,
+                  "short_digest": 18
+                },
+                "children": {}
+              }
+            }
+          },
+          "python_rlm_guides": {
+            "origPath": "guides/rlm",
+            "displayName": "Python RLM Guides",
+            "relevant": true,
+            "usage": {
+              "input": 4668,
+              "output": 1802,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3383,
+              "digest": 1423,
+              "short_digest": 253
+            },
+            "children": {
+              "dspy-rlms": {
+                "origPath": "guides/rlm/dspy-rlms.mdx",
+                "displayName": "dspy-rlms",
+                "relevant": true,
+                "usage": {
+                  "input": 4235,
+                  "output": 2183,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2936,
+                  "digest": 1457,
+                  "short_digest": 594
+                },
+                "children": {}
+              },
+              "recursive_language_model_guides": {
+                "origPath": "guides/rlm/index.mdx",
+                "displayName": "Recursive Language Model Guides",
+                "relevant": false,
+                "usage": {
+                  "input": 1388,
+                  "output": 177,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 94,
+                  "digest": 51,
+                  "short_digest": 19
+                },
+                "children": {}
+              },
+              "recursive-language-models": {
+                "origPath": "guides/rlm/recursive-language-models.mdx",
+                "displayName": "recursive-language-models",
+                "relevant": true,
+                "usage": {
+                  "input": 5594,
+                  "output": 2433,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 4296,
+                  "digest": 1809,
+                  "short_digest": 473
+                },
+                "children": {}
+              }
+            }
+          },
+          "build_coding_agent_using_agentkit": {
+            "origPath": "guides/agentkit/inngest-agentkit-coding-agent.mdx",
+            "displayName": "Build Coding Agent Using AgentKit",
+            "relevant": true,
+            "usage": {
+              "input": 3036,
+              "output": 1133,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1733,
+              "digest": 740,
+              "short_digest": 257
+            },
+            "children": {}
+          },
+          "build_a_coding_agent_using_codex_sdk": {
+            "origPath": "guides/codex/codex-sdk-interactive-terminal-sandbox.mdx",
+            "displayName": "Build a Coding Agent Using Codex SDK",
+            "relevant": true,
+            "usage": {
+              "input": 4010,
+              "output": 1920,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2709,
+              "digest": 1240,
+              "short_digest": 553
+            },
+            "children": {}
+          },
+          "ai_data_analysis_with_agentic_loop": {
+            "origPath": "guides/data-analysis-with-ai.mdx",
+            "displayName": "AI Data Analysis with Agentic Loop",
+            "relevant": true,
+            "usage": {
+              "input": 9605,
+              "output": 3719,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 8313,
+              "digest": 2880,
+              "short_digest": 701
+            },
+            "children": {}
+          },
+          "google_adk_code_generator_agent": {
+            "origPath": "guides/google-adk-code-generator.mdx",
+            "displayName": "Google ADK Code Generator Agent",
+            "relevant": true,
+            "usage": {
+              "input": 6653,
+              "output": 2772,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 5360,
+              "digest": 1893,
+              "short_digest": 755
+            },
+            "children": {}
+          },
+          "guides": {
+            "origPath": "guides/index.mdx",
+            "displayName": "guides",
+            "relevant": false,
+            "usage": {
+              "input": 1385,
+              "output": 146,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 99,
+              "digest": 24,
+              "short_digest": 21
+            },
+            "children": {}
+          },
+          "langchain_data_analysis_integration": {
+            "origPath": "guides/langchain/langchain-data-analysis.mdx",
+            "displayName": "LangChain Data Analysis Integration",
+            "relevant": true,
+            "usage": {
+              "input": 7966,
+              "output": 2479,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 6669,
+              "digest": 1784,
+              "short_digest": 568
+            },
+            "children": {}
+          },
+          "build_a_coding_agent_using_letta_code": {
+            "origPath": "guides/letta-code/letta-code-agent.mdx",
+            "displayName": "Build a Coding Agent Using Letta Code",
+            "relevant": true,
+            "usage": {
+              "input": 3390,
+              "output": 1526,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2089,
+              "digest": 1001,
+              "short_digest": 390
+            },
+            "children": {}
+          },
+          "mastra_coding_agent_integration": {
+            "origPath": "guides/mastra/mastra-coding-agent.mdx",
+            "displayName": "Mastra Coding Agent Integration",
+            "relevant": true,
+            "usage": {
+              "input": 3979,
+              "output": 1950,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2682,
+              "digest": 1473,
+              "short_digest": 335
+            },
+            "children": {}
+          },
+          "openclaw-run-secure-sandbox": {
+            "origPath": "guides/openclaw/openclaw-run-secure-sandbox.mdx",
+            "displayName": "openclaw-run-secure-sandbox",
+            "relevant": true,
+            "usage": {
+              "input": 3360,
+              "output": 1475,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2061,
+              "digest": 1062,
+              "short_digest": 242
+            },
+            "children": {}
+          },
+          "opencode_web_agent_integration": {
+            "origPath": "guides/opencode/opencode-web-agent.mdx",
+            "displayName": "OpenCode Web Agent Integration",
+            "relevant": true,
+            "usage": {
+              "input": 3366,
+              "output": 1492,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2069,
+              "digest": 968,
+              "short_digest": 394
+            },
+            "children": {}
+          },
+          "rl_training_with_trl_and_grpo": {
+            "origPath": "guides/reinforcement-learning/trl-grpo-training.mdx",
+            "displayName": "RL Training with TRL and GRPO",
+            "relevant": true,
+            "usage": {
+              "input": 8020,
+              "output": 4837,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 6718,
+              "digest": 3102,
+              "short_digest": 1547
+            },
+            "children": {}
+          }
+        }
+      },
+      "python_sdk": {
+        "origPath": "python-sdk",
+        "displayName": "Python SDK",
+        "relevant": true,
+        "usage": {
+          "input": 7258,
+          "output": 3846,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5939,
+          "digest": 3240,
+          "short_digest": 475
+        },
+        "children": {
+          "python_async_sdk": {
+            "origPath": "python-sdk/async",
+            "displayName": "Python Async SDK",
+            "relevant": true,
+            "usage": {
+              "input": 15209,
+              "output": 3141,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 13789,
+              "digest": 2660,
+              "short_digest": 356
+            },
+            "children": {
+              "asynccodeinterpreter": {
+                "origPath": "python-sdk/async/async-code-interpreter.mdx",
+                "displayName": "AsyncCodeInterpreter",
+                "relevant": true,
+                "usage": {
+                  "input": 3100,
+                  "output": 1331,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 1802,
+                  "digest": 968,
+                  "short_digest": 252
+                },
+                "children": {}
+              },
+              "asynccomputeruse": {
+                "origPath": "python-sdk/async/async-computer-use.mdx",
+                "displayName": "AsyncComputerUse",
+                "relevant": true,
+                "usage": {
+                  "input": 7063,
+                  "output": 2152,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 5765,
+                  "digest": 1428,
+                  "short_digest": 595
+                },
+                "children": {}
+              },
+              "asyncdaytona": {
+                "origPath": "python-sdk/async/async-daytona.mdx",
+                "displayName": "AsyncDaytona",
+                "relevant": true,
+                "usage": {
+                  "input": 5601,
+                  "output": 2782,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 4303,
+                  "digest": 2032,
+                  "short_digest": 596
+                },
+                "children": {}
+              },
+              "asyncfilesystem": {
+                "origPath": "python-sdk/async/async-file-system.mdx",
+                "displayName": "AsyncFileSystem",
+                "relevant": true,
+                "usage": {
+                  "input": 6162,
+                  "output": 2440,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 4864,
+                  "digest": 1883,
+                  "short_digest": 436
+                },
+                "children": {}
+              },
+              "asyncgit": {
+                "origPath": "python-sdk/async/async-git.mdx",
+                "displayName": "AsyncGit",
+                "relevant": true,
+                "usage": {
+                  "input": 3889,
+                  "output": 1603,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2593,
+                  "digest": 1157,
+                  "short_digest": 322
+                },
+                "children": {}
+              },
+              "asynclspserver": {
+                "origPath": "python-sdk/async/async-lsp-server.mdx",
+                "displayName": "AsyncLspServer",
+                "relevant": true,
+                "usage": {
+                  "input": 3304,
+                  "output": 775,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2005,
+                  "digest": 499,
+                  "short_digest": 145
+                },
+                "children": {}
+              },
+              "asyncobjectstorage": {
+                "origPath": "python-sdk/async/async-object-storage.mdx",
+                "displayName": "AsyncObjectStorage",
+                "relevant": true,
+                "usage": {
+                  "input": 1633,
+                  "output": 476,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 335,
+                  "digest": 261,
+                  "short_digest": 104
+                },
+                "children": {}
+              },
+              "asyncprocess": {
+                "origPath": "python-sdk/async/async-process.mdx",
+                "displayName": "AsyncProcess",
+                "relevant": true,
+                "usage": {
+                  "input": 7212,
+                  "output": 3455,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 5916,
+                  "digest": 2711,
+                  "short_digest": 631
+                },
+                "children": {}
+              },
+              "asyncsandbox": {
+                "origPath": "python-sdk/async/async-sandbox.mdx",
+                "displayName": "AsyncSandbox",
+                "relevant": true,
+                "usage": {
+                  "input": 6952,
+                  "output": 1665,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 5656,
+                  "digest": 1266,
+                  "short_digest": 252
+                },
+                "children": {}
+              },
+              "asyncsnapshot": {
+                "origPath": "python-sdk/async/async-snapshot.mdx",
+                "displayName": "AsyncSnapshot",
+                "relevant": true,
+                "usage": {
+                  "input": 3005,
+                  "output": 1166,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 1709,
+                  "digest": 721,
+                  "short_digest": 324
+                },
+                "children": {}
+              },
+              "async-volume": {
+                "origPath": "python-sdk/async/async-volume.mdx",
+                "displayName": "async-volume",
+                "relevant": true,
+                "usage": {
+                  "input": 2217,
+                  "output": 706,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 921,
+                  "digest": 434,
+                  "short_digest": 147
+                },
+                "children": {}
+              }
+            }
+          },
+          "python_sdk_common_classes": {
+            "origPath": "python-sdk/common",
+            "displayName": "Python SDK Common Classes",
+            "relevant": true,
+            "usage": {
+              "input": 3126,
+              "output": 1114,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1826,
+              "digest": 754,
+              "short_digest": 248
+            },
+            "children": {
+              "charts": {
+                "origPath": "python-sdk/common/charts.mdx",
+                "displayName": "Charts",
+                "relevant": true,
+                "usage": {
+                  "input": 2675,
+                  "output": 1078,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 1381,
+                  "digest": 695,
+                  "short_digest": 244
+                },
+                "children": {}
+              },
+              "errors": {
+                "origPath": "python-sdk/common/errors.mdx",
+                "displayName": "errors",
+                "relevant": true,
+                "usage": {
+                  "input": 1641,
+                  "output": 454,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 347,
+                  "digest": 234,
+                  "short_digest": 87
+                },
+                "children": {}
+              },
+              "image": {
+                "origPath": "python-sdk/common/image.mdx",
+                "displayName": "Image",
+                "relevant": true,
+                "usage": {
+                  "input": 3884,
+                  "output": 1165,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2590,
+                  "digest": 770,
+                  "short_digest": 284
+                },
+                "children": {}
+              }
+            }
+          },
+          "python_sdk_sync_api": {
+            "origPath": "python-sdk/sync",
+            "displayName": "Python SDK Sync API",
+            "relevant": true,
+            "usage": {
+              "input": 13296,
+              "output": 2480,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 11876,
+              "digest": 1916,
+              "short_digest": 433
+            },
+            "children": {
+              "codeinterpreter": {
+                "origPath": "python-sdk/sync/code-interpreter.mdx",
+                "displayName": "CodeInterpreter",
+                "relevant": true,
+                "usage": {
+                  "input": 3068,
+                  "output": 1234,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 1772,
+                  "digest": 906,
+                  "short_digest": 214
+                },
+                "children": {}
+              },
+              "computeruse": {
+                "origPath": "python-sdk/sync/computer-use.mdx",
+                "displayName": "ComputerUse",
+                "relevant": true,
+                "usage": {
+                  "input": 6934,
+                  "output": 2563,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 5638,
+                  "digest": 1941,
+                  "short_digest": 457
+                },
+                "children": {}
+              },
+              "daytona_client_api": {
+                "origPath": "python-sdk/sync/daytona.mdx",
+                "displayName": "Daytona Client API",
+                "relevant": true,
+                "usage": {
+                  "input": 5226,
+                  "output": 2019,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 3930,
+                  "digest": 1442,
+                  "short_digest": 431
+                },
+                "children": {}
+              },
+              "filesystem": {
+                "origPath": "python-sdk/sync/file-system.mdx",
+                "displayName": "FileSystem",
+                "relevant": true,
+                "usage": {
+                  "input": 6087,
+                  "output": 2080,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 4791,
+                  "digest": 1732,
+                  "short_digest": 219
+                },
+                "children": {}
+              },
+              "git": {
+                "origPath": "python-sdk/sync/git.mdx",
+                "displayName": "Git",
+                "relevant": true,
+                "usage": {
+                  "input": 3827,
+                  "output": 1055,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 2533,
+                  "digest": 688,
+                  "short_digest": 257
+                },
+                "children": {}
+              },
+              "lspserver": {
+                "origPath": "python-sdk/sync/lsp-server.mdx",
+                "displayName": "LspServer",
+                "relevant": true,
+                "usage": {
+                  "input": 3272,
+                  "output": 886,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 1975,
+                  "digest": 565,
+                  "short_digest": 206
+                },
+                "children": {}
+              },
+              "objectstorage": {
+                "origPath": "python-sdk/sync/object-storage.mdx",
+                "displayName": "ObjectStorage",
+                "relevant": true,
+                "usage": {
+                  "input": 1623,
+                  "output": 442,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 327,
+                  "digest": 234,
+                  "short_digest": 98
+                },
+                "children": {}
+              },
+              "process": {
+                "origPath": "python-sdk/sync/process.mdx",
+                "displayName": "Process",
+                "relevant": true,
+                "usage": {
+                  "input": 7040,
+                  "output": 2545,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 5746,
+                  "digest": 2005,
+                  "short_digest": 424
+                },
+                "children": {}
+              },
+              "sandbox": {
+                "origPath": "python-sdk/sync/sandbox.mdx",
+                "displayName": "Sandbox",
+                "relevant": true,
+                "usage": {
+                  "input": 6840,
+                  "output": 1562,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 5546,
+                  "digest": 982,
+                  "short_digest": 448
+                },
+                "children": {}
+              },
+              "snapshot": {
+                "origPath": "python-sdk/sync/snapshot.mdx",
+                "displayName": "snapshot",
+                "relevant": true,
+                "usage": {
+                  "input": 2971,
+                  "output": 1019,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 1677,
+                  "digest": 584,
+                  "short_digest": 312
+                },
+                "children": {}
+              },
+              "volume": {
+                "origPath": "python-sdk/sync/volume.mdx",
+                "displayName": "Volume",
+                "relevant": true,
+                "usage": {
+                  "input": 2173,
+                  "output": 648,
+                  "details": null
+                },
+                "token_counts": {
+                  "fulltext": 879,
+                  "digest": 372,
+                  "short_digest": 152
+                },
+                "children": {}
+              }
+            }
+          },
+          "sdk_reference": {
+            "origPath": "python-sdk/index.mdx",
+            "displayName": "SDK Reference",
+            "relevant": true,
+            "usage": {
+              "input": 2224,
+              "output": 752,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 934,
+              "digest": 449,
+              "short_digest": 179
+            },
+            "children": {}
+          }
+        }
+      },
+      "ruby_sdk_reference": {
+        "origPath": "ruby-sdk",
+        "displayName": "Ruby SDK Reference",
+        "relevant": true,
+        "usage": {
+          "input": 11511,
+          "output": 3611,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 10047,
+          "digest": 2990,
+          "short_digest": 494
+        },
+        "children": {
+          "computer-use": {
+            "origPath": "ruby-sdk/computer-use.mdx",
+            "displayName": "computer-use",
+            "relevant": true,
+            "usage": {
+              "input": 2656,
+              "output": 929,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1364,
+              "digest": 577,
+              "short_digest": 214
+            },
+            "children": {}
+          },
+          "config": {
+            "origPath": "ruby-sdk/config.mdx",
+            "displayName": "Config",
+            "relevant": true,
+            "usage": {
+              "input": 2156,
+              "output": 448,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 866,
+              "digest": 248,
+              "short_digest": 67
+            },
+            "children": {}
+          },
+          "daytona_class_reference": {
+            "origPath": "ruby-sdk/daytona.mdx",
+            "displayName": "Daytona Class Reference",
+            "relevant": true,
+            "usage": {
+              "input": 2333,
+              "output": 948,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1041,
+              "digest": 597,
+              "short_digest": 226
+            },
+            "children": {}
+          },
+          "filesystem": {
+            "origPath": "ruby-sdk/file-system.mdx",
+            "displayName": "FileSystem",
+            "relevant": true,
+            "usage": {
+              "input": 4514,
+              "output": 1820,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3222,
+              "digest": 1339,
+              "short_digest": 363
+            },
+            "children": {}
+          },
+          "git.mdx": {
+            "origPath": "ruby-sdk/git.mdx",
+            "displayName": "git.mdx",
+            "relevant": true,
+            "usage": {
+              "input": 3672,
+              "output": 1331,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2382,
+              "digest": 912,
+              "short_digest": 307
+            },
+            "children": {}
+          },
+          "image": {
+            "origPath": "ruby-sdk/image.mdx",
+            "displayName": "Image",
+            "relevant": true,
+            "usage": {
+              "input": 3278,
+              "output": 882,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1988,
+              "digest": 496,
+              "short_digest": 273
+            },
+            "children": {}
+          },
+          "sdk_reference": {
+            "origPath": "ruby-sdk/index.mdx",
+            "displayName": "SDK Reference",
+            "relevant": true,
+            "usage": {
+              "input": 1862,
+              "output": 702,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 572,
+              "digest": 400,
+              "short_digest": 171
+            },
+            "children": {}
+          },
+          "lspserver": {
+            "origPath": "ruby-sdk/lsp-server.mdx",
+            "displayName": "LspServer",
+            "relevant": true,
+            "usage": {
+              "input": 2151,
+              "output": 658,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 858,
+              "digest": 429,
+              "short_digest": 117
+            },
+            "children": {}
+          },
+          "objectstorage": {
+            "origPath": "ruby-sdk/object-storage.mdx",
+            "displayName": "ObjectStorage",
+            "relevant": true,
+            "usage": {
+              "input": 1780,
+              "output": 531,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 488,
+              "digest": 277,
+              "short_digest": 134
+            },
+            "children": {}
+          },
+          "process": {
+            "origPath": "ruby-sdk/process.mdx",
+            "displayName": "Process",
+            "relevant": true,
+            "usage": {
+              "input": 5141,
+              "output": 2336,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3851,
+              "digest": 1803,
+              "short_digest": 421
+            },
+            "children": {}
+          },
+          "sandbox": {
+            "origPath": "ruby-sdk/sandbox.mdx",
+            "displayName": "Sandbox",
+            "relevant": true,
+            "usage": {
+              "input": 5111,
+              "output": 2001,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3821,
+              "digest": 1404,
+              "short_digest": 462
+            },
+            "children": {}
+          },
+          "snapshotservice": {
+            "origPath": "ruby-sdk/snapshot.mdx",
+            "displayName": "SnapshotService",
+            "relevant": true,
+            "usage": {
+              "input": 2163,
+              "output": 906,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 873,
+              "digest": 587,
+              "short_digest": 204
+            },
+            "children": {}
+          },
+          "volumeservice": {
+            "origPath": "ruby-sdk/volume-service.mdx",
+            "displayName": "VolumeService",
+            "relevant": true,
+            "usage": {
+              "input": 1679,
+              "output": 553,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 387,
+              "digest": 322,
+              "short_digest": 118
+            },
+            "children": {}
+          },
+          "volume": {
+            "origPath": "ruby-sdk/volume.mdx",
+            "displayName": "volume",
+            "relevant": true,
+            "usage": {
+              "input": 1608,
+              "output": 360,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 318,
+              "digest": 175,
+              "short_digest": 51
+            },
+            "children": {}
+          }
+        }
+      },
+      "api_&_cli_reference": {
+        "origPath": "tools",
+        "displayName": "API & CLI Reference",
+        "relevant": true,
+        "usage": {
+          "input": 2191,
+          "output": 748,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 909,
+          "digest": 436,
+          "short_digest": 196
+        },
+        "children": {
+          "api-reference": {
+            "origPath": "tools/api.mdx",
+            "displayName": "api-reference",
+            "relevant": true,
+            "usage": {
+              "input": 1347,
+              "output": 167,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 61,
+              "digest": 46,
+              "short_digest": 21
+            },
+            "children": {}
+          },
+          "cli_reference": {
+            "origPath": "tools/cli.mdx",
+            "displayName": "CLI Reference",
+            "relevant": true,
+            "usage": {
+              "input": 5273,
+              "output": 1144,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3987,
+              "digest": 815,
+              "short_digest": 219
+            },
+            "children": {}
+          }
+        }
+      },
+      "typescript_sdk_api_reference": {
+        "origPath": "typescript-sdk",
+        "displayName": "TypeScript SDK API Reference",
+        "relevant": true,
+        "usage": {
+          "input": 16946,
+          "output": 4086,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 15422,
+          "digest": 3721,
+          "short_digest": 251
+        },
+        "children": {
+          "charts": {
+            "origPath": "typescript-sdk/charts.mdx",
+            "displayName": "charts",
+            "relevant": true,
+            "usage": {
+              "input": 2898,
+              "output": 1030,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1608,
+              "digest": 645,
+              "short_digest": 252
+            },
+            "children": {}
+          },
+          "code-interpreter": {
+            "origPath": "typescript-sdk/code-interpreter.mdx",
+            "displayName": "code-interpreter",
+            "relevant": true,
+            "usage": {
+              "input": 2763,
+              "output": 947,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1471,
+              "digest": 615,
+              "short_digest": 227
+            },
+            "children": {}
+          },
+          "computer-use": {
+            "origPath": "typescript-sdk/computer-use.mdx",
+            "displayName": "computer-use",
+            "relevant": true,
+            "usage": {
+              "input": 6496,
+              "output": 1352,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 5204,
+              "digest": 931,
+              "short_digest": 281
+            },
+            "children": {}
+          },
+          "daytona_client": {
+            "origPath": "typescript-sdk/daytona.mdx",
+            "displayName": "Daytona Client",
+            "relevant": true,
+            "usage": {
+              "input": 5109,
+              "output": 2218,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3817,
+              "digest": 1695,
+              "short_digest": 398
+            },
+            "children": {}
+          },
+          "errors": {
+            "origPath": "typescript-sdk/errors.mdx",
+            "displayName": "errors",
+            "relevant": true,
+            "usage": {
+              "input": 2262,
+              "output": 576,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 972,
+              "digest": 329,
+              "short_digest": 125
+            },
+            "children": {}
+          },
+          "execute-response": {
+            "origPath": "typescript-sdk/execute-response.mdx",
+            "displayName": "execute-response",
+            "relevant": true,
+            "usage": {
+              "input": 1454,
+              "output": 310,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 162,
+              "digest": 137,
+              "short_digest": 61
+            },
+            "children": {}
+          },
+          "file-system": {
+            "origPath": "typescript-sdk/file-system.mdx",
+            "displayName": "file-system",
+            "relevant": true,
+            "usage": {
+              "input": 4962,
+              "output": 1774,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 3670,
+              "digest": 1314,
+              "short_digest": 338
+            },
+            "children": {}
+          },
+          "git": {
+            "origPath": "typescript-sdk/git.mdx",
+            "displayName": "git",
+            "relevant": true,
+            "usage": {
+              "input": 3342,
+              "output": 1624,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2052,
+              "digest": 1078,
+              "short_digest": 433
+            },
+            "children": {}
+          },
+          "image": {
+            "origPath": "typescript-sdk/image.mdx",
+            "displayName": "Image",
+            "relevant": true,
+            "usage": {
+              "input": 3857,
+              "output": 1241,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 2567,
+              "digest": 922,
+              "short_digest": 145
+            },
+            "children": {}
+          },
+          "typescript_sdk_reference": {
+            "origPath": "typescript-sdk/index.mdx",
+            "displayName": "TypeScript SDK Reference",
+            "relevant": true,
+            "usage": {
+              "input": 2351,
+              "output": 860,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1061,
+              "digest": 542,
+              "short_digest": 197
+            },
+            "children": {}
+          },
+          "lspserver": {
+            "origPath": "typescript-sdk/lsp-server.mdx",
+            "displayName": "LspServer",
+            "relevant": true,
+            "usage": {
+              "input": 3078,
+              "output": 995,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1785,
+              "digest": 653,
+              "short_digest": 223
+            },
+            "children": {}
+          },
+          "objectstorage": {
+            "origPath": "typescript-sdk/object-storage.mdx",
+            "displayName": "ObjectStorage",
+            "relevant": true,
+            "usage": {
+              "input": 1673,
+              "output": 481,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 381,
+              "digest": 264,
+              "short_digest": 95
+            },
+            "children": {}
+          },
+          "process": {
+            "origPath": "typescript-sdk/process.mdx",
+            "displayName": "Process",
+            "relevant": true,
+            "usage": {
+              "input": 6260,
+              "output": 2790,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 4970,
+              "digest": 2359,
+              "short_digest": 314
+            },
+            "children": {}
+          },
+          "ptyhandle": {
+            "origPath": "typescript-sdk/pty-handle.mdx",
+            "displayName": "PtyHandle",
+            "relevant": true,
+            "usage": {
+              "input": 2769,
+              "output": 1094,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1476,
+              "digest": 726,
+              "short_digest": 253
+            },
+            "children": {}
+          },
+          "pty": {
+            "origPath": "typescript-sdk/pty.mdx",
+            "displayName": "pty",
+            "relevant": true,
+            "usage": {
+              "input": 1591,
+              "output": 411,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 300,
+              "digest": 202,
+              "short_digest": 80
+            },
+            "children": {}
+          },
+          "sandbox": {
+            "origPath": "typescript-sdk/sandbox.mdx",
+            "displayName": "Sandbox",
+            "relevant": true,
+            "usage": {
+              "input": 6815,
+              "output": 1686,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 5525,
+              "digest": 1223,
+              "short_digest": 346
+            },
+            "children": {}
+          },
+          "snapshot": {
+            "origPath": "typescript-sdk/snapshot.mdx",
+            "displayName": "snapshot",
+            "relevant": true,
+            "usage": {
+              "input": 2652,
+              "output": 1165,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 1362,
+              "digest": 722,
+              "short_digest": 327
+            },
+            "children": {}
+          },
+          "volume": {
+            "origPath": "typescript-sdk/volume.mdx",
+            "displayName": "volume",
+            "relevant": true,
+            "usage": {
+              "input": 2101,
+              "output": 710,
+              "details": null
+            },
+            "token_counts": {
+              "fulltext": 811,
+              "digest": 431,
+              "short_digest": 165
+            },
+            "children": {}
+          }
+        }
+      },
+      "api-keys": {
+        "origPath": "api-keys.mdx",
+        "displayName": "api-keys",
+        "relevant": true,
+        "usage": {
+          "input": 1873,
+          "output": 637,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 587,
+          "digest": 421,
+          "short_digest": 97
+        },
+        "children": {}
+      },
+      "audit-logs": {
+        "origPath": "audit-logs.mdx",
+        "displayName": "audit-logs",
+        "relevant": true,
+        "usage": {
+          "input": 2908,
+          "output": 1618,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1622,
+          "digest": 1171,
+          "short_digest": 325
+        },
+        "children": {}
+      },
+      "billing": {
+        "origPath": "billing.mdx",
+        "displayName": "billing",
+        "relevant": true,
+        "usage": {
+          "input": 1845,
+          "output": 543,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 561,
+          "digest": 313,
+          "short_digest": 113
+        },
+        "children": {}
+      },
+      "computer-use": {
+        "origPath": "computer-use.mdx",
+        "displayName": "computer-use",
+        "relevant": true,
+        "usage": {
+          "input": 20716,
+          "output": 1942,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 19430,
+          "digest": 1688,
+          "short_digest": 136
+        },
+        "children": {}
+      },
+      "configuration": {
+        "origPath": "configuration.mdx",
+        "displayName": "configuration",
+        "relevant": true,
+        "usage": {
+          "input": 2741,
+          "output": 1036,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1457,
+          "digest": 743,
+          "short_digest": 144
+        },
+        "children": {}
+      },
+      "custom-domain-authentication": {
+        "origPath": "custom-domain-authentication.mdx",
+        "displayName": "custom-domain-authentication",
+        "relevant": true,
+        "usage": {
+          "input": 1971,
+          "output": 719,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 683,
+          "digest": 386,
+          "short_digest": 202
+        },
+        "children": {}
+      },
+      "declarative-builder": {
+        "origPath": "declarative-builder.mdx",
+        "displayName": "declarative-builder",
+        "relevant": true,
+        "usage": {
+          "input": 6517,
+          "output": 2775,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5230,
+          "digest": 2278,
+          "short_digest": 361
+        },
+        "children": {}
+      },
+      "otel-collection": {
+        "origPath": "experimental/otel-collection.mdx",
+        "displayName": "otel-collection",
+        "relevant": true,
+        "usage": {
+          "input": 6164,
+          "output": 1982,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4875,
+          "digest": 1495,
+          "short_digest": 346
+        },
+        "children": {}
+      },
+      "file-system-operations": {
+        "origPath": "file-system-operations.mdx",
+        "displayName": "file-system-operations",
+        "relevant": true,
+        "usage": {
+          "input": 11302,
+          "output": 2229,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 10014,
+          "digest": 1715,
+          "short_digest": 386
+        },
+        "children": {}
+      },
+      "getting-started": {
+        "origPath": "getting-started.mdx",
+        "displayName": "getting-started",
+        "relevant": true,
+        "usage": {
+          "input": 9969,
+          "output": 5181,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 8683,
+          "digest": 4335,
+          "short_digest": 697
+        },
+        "children": {}
+      },
+      "git-operations.mdx": {
+        "origPath": "git-operations.mdx",
+        "displayName": "git-operations.mdx",
+        "relevant": true,
+        "usage": {
+          "input": 8447,
+          "output": 2038,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 7161,
+          "digest": 1685,
+          "short_digest": 226
+        },
+        "children": {}
+      },
+      "getting_started": {
+        "origPath": "index.mdx",
+        "displayName": "Getting Started",
+        "relevant": true,
+        "usage": {
+          "input": 3321,
+          "output": 1100,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2037,
+          "digest": 635,
+          "short_digest": 353
+        },
+        "children": {}
+      },
+      "language_server_protocol": {
+        "origPath": "language-server-protocol.mdx",
+        "displayName": "Language Server Protocol",
+        "relevant": true,
+        "usage": {
+          "input": 7084,
+          "output": 2380,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 5796,
+          "digest": 2037,
+          "short_digest": 222
+        },
+        "children": {}
+      },
+      "limits": {
+        "origPath": "limits.mdx",
+        "displayName": "limits",
+        "relevant": true,
+        "usage": {
+          "input": 4485,
+          "output": 1852,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3201,
+          "digest": 1510,
+          "short_digest": 243
+        },
+        "children": {}
+      },
+      "linked-accounts": {
+        "origPath": "linked-accounts.mdx",
+        "displayName": "linked-accounts",
+        "relevant": true,
+        "usage": {
+          "input": 1522,
+          "output": 300,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 236,
+          "digest": 132,
+          "short_digest": 55
+        },
+        "children": {}
+      },
+      "log-streaming": {
+        "origPath": "log-streaming.mdx",
+        "displayName": "log-streaming",
+        "relevant": true,
+        "usage": {
+          "input": 5530,
+          "output": 3302,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 4244,
+          "digest": 2801,
+          "short_digest": 375
+        },
+        "children": {}
+      },
+      "mcp_server": {
+        "origPath": "mcp.mdx",
+        "displayName": "MCP Server",
+        "relevant": true,
+        "usage": {
+          "input": 3172,
+          "output": 1296,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1887,
+          "digest": 873,
+          "short_digest": 303
+        },
+        "children": {}
+      },
+      "network-limits": {
+        "origPath": "network-limits.mdx",
+        "displayName": "network-limits",
+        "relevant": true,
+        "usage": {
+          "input": 3743,
+          "output": 1657,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2457,
+          "digest": 1431,
+          "short_digest": 104
+        },
+        "children": {}
+      },
+      "organizations": {
+        "origPath": "organizations.mdx",
+        "displayName": "organizations",
+        "relevant": true,
+        "usage": {
+          "input": 2463,
+          "output": 887,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1179,
+          "digest": 560,
+          "short_digest": 195
+        },
+        "children": {}
+      },
+      "oss-deployment": {
+        "origPath": "oss-deployment.mdx",
+        "displayName": "oss-deployment",
+        "relevant": true,
+        "usage": {
+          "input": 9897,
+          "output": 6176,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 8610,
+          "digest": 5040,
+          "short_digest": 983
+        },
+        "children": {}
+      },
+      "playground": {
+        "origPath": "playground.mdx",
+        "displayName": "playground",
+        "relevant": true,
+        "usage": {
+          "input": 2655,
+          "output": 828,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1371,
+          "digest": 470,
+          "short_digest": 219
+        },
+        "children": {}
+      },
+      "preview": {
+        "origPath": "preview.mdx",
+        "displayName": "Preview",
+        "relevant": true,
+        "usage": {
+          "input": 3090,
+          "output": 1007,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1806,
+          "digest": 600,
+          "short_digest": 277
+        },
+        "children": {}
+      },
+      "process_and_code_execution": {
+        "origPath": "process-code-execution.mdx",
+        "displayName": "Process and Code Execution",
+        "relevant": true,
+        "usage": {
+          "input": 10789,
+          "output": 3941,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 9501,
+          "digest": 3456,
+          "short_digest": 365
+        },
+        "children": {}
+      },
+      "pty_sessions": {
+        "origPath": "pty.mdx",
+        "displayName": "PTY Sessions",
+        "relevant": true,
+        "usage": {
+          "input": 15646,
+          "output": 9873,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 14361,
+          "digest": 7122,
+          "short_digest": 2624
+        },
+        "children": {}
+      },
+      "regions": {
+        "origPath": "regions.mdx",
+        "displayName": "regions",
+        "relevant": true,
+        "usage": {
+          "input": 2179,
+          "output": 719,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 895,
+          "digest": 442,
+          "short_digest": 163
+        },
+        "children": {}
+      },
+      "custom-runners": {
+        "origPath": "runners.mdx",
+        "displayName": "custom-runners",
+        "relevant": true,
+        "usage": {
+          "input": 2173,
+          "output": 858,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 889,
+          "digest": 513,
+          "short_digest": 218
+        },
+        "children": {}
+      },
+      "sandboxes": {
+        "origPath": "sandboxes.mdx",
+        "displayName": "sandboxes",
+        "relevant": true,
+        "usage": {
+          "input": 14639,
+          "output": 1516,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 13353,
+          "digest": 1066,
+          "short_digest": 272
+        },
+        "children": {}
+      },
+      "snapshots": {
+        "origPath": "snapshots.mdx",
+        "displayName": "snapshots",
+        "relevant": true,
+        "usage": {
+          "input": 13828,
+          "output": 2440,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 12543,
+          "digest": 1929,
+          "short_digest": 389
+        },
+        "children": {}
+      },
+      "ssh-access": {
+        "origPath": "ssh-access.mdx",
+        "displayName": "ssh-access",
+        "relevant": true,
+        "usage": {
+          "input": 2292,
+          "output": 663,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 1006,
+          "digest": 411,
+          "short_digest": 119
+        },
+        "children": {}
+      },
+      "vnc-access": {
+        "origPath": "vnc-access.mdx",
+        "displayName": "vnc-access",
+        "relevant": true,
+        "usage": {
+          "input": 4227,
+          "output": 1807,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 2940,
+          "digest": 1197,
+          "short_digest": 483
+        },
+        "children": {}
+      },
+      "volumes": {
+        "origPath": "volumes.mdx",
+        "displayName": "volumes",
+        "relevant": true,
+        "usage": {
+          "input": 4657,
+          "output": 1783,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3373,
+          "digest": 1303,
+          "short_digest": 332
+        },
+        "children": {}
+      },
+      "vpn_connections": {
+        "origPath": "vpn-connections.mdx",
+        "displayName": "VPN Connections",
+        "relevant": true,
+        "usage": {
+          "input": 9492,
+          "output": 2208,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 8205,
+          "digest": 1861,
+          "short_digest": 205
+        },
+        "children": {}
+      },
+      "web-terminal": {
+        "origPath": "web-terminal.mdx",
+        "displayName": "web-terminal",
+        "relevant": true,
+        "usage": {
+          "input": 1532,
+          "output": 365,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 246,
+          "digest": 201,
+          "short_digest": 55
+        },
+        "children": {}
+      },
+      "webhooks": {
+        "origPath": "webhooks.mdx",
+        "displayName": "webhooks",
+        "relevant": true,
+        "usage": {
+          "input": 4516,
+          "output": 1673,
+          "details": null
+        },
+        "token_counts": {
+          "fulltext": 3231,
+          "digest": 1225,
+          "short_digest": 335
+        },
+        "children": {}
+      }
+    }
+  },
+  "name": "daytona",
+  "ecosystems": [
+    "js",
+    "python"
+  ],
+  "source_type": "git",
+  "source": {
+    "name": "daytona",
+    "comment": null,
+    "ecosystems": [
+      "js",
+      "python"
+    ],
+    "include": null,
+    "exclude": null,
+    "doc_dir": "apps/docs/src/content/docs/en",
+    "repo": "https://github.com/daytonaio/daytona",
+    "commit": "f7fe921fb326deb1f24fa7a3a321f875c66cab12"
+  },
+  "date": "2026-02-22T18:01:24.259884+00:00",
+  "model": "claude-haiku-4.5",
+  "commit": "262257a9b88dc6fcd4f3da97a8df375e0dd04fea-dirty"
+}

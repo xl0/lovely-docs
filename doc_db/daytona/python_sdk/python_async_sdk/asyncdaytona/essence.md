@@ -1,0 +1,1 @@
+AsyncDaytona client for creating/managing sandboxes from snapshots or images with lifecycle control (start/stop/delete), configuration via DaytonaConfig or env vars, and support for custom resources, environment variables, auto-stop/archive/delete intervals, volumes, and network policies.

@@ -1,0 +1,1 @@
+Process execution API: codeRun() and executeCommand() for immediate execution, sessions for stateful command sequences, PTY for interactive terminals.

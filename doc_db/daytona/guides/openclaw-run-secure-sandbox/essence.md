@@ -1,0 +1,1 @@
+Set up OpenClaw in Daytona sandbox with CLI (daytona-medium snapshot, --auto-stop 0), onboard with Anthropic API key, start gateway, access dashboard via preview URL with gateway token, approve device; configure Telegram via @BotFather token and pairing code, WhatsApp via QR code scan and phone number.

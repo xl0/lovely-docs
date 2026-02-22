@@ -1,0 +1,1 @@
+S3-compatible object storage client with upload capability, configurable bucket and region, returns file hash on upload or raises ENOENT if path missing.

@@ -1,0 +1,1 @@
+Synchronous Python SDK for Daytona sandbox operations: lifecycle management, file system, git, process execution, code interpretation, desktop automation, LSP, snapshots, volumes, object storage.

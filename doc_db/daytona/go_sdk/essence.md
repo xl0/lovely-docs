@@ -1,0 +1,1 @@
+Complete Go SDK for programmatically creating and managing Daytona sandboxes with process execution, file operations, git, code execution, desktop automation, and LSP support.

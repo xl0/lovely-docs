@@ -1,0 +1,1 @@
+Create and manage sandbox templates from Docker/OCI images with custom resources, regions, and support for Docker-in-Docker and Kubernetes workloads.

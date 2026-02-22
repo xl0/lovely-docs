@@ -1,0 +1,1 @@
+Daytona client class with methods to create/manage sandboxes from snapshots or images, supporting configuration via DaytonaConfig or environment variables, with parameters for language, resources, environment variables, auto-lifecycle intervals, volumes, and network settings.

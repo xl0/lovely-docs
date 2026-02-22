@@ -1,0 +1,1 @@
+FileSystem class for Sandbox file operations: create/delete/move files, upload/download, list/search, find/replace, set permissions.

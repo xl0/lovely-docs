@@ -1,6 +1,6 @@
 {
 	"name": "lovely-docs",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"type": "module",
 	"description": "CLI tool to add curated documentation to your project",
 	"homepage": "https://lovely-docs.github.io",

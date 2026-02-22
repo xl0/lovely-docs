@@ -1,0 +1,1 @@
+LSP server wrapper providing code completion, symbol search (document/sandbox-wide), and file lifecycle management for JavaScript/Python/TypeScript projects.

@@ -1,0 +1,1 @@
+MCP server setup and API reference for AI agents to programmatically manage Daytona sandboxes, files, git, and execute commands.

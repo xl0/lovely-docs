@@ -1,0 +1,1 @@
+Two-agent system with local Project Manager (claude-sonnet-4-20250514) delegating via `<developer_task>` tags to Developer Agent in Daytona sandbox using Claude Agent SDK; setup requires Node.js 18+, DAYTONA_API_KEY, ANTHROPIC_API_KEY; workflow: user prompt → planning → delegation → sandbox execution → review → TASK_COMPLETE.

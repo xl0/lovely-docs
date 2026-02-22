@@ -1,0 +1,1 @@
+Four error classes (DaytonaError base + NotFoundError, RateLimitError, TimeoutError) with optional statusCode and AxiosHeaders properties.

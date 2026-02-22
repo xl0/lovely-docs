@@ -1,0 +1,1 @@
+Audit logs track organization activity via dashboard or API with fields for actor, action, target, outcome, and metadata; supports real-time refresh and filters by time.

@@ -1,0 +1,1 @@
+Set sandbox region via `target` parameter: shared regions (us/eu), dedicated regions, or custom regions with your own runners.

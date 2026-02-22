@@ -1,0 +1,1 @@
+Ruby SDK for programmatically creating/managing Daytona Sandboxes; install via gem, configure with API key or JWT token, create sandboxes and execute commands via process.exec().

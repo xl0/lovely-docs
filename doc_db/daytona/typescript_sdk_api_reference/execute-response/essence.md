@@ -1,0 +1,1 @@
+ExecuteResponse contains exitCode, result output, and optional ExecutionArtifacts (charts from matplotlib, stdout)

@@ -1,0 +1,1 @@
+ComputerUse class for managing VNC desktop processes (Xvfb, xfce4, x11vnc, novnc) and providing mouse, keyboard, screenshot, display, and recording interfaces in a sandbox.

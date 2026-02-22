@@ -1,0 +1,1 @@
+Configure Daytona via code (DaytonaConfig), environment variables (DAYTONA_*), .env file, or defaults; precedence order: code > env vars > .env > defaults; requires api_key, optional api_url and target region (us/eu).

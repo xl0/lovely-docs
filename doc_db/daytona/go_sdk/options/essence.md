@@ -1,0 +1,1 @@
+Functional options pattern for configuring SDK operations: git (branch, commit, auth), commands (cwd, env, timeout), code interpreter (context, env, timeout), PTY (size, env), filesystem (permissions, owner, group), sandbox creation (timeout, wait, logs), pip (index URLs, pre-release).

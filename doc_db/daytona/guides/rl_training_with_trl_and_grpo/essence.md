@@ -1,0 +1,1 @@
+Train code-generating LLMs with TRL's GRPOTrainer using 500 parallel Daytona sandboxes for safe concurrent evaluation: sanitize completions, check banned patterns, build test harness, execute in sandbox, parse JSON results, compute rewards (0-1 for test pass rate, -1 for errors), bridge sync/async with event loop, align batch size to sandbox pool for perfect parallelism.

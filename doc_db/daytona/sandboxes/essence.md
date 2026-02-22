@@ -1,0 +1,1 @@
+Daytona Sandboxes: isolated runtimes (Python/TypeScript/JavaScript) with configurable resources (default 1 vCPU/1GB/3GiB), lifecycle operations (create/start/stop/archive/recover/resize/delete), and automated management (auto-stop after 15min inactivity, auto-archive after 7 days, optional auto-delete).

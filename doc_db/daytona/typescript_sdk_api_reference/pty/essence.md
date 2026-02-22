@@ -1,0 +1,1 @@
+PTY session interfaces: PtyCreateOptions (id, cols, rows, cwd, envs), PtyConnectOptions (onData callback), PtyResult (exitCode, error)

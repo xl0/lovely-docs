@@ -1,0 +1,1 @@
+Web terminal for Sandbox interaction on port 22222, accessible only to Organization members regardless of public settings.

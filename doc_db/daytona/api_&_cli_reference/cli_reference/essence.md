@@ -1,0 +1,1 @@
+Complete CLI reference for sandbox/snapshot/volume/organization management with resource allocation, authentication, and MCP server integration.

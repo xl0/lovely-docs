@@ -1,0 +1,1 @@
+Daytona::Config class initializes SDK with API credentials (api_key/jwt_token), endpoint (api_url), organization_id, target environment, and experimental options; all parameters optional with env var defaults.

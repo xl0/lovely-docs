@@ -1,0 +1,1 @@
+ComputerUse class with mouse, keyboard, screenshot, display, and recording operations for desktop automation; includes process management (start/stop/status/restart/logs), mouse movement/clicking/dragging/scrolling, keyboard typing/key pressing/hotkeys, full/region/compressed screenshots, display info/windows, and screen recording with download.

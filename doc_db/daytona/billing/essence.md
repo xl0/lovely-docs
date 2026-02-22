@@ -1,0 +1,1 @@
+Billing dashboard with cost breakdown by resource, wallet management with automatic top-up rules (threshold/target), coupon redemption, and billing email notifications.

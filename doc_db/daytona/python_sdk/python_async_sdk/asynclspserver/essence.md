@@ -1,0 +1,1 @@
+AsyncLspServer provides LSP-based code intelligence (completions, symbol search, diagnostics) for Python/TypeScript/JavaScript projects with file tracking and sandbox-wide symbol search.

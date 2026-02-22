@@ -1,0 +1,1 @@
+Git class for sandbox repository operations: clone, add, commit, push, pull, status, branch management with optional authentication.

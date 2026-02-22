@@ -1,0 +1,1 @@
+SnapshotService: list, get, create (from Image with log callback), delete, activate snapshots

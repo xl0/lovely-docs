@@ -1,0 +1,1 @@
+Build autonomous coding agents in Daytona sandboxes using Claude Agent SDK: two-agent system with local Project Manager delegating to sandbox Developer Agent, single-agent system for direct execution, or run Claude Code via CLI or programmatic PTY sessions with real-time output streaming.

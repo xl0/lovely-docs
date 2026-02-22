@@ -1,0 +1,1 @@
+Process class for executing shell commands, code, and managing background/PTY sessions in Sandbox with state persistence, async support, and matplotlib chart detection.

@@ -1,0 +1,1 @@
+Complete TypeScript SDK API reference for Daytona sandbox management, code execution, file operations, and desktop automation.

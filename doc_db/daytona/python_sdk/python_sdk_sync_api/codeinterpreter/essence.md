@@ -1,0 +1,1 @@
+Python code interpreter for sandbox execution with persistent default context and isolated context creation, supporting output streaming callbacks and configurable timeouts.

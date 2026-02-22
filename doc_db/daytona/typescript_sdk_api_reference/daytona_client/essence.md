@@ -1,0 +1,1 @@
+Main Daytona API client for creating/managing Sandboxes with methods for CRUD operations, resource allocation, environment configuration, and auto-lifecycle management.

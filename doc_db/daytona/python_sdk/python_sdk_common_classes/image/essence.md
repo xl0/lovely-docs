@@ -1,0 +1,1 @@
+Chainable Image class for building Daytona sandbox images with package installation, file operations, and Docker configuration.

@@ -1,0 +1,1 @@
+FileSystem API for Sandbox: directory/file CRUD, streaming upload/download (single/batch), search by name/content, text replacement, permission management.

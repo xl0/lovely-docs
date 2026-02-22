@@ -1,0 +1,1 @@
+Chart class hierarchy for matplotlib visualization: base Chart with type/title/elements/png, specialized 2D variants (PointChart, BarChart, BoxAndWhiskerChart), PieChart, and CompositeChart for subplots.

@@ -1,0 +1,1 @@
+Install via pip, initialize Daytona client, create sandboxes, execute commands with sync/async support, configure via env vars or DaytonaConfig object.

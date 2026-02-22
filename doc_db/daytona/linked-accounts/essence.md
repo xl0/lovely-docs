@@ -1,0 +1,1 @@
+Link/unlink Google or GitHub accounts in Daytona Dashboard; GitHub linking enables Tier 2 upgrade.

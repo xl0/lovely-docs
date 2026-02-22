@@ -1,0 +1,1 @@
+Ruby SDK Process class for executing shell commands, code, and managing stateful sessions and interactive PTY terminals in sandboxes.

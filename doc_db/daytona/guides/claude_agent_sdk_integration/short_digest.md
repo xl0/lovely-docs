@@ -1,0 +1,7 @@
+**Two-Agent System:** Project Manager (local, Claude Sonnet 4) delegates via `<developer_task>` tags to Developer Agent (Daytona sandbox, Claude Agent SDK). Setup: env vars `DAYTONA_API_KEY`, `ANTHROPIC_API_KEY`, Node.js 18+, `npm install && npm run start`. Workflow: user prompt → planning → delegation → sandbox execution → review → `TASK_COMPLETE`. Example: "lunar lander web app" → full game with physics, gravity, controls, fuel, preview link.
+
+**Single Agent:** Autonomous agent in sandbox develops full-stack apps, manages servers, generates preview links. Setup: `DAYTONA_API_KEY`, `SANDBOX_ANTHROPIC_API_KEY`, Node.js 18+. User CLI prompts → agent executes in sandbox → streams output. Example: "Zelda-like game with famous programmers" → top-down 2D game with NPCs, movement, dialogue, preview link.
+
+**CLI:** `daytona login --api-key=KEY` → `daytona sandbox create --name NAME` → `daytona ssh NAME` → `claude` → browser auth → paste code.
+
+**Programmatic:** AsyncDaytona (Python) or Daytona SDK (TypeScript) create sandbox, install Claude Code, create PTY session with `on_data` callback for real-time streaming, send command with `ANTHROPIC_API_KEY` env var, cleanup with `sandbox.delete()`.

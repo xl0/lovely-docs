@@ -1,0 +1,1 @@
+Interactive browser-based sandbox environment with Sandbox tab (management, file system, Git, code execution), Terminal tab (web-based CLI on port 22222), and VNC tab (GUI desktop with display/keyboard/mouse/screenshot controls).

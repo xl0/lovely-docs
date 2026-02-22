@@ -1,0 +1,1 @@
+Image class for defining sandbox images with factory methods (base, debianSlim, fromDockerfile), chainable configuration (workdir, env, cmd, entrypoint, runCommands, dockerfileCommands, addLocalDir, addLocalFile), and Python package installation (pipInstall, pipInstallFromRequirements, pipInstallFromPyproject with index/find-links options).

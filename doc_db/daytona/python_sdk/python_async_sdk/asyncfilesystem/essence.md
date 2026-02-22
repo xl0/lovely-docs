@@ -1,0 +1,1 @@
+Async file system API for Daytona Sandbox: CRUD operations, streaming upload/download, batch operations, search/replace, metadata, permissions.

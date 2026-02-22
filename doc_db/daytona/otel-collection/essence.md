@@ -1,0 +1,1 @@
+Experimental OpenTelemetry distributed tracing for Daytona SDK operations and sandbox telemetry; enable with config flag or env var, configure OTLP endpoint/headers, traces all SDK calls and sandbox metrics/logs/HTTP requests.

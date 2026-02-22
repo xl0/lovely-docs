@@ -1,0 +1,1 @@
+Index page listing guides for integrating Claude with Daytona. Contains a component that dynamically displays guides categorized under "claude".

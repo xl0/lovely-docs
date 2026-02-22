@@ -1,0 +1,1 @@
+Create time-limited SSH tokens for sandbox access, connect via ssh <token>@ssh.app.daytona.io, integrate with VSCode/JetBrains, revoke anytime.

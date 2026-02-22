@@ -1,0 +1,1 @@
+SDK error hierarchy: DaytonaError base type with NotFoundError (404), RateLimitError (429), TimeoutError variants; ConvertAPIError/ConvertToolboxError for external error conversion.

@@ -1,0 +1,1 @@
+Volume class wraps SandboxVolume DTO with getter methods for id, name, organization_id, state, timestamps (created_at, updated_at, last_used_at), and optional error_reason.

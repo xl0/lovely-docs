@@ -1,0 +1,1 @@
+Sandbox file system operations: list, get info, create directories, upload/download (single/batch), delete, set permissions, find/replace text, move/rename files.

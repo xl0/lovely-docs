@@ -1,0 +1,1 @@
+SDK-based declarative image building for sandboxes with on-demand or pre-built snapshot workflows; supports base images, package managers, file operations, environment config, and Dockerfile integration across Python/TypeScript/Ruby.

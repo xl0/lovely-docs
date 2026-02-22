@@ -1,0 +1,1 @@
+Connect sandboxes to Tailscale (browser login, auth key, or web terminal) or OpenVPN (config file + programmatic/terminal setup) for private network access; requires Tier 3+ and VPN credentials.

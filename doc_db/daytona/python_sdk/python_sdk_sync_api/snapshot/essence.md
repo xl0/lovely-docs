@@ -1,0 +1,1 @@
+Snapshot class and SnapshotService for managing pre-configured sandboxes: list/get/create/delete/activate with pagination, image context processing, and resource configuration.

@@ -1,0 +1,1 @@
+Complete Python SDK (sync & async) for Daytona sandbox management: lifecycle, file/git/process/code ops, desktop automation, LSP, snapshots, volumes, image builder, chart models.

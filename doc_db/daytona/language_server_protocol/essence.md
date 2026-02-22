@@ -1,0 +1,1 @@
+LSP support for Python/TypeScript in sandboxes with code completions, diagnostics, file tracking, and symbol search across SDKs and API.

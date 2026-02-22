@@ -1,0 +1,1 @@
+Go SDK for programmatically creating sandboxes and executing commands; install via `go get github.com/daytonaio/daytona/libs/sdk-go`, initialize with `NewClient()` or `NewClientWithConfig()`, create sandboxes with `client.Create()`, execute commands with `sandbox.Process.ExecuteCommand()`.

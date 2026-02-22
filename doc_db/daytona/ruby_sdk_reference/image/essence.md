@@ -1,0 +1,1 @@
+Image class for defining Daytona sandbox images with pip package installation, file operations, and container configuration via chainable methods.

@@ -1,0 +1,1 @@
+Async API for snapshot management: list/get/create/delete/activate pre-configured sandboxes with resource allocation, image context processing, and pagination support.

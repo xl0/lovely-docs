@@ -1,0 +1,1 @@
+Two preview URL types: standard (token in header, resets on restart) for programmatic access, signed (token in URL, custom expiry, persistent) for sharing; public sandboxes need no auth.

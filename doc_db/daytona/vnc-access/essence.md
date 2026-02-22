@@ -1,0 +1,1 @@
+Browser-based VNC desktop for Daytona Sandbox with programmatic start/stop/status control and Computer Use automation for mouse, keyboard, screenshots, and display operations.

@@ -1,0 +1,1 @@
+Sandbox class with lifecycle management (start/stop/recover/delete/archive), resource resizing, configuration (labels, auto-intervals), directory access, LSP server creation, preview links, and SSH access control.

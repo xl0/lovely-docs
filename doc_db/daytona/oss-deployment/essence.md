@@ -1,0 +1,1 @@
+Docker Compose setup for local Daytona development with API, Runner, Proxy, SSH Gateway, PostgreSQL, Redis, Dex OIDC, Registry, MinIO, MailDev, Jaeger; includes comprehensive environment variable configuration for all services and optional Auth0 integration.

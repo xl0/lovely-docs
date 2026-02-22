@@ -1,0 +1,1 @@
+ObjectStorage class with upload() method for files/directories; requires accessKeyId, endpointUrl, secretAccessKey, optional bucketName and sessionToken

@@ -1,0 +1,1 @@
+TypeScript SDK installation, sandbox creation/execution, configuration options, and polyfill setup for Vite/Next.js/serverless environments.

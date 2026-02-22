@@ -1,0 +1,1 @@
+Run OpenCode coding agent in Daytona sandbox with web interface, 75+ LLM providers, automatic preview links; configure with custom system prompt and persist API keys via environment variables.

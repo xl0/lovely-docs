@@ -1,0 +1,1 @@
+Async object storage client with upload method that returns file hash; configurable via AWS credentials and bucket name.

@@ -1,0 +1,3 @@
+**DSPy RLMs:** Run DSPy recursive language models in Daytona sandboxes with `llm_query()` and `llm_query_batched()` for sub-LLM calls. Setup: clone repo, create venv, set DAYTONA_API_KEY and OPENROUTER_API_KEY. Create RLM with signature and DaytonaInterpreter, call with inputs, state persists across REPL iterations.
+
+**Recursive Agents:** Build agent trees spawning sub-agents in isolated sandboxes with unlimited depth. Agents run LLM loop extracting/executing code, call `rlm_query()`/`rlm_query_batched()` to delegate tasks. Setup: clone repo, set DAYTONA_API_KEY and LLM_API_KEY. Run: `python run.py <repo_url> -p "<task>"`. Config: max_sandboxes, max_iterations, global_timeout. Results in `results/` JSON with viewer at `http://localhost:8000/viewer/`.

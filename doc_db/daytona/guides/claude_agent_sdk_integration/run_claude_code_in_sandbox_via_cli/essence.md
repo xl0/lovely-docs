@@ -1,0 +1,1 @@
+Install Daytona CLI, authenticate with API key, create sandbox, SSH in, run `claude` command and complete browser-based authentication to execute Claude Code in isolated sandbox environment.

@@ -1,0 +1,1 @@
+Main Daytona SDK class providing sandbox creation, lifecycle management (start/stop/delete), retrieval (get/find/list), and API access methods.

@@ -1,0 +1,1 @@
+Real-time log streaming from sandbox processes with separate stdout/stderr callbacks (async) or snapshot retrieval; available in Python, TypeScript, Ruby, Go SDKs and API.

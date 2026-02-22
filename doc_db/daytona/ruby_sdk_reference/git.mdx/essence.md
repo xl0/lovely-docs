@@ -1,0 +1,1 @@
+Git handler for sandbox repositories: clone, add, commit, push, pull, status, branch operations with optional authentication.

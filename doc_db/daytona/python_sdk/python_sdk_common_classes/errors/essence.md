@@ -1,0 +1,1 @@
+SDK exception classes: DaytonaError (base with message/status_code/headers), DaytonaNotFoundError, DaytonaRateLimitError, DaytonaTimeoutError

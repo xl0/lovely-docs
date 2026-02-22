@@ -1,0 +1,1 @@
+Go SDK for Daytona sandboxes: client setup, sandbox lifecycle (create/start/stop/delete), process execution (commands/sessions/PTY), file operations, git, Python code execution, desktop automation (mouse/keyboard/screenshots/recording), LSP, snapshots, volumes.

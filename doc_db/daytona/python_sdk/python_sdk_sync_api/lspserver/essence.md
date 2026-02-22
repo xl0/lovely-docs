@@ -1,0 +1,1 @@
+LSP server for code intelligence: file tracking, symbol search (document/sandbox), completions; supports Python/TypeScript/JavaScript.

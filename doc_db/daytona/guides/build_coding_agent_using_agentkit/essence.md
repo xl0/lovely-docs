@@ -1,0 +1,1 @@
+Autonomous coding agent using AgentKit that executes software development tasks in Daytona sandboxes via LLM-driven tool orchestration (shell commands, file uploads, dev server management).

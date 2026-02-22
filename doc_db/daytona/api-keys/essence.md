@@ -1,0 +1,1 @@
+Create and configure API keys with granular permission scopes for Daytona resources via dashboard or DAYTONA_API_KEY environment variable.

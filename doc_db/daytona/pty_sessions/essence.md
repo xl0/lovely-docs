@@ -1,0 +1,1 @@
+Create, connect, list, get info, kill, resize PTY sessions; send input, wait for completion, handle interactive commands and long-running processes with proper resource cleanup.

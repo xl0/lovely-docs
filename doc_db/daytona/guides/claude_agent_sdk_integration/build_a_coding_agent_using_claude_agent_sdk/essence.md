@@ -1,0 +1,1 @@
+Build autonomous coding agent with Claude Agent SDK in Daytona sandbox; agent executes user prompts via CLI to develop full-stack apps, manage servers, generate preview links; Node.js main program communicates with Python sandbox agent using code interpreter context.

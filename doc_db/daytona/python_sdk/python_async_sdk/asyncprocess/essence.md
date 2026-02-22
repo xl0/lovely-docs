@@ -1,0 +1,1 @@
+AsyncProcess class for executing shell commands, code, and managing background/PTY sessions in Sandbox with automatic matplotlib chart capture.

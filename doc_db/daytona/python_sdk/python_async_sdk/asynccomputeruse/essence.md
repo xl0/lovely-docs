@@ -1,0 +1,1 @@
+Async API for desktop automation: mouse/keyboard input, screenshots (full/region/compressed), display info, window management, and screen recording with start/stop/list/download.

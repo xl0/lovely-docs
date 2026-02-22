@@ -1,0 +1,1 @@
+Go SDK type definitions for Daytona client: configuration, sandbox/snapshot creation, code execution, file/git operations, PTY sessions, volumes, resources, charts, screenshots, and language support.

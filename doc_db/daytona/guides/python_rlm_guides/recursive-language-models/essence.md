@@ -1,0 +1,1 @@
+Recursive agent system where agents spawn sub-agents in isolated sandboxes with unlimited depth; each agent runs LLM loop extracting/executing code, can call rlm_query()/rlm_query_batched() to delegate tasks, results propagate back up tree.

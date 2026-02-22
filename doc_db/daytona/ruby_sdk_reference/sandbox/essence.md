@@ -1,0 +1,1 @@
+Sandbox class: lifecycle management (start/stop/archive/delete), resource configuration (CPU/memory/disk), network/SSH/preview access, and tooling integration (code execution, filesystem, git, LSP).

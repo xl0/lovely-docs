@@ -1,0 +1,1 @@
+FUSE-based shared file mounts across sandboxes with S3 storage; create, mount to absolute paths (with subpath support), read/write like normal files, list/delete; max 100 per org, slower than local FS, no block storage.

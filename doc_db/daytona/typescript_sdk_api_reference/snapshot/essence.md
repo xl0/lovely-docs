@@ -1,0 +1,1 @@
+SnapshotService: create, get, list, delete, activate pre-configured sandboxes with Image-based creation and pagination support.

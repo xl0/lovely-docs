@@ -1,0 +1,1 @@
+Configure sandbox network access via tier-based restrictions or per-sandbox `networkAllowList`/`networkBlockAll` parameters; essential dev services always whitelisted.

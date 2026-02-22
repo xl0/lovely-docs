@@ -1,0 +1,1 @@
+AsyncGit class providing async Git operations (clone, add, commit, push, pull, status, branch management) for Sandbox with optional authentication and detailed status tracking.

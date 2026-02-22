@@ -1,0 +1,1 @@
+Autonomous coding agent using OpenAI Codex in Daytona sandbox with CLI interface, automatic preview links, and thread persistence across requests.

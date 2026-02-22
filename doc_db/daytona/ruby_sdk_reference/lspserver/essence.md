@@ -1,0 +1,1 @@
+LspServer class providing LSP integration with methods for file tracking, completions, and symbol search across sandbox files.

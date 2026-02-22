@@ -1,0 +1,1 @@
+ComputerUse API for desktop automation: keyboard (type, press, hotkey), mouse (click, drag, scroll, move), screenshots (full/region, compressed), display info, window management, and screen recording with process lifecycle control.

@@ -1,0 +1,1 @@
+Custom runners and regions: bring your own machines to custom regions with full control over data locality and compliance; configure with name, proxy/SSH/snapshot URLs; authenticate with provided tokens and API keys.
